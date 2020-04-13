@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { Rooms } from './tool/rooms'
+import { start, setHighlighted, removeRoom, reset, toggleImage, changeBlueprintImage } from './tool/scripts'
 
-function App() {
+const App = () => {
+  useEffect(() => {
+
+    const c = document.getElementsByTagName("canvas");
+    const ctx = c[0].getContext("2d");
+    const stx = c[1].getContext("2d");
+    const img = document.getElementById("bp");
+
+    console.log(Rooms);
+    start(c, ctx, stx, img);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{margin: 0}}>
+        <img id="bp" src="https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg" alt="blueprint" style={{display: "none"}} />
+        <canvas id="mainCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
+        <canvas id="secCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
+        <br/>
+        <button onClick={() => toggleImage()}>Toggle image</button>
+        <span id="name"></span>
+        <input id="image" value="https://i.pinimg.com/originals/84/f9/71/84f9710dbdc09789ac2534369939a2f3.jpg"/>
+        <button onClick={() => changeBlueprintImage()}>Change image</button>
+        <button onClick={() => reset()}>Reset</button>
+        <div id="list"></div>
     </div>
   );
 }
