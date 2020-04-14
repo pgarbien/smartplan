@@ -15,8 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "compile": "tsc ./src/tool/aa.ts"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

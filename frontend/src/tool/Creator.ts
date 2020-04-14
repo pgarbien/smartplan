@@ -1,4 +1,49 @@
 import { Rooms } from './rooms'
+import BackgroundImage from './BackgroundImage'
+import CanvasDrawer from './CanvasDrawer'
+import Room from './Room'
+
+export default class Creator {
+    private canvas: HTMLCanvasElement;
+    private canvasContext: CanvasRenderingContext2D;
+    private backgroundImage?: BackgroundImage;
+    private rooms?: Room[];
+    private canvasDrawer: CanvasDrawer;
+
+    constructor(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
+        this.canvasContext = canvas.getContext("2d")!!;
+        this.canvasDrawer = new CanvasDrawer(this.canvasContext);
+    }
+
+    setRooms(rooms: Room[]) {
+        this.rooms = rooms.slice();
+    }
+
+    setBackgroundImage(imageSource: string) {
+        this.backgroundImage = new BackgroundImage(imageSource);
+
+        setTimeout(() => {
+            this.drawCanvas()
+        }, 1000)
+    }
+
+    toggleBackgroundImage() {
+        this.backgroundImage?.toggleImageLoaded();
+        this.drawCanvas();
+    }
+
+    drawCanvas() {
+        this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if(this.backgroundImage && this.backgroundImage.isImageLoaded()) {
+            this.canvasDrawer.drawBackground(this.backgroundImage!!, this.canvas.height, this.canvas.width);
+        }
+        if(this.rooms) {
+            this.canvasDrawer.drawRooms(this.rooms);
+        }
+    }
+}
+
 
 let c: any;
 let ctx: any;

@@ -197,4 +197,4 @@ const rooms = [
     }
  ]
 
- export { rooms as Rooms}
+ export { rooms as Rooms }
