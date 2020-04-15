@@ -65,19 +65,19 @@ export default class CanvasDrawer {
             startPoint.y
         );
 
-        this.canvasContext.strokeStyle = "0, 209, 81";
-        this.canvasContext.lineWidth = 2;
+        this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.lineWidth = 1;
         
         this.canvasContext.lineTo(
             endPoint.x, 
             endPoint.y
-        );
-
+            );
+            
         this.canvasContext.stroke();
     }
 
     highlightPoint(point: Point) {
-        this.canvasContext!.beginPath();
+        this.canvasContext.beginPath();
         this.canvasContext.lineWidth = 1;
         this.canvasContext.arc(point.x, point.y, 10, 0, 2 * Math.PI);
         this.canvasContext.closePath();

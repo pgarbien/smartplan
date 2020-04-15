@@ -1,7 +1,6 @@
 import BackgroundImage from './model/BackgroundImage'
 import CanvasDrawer from './CanvasDrawer'
 import Room, { RoomInterface } from './model/Room'
-import Point from './model/Point'
 import Command from './commands/Command';
 import CreatorRooms from './CreatorRooms';
 import AddRoomPointCommand from './commands/AddRoomPointCommand';
@@ -47,7 +46,7 @@ export default class Creator {
 
         setTimeout(() => {
             this.drawCanvas()
-        }, 10);
+        }, 200);
     }
 
     toggleBackgroundImage() {

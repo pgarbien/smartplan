@@ -18,8 +18,21 @@ const Tool = () => {
 
   return (
     <div className="tool-container">
-        <canvas ref={creationCanvas} id="mainCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
-        <canvas id="secCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
+        <canvas ref={creationCanvas} id="mainCanvas" width="600" height="600" style={{border: "1px solid #ccc", display: "inline-block", verticalAlign: "middle"}}></canvas>
+        <div style={{display: "inline-block", width: "calc(100% - 800px)", verticalAlign: "middle", marginLeft: 100}}>
+          <h1>Podstawowe narzędzie do rysowania mapy domu.</h1>
+          <p style={{width: "70%"}}>Poruszając kursorem po płótnie możemy zaznaczać utworzone pomieszczenia. Kursor dopasowuje swoją pozycję do pobliskich punktów. 
+            <br/><br/>
+            Po kliknięciu zaczynamy budowę pokoju (stawiamy pierwszy punkt). Poruszając kursorem widzimy ścianę, która powstanie po ponownym kliknięciu w wybranym miejscu.
+            Ściana dopasowuje się (poziomo i pionowo) do pierwszego i ostatniego punktu (obecnie budowanego pokoju). Kursor również dopasowuje swoją pozycję do pobliskich 
+            punktów, a dodatkowo podświetla wszystkie punkty znajdujące się w linii prostej (pionowo i poziomo) względem pozycji kursora. Klikając kursorem w miejsce bliskie
+            pierwszego punktu pomieszczenie zostaje zapisane, a my wracamy do punktu wyjścia. 
+            <br/><br/>
+            Możemy usuwać pomieszczenia PPM, po najechaniu na nie, a podczas rysowania  tą akcją usuwamy ostatni naniesiony punkt. 
+            <br/><br/>
+            Dodatkowo zapisywana jest historia edycji (działają przyciski Undo/Redo). Możemy wyłączyć wyświetlanie naniesionego zdjęcia przyciskiem Toggle image.
+          </p>
+        </div>
 
         <br/>
 

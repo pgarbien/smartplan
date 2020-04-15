@@ -36,12 +36,4 @@ function getCloseOrInLine(room: Room, rooms: Room[], point: Point) {
     return point
 }
 
-// function highlightPoint(x: number, y: number) {
-//     ctx!!.beginPath();
-//     ctx!!.lineWidth = 1;
-//     ctx!!.arc(x, y, 10, 0, 2 * Math.PI);
-//     ctx!!.closePath();
-//     ctx!!.stroke();
-// }
-
 export { getClosePoint, getInLinePoints, getCloseOrInLine }
