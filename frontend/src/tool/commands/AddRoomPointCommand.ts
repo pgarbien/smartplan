@@ -3,7 +3,7 @@ import Point from '../model/Point';
 import Room from '../model/Room';
 import CreatorRooms from '../CreatorRooms';
 import { getPointedRoomIndex, highlightRoom, dehighlight } from '../utils/RoomUtils';
-import { getClosePoint, getCloseOrInLine } from '../utils/DrawingUtils';
+import { getClosePoint, getCloseOrInLine, getInLinePoints } from '../utils/DrawingUtils';
 import CanvasDrawer from '../CanvasDrawer';
 
 export default class AddRoomPointCommand extends Command {
@@ -26,8 +26,8 @@ export default class AddRoomPointCommand extends Command {
             y: this.event.layerY - this.event.originalTarget.offsetTop
         }
 
-        const closePoint: Point | null = getClosePoint(this.roomsData.getRooms(), clickPosition);
-        const position: Point = closePoint ? closePoint : clickPosition;
+        const closeOrInlinePoint: Point | null = getCloseOrInLine(this.roomsData.getCurrentRoom(), this.roomsData.getRooms(), clickPosition);
+        const position: Point = closeOrInlinePoint ? closeOrInlinePoint : clickPosition;
 
         if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 10 && Math.abs(currentRoomPoints[0].y - (position.y)) < 10) {
             const newPoint: Point = {
@@ -97,6 +97,12 @@ export default class AddRoomPointCommand extends Command {
         }
 
         if(this.roomsData.getCurrentRoom().points.length !== 0) {
+            const inLinePoints = getInLinePoints(this.roomsData.getRooms(), position);
+            inLinePoints.forEach(point => {
+                this.canvasDrawer.drawLine(position, point);
+                this.canvasDrawer.highlightPoint(point);
+            });
+
             dehighlight(this.roomsData.getRooms());
 
             const startPoint: Point = {
