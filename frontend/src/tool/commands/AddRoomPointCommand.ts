@@ -68,15 +68,20 @@ export default class AddRoomPointCommand extends Command {
             this.roomsData.getCurrentRoom().removePoint();
             
             this.action = {
-                type: "removed",
+                type: "removedPoint",
                 point: removedPoint
             }
         } else {
             const pointerRoomIndex: number = getPointedRoomIndex(clickPosition, this.roomsData.getRooms());
             if(pointerRoomIndex > 0) {
                 const rooms = this.roomsData.getRooms();
-                rooms.splice(pointerRoomIndex, 1);
+                const removedRoom = rooms.splice(pointerRoomIndex, 1);
                 this.roomsData.setRooms(rooms);
+            
+                this.action = {
+                    type: "removedRoom",
+                    room: removedRoom[0]
+                }
             }
         }
     }
@@ -127,8 +132,11 @@ export default class AddRoomPointCommand extends Command {
             case "added":
                 this.roomsData.getCurrentRoom().removePoint();
                 break;
-            case "removed":
+            case "removedPoint":
                 this.roomsData.getCurrentRoom().addPoint(this.action.point);
+                break;
+            case "removedRoom":
+                this.roomsData.getRooms().push(this.action.room);
                 break;
             case "finished":
                 const prevRooms: Room[] = this.roomsData.getRooms();
@@ -146,7 +154,10 @@ export default class AddRoomPointCommand extends Command {
             case "added":
                 this.onClick();
                 break;
-            case "removed":
+            case "removedPoint":
+                this.onRightClick();
+                break;
+            case "removedRoom":
                 this.onRightClick();
                 break;
             case "finished":
