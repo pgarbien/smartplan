@@ -1,8 +1,8 @@
 import Command from './Command'
 
-export default class AddPointCommand extends Command {
+export default class CursorCommand extends Command {
     onClick(): void {
-        this.action = Math.random();
+
     }
 
     onRightClick(): void {

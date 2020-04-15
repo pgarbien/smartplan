@@ -1,4 +1,4 @@
-import { Point } from './Point'
+import Point from './Point'
 
 interface RoomInterface {
     name: string,
@@ -22,32 +22,20 @@ export default class Room implements RoomInterface {
         this.highlighted = highlighted;
     }
 
+    getHighlighted(): Boolean {
+        return this.highlighted;
+    }
+
     isHighlighted(): Boolean {
         return this.highlighted;
     }
 
-    addLastPoint(point: Point) {
+    addPoint(point: Point) {
         this.points.push(point);
     }
 
-    removeLastPoint() {
+    removePoint() {
         this.points.splice(this.points.length - 1, 1);
-    }
-
-    calculateArea() {
-        var totalArea = 0;
-    
-        for (var i = 0, l = this.points.length; i < l; i++) {
-            var addX = this.points[i].x;
-            var addY = this.points[i === this.points.length - 1 ? 0 : i + 1].y;
-            var subX = this.points[i === this.points.length - 1 ? 0 : i + 1].x;
-            var subY = this.points[i].y;
-    
-            totalArea += (addX * addY * 0.5);
-            totalArea -= (subX * subY * 0.5);
-        }
-    
-        return Math.abs(totalArea);
     }
 }
 

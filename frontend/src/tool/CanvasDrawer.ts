@@ -1,5 +1,5 @@
-import BackgroundImage from './BackgroundImage'
-import Room from './Room'
+import BackgroundImage from './model/BackgroundImage'
+import Room from './model/Room'
 
 export default class CanvasDrawer {
     private canvasContext: CanvasRenderingContext2D;
@@ -23,35 +23,38 @@ export default class CanvasDrawer {
     }
 
     drawRooms(rooms: Room[]) {    
-        let highlighted;
-        rooms.forEach(currentRoom => {
-            if(!currentRoom.isHighlighted) {
+        let highlightedRoom;
+        rooms.forEach((currentRoom: Room) => {
+            if(!currentRoom.isHighlighted()) {
                 this.drawRoom(currentRoom);
             } else {
-                highlighted = currentRoom;
+                highlightedRoom = currentRoom;
             }
         });
 
-        if(highlighted) {
-            this.drawRoom(highlighted, true);
+        if(highlightedRoom) {
+            this.drawRoom(highlightedRoom, true);
         }
     }
 
-    drawRoom(room: Room, highlighted: boolean = false) {
+    drawRoom(room: Room, highlighted: boolean = false, building: Boolean = false) {
         const points = room.points
 
-        this.canvasContext.beginPath(); 
-        this.canvasContext.lineWidth = 5;
-        this.canvasContext.strokeStyle = room && !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, .7)";
-        this.canvasContext.fillStyle = room && !highlighted? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
-        this.canvasContext.lineJoin = 'miter';
-        this.canvasContext.moveTo(points[0].x, points[0].y);
-        for(let i=1; i<points.length; ++i) {
-            this.canvasContext.lineTo(points[i].x, points[i].y);
-        }
-        this.canvasContext.stroke();
-        if(room) {
-            this.canvasContext.fill();
+        if(points.length > 0) {
+            this.canvasContext.beginPath(); 
+            this.canvasContext.lineWidth = 5;
+            this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, .7)";
+            this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
+            this.canvasContext.lineJoin = 'miter';
+            this.canvasContext.moveTo(points[0].x, points[0].y);
+
+            for(let i=1; i<points.length; ++i) {
+                this.canvasContext.lineTo(points[i].x, points[i].y);
+            }
+            this.canvasContext.stroke();
+            if(!building) {
+                this.canvasContext.fill();
+            }
         }
     }
 }
