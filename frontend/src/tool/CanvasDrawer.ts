@@ -1,5 +1,6 @@
 import BackgroundImage from './model/BackgroundImage'
 import Room from './model/Room'
+import Point from './model/Point'
 
 export default class CanvasDrawer {
     private canvasContext: CanvasRenderingContext2D;
@@ -40,7 +41,7 @@ export default class CanvasDrawer {
     drawRoom(room: Room, highlighted: boolean = false, building: Boolean = false) {
         const points = room.points
 
-        if(points.length > 0) {
+        if(points[0]) {
             this.canvasContext.beginPath(); 
             this.canvasContext.lineWidth = 5;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, .7)";
@@ -56,5 +57,30 @@ export default class CanvasDrawer {
                 this.canvasContext.fill();
             }
         }
+    }
+
+    drawLine(startPoint: Point, endPoint: Point) {
+        this.canvasContext.moveTo(
+            startPoint.x, 
+            startPoint.y
+        );
+
+        this.canvasContext.strokeStyle = "0, 209, 81";
+        this.canvasContext.lineWidth = 2;
+        
+        this.canvasContext.lineTo(
+            endPoint.x, 
+            endPoint.y
+        );
+
+        this.canvasContext.stroke();
+    }
+
+    highlightPoint(point: Point) {
+        this.canvasContext!.beginPath();
+        this.canvasContext.lineWidth = 1;
+        this.canvasContext.arc(point.x, point.y, 10, 0, 2 * Math.PI);
+        this.canvasContext.closePath();
+        this.canvasContext.stroke();
     }
 }

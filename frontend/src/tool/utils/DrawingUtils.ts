@@ -23,11 +23,11 @@ function getCloseOrInLine(room: Room, rooms: Room[], point: Point) {
     if(close) {
         point.x = close.x;
         point.y = close.y;
-    } else {
+    } else if(room.points.length > 0) {
         //Line vertically or horizontally with previous point
         point.x = (Math.abs(room.points[room.points.length-1].x - point.x) < 10) ? room.points[room.points.length-1].x : point.x;
         point.y = (Math.abs(room.points[room.points.length-1].y - point.y) < 10) ? room.points[room.points.length-1].y : point.y;
-        
+
         //Line vertically or horizontally with starting point
         point.x = (Math.abs(room.points[0].x - point.x) < 10) ? room.points[0].x : point.x;
         point.y = (Math.abs(room.points[0].y - point.y) < 10) ? room.points[0].y : point.y;

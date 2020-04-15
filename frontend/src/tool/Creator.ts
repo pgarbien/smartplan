@@ -79,7 +79,7 @@ export default class Creator {
     }
 
     private onClick(event: MouseEvent) {
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasContext);
+        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
 
         command.onClick();
         this.addCommand(command);
@@ -87,7 +87,7 @@ export default class Creator {
 
     private onRightClick(event: MouseEvent) {
         event.preventDefault();
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasContext);
+        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
 
         command.onRightClick();
         this.addCommand(command);
@@ -95,12 +95,7 @@ export default class Creator {
 
     private onMouseMove(event: any) {
         this.drawCanvas();
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasContext);
-        
-        const clickPosition: Point = {
-            x: event.layerX - event.originalTarget.offsetLeft,
-            y: event.layerY - event.originalTarget.offsetTop
-        }
+        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
 
         command.onMove();
         this.addCommand(command,false);
@@ -119,20 +114,6 @@ export default class Creator {
 }
 
 //Optymalizacja zdjęciem backgroundu podczas onmousemove (flaga)
-
-//MouseEvent
-// function removePointedRoom(event: any) {
-//     event.preventDefault();
-//     if(currentRoom.length !== 0) {
-//         currentRoom.splice(currentRoom.length - 1, 1);
-//     } else {
-//         const polygon = getRoomIndex(event.layerX, event.layerY);
-//         if(polygon !== null) {
-//             removeRoom(polygon);
-//         }
-//     }
-//     clearCanvas();
-// }
 
 // function movePointer(event: any) {
 //     clearCanvas();
@@ -174,49 +155,3 @@ export default class Creator {
 //         }
 //     }
 // };
-
-// function getClose(x: number, y: number) {
-//     const closePoint = currentRooms
-//         .flatMap(currentRoom => currentRoom.points)
-//         .find(point => Math.abs(point.x - x) < 10 && Math.abs(point.y - y) < 10);
-//     return closePoint ? closePoint : null;
-// }
-
-// function getInLine(x: number, y: number) {
-//     const inLine = currentRooms
-//         .flatMap(currentRoom => currentRoom.points)
-//         .filter(point => point.x === x || point.y === y);
-//     return inLine ? inLine : [];
-// }
-
-// function getCloseOrInLine(x: number, y: number) {
-//     const close = getClose(x, y);
-
-//     if(close) {
-//         x = close.x;
-//         y = close.y;
-//     } else {
-//         //Line vertically or horizontally with previous point
-//         x = (Math.abs(currentRoom[currentRoom.length-1].x - x) < 10) ? currentRoom[currentRoom.length-1].x : x;
-//         y = (Math.abs(currentRoom[currentRoom.length-1].y - y) < 10) ? currentRoom[currentRoom.length-1].y : y;
-//         //Line vertically or horizontally with starting point
-//         x = (Math.abs(currentRoom[0].x - x) < 10) ? currentRoom[0].x : x;
-//         y = (Math.abs(currentRoom[0].y - y) < 10) ? currentRoom[0].y : y;
-//     }
-
-//     return {x: x, y: y}
-// }
-
-// function highlightPoint(x: number, y: number) {
-//     ctx!!.beginPath();
-//     ctx!!.lineWidth = 1;
-//     ctx!!.arc(x, y, 10, 0, 2 * Math.PI);
-//     ctx!!.closePath();
-//     ctx!!.stroke();
-// }
-
-// function removeRoom(index: number) {
-//     currentRooms.splice(index, 1);
-//     setHighlighted();
-//     // clearCanvas();
-// }
