@@ -2,22 +2,36 @@ import { Rooms } from './rooms'
 import BackgroundImage from './BackgroundImage'
 import CanvasDrawer from './CanvasDrawer'
 import Room from './Room'
+import Command from './commands/Command';
+import AddPointCommand from './commands/AddPointCommand';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
     private canvasContext: CanvasRenderingContext2D;
-    private backgroundImage?: BackgroundImage;
-    private rooms?: Room[];
     private canvasDrawer: CanvasDrawer;
+
+    private backgroundImage?: BackgroundImage;
+
+    private rooms: Room[] = [];
+    private room: Room = new Room();
+
+    private commandIndex: number = -1;
+    private commands: Command[] = [];
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
         this.canvasDrawer = new CanvasDrawer(this.canvasContext);
+
+        canvas.addEventListener('click', this.onClick.bind(this));
     }
 
     setRooms(rooms: Room[]) {
         this.rooms = rooms.slice();
+    }
+
+    getRooms() {
+        return this.rooms;
     }
 
     setBackgroundImage(imageSource: string) {
@@ -38,18 +52,40 @@ export default class Creator {
         if(this.backgroundImage && this.backgroundImage.isImageLoaded()) {
             this.canvasDrawer.drawBackground(this.backgroundImage!!, this.canvas.height, this.canvas.width);
         }
-        if(this.rooms) {
-            this.canvasDrawer.drawRooms(this.rooms);
+        this.canvasDrawer.drawRooms(this.rooms);
+    }
+
+    redoCommand() {
+        if(this.commandIndex < this.commands.length - 1) {
+            this.commands[++this.commandIndex].redo();
+        }
+    }
+
+    undoCommand() {
+        if(this.commandIndex >= 0) {
+            this.commands[this.commandIndex--].undo();
+        }
+    }
+
+    private onClick() {
+        const command = new AddPointCommand();
+        command.onClick();
+        if(command.action) {
+            this.commands.splice(++this.commandIndex);
+            this.commands.push(command);
         }
     }
 }
 
+//Optymalizacja zdjęciem backgroundu podczas onmousemove (flaga)
 
+//DONE
 let c: any;
 let ctx: any;
 let stx: any;
 let img: any;
 
+//DONE
 let currentRoom: any[] = [];
 let currentRooms: any[];
 let showImage = true;
@@ -58,6 +94,7 @@ let highlighted = -1;
 const defaultRoomName = "Pokój #";
 const defaultRoomColor = "128, 128, 128";
 
+//DONE
 const start = (a: any, b: any, d: any, e: any) => {
     c = a;
     ctx = b;
@@ -79,7 +116,7 @@ const start = (a: any, b: any, d: any, e: any) => {
 function removePointedRoom(event: any) {
     event.preventDefault();
     if(currentRoom.length !== 0) {
-        currentRoom = [];
+        currentRoom.splice(currentRoom.length - 1, 1);
     } else {
         const polygon = getRoomIndex(event.layerX, event.layerY);
         if(polygon !== null) {
@@ -155,6 +192,7 @@ function movePointer(event: any) {
     }
 };
 
+//DONE
 function calculateRoomArea(vertices: any[]) {
     var totalArea = 0;
 
@@ -234,6 +272,7 @@ function highlightPoint(x: number, y: number) {
     ctx!!.stroke();
 }
 
+//DONE
 function drawRooms(ctx: any) {
     const list = document.getElementById('list');
     list!!.innerHTML = "";
@@ -264,6 +303,7 @@ function setHighlighted(index?: number) {
     clearCanvas();
 }
 
+//DONE
 function drawRoom(ctx: any, roomToDraw?: any, highlighted?: boolean) {
     const points = roomToDraw ? roomToDraw.points : currentRoom
     if(points.length !== 0) {
@@ -283,6 +323,7 @@ function drawRoom(ctx: any, roomToDraw?: any, highlighted?: boolean) {
     }
 }
 
+//DONE
 function setBlueprintImage() {
     let height, width, top, left, canvasHeight = c[0].height, canvasWidth = c[0].width;
     const ratio = img.height/img.width;
@@ -301,11 +342,13 @@ function setBlueprintImage() {
     ctx.drawImage(img, left, top, width, height);
 }
 
+//DONE
 function changeBlueprintImage() {
     document.getElementsByTagName("img")[0]!!.src = document.getElementsByTagName('input')[0]!!.value;
     clearCanvas();
 }
 
+//DONE
 function clearCanvas() {
     ctx!!.clearRect(0, 0, c[0].width, c[0].height);
     stx!!.clearRect(0, 0, c[1].width, c[1].height);
@@ -323,6 +366,7 @@ function removeRoom(index: number) {
     clearCanvas();
 }
 
+//DONE
 function toggleImage() {
     showImage = !showImage;
     clearCanvas();

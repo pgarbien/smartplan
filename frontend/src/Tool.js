@@ -24,6 +24,8 @@ const Tool = () => {
 
         <br/>
         <button onClick={() => creator.toggleBackgroundImage()}>Toggle image</button>
+        <button onClick={() => creator.undoCommand()}>Undo</button>
+        <button onClick={() => creator.redoCommand()}>Redo</button>
         <span id="name"></span>
         <input id="image" value="https://i.pinimg.com/originals/84/f9/71/84f9710dbdc09789ac2534369939a2f3.jpg"/>
         <button onClick={() => changeBlueprintImage()}>Change image</button>

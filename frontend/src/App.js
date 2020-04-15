@@ -10,8 +10,7 @@ const App = () => {
     const ctx = c[0].getContext("2d");
     const stx = c[1].getContext("2d");
     const img = document.getElementById("bp");
-
-    console.log(Rooms);
+    
     start(c, ctx, stx, img);
   }, []);
 
