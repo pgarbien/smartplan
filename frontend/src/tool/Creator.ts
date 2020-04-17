@@ -1,9 +1,11 @@
 import BackgroundImage from './model/BackgroundImage'
 import CanvasDrawer from './CanvasDrawer'
 import Room, { RoomInterface } from './model/Room'
+import Point from './model/Point'
 import Command from './commands/Command';
 import CreatorRooms from './CreatorRooms';
 import AddRoomPointCommand from './commands/AddRoomPointCommand';
+import { getCursorPosition } from './utils/CanvasUtils';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
@@ -78,7 +80,9 @@ export default class Creator {
     }
 
     private onClick(event: MouseEvent) {
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
 
         command.onClick();
         this.addCommand(command);
@@ -86,7 +90,9 @@ export default class Creator {
 
     private onRightClick(event: MouseEvent) {
         event.preventDefault();
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
 
         command.onRightClick();
         this.addCommand(command);
@@ -94,7 +100,9 @@ export default class Creator {
 
     private onMouseMove(event: any) {
         this.drawCanvas();
-        const command = new AddRoomPointCommand(this.creatorRooms, event, this.canvasDrawer);
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
 
         command.onMove();
         this.addCommand(command,false);

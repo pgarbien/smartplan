@@ -8,26 +8,21 @@ import CanvasDrawer from '../CanvasDrawer';
 
 export default class AddRoomPointCommand extends Command {
     private roomsData: CreatorRooms;
-    private event: MouseEvent | any;
+    private cursorPosition: Point;
     private canvasDrawer: CanvasDrawer;
 
-    constructor(roomsData: CreatorRooms, event: MouseEvent, canvasDrawer: CanvasDrawer) {
+    constructor(roomsData: CreatorRooms, cursorPosition: Point, canvasDrawer: CanvasDrawer) {
         super();
 
         this.roomsData = roomsData;
-        this.event = event;
+        this.cursorPosition = cursorPosition;
         this.canvasDrawer = canvasDrawer;
     }
 
     onClick(): void {
         const currentRoomPoints: Point[] = this.roomsData.getCurrentRoom().points;
-        const clickPosition: Point = {
-            x: this.event.layerX - this.event.originalTarget.offsetLeft,
-            y: this.event.layerY - this.event.originalTarget.offsetTop
-        }
 
-        const closeOrInlinePoint: Point | null = getCloseOrInLine(this.roomsData.getCurrentRoom(), this.roomsData.getRooms(), clickPosition);
-        const position: Point = closeOrInlinePoint ? closeOrInlinePoint : clickPosition;
+        const position = this.getModifiedPosition();
 
         if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 10 && Math.abs(currentRoomPoints[0].y - (position.y)) < 10) {
             const newPoint: Point = {
@@ -58,10 +53,6 @@ export default class AddRoomPointCommand extends Command {
 
     onRightClick(): void {
         const currentRoomPoints = this.roomsData.getCurrentRoom().points;
-        const clickPosition: Point = {
-            x: this.event.layerX - this.event.originalTarget.offsetLeft,
-            y: this.event.layerY - this.event.originalTarget.offsetTop
-        }
 
         if(currentRoomPoints.length > 0) {
             const removedPoint = currentRoomPoints[currentRoomPoints.length - 1];
@@ -72,7 +63,7 @@ export default class AddRoomPointCommand extends Command {
                 point: removedPoint
             }
         } else {
-            const pointerRoomIndex: number = getPointedRoomIndex(clickPosition, this.roomsData.getRooms());
+            const pointerRoomIndex: number = getPointedRoomIndex(this.cursorPosition, this.roomsData.getRooms());
             if(pointerRoomIndex > 0) {
                 const rooms = this.roomsData.getRooms();
                 const removedRoom = rooms.splice(pointerRoomIndex, 1);
@@ -88,14 +79,9 @@ export default class AddRoomPointCommand extends Command {
 
     onMove(): void {
         const currentRoomPoints: Point[] = this.roomsData.getCurrentRoom().points;
-        const hoverPosition: Point = {
-            x: this.event.layerX - this.event.originalTarget.offsetLeft,
-            y: this.event.layerY - this.event.originalTarget.offsetTop
-        }
 
-        const closePoint: Point | null = getClosePoint(this.roomsData.getRooms(), hoverPosition);
-        const closeOrInlinePoint: Point | null = getCloseOrInLine(this.roomsData.getCurrentRoom(), this.roomsData.getRooms(), hoverPosition);
-        const position: Point = closeOrInlinePoint ? closeOrInlinePoint : hoverPosition;
+        const closePoint: Point | null = getClosePoint(this.roomsData.getRooms(), this.cursorPosition);
+        const position = this.getModifiedPosition();
 
         if(closePoint) {
             this.canvasDrawer.highlightPoint(closePoint);
@@ -120,7 +106,7 @@ export default class AddRoomPointCommand extends Command {
                 y: position.y
             }
 
-            this.canvasDrawer.drawLine(startPoint, endPoint);
+            this.canvasDrawer.drawLine(startPoint, endPoint, true);
         } else {
             const pointedRoomIndex = getPointedRoomIndex(position, this.roomsData.getRooms());
             highlightRoom(this.roomsData.getRooms(), pointedRoomIndex);
@@ -136,6 +122,7 @@ export default class AddRoomPointCommand extends Command {
                 this.roomsData.getCurrentRoom().addPoint(this.action.point);
                 break;
             case "removedRoom":
+                this.action.room.setHighlighted(false);
                 this.roomsData.getRooms().push(this.action.room);
                 break;
             case "finished":
@@ -164,5 +151,10 @@ export default class AddRoomPointCommand extends Command {
                 this.onClick();
                 break;
         }
+    }
+
+    private getModifiedPosition() {
+        const closeOrInlinePoint: Point | null = getCloseOrInLine(this.roomsData.getCurrentRoom(), this.roomsData.getRooms(), this.cursorPosition);
+        return closeOrInlinePoint ? closeOrInlinePoint : this.cursorPosition;
     }
 }

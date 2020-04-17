@@ -56,16 +56,19 @@ export default class CanvasDrawer {
             if(!building) {
                 this.canvasContext.fill();
             }
+            this.canvasContext.closePath();
         }
     }
 
-    drawLine(startPoint: Point, endPoint: Point) {
+    drawLine(startPoint: Point, endPoint: Point, primary: Boolean = false) {
+        this.canvasContext.beginPath();
         this.canvasContext.moveTo(
             startPoint.x, 
             startPoint.y
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.setLineDash(primary ? [0, 0] : [5, 5]);
         this.canvasContext.lineWidth = 1;
         
         this.canvasContext.lineTo(
@@ -74,13 +77,17 @@ export default class CanvasDrawer {
             );
             
         this.canvasContext.stroke();
+        this.canvasContext.closePath();
+        this.canvasContext.setLineDash([0,0]);
     }
 
     highlightPoint(point: Point) {
         this.canvasContext.beginPath();
         this.canvasContext.lineWidth = 1;
+        this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
         this.canvasContext.arc(point.x, point.y, 10, 0, 2 * Math.PI);
         this.canvasContext.closePath();
         this.canvasContext.stroke();
+        this.canvasContext.closePath();
     }
 }
