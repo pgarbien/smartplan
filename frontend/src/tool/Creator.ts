@@ -6,6 +6,7 @@ import Command from './commands/Command';
 import CreatorRooms from './CreatorRooms';
 import AddRoomPointCommand from './commands/AddRoomPointCommand';
 import { getCursorPosition } from './utils/CanvasUtils';
+import DragRoomCommand from './commands/DragRoomCommand';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
@@ -19,14 +20,22 @@ export default class Creator {
     private commandIndex: number = -1;
     private commands: Command[] = [];
 
+    private tool: Boolean = true;
+
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
         this.canvasDrawer = new CanvasDrawer(this.canvasContext);
 
-        canvas.addEventListener('click', this.onClick.bind(this));
-        canvas.addEventListener('contextmenu', this.onRightClick.bind(this));
-        canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
+        this.canvas.addEventListener('click', this.onClick);
+        this.canvas.addEventListener('contextmenu', this.onRightClick);
+        this.canvas.addEventListener('mousemove', this.onMouseMove);
+        this.canvas.addEventListener('mousedown', this.onMouseDown);
+        this.canvas.addEventListener("mouseup", this.onMouseUp);
+    }
+
+    setTool() {
+        this.tool = !this.tool;
     }
 
     getRooms() {
@@ -79,43 +88,77 @@ export default class Creator {
         this.drawCanvas();
     }
 
-    private onClick(event: MouseEvent) {
+    private onClick = (event: MouseEvent) => {
+        const command = this.getCommand();
         const cursorPosition: Point = getCursorPosition(this.canvas, event);
 
-        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
-
-        command.onClick();
-        this.addCommand(command);
-    }
-
-    private onRightClick(event: MouseEvent) {
-        event.preventDefault();
-        const cursorPosition: Point = getCursorPosition(this.canvas, event);
-
-        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
-
-        command.onRightClick();
-        this.addCommand(command);
-    }
-
-    private onMouseMove(event: any) {
+        command.onClick(cursorPosition);
+        this.addCommandToHistory(command);
         this.drawCanvas();
-        const cursorPosition: Point = getCursorPosition(this.canvas, event);
-
-        const command = new AddRoomPointCommand(this.creatorRooms, cursorPosition, this.canvasDrawer);
-
-        command.onMove();
-        this.addCommand(command,false);
     }
 
-    private addCommand(command: Command, redraw: Boolean = true) {
+    private onRightClick = (event: MouseEvent) => {
+        event.preventDefault();
+        const command = this.getCommand();
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        command.onRightClick(cursorPosition);
+        this.addCommandToHistory(command);
+        this.drawCanvas();
+    }
+
+    private onMouseMove = (event: MouseEvent) => {
+        this.drawCanvas();
+        const command = this.getCommand();
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        command.onMove(cursorPosition);
+        this.addCommandToHistory(command);
+    }
+
+    //TODO this can't be a class attribute
+    private command?: Command;
+    private onMouseDown = (event: MouseEvent) => {
+        const command = this.getCommand();
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+
+        command.onDown(cursorPosition);
+        this.command = command;
+        this.drawCanvas();
+
+        this.canvas.removeEventListener('mousemove', this.onMouseMove);
+        this.canvas.addEventListener("mousemove", this.onMouseMoveDown);
+    }
+
+    private onMouseMoveDown = (event: MouseEvent) => {
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+        this.command!!.onDownMove(cursorPosition);
+        this.drawCanvas();
+    }
+
+    private onMouseUp = (event: MouseEvent) => {
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+        this.command!!.onUp(cursorPosition);
+        this.addCommandToHistory(this.command!!);
+        this.drawCanvas();
+
+        this.canvas.removeEventListener("mousemove", this.onMouseMoveDown);
+        this.canvas.addEventListener('mousemove', this.onMouseMove);
+    }
+
+    private getCommand(): Command {
+        switch(this.tool) {
+            case false:
+                return new DragRoomCommand(this.creatorRooms, this.canvasDrawer);
+        }
+
+        return new AddRoomPointCommand(this.creatorRooms, this.canvasDrawer);
+    }
+
+    private addCommandToHistory(command: Command) {
         if(command.action) {
             this.commands.splice(++this.commandIndex);
             this.commands.push(command);
-        }
-
-        if(redraw) { 
-            this.drawCanvas();
         }
     }
 }

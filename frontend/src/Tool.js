@@ -37,6 +37,7 @@ const Tool = () => {
         <br/>
 
         <button onClick={() => creator.toggleBackgroundImage()}>Toggle image</button>
+        <button onClick={() => creator.setTool()}>Change tool</button>
         <button onClick={() => creator.undoCommand()}>Undo</button>
         <button onClick={() => creator.redoCommand()}>Redo</button>
     </div>

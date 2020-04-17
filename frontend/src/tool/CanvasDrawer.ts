@@ -69,7 +69,7 @@ export default class CanvasDrawer {
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
         this.canvasContext.setLineDash(primary ? [0, 0] : [5, 5]);
-        this.canvasContext.lineWidth = 1;
+        this.canvasContext.lineWidth = primary ? 2 : 1;
         
         this.canvasContext.lineTo(
             endPoint.x, 
