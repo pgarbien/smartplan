@@ -4,9 +4,9 @@ import Room, { RoomInterface } from './model/Room'
 import Point from './model/Point'
 import Command from './commands/Command';
 import CreatorRooms from './CreatorRooms';
-import AddRoomPointCommand from './commands/AddRoomPointCommand';
+import BuildCommand from './commands/BuildCommand';
 import { getCursorPosition } from './utils/CanvasUtils';
-import DragRoomCommand from './commands/DragRoomCommand';
+import DragCommand from './commands/DragCommand';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
@@ -46,7 +46,10 @@ export default class Creator {
         const newRooms: Room[] = [];
 
         rooms.forEach(room => {
-            newRooms.push(new Room(room.name, room.color, room.points));
+            const points: Point[] = [];
+            room.points.forEach(point => points.push(new Point(point.x, point.y)));
+
+            newRooms.push(new Room(room.name, room.color, points));
         });
 
         this.creatorRooms.setRooms(newRooms);
@@ -149,10 +152,10 @@ export default class Creator {
     private getCommand(): Command {
         switch(this.tool) {
             case false:
-                return new DragRoomCommand(this.creatorRooms, this.canvasDrawer);
+                return new DragCommand(this.creatorRooms, this.canvasDrawer);
         }
 
-        return new AddRoomPointCommand(this.creatorRooms, this.canvasDrawer);
+        return new BuildCommand(this.creatorRooms, this.canvasDrawer);
     }
 
     private addCommandToHistory(command: Command) {
@@ -163,4 +166,5 @@ export default class Creator {
     }
 }
 
-//Optymalizacja zdjęciem backgroundu podczas onmousemove (flaga)
+//TODO Optymalizacja zdjęciem backgroundu podczas onmousemove (flaga)
+//TODO Onmouse out (bug jak wyjedziesz poza canvas przenosząc pomieszczenie)

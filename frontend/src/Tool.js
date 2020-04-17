@@ -31,6 +31,10 @@ const Tool = () => {
             Podczas rysowania możemy usunąć ostatni naniesiony punkt klikając PPM. 
             <br/><br/>
             Dodatkowo zapisywana jest historia edycji (działają przyciski Undo/Redo). Możemy wyłączyć wyświetlanie naniesionego zdjęcia przyciskiem Toggle image.
+            <br/><br/>
+            Klikając przycisk 'Change tool' możemy zmienić narzędzie na takie, które przesuwa obiekty. Poruszając kursorem możemy wybrać obiekt, który chcemy przenieść
+            (zostanie on podświetlony). Możemy przenosić całe pomieszczenia, ściany i pojedyncze punkty. Aby przenieść obiekt należy najechać na niego, kliknąc dowolny przycisk
+            myszy i nie puszczając go, przenieść kursor w wybrane miejsce.
           </p>
         </div>
 

@@ -7,6 +7,8 @@ export default class CanvasDrawer {
 
     constructor(canvasContext: CanvasRenderingContext2D) {
         this.canvasContext = canvasContext;
+        this.canvasContext.lineCap = "round";
+        this.canvasContext.lineJoin = 'round';
     }
 
     drawBackground(backgroundImage: BackgroundImage, canvasHeight: number, canvasWidth: number) {
@@ -46,7 +48,6 @@ export default class CanvasDrawer {
             this.canvasContext.lineWidth = 5;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, .7)";
             this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
-            this.canvasContext.lineJoin = 'miter';
             this.canvasContext.moveTo(points[0].x, points[0].y);
 
             for(let i=1; i<points.length; ++i) {
@@ -74,7 +75,7 @@ export default class CanvasDrawer {
         this.canvasContext.lineTo(
             endPoint.x, 
             endPoint.y
-            );
+        );
             
         this.canvasContext.stroke();
         this.canvasContext.closePath();
@@ -85,9 +86,30 @@ export default class CanvasDrawer {
         this.canvasContext.beginPath();
         this.canvasContext.lineWidth = 1;
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
-        this.canvasContext.arc(point.x, point.y, 10, 0, 2 * Math.PI);
-        this.canvasContext.closePath();
+        this.canvasContext.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+        this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.fill();
         this.canvasContext.stroke();
         this.canvasContext.closePath();
+    }
+
+    highlightLine(startPoint: Point, endPoint: Point) {
+        this.canvasContext.beginPath();
+        this.canvasContext.moveTo(
+            startPoint.x, 
+            startPoint.y
+        );
+
+        this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.lineWidth = 5;
+        
+        this.canvasContext.lineTo(
+            endPoint.x, 
+            endPoint.y
+        );
+            
+        this.canvasContext.stroke();
+        this.canvasContext.closePath();
+        this.canvasContext.setLineDash([0,0]);
     }
 }

@@ -43,13 +43,9 @@ function getPointedRoomIndex(point: Point, rooms: Room[]): number {
 function highlightRoom(rooms: Room[], index: number) {
     dehighlight(rooms);
 
-    //TODO m^2
-    if(index > 0) {
-        rooms[index].setHighlighted(true);
-    }
+    rooms[index].setHighlighted(true);
 }
 
-//TODO for loop every frame :'(
 function dehighlight(rooms: Room[]) {
     rooms.forEach(room => {
         room.setHighlighted(false);
