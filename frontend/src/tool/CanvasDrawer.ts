@@ -46,17 +46,18 @@ export default class CanvasDrawer {
         if(points[0]) {
             this.canvasContext.beginPath(); 
             this.canvasContext.lineWidth = 5;
-            this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, .7)";
+            this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
             this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
             this.canvasContext.moveTo(points[0].x, points[0].y);
 
             for(let i=1; i<points.length; ++i) {
                 this.canvasContext.lineTo(points[i].x, points[i].y);
             }
-            this.canvasContext.stroke();
-            if(!building) {
+            if(!building) { 
+                this.canvasContext.lineTo(points[0].x, points[0].y);
                 this.canvasContext.fill();
             }
+            this.canvasContext.stroke();
             this.canvasContext.closePath();
         }
     }

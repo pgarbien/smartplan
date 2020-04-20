@@ -23,12 +23,6 @@ export default class BuildCommand extends Command {
         const position = this.getModifiedPosition(cursorPosition);
 
         if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 10 && Math.abs(currentRoomPoints[0].y - (position.y)) < 10) {
-            const newPoint: Point = new Point(
-                currentRoomPoints[0].x,
-                currentRoomPoints[0].y
-            );
-
-            this.roomsData.getCurrentRoom().addPoint(newPoint);
             this.roomsData.getRooms().push(this.roomsData.getCurrentRoom());
             this.roomsData.setCurrentRoom(new Room());
 
@@ -106,7 +100,7 @@ export default class BuildCommand extends Command {
 
             const startPoint: Point = currentRoomPoints[currentRoomPoints.length -1].getCopy();
             const endPoint: Point = position.getCopy();
-            
+
             this.canvasDrawer.drawLine(startPoint, endPoint, true);
         }
     }
@@ -139,7 +133,6 @@ export default class BuildCommand extends Command {
                 const prevRooms: Room[] = this.roomsData.getRooms();
                 const prevRoom: Room = prevRooms[prevRooms.length - 1];
                 
-                prevRoom.removePoint();
                 this.roomsData.setRooms(prevRooms.splice(0, prevRooms.length - 1));
                 this.roomsData.setCurrentRoom(prevRoom);
                 break;
