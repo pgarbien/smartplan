@@ -1,10 +1,19 @@
 import Point from '../model/Point'
 import Room from '../model/Room'
 import Wall from '../model/Wall'
+import NewDevice from '../model/NewDevice'
 
 function getClosePoint(rooms: Room[], point: Point): Point | null {
     const closePoint = rooms
         .flatMap(room => room.points)
+        .find(roomPoint => Math.abs(roomPoint.x - point.x) < 10 && Math.abs(roomPoint.y - point.y) < 10);
+
+    return closePoint ? closePoint : null;
+}
+
+function getClosePointDevice(rooms: NewDevice[], point: Point): Point | null {
+    const closePoint = rooms
+        .flatMap(room => room.point)
         .find(roomPoint => Math.abs(roomPoint.x - point.x) < 10 && Math.abs(roomPoint.y - point.y) < 10);
 
     return closePoint ? closePoint : null;
@@ -74,4 +83,22 @@ function getCloseOrInLine(room: Room, rooms: Room[], point: Point) {
     return point
 }
 
-export { getClosePoint, getInLinePoints, getCloseOrInLine, getCloseLine }
+function getCloseOrInLineDevice(room: NewDevice, rooms: NewDevice[], point: Point) {
+    const close = getClosePointDevice(rooms, point);
+
+    if(close) {
+        point.x = close.x;
+        point.y = close.y;
+    } else {
+        point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point.x : point.x;
+        point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point.y : point.y;
+
+        
+        point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point.x : point.x;
+        point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point.y : point.y;
+    }
+
+    return point
+}
+
+export { getClosePoint, getInLinePoints, getCloseOrInLine, getCloseLine, getCloseOrInLineDevice, getClosePointDevice }

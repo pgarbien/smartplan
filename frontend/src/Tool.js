@@ -42,7 +42,11 @@ const Tool = () => {
         <br/>
 
         <button onClick={() => creator.toggleBackgroundImage()}>Toggle image</button>
-        <button onClick={() => creator.setTool()}>Change tool</button>
+        <button onClick={() => creator.draw()}>Draw</button>
+        <button onClick={() => creator.moveRooms()}>Move rooms</button>
+        <button onClick={() => creator.addDeviceCommand()}>Add device</button>
+        <button onClick={() => creator.moveDeviceCommand()}>Move devices</button>
+        <br/><br/>
         <button onClick={() => creator.undoCommand()}>Undo</button>
         <button onClick={() => creator.redoCommand()}>Redo</button>
     </div>

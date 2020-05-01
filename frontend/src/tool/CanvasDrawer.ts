@@ -1,6 +1,7 @@
 import BackgroundImage from './model/BackgroundImage'
 import Room from './model/Room'
 import Point from './model/Point'
+import NewDevice from './model/NewDevice';
 
 export default class CanvasDrawer {
     private canvasContext: CanvasRenderingContext2D;
@@ -60,6 +61,20 @@ export default class CanvasDrawer {
             this.canvasContext.stroke();
             this.canvasContext.closePath();
         }
+    }
+
+    drawDevices(devices: NewDevice[]) {
+        devices.forEach((device: NewDevice) => {
+            this.drawDevice(device);
+        })
+    }
+
+    drawDevice(newDevice: NewDevice) {
+        this.canvasContext.beginPath();
+        this.canvasContext.arc(newDevice.point.x, newDevice.point.y,newDevice.radius, 0, 2 * Math.PI);
+        this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.fill();
+        this.canvasContext.closePath();
     }
 
     drawLine(startPoint: Point, endPoint: Point, primary: Boolean = false) {
