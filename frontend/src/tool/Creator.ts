@@ -130,7 +130,7 @@ export default class Creator {
     addDeviceCommand() {
         this.cmd = Commands.ADD_DEVICE;
 
-        const newDevice = new AddDeviceCommand(this.creatorDevices, this.canvasDrawer);
+        const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
         newDevice.drawNewDevice();
 
         return newDevice;
@@ -139,7 +139,7 @@ export default class Creator {
     moveDeviceCommand() {
         this.cmd = Commands.ADD_DEVICE;
 
-        return new AddDeviceCommand(this.creatorDevices, this.canvasDrawer);
+        return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
     }
 
     private onClick = (event: MouseEvent) => {
@@ -203,7 +203,7 @@ export default class Creator {
     private getCommand(): Command {
         switch(this.cmd) {
             case Commands.ADD_DEVICE:
-                return new AddDeviceCommand(this.creatorDevices, this.canvasDrawer);
+                return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
             case Commands.DRAW:
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_ROOMS:

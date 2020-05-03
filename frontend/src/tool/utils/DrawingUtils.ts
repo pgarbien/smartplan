@@ -59,7 +59,7 @@ function dist2 (startPoint: Point, endPoint: Point) {
 function getInLinePoints(rooms: Room[], point: Point): Point[] {
     const inLine = rooms
         .flatMap(room => room.points)
-        .filter(roomPoint => roomPoint.x === point.x || roomPoint.y === point.y);
+        .filter(roomPoint => roomPoint.x - point.x === 0 || roomPoint.y - point.y === 0);
 
     return inLine;
 }
@@ -101,4 +101,4 @@ function getCloseOrInLineDevice(room: NewDevice, rooms: NewDevice[], point: Poin
     return point
 }
 
-export { getClosePoint, getInLinePoints, getCloseOrInLine, getCloseLine, getCloseOrInLineDevice, getClosePointDevice }
+export { getClosePoint, getInLinePoints, getCloseOrInLine, getCloseLine, getCloseOrInLineDevice, getClosePointDevice, }

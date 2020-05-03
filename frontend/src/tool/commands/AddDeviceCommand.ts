@@ -4,16 +4,18 @@ import CanvasDrawer from '../CanvasDrawer';
 import CreatorRooms from '../CreatorRooms';
 import NewDevice from '../model/NewDevice';
 import CreatorNewDevices from '../CreatorNewDevices';
-import { getClosePointDevice, getCloseOrInLineDevice } from '../utils/DrawingUtils';
+import { getClosePointDevice, getCloseOrInLineDevice, getInLinePoints } from '../utils/DrawingUtils';
 
 export default class AddDeviceCommand extends Command {
     private creatorDevices: CreatorNewDevices;
+    private roomsData: CreatorRooms;
     private canvasDrawer: CanvasDrawer;
 
-    constructor(creatorDevices: CreatorNewDevices, canvasDrawer: CanvasDrawer) {
+    constructor(creatorDevices: CreatorNewDevices, roomsData: CreatorRooms, canvasDrawer: CanvasDrawer) {
         super();
 
         this.creatorDevices = creatorDevices;
+        this.roomsData = roomsData;
         this.canvasDrawer = canvasDrawer;
     }
 
@@ -46,13 +48,13 @@ export default class AddDeviceCommand extends Command {
     }
 
     onMove(cursorPosition: Point): void {
-        
+
     }
 
     onDown(cursorPosition: Point): void {
         const position = this.getModifiedPosition(cursorPosition);
         const closePoint: Point | null = getClosePointDevice(this.creatorDevices.getDevices(), cursorPosition);
-    
+
         if(closePoint) {
             const previousPoint: Point = closePoint.getCopy();
             
@@ -67,20 +69,30 @@ export default class AddDeviceCommand extends Command {
         }
     }
 
-    // TODO [Brawurka] Add fitting to line 
+    // TODO [Brawurka] Fixed fitting to line 
     onDownMove(cursorPosition: Point): void {
         if(this.action) {
             const horizontalDelta: number = cursorPosition.x - this.action.cursorPosition.x;
             const verticalDelta: number = cursorPosition.y - this.action.cursorPosition.y;
             const vector: Point = new Point(horizontalDelta, verticalDelta);
+            const position = this.getModifiedPosition(cursorPosition);
 
             if(this.action.type == "pointMove") {
                 const movedPoint: Point = this.action.details.movedPoint;
                 const startPoint: Point = this.action.details.startPoint;
 
                 movedPoint.x = startPoint.x + vector.x;
-                movedPoint.y = startPoint.y + vector.y;
+                movedPoint.y = startPoint.y + vector.y;   
+
+                const inLinePoints = getInLinePoints(this.roomsData.getRooms(), position);
+                
+                // [Brawurka] inLinePoints są zapisane dobrze, ale canvasDrawer nie rysuje tak jak powinien :c jeśli przerzucimy to do onMove to będzie działać
+                inLinePoints.forEach(point => {
+                    this.canvasDrawer.drawLine(point, movedPoint);
+                    this.canvasDrawer.highlightPoint(point);
+                });
             }
+        
         }
     }
 
