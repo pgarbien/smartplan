@@ -3,6 +3,7 @@ import './App.css';
 import { Rooms } from './tool/data/rooms'
 import Creator from './tool/Creator'
 import Desc from './Desc'
+import {Link} from 'react-router-dom'
 
 const Tool = () => {
   const creationCanvas = useRef(null);
@@ -32,6 +33,9 @@ const Tool = () => {
           <canvas ref={creationCanvas} id="mainCanvas" width="600" height="600" style={{border: "1px solid #00d051", borderRadius: "25px"}}></canvas>
         </div>
         <Desc></Desc>
+        <div style={{display: "grid", gridRow: 3, gridColumn: 4}}>
+          <Link to="/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
+        </div>
       </div>
   );
 }

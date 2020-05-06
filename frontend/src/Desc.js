@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Creator from './tool/Creator'
+import React, { useEffect, useRef } from 'react';
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
     var words = text.split(' ');
