@@ -18,11 +18,11 @@ const Devices = () => {
         <div>
             <h1>Your devices: </h1>
             <ul>
-                {devices.map(device => (
+                {devices.length > 0 ? devices.map(device => (
                     <li>
                         ID{device.id} name: {device.caption}
                     </li>
-                ))}
+                )) : "No devices"}
             </ul>
         </div>
     );

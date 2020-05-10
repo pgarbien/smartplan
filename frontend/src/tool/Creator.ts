@@ -168,3 +168,4 @@ export default class Creator {
 
 //TODO Optymalizacja zdjęciem backgroundu podczas onmousemove (flaga)
 //TODO Onmouse out (bug jak wyjedziesz poza canvas przenosząc pomieszczenie)
+//TODO First/last point move wall bug
