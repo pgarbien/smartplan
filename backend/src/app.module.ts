@@ -1,13 +1,15 @@
-import {HttpModule, Module} from '@nestjs/common';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {ConfigModule} from "@nestjs/config";
+import { HttpModule, Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule } from "@nestjs/config";
 import { ChannelsController } from './channels/channels.controller';
 import { LocationsController } from './locations/locations.controller';
 import { ChannelsService } from './channels/channels.service';
 import { LocationsService } from './locations/locations.service';
-import { AuthController } from './auth/auth.controller';
 import configuration from "../config/configuration";
+import { AuthController } from './auth/auth.controller';
+import AuthService from './auth/auth.service';
+import { SuplaStrategy } from './auth/supla.strategy';
 
 @Module({
     imports: [
@@ -18,7 +20,6 @@ import configuration from "../config/configuration";
         })
     ],
     controllers: [AppController, ChannelsController, LocationsController, AuthController],
-    providers: [AppService, ChannelsService, LocationsService],
+    providers: [AppService, ChannelsService, LocationsService, AuthService, SuplaStrategy]
 })
-export class AppModule {
-}
+export class AppModule { }
