@@ -91,10 +91,10 @@ export default class BuildCommand extends Command {
             highlightRoom(this.roomsData.getRooms(), pointedRoomIndex);
         }
 
-        if(this.roomsData.getCurrentRoom().points.length !== 0) {
+        if(constructingRoom) {
             const inLinePoints = getInLinePoints(this.roomsData.getRooms(), position);
             inLinePoints.forEach(point => {
-                this.canvasDrawer.drawLine(point,position);
+                this.canvasDrawer.drawLine(point, position);
                 this.canvasDrawer.highlightPoint(point);
             });
 

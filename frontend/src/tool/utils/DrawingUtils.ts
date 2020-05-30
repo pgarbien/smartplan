@@ -59,7 +59,7 @@ function dist2 (startPoint: Point, endPoint: Point) {
 function getInLinePoints(rooms: Room[], point: Point): Point[] {
     const inLine = rooms
         .flatMap(room => room.points)
-        .filter(roomPoint => roomPoint.x - point.x === 0 || roomPoint.y - point.y === 0);
+        .filter(roomPoint => Math.abs(roomPoint.x - point.x) <= .5 || Math.abs(roomPoint.y - point.y) <= .5);
 
     return inLine;
 }

@@ -40,11 +40,9 @@ export default class AddDeviceCommand extends Command {
                         }
                     }
 
-                    this.creatorDevices.removeDevice(this.creatorDevices.getDevices(), device);
+                    this.creatorDevices.removeDevice(device);
             }
         });
-
-    
     }
 
     onMove(cursorPosition: Point): void {

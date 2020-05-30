@@ -12,9 +12,9 @@ import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
 
 enum Commands {
-    ADD_DEVICE,
+    DRAW,
     MOVE_ROOMS,
-    DRAW
+    ADD_DEVICE
 }
 
 export default class Creator {
@@ -31,8 +31,6 @@ export default class Creator {
     private commands: Command[] = [];
 
     private cmd: Commands = Commands.DRAW;
-
-    private tool: Boolean = true;
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
