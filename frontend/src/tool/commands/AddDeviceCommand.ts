@@ -77,7 +77,7 @@ export default class AddDeviceCommand extends Command {
             const vector: Point = new Point(horizontalDelta, verticalDelta);
             const position = this.getModifiedPosition(cursorPosition);
 
-            if(this.action.type == "pointMove") {
+            if(this.action.type === "pointMove") {
                 const movedPoint: Point = this.action.details.movedPoint;
                 const startPoint: Point = this.action.details.startPoint;
 

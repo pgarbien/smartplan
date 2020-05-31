@@ -1,0 +1,21 @@
+.devices_list {
+    width: 150px;
+    background-color: #eaeaea;
+    display: "flex";
+    flex-direction: column;
+    flex: 1;
+    justify-content: "center";
+    margin-top: 30%;
+}
+
+.device_button {
+    border: none;
+    background-color: none;
+    height: 100px;
+    width: 100%;
+    transition-duration: 0.6s;
+}
+
+.device_button:hover {
+    background-color: #c6c6c6;
+}

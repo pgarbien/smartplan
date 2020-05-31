@@ -46,6 +46,14 @@ export default class Creator {
         this.canvas.addEventListener("mouseup", this.onMouseUp);
     }
 
+    getCanvas() {
+        return this.canvas;
+    }
+
+    setCanvas(canvas: HTMLCanvasElement) {
+        this.canvas = canvas;
+    }
+
     getRooms() {
         return this.creatorRooms.getRooms();
     }
@@ -77,13 +85,16 @@ export default class Creator {
         this.creatorDevices.setDevices(newDevices);
     }
 
-
     setBackgroundImage(imageSource: string) {
         this.backgroundImage = new BackgroundImage(imageSource);
 
         setTimeout(() => {
             this.drawCanvas()
         }, 200);
+    }
+
+    getBackgroundImage() {
+        return this.backgroundImage
     }
 
     toggleBackgroundImage() {

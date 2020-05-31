@@ -1,21 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import { Rooms } from './tool/data/rooms'
-import Creator from './tool/Creator'
 import Desc from './Desc'
 import {Link} from 'react-router-dom'
 
-const Tool = () => {
-  const creationCanvas = useRef(null);
-  const [creator, setCreator] = useState(null);
+const Tool = ({change, creationCanvas, parentCreator}) => {
+  const creator = parentCreator;
 
   useEffect(() => {
-    const creator = new Creator(creationCanvas.current);
-    setCreator(creator);
-
-    creator.setBackgroundImage("https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg");
-    creator.setRooms(Rooms);
-    creator.drawCanvas();
+    if(parentCreator != null) {
+      parentCreator.setCanvas(creationCanvas.current);
+      change(parentCreator);
+    }
   }, []);
 
   return (
@@ -24,8 +19,6 @@ const Tool = () => {
             <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.toggleBackgroundImage()}>Toggle image</button>
             <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.draw()}>Draw</button>
             <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.moveRooms()}>Move rooms</button>
-            <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.addDeviceCommand()}>Add device</button>
-            <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.moveDeviceCommand()}>Move devices</button>
             <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.undoCommand()}>Undo</button>
             <button style={{border: "1px solid #00d051", borderRadius: "15px", height: "70px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10}} onClick={() => creator.redoCommand()}>Redo</button>
         </div>

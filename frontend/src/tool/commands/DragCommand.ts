@@ -99,13 +99,13 @@ export default class DragCommand extends Command {
             const verticalDelta: number = cursorPosition.y - this.action.cursorPosition.y;
             const vector: Point = new Point(horizontalDelta, verticalDelta);
 
-            if(this.action.type == "pointMove") {
+            if(this.action.type === "pointMove") {
                 const movedPoint: Point = this.action.details.movedPoint;
                 const startPoint: Point = this.action.details.startPoint;
 
                 movedPoint.x = startPoint.x + vector.x;
                 movedPoint.y = startPoint.y + vector.y;
-            } else if(this.action.type == "wallMove") {
+            } else if(this.action.type === "wallMove") {
                 const movedWall: Wall = this.action.details.movedWall;
                 const startWall: Wall = this.action.details.startWall;
                 
@@ -113,7 +113,7 @@ export default class DragCommand extends Command {
                 movedWall.end.x = startWall.end.x + vector.x;
                 movedWall.start.y = startWall.start.y + vector.y;
                 movedWall.end.y = startWall.end.y + vector.y;
-            } else if(this.action.type == "roomMove") {
+            } else if(this.action.type === "roomMove") {
                 const movedRoom: Room = this.action.details.movedRoom;
                 const startPoints: Point[] = this.action.details.startPoints;
 
@@ -127,16 +127,16 @@ export default class DragCommand extends Command {
 
     onUp(cursorPosition: Point): void {
         if(this.action) {
-            if(this.action.type == "pointMove") {
+            if(this.action.type === "pointMove") {
                 const endPoint: Point = this.action.details.movedPoint.getCopy();
 
                 this.action.details.endPoint = endPoint;
-            } else if(this.action.type == "wallMove") {
+            } else if(this.action.type === "wallMove") {
                 const movedWall: Wall = this.action.details.movedWall
                 const endWall: Wall = movedWall.getCopy();
 
                 this.action.details.endWall = endWall;
-            } else if(this.action.type == "roomMove") {
+            } else if(this.action.type === "roomMove") {
                 this.action.details.endPoints = this.action.details.movedRoom.points;
             }
         }

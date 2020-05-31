@@ -1,27 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import DevicesPage from './DevicesPage';
-
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect
-} from 'react-router-dom'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Switch>
-        <Route path="/devices" component={DevicesPage}/>
-        <Route component={App} />
-      </Switch>
-    </Router>
-  </React.StrictMode>,
+  <App/>,
   document.getElementById('root')
 );
 
