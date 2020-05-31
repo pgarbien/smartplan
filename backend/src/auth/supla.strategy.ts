@@ -16,10 +16,10 @@ export class SuplaStrategy extends PassportStrategy(Strategy, 'supla') {
   constructor(auth: AuthService) {
     super(
       <StrategyOptionWithRequest>{
-        authorizationURL: 'https://svr36.supla.org/oauth/v2/auth',
+        authorizationURL: 'https://svr32.supla.org/oauth/v2/auth',
         tokenURL: 'https://svr36.supla.org/oauth/v2/token',
-        clientID: "7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc",
-        clientSecret: "2ypf177cmpk4o8wcw8w0k4kgkks44o4sos8oksw40oo04ckwo8",
+        clientID: "6_621nq9ipln8c4s4cs04scwoko4k80c448kw4woss48kckg0sso",
+        clientSecret: "1toxlbw5j4g0wwkso0g8cscc88k408k88ccggwogoo44wso84s",
         callbackURL: 'http://localhost:4000/auth/supla/callback'
       },
       <VerifyFunctionWithRequest>(async (

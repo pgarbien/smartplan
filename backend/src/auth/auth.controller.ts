@@ -15,12 +15,14 @@ export class AuthController {
     @Next() next: NextFunction,
     @Param('provider') provider: AuthProvider
   ) {
+    //TODO add scopes from supla docs
     const params = {
       session: false,
-      scope: ['user'],
+      scope: ['account_r'],
       callbackURL: `http://localhost:4000/auth/${provider}/callback`,
     };
-    console.log(provider)
+    console.log(provider);
+    console.log(params.scope);
     passport.authenticate(provider, params)(req, res, next);
   }
 
@@ -35,7 +37,7 @@ export class AuthController {
       session: false,
       callbackURL: `http://localhost:4000/auth/${provider}/callback`
     };
-
+    console.log("We got callback");
     // We use callback here, but you can let passport do the redirect
     // http://www.passportjs.org/docs/downloads/html/#custom-callback
     passport.authenticate(provider, params, (err, user) => {
