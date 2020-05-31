@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Tool from './Tool'
+import Login from './containers/Login/Login'
+import Devices from "./Devices";
 import { Rooms } from './tool/data/rooms'
 import Creator from './tool/Creator'
 import DevicesPage from './DevicesPage'
@@ -40,10 +42,13 @@ const App = () => {
     <React.StrictMode>
       <Router>
         <Switch>
+          {/* <Route path="/">
+            <Login/>
+          </Route> */}
           <Route path="/devices">
             <DevicesPage change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
           </Route>
-          <Route path="/">
+          <Route path="/draw">
             <Tool change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
           </Route>
         </Switch>

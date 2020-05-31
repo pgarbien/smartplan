@@ -33,7 +33,7 @@ const DevicesPage = ({change, creationCanvas, parentCreator}) => {
                 <Devices/>
             </div>
             <div style={{display: "grid", gridRow: 3, gridColumn: 1}}>
-            <Link to="/" className="btn btn-primary" style={{color: "#00d051"}}>Go back to drawing...</Link>
+            <Link to="/draw" className="btn btn-primary" style={{color: "#00d051"}}>Go back to drawing...</Link>
             </div>
       </div>
     );
