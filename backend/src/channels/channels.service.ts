@@ -1,13 +1,10 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import {map} from "rxjs/operators";
-import {response} from "express";
 
 @Injectable()
 export class ChannelsService {
-    constructor(private configService: ConfigService, private httpService: HttpService) {
-
-    }
+    constructor(private configService: ConfigService, private httpService: HttpService) { }
 
     private apiKey: string = this.configService.get<string>('API_KEY');
     private apiUrl = this.configService.get<string>('API_URL') + '/channels';
@@ -17,7 +14,7 @@ export class ChannelsService {
     };
 
 
-    getChannels() {
+    getChannels() { 
         return this.httpService.get(this.apiUrl, this.config)
             .pipe(
                 map(response => response.data)
