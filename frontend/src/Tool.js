@@ -27,7 +27,7 @@ const Tool = ({change, creationCanvas, parentCreator}) => {
         </div>
         <Desc></Desc>
         <div style={{display: "grid", gridRow: 3, gridColumn: 4}}>
-          <Link to="/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
+          <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
         </div>
       </div>
   );
