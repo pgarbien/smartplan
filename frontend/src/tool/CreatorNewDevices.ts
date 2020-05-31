@@ -20,7 +20,7 @@ export default class CreatorNewDevices {
         this.currentDevice = newDevice;
     }
 
-    removeDevice(devices: NewDevice[], newDevice: NewDevice) {
-        devices.splice(devices.indexOf(newDevice), 1);
+    removeDevice(newDevice: NewDevice) {
+        this.devices.splice(this.devices.indexOf(newDevice), 1);
     }
 }

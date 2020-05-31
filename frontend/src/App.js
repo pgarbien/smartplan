@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
+import Tool from './Tool'
+import Login from './containers/Login/Login'
+import Devices from "./Devices";
 import Tool from './Tool';
 import { Rooms } from './tool/data/rooms'
 import Creator from './tool/Creator'
