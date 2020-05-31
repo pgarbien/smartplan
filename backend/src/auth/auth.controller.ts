@@ -20,7 +20,6 @@ export class AuthController {
       scope: ['user'],
       callbackURL: `http://localhost:4000/auth/${provider}/callback`,
     };
-    console.log(provider)
     passport.authenticate(provider, params)(req, res, next);
   }
 
