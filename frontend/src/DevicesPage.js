@@ -35,6 +35,13 @@ const DevicesPage = ({change, creationCanvas, parentCreator}) => {
             <div style={{display: "grid", gridRow: 3, gridColumn: 1}}>
             <Link to="/draw" className="btn btn-primary" style={{color: "#00d051"}}>Go back to drawing...</Link>
             </div>
+            <div style={{display: "grid", gridRow: 3, gridColumn: 3}}>
+            <a id="download" download="condignation.png" href="" style={{color: "#00d051"}} onClick={() => {
+                    const a = document.getElementById("download")
+                    var dataURI = document.getElementById('condignationCanvas').toDataURL();
+                    a.href = dataURI;
+            }}>Save Condignation</a>
+            </div>
       </div>
     );
 }
