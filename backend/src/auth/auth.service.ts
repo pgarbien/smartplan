@@ -13,7 +13,7 @@ export interface AuthProfile {
 
 @Injectable()
 export default class AuthService {
-    private loggedIn = {}
+    private loggedIn = {};
 
     constructor(private httpService: HttpService) { }
 
@@ -24,18 +24,18 @@ export default class AuthService {
         // Preform your business logic here\
         //add to hash
 
-        this.loggedIn[profile.access_token] = profile
+        this.loggedIn[profile.access_token] = profile;
 
         setTimeout(() => {
             this.loggedIn[profile.access_token] = null
-        }, profile.expires_in * 1000)
+        }, profile.expires_in * 1000);
 
         // Return the user instance
         return profile;
     }
 
     getUser(token) {
-        const url = "https://svr36.supla.org/api/v2.3.0"
+        const url = "https://svr36.supla.org/api/v2.3.0";
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         };

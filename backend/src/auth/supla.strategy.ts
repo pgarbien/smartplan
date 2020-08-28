@@ -9,7 +9,7 @@ const strategyRequest = {
     tokenURL: 'https://svr36.supla.org/oauth/v2/token',
     clientID: "7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc",
     clientSecret: "2ypf177cmpk4o8wcw8w0k4kgkks44o4sos8oksw40oo04ckwo8",
-    callbackURL: 'http://localhost:4000/auth/supla/callback'
+    callbackURL: 'http://192.168.0.115:4000/auth/supla/callback'
 } as StrategyOptionWithRequest;
 
 const callbackFunction = 
@@ -36,3 +36,4 @@ export class SuplaStrategy extends PassportStrategy(Strategy, 'supla') {
     super(strategyRequest, callbackFunction(authService));
   }
 }
+// https://svr36.supla.org/oauth/v2/auth?client_id=7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth&response_type=code&scope=account_r&state=example-state
