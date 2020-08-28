@@ -20,16 +20,15 @@ body {
   box-sizing: border-box;
   text-align: center;
   font-size: 17px;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .tool-bar_link--active {
-  color: white;
-  background-color: #0f0;
+  color: #00d151;
   transition: all 0.6s ease;
   z-index: 99;
   left: 0px;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 .devices-container {
@@ -51,4 +50,21 @@ body {
   color: #000;
   font-weight: 400;
   margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.location:nth-child(3n),
+.location:nth-child(3n + 2) {
+  margin-right: 3%;
+}
+
+.video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1000;
+  transform: scale(1.2);
 }
