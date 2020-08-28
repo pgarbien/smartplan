@@ -194,9 +194,9 @@ export default class Creator {
     }
 
     private onMouseMoveDown = (event: MouseEvent) => {
-        const cursorPosition: Point = getCursorPosition(this.canvas, event);
-        this.command!!.onDownMove(cursorPosition);
         this.drawCanvas();
+        const cursorPosition: Point = getCursorPosition(this.canvas, event);
+        this.command!!.onDownMove(cursorPosition);   
     }
 
     private onMouseUp = (event: MouseEvent) => {

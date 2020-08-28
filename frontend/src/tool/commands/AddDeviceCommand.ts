@@ -5,6 +5,9 @@ import CreatorRooms from '../CreatorRooms';
 import NewDevice from '../model/NewDevice';
 import CreatorNewDevices from '../CreatorNewDevices';
 import { getClosePointDevice, getCloseOrInLineDevice, getInLinePoints } from '../utils/DrawingUtils';
+import { getPointedRoomIndex, highlightRoom, dehighlight } from '../utils/RoomUtils';
+import { getClosePoint, getCloseOrInLine, getCloseLine } from '../utils/DrawingUtils';
+import Wall from '../model/Wall';
 
 export default class AddDeviceCommand extends Command {
     private creatorDevices: CreatorNewDevices;
@@ -21,7 +24,7 @@ export default class AddDeviceCommand extends Command {
 
     drawNewDevice() {
         this.creatorDevices.getDevices().push(this.creatorDevices.getCurrentDevice());
-        this.creatorDevices.setCurrentDevice(new NewDevice());
+        this.creatorDevices.setCurrentDevice(new NewDevice("rgba(0, 128,128,128)"));
     }
 
     onClick(cursorPosition: Point): void {
@@ -67,31 +70,40 @@ export default class AddDeviceCommand extends Command {
         }
     }
 
-    // TODO [Brawurka] Fixed fitting to line 
+    // TODO [Brawurka] Fix fitting to line 
     onDownMove(cursorPosition: Point): void {
         if(this.action) {
             const horizontalDelta: number = cursorPosition.x - this.action.cursorPosition.x;
             const verticalDelta: number = cursorPosition.y - this.action.cursorPosition.y;
             const vector: Point = new Point(horizontalDelta, verticalDelta);
             const position = this.getModifiedPosition(cursorPosition);
+            const closeWall: Wall | null = getCloseLine(this.roomsData.getRooms(), cursorPosition);
 
             if(this.action.type === "pointMove") {
-                const movedPoint: Point = this.action.details.movedPoint;
+                let movedPoint: Point = this.action.details.movedPoint;
                 const startPoint: Point = this.action.details.startPoint;
 
                 movedPoint.x = startPoint.x + vector.x;
-                movedPoint.y = startPoint.y + vector.y;   
+                movedPoint.y = startPoint.y + vector.y;
 
                 const inLinePoints = getInLinePoints(this.roomsData.getRooms(), position);
                 
-                // [Brawurka] inLinePoints są zapisane dobrze, ale canvasDrawer nie rysuje tak jak powinien :c jeśli przerzucimy to do onMove to będzie działać
                 inLinePoints.forEach(point => {
-                    this.canvasDrawer.drawLine(point, movedPoint);
+                    this.canvasDrawer.drawLine(point, position);
                     this.canvasDrawer.highlightPoint(point);
+
+                    if(closeWall) {
+                        if(closeWall.start.y == closeWall.end.y) {
+                            movedPoint.y = closeWall.end.y;
+                        } else if (closeWall.start.x == closeWall.end.x) {
+                            movedPoint.x = closeWall.end.x
+                        }
+                    }
                 });
+
             }
-        
-        }
+            
+         }
     }
 
     onUp(cursorPosition: Point): void {
@@ -99,6 +111,15 @@ export default class AddDeviceCommand extends Command {
             const endPoint: Point = this.action.details.movedPoint.getCopy();
 
             this.action.details.endPoint = endPoint;
+
+            if(this.action.type === 'pointMove') {
+                const closePoint: Wall | null = getCloseLine(this.roomsData.getRooms(), cursorPosition);
+
+                if(closePoint) {
+                    console.log("d");
+                    
+                }
+            }
         }
     }
 
@@ -114,6 +135,8 @@ export default class AddDeviceCommand extends Command {
                 this.action!!.details.movedPoint.y = startPoint.y; 
                 break;
         }
+
+        
     }
 
     redo(): void {
