@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import './App.css';
-import Tool from './Tool'
 import Login from './containers/Login/Login'
 import DrawTool from './containers/DrawTool/DrawTool'
 
