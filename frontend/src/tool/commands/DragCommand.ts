@@ -94,9 +94,10 @@ export default class DragCommand extends Command {
     }
 
     onDownMove(cursorPosition: Point): void {
+        const position = this.getModifiedPosition(cursorPosition);
         if(this.action) {
-            const horizontalDelta: number = cursorPosition.x - this.action.cursorPosition.x;
-            const verticalDelta: number = cursorPosition.y - this.action.cursorPosition.y;
+            const horizontalDelta: number = position.x - this.action.cursorPosition.x;
+            const verticalDelta: number = position.y - this.action.cursorPosition.y;
             const vector: Point = new Point(horizontalDelta, verticalDelta);
 
             if(this.action.type === "pointMove") {

@@ -81,7 +81,7 @@ export default class BuildCommand extends Command {
         const position = this.getModifiedPosition(cursorPosition);
         const pointedRoomIndex = getPointedRoomIndex(position, this.roomsData.getRooms());
         const currentRoomPoints: Point[] = this.roomsData.getCurrentRoom().points;
-        const closePoint: Point | null = getClosePoint(this.roomsData.getRooms(), cursorPosition);
+        const closePoint: Point | null = getClosePoint(this.roomsData.getRooms(), cursorPosition); 
         const constructingRoom: Boolean = this.roomsData.getCurrentRoom().points.length !== 0;
 
         dehighlight(this.roomsData.getRooms());

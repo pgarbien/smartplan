@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import axios from './utils/API'
+import axios from '../../utils/API'
 
 const Devices = () => {
     const [devices, setDevices] = useState([]);
