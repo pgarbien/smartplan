@@ -1,20 +1,26 @@
-import {Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
-import {Location} from "../model/location.model";
+import {Location} from "./location.model";
 
 @Controller('locations')
 export class LocationsController {
     constructor(private readonly locationsService: LocationsService) {
     }
 
+
     @Get()
-    getLocations(): Location[] {
-        // return this.locationsService.getLocations();
-        return [this.locationsService.location];
+    async get(): Promise<Location[]> {
+        return await this.locationsService.get();
     }
 
     @Get('/:id')
     getLocation(@Param('id') id: number) {
         return this.locationsService.getLocationById(id);
     }
+
+    @Post()
+    save(@Body() location: Location): Promise<Location> {
+        return this.locationsService.persist(location);
+    }
+
 }

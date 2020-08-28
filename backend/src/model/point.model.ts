@@ -1,11 +1,24 @@
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Room} from "../room/room.model";
 
+@Entity()
 export class Point {
+    @PrimaryGeneratedColumn()
     id: number;
+
+    @Column()
     x: number;
+
+    @Column()
     y: number;
 
-    constructor(id: number, x: number, y: number) {
-        this.id = id;
+    @ManyToOne(
+        type => Room,
+        room => room.points
+    )
+    room: Room;
+
+    constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
     }
