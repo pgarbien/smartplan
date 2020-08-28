@@ -6,7 +6,7 @@ const Toolbar = (props) => {
         <div className="navbar">
             <div className="tool-bar__container">
             <svg style={{ width: 45, display: "inline-block", verticalAlign: "middle", marginRight: 10 }} data-v-76882e96="" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-1 0.2 56.5 59.8">
-                <g data-v-76882e96="" id="Layer_1_1_" class="st0"></g> <g data-v-76882e96="">
+                <g data-v-76882e96="" id="Layer_1_1_"></g> <g data-v-76882e96="">
                     <path style={{fill: "none"}} data-v-76882e96="" d="M27.8,57.7c-9.2,0-18.3,0-27.5,0c-0.2,0-0.3,0-0.3-0.3c0-18.3,0-36.7,0-55c0-0.2,0-0.3,0.3-0.3
     c18.3,0,36.7,0,55,0c0.2,0,0.3,0,0.3,0.3c0,18.3,0,36.7,0,55c0,0.2,0,0.3-0.3,0.3C46.1,57.7,36.9,57.7,27.8,57.7z M16.8,3
     c-0.3,0-0.6,0-0.9,0c-0.2,0-0.4,0-0.6,0.1c-3,0.4-5.6,1.7-7.6,4.1c-2.1,2.5-2.9,5.3-2.5,8.6c0.3,2.8,1.6,5.1,3.7,7

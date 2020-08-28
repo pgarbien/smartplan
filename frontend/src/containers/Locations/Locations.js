@@ -7,6 +7,16 @@ const Locations = () => {
     let [locations, setLocations] = useState([])
     const history = useHistory();
 
+    const post = () => {
+        axios.post('/locations/32bhsbbf7f6s6/1', locations)
+        .then(response => {
+            setLocations(response.data)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
     const locationsa = locations.map(location => {
         return <div onClick={() => {routeChange(`draw/` + location.id)}} className="location" style={{borderRadius: 5, overflow: "hidden", width: "31%", display: "inline-block", marginBottom: "3%"}}>
             <div style={{backgroundImage: "url('https://www.homekoncept.com.pl/wp-content/uploads/2020/05/HomeKONCEPT-NH-717-zdjecie-1.jpg')", backgroundSize: "cover", backgroundPositionX: "50%", height: 200}}>
@@ -23,12 +33,15 @@ const Locations = () => {
     }
 
     useEffect(() => {
-        axios.get('/locations')
+        axios.get('/locations',
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            }
+        })
         .then(response => {
             const locationss = Array.from(response.data)
-            locationss.push(...response.data)
-            locationss.push(...response.data)
-            locationss.push(...response.data)
             setLocations(locationss)
         })
         .catch(error => {
@@ -48,6 +61,7 @@ const Locations = () => {
                     Add new location
                 </div>
             </div>
+            <div onClick={() => {post()}}>aaa</div>
         </div>
     );
 }

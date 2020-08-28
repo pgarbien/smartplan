@@ -10,7 +10,7 @@ import {
     Switch
 } from 'react-router-dom'
 
-const DrawTool = () => {
+const DrawTool = (props) => {
     const creationCanvas = useRef(null);
     const [creator, setCreator] = useState(null);
 
@@ -45,16 +45,32 @@ const DrawTool = () => {
         const creator = new Creator(creationCanvas.current);
         setCreator(creator);
 
-        axios.get('/locations')
+        const query = window.location.search
+        const params = new URLSearchParams(query); 
+        const token = params.get('token');
+        if(token != null) {
+            localStorage.setItem('token', token);
+        }
+
+        axios.get('/locations/32bhsbbf7f6s6/1',
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            }
+        })
             .then(response => {
+                console.log(JSON.stringify(response.data))
                 creator.setBackgroundImage("https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg");
-                creator.setRooms(response.data[0].levels[0].rooms);
+                creator.setRooms(response.data.levels[0].rooms);
                 creator.drawCanvas();
             })
             .catch(error => {
                 console.log(error);
             });
     }, []);
+
+
 
     return (
         <Switch>
