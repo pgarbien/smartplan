@@ -26,6 +26,21 @@ const DrawTool = () => {
         setCreator(creator);
     };
 
+    /*
+    * This method must be created seperately as we cannot save image with background image behind our drawing
+    * as it gives us SecurityError (if you want to know in details read about CORS)
+    * */
+    const changeCondignation = (cr) => {
+        creationCanvas.current = cr.canvas;
+
+        const creator = new Creator(creationCanvas.current);
+
+        creator.setRooms(cr.getRooms());
+        creator.setDevices(cr.getDevices());
+        creator.drawCanvas();
+        setCreator(creator);
+    };
+
     useEffect(() => {
         const creator = new Creator(creationCanvas.current);
         setCreator(creator);
@@ -38,7 +53,7 @@ const DrawTool = () => {
     return (
         <Switch>
             <Route path="/draw/devices">
-            <DevicesPage change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
+            <DevicesPage change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
             <Tool change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
