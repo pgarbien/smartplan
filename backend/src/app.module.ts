@@ -10,6 +10,7 @@ import configuration from "../config/configuration";
 import { AuthController } from './auth/auth.controller';
 import AuthService from './auth/auth.service';
 import { SuplaStrategy } from './auth/supla.strategy';
+import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
     imports: [
@@ -17,6 +18,16 @@ import { SuplaStrategy } from './auth/supla.strategy';
         ConfigModule.forRoot({
             envFilePath: './config/api_config.env',
             load: [configuration]
+        }),
+        TypeOrmModule.forRoot({
+            type: 'postgres',
+            host: 'localhost',
+            port: 5432,
+            username: 'admin',
+            password: 'password',
+            database: 'supla_test',
+            entities: [],
+            synchronize: true
         })
     ],
     controllers: [AppController, ChannelsController, LocationsController, AuthController],
