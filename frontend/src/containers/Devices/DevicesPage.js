@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import Devices from './Devices'
+import Devices from '../../components/Devices/Devices'
 import './DevicesPage.css'
 
 const DevicesPage = ({change, creationCanvas, parentCreator}) => {
