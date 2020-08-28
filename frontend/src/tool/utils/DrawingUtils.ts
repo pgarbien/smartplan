@@ -30,7 +30,7 @@ function getCloseLine(rooms: Room[], point: Point): Wall | null {
         for(let i=0; i<points.length - 1; ++i) {
             const distance = Math.sqrt(distToSegmentSquared(point, points[i], points[i+1]));
 
-            if(distance < 5 && distance < minDistance) {
+            if(distance < minDistance) {
                 line = new Wall(points[i], points[i+1]);
             }
         }
