@@ -1,5 +1,6 @@
 import {Controller, Get, Param, Post} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
+import {Location} from "../model/location.model";
 
 @Controller('locations')
 export class LocationsController {
@@ -7,8 +8,9 @@ export class LocationsController {
     }
 
     @Get()
-    getLocations(){
-        return this.locationsService.getLocations();
+    getLocations(): Location[] {
+        // return this.locationsService.getLocations();
+        return [this.locationsService.location];
     }
 
     @Get('/:id')
