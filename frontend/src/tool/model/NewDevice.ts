@@ -11,7 +11,7 @@ export default class NewDevice implements NewDeviceInterface {
     point: Point;
     radius: number;
 
-    constructor(color: string = "128, 128, 128", point: Point = new Point(150,150), radius: number = 10) {
+    constructor(color: string = "rgba(0, 209, 81, 1)", point: Point = new Point(150,150), radius: number = 10) {
         this.color = color;
         this.point = point;
         this.radius = radius;

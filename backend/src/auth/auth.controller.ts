@@ -19,7 +19,7 @@ export class AuthController {
     const params = {
       session: false,
       scope: ['account_r', 'offline_access'],
-      callbackURL: `http://localhost:4000/auth/${provider}/callback`,
+      callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`,
     };
 
     passport.authenticate(provider, params)(req, res, next);
@@ -34,7 +34,7 @@ export class AuthController {
   ) {
     const params = {
       session: false,
-      callbackURL: `http://localhost:4000/auth/${provider}/callback`
+      callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`
     };
     
     // We use callback here, but you can let passport do the redirect
@@ -45,7 +45,7 @@ export class AuthController {
 
       // I generate the JWT token myself and redirect the user,
       // but you can make it more smart.
-      return res.redirect("http://localhost:3000?token=" + user.access_token)
+      return res.redirect("http://localhost:3000/draw?token=" + user.access_token)
     //   this.generateTokenAndRedirect(req, res, user);
     })(req, res, next);
   }

@@ -42,7 +42,7 @@ export default class CanvasDrawer {
     }
 
     drawRoom(room: Room, highlighted: boolean = false, building: Boolean = false) {
-        const points = room.points
+        const points = room.points;
 
         if(points[0]) {
             this.canvasContext.beginPath(); 
@@ -72,7 +72,7 @@ export default class CanvasDrawer {
     drawDevice(newDevice: NewDevice) {
         this.canvasContext.beginPath();
         this.canvasContext.arc(newDevice.point.x, newDevice.point.y,newDevice.radius, 0, 2 * Math.PI);
-        this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.fillStyle = newDevice.color;
         this.canvasContext.fill();
         this.canvasContext.closePath();
     }
@@ -92,7 +92,7 @@ export default class CanvasDrawer {
             endPoint.x, 
             endPoint.y
         );
-            
+        
         this.canvasContext.stroke();
         this.canvasContext.closePath();
         this.canvasContext.setLineDash([0,0]);
@@ -103,7 +103,7 @@ export default class CanvasDrawer {
         this.canvasContext.lineWidth = 1;
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
         this.canvasContext.arc(point.x, point.y, 5, 0, 2 * Math.PI);
-        this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)";
+        this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)"
         this.canvasContext.fill();
         this.canvasContext.stroke();
         this.canvasContext.closePath();
