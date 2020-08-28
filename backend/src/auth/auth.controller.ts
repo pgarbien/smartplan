@@ -21,7 +21,6 @@ export class AuthController {
       scope: ['account_r', 'offline_access'],
       callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`,
     };
-
     passport.authenticate(provider, params)(req, res, next);
   }
 
@@ -36,7 +35,6 @@ export class AuthController {
       session: false,
       callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`
     };
-    
     // We use callback here, but you can let passport do the redirect
     // http://www.passportjs.org/docs/downloads/html/#custom-callback
     passport.authenticate(provider, params, (err, user) => {

@@ -24,7 +24,7 @@ const callbackFunction =
             target_url: refresh.target_url
         }
 
-        return authService
+        return await authService
             .handlePassportAuth(authProfile)
             .then(result => done(null, result))
             .catch(error => done(error));

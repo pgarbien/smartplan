@@ -1,21 +1,23 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, UseGuards} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
 import {Location} from "./location.model";
+import {AuthGuard} from "../auth.guard";
 
 @Controller('locations')
+@UseGuards(AuthGuard)
 export class LocationsController {
     constructor(private readonly locationsService: LocationsService) {
     }
 
 
     @Get()
-    async get(): Promise<Location[]> {
-        return await this.locationsService.get();
+    get(): Location[] {
+        return [this.locationsService.location];
     }
 
-    @Get('/:id')
-    getLocation(@Param('id') id: number) {
-        return this.locationsService.getLocationById(id);
+    @Get('/:userId/:id')
+    getLocation(@Param('userId') userId: string, @Param('id') id: number): Promise<Location> {
+        return this.locationsService.getById(userId,id);
     }
 
     @Post()

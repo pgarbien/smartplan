@@ -23,32 +23,39 @@ export class LocationsService {
         headers: {Authorization: `Bearer ${this.apiKey}`}
     };
 
-    getLocations() {
-        return this.httpService.get(this.apiUrl, this.config)
-            .pipe(
-                map(response => response.data)
-            );
-    }
+    // getLocations() {
+    //     return this.httpService.get(this.apiUrl, this.config)
+    //         .pipe(
+    //             map(response => response.data)
+    //         );
+    // }
+    //
+    // getLocationById(locationId: number) {
+    //     return this.httpService.get(this.apiUrl + `/${locationId}`)
+    //         .pipe(
+    //             map(response => response.data)
+    //         );
+    // }
 
-    get() {
+    get(): Promise<Location[]> {
         return this.locationsRepository.find();
     }
 
-    create() {
-        console.log("aaa");
-        this.locationsRepository.save({name: "aaa", levels: []} as Location)
-    }
-
-    getLocationById(locationId: number) {
-        return this.httpService.get(this.apiUrl + `/${locationId}`)
-            .pipe(
-                map(response => response.data)
-            );
+    getById(userId: string, id: number): Promise<Location> {
+        return this.locationsRepository.findOne(
+            {
+                "id": id,
+                "userId": userId
+            },
+            {
+                relations: ["levels", "levels.rooms", "levels.rooms.points"]
+            });
     }
 
     async persist(location: Location): Promise<Location> {
         return await this.locationsRepository.save(location);
     }
+
 
 
     public rooms: Room[] =  [
@@ -228,7 +235,7 @@ export class LocationsService {
 
 
     public levels: Level[] = [new Level( "Poziom null" , this.rooms, 0), new Level( "Poziom 1", this.rooms, 1)];
-    public location: Location = new Location( "Lokalizacja Eryka", this.levels);
+    public location: Location = new Location( "SDASDASD", "Lokalizacja Eryka", this.levels);
 
 
 }

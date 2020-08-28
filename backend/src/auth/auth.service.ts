@@ -25,7 +25,6 @@ export default class AuthService {
         //add to hash
 
         this.loggedIn[profile.access_token] = profile;
-
         setTimeout(() => {
             this.loggedIn[profile.access_token] = null
         }, profile.expires_in * 1000);
@@ -46,7 +45,7 @@ export default class AuthService {
             );
     }
 
-    checkIfLoggedIn(token) {
-        return this.loggedIn[token]
+    async checkIfLoggedIn(token) {
+        return this.loggedIn[token] != null
     }
 }
