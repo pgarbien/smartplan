@@ -1,4 +1,4 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import {HttpService, Injectable} from '@nestjs/common';
 import {map} from "rxjs/operators";
 
 export type AuthProvider = 'supla';
@@ -15,7 +15,8 @@ export interface AuthProfile {
 export default class AuthService {
     private loggedIn = {};
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService) {
+    }
 
     async handlePassportAuth(profile: AuthProfile) {
         // Return the existing user, or create the user entity

@@ -12,4 +12,5 @@ import {SuplaStrategy} from "./supla.strategy";
     exports: [AuthService]
 })
 
-export class AuthModule {}
+export class AuthModule {
+}

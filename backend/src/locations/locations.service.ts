@@ -1,6 +1,5 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
-import {map} from "rxjs/operators";
 import {Level} from "../level/level.model";
 import {Room} from "../room/room.model";
 import {Location} from "./location.model";
@@ -69,184 +68,184 @@ export class LocationsService {
         })
     }
 
-    public rooms: Room[] =  [
+    public rooms: Room[] = [
         {
-            "name":"Metr kwadratowy",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Metr kwadratowy",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":590,
-                    "y":590
+                    "x": 590,
+                    "y": 590
                 } as Point,
                 {
-                    "x":540,
-                    "y":590
+                    "x": 540,
+                    "y": 590
                 } as Point,
                 {
-                    "x":540,
-                    "y":540
+                    "x": 540,
+                    "y": 540
                 } as Point,
                 {
-                    "x":590,
-                    "y":540
+                    "x": 590,
+                    "y": 540
                 } as Point
             ]
         } as Room,
         {
-            "name":"Sypialnia",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Sypialnia",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":146,
-                    "y":303
+                    "x": 146,
+                    "y": 303
                 } as Point,
                 {
-                    "x":146,
-                    "y":160
+                    "x": 146,
+                    "y": 160
                 } as Point,
                 {
-                    "x":262,
-                    "y":160
+                    "x": 262,
+                    "y": 160
                 } as Point,
                 {
-                    "x":262,
-                    "y":303
+                    "x": 262,
+                    "y": 303
                 } as Point
             ]
         } as Room,
         {
-            "name":"Salon",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Salon",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":262,
-                    "y":160
+                    "x": 262,
+                    "y": 160
                 } as Point,
                 {
-                    "x":314,
-                    "y":160
+                    "x": 314,
+                    "y": 160
                 } as Point,
                 {
-                    "x":339,
-                    "y":107
+                    "x": 339,
+                    "y": 107
                 } as Point,
                 {
-                    "x":415,
-                    "y":107
+                    "x": 415,
+                    "y": 107
                 } as Point,
                 {
-                    "x":445,
-                    "y":160
+                    "x": 445,
+                    "y": 160
                 } as Point,
                 {
-                    "x":489,
-                    "y":160
+                    "x": 489,
+                    "y": 160
                 } as Point,
                 {
-                    "x":489,
-                    "y":355
+                    "x": 489,
+                    "y": 355
                 } as Point,
                 {
-                    "x":344,
-                    "y":355
+                    "x": 344,
+                    "y": 355
                 } as Point,
                 {
-                    "x":344,
-                    "y":303
+                    "x": 344,
+                    "y": 303
                 } as Point,
                 {
-                    "x":262,
-                    "y":303
+                    "x": 262,
+                    "y": 303
                 } as Point
             ]
         } as Room,
         {
-            "name":"Sypialnia",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Sypialnia",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":489,
-                    "y":355
+                    "x": 489,
+                    "y": 355
                 } as Point,
                 {
-                    "x":489,
-                    "y":501
+                    "x": 489,
+                    "y": 501
                 } as Point,
                 {
-                    "x":367,
-                    "y":501
+                    "x": 367,
+                    "y": 501
                 } as Point,
                 {
-                    "x":367,
-                    "y":473
+                    "x": 367,
+                    "y": 473
                 } as Point,
                 {
-                    "x":344,
-                    "y":473
+                    "x": 344,
+                    "y": 473
                 } as Point,
                 {
-                    "x":344,
-                    "y":355
+                    "x": 344,
+                    "y": 355
                 } as Point
             ]
         } as Room,
         {
-            "name":"Łazienka",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Łazienka",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":344,
-                    "y":473
+                    "x": 344,
+                    "y": 473
                 } as Point,
                 {
-                    "x":240,
-                    "y":473
+                    "x": 240,
+                    "y": 473
                 } as Point,
                 {
-                    "x":240,
-                    "y":355
+                    "x": 240,
+                    "y": 355
                 } as Point,
                 {
-                    "x":344,
-                    "y":355
+                    "x": 344,
+                    "y": 355
                 } as Point
             ]
         } as Room,
         {
-            "name":"Hol",
-            "color":"128, 128, 128",
-            "points":[
+            "name": "Hol",
+            "color": "128, 128, 128",
+            "points": [
                 {
-                    "x":146,
-                    "y":303
+                    "x": 146,
+                    "y": 303
                 } as Point,
                 {
-                    "x":146,
-                    "y":372
+                    "x": 146,
+                    "y": 372
                 } as Point,
                 {
-                    "x":241,
-                    "y":372
+                    "x": 241,
+                    "y": 372
                 } as Point,
                 {
-                    "x":240,
-                    "y":355
+                    "x": 240,
+                    "y": 355
                 } as Point,
                 {
-                    "x":344,
-                    "y":355
+                    "x": 344,
+                    "y": 355
                 } as Point,
                 {
-                    "x":344,
-                    "y":303
+                    "x": 344,
+                    "y": 303
                 } as Point
             ]
         } as Room
     ];
 
 
-    public levels: Level[] = [new Level( "Poziom null" , this.rooms, 0), new Level( "Poziom 1", this.rooms, 1)];
-    public location: Location = new Location( "SDASDASD", "Lokalizacja Eryka", this.levels);
+    public levels: Level[] = [new Level("Poziom null", this.rooms, 0), new Level("Poziom 1", this.rooms, 1)];
+    public location: Location = new Location("SDASDASD", "Lokalizacja Eryka", this.levels);
 
 
 }

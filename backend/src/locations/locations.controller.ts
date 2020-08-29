@@ -1,8 +1,8 @@
-import {Body, Controller, Delete, Get, Param, Post, UseGuards, Headers, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Headers, Param, Post, UseGuards, UseInterceptors} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
 import {Location} from "./location.model";
 import {AuthGuard} from "../auth.guard";
-import AuthService, {AuthProfile} from "../auth/auth.service";
+import AuthService from "../auth/auth.service";
 import {AuthInterceptor} from "../auth.interceptor";
 
 @Controller('locations')

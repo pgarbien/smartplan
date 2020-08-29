@@ -1,7 +1,5 @@
 import {Controller, Get} from '@nestjs/common';
-import {LocationsService} from "../locations/locations.service";
 import {RoomService} from "./room.service";
-import {Room} from "./room.model";
 
 @Controller('room')
 export class RoomController {
