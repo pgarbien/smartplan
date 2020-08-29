@@ -1,10 +1,13 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import {map} from "rxjs/operators";
+import AuthService from "../auth/auth.service";
 
 @Injectable()
 export class ChannelsService {
-    constructor(private configService: ConfigService, private httpService: HttpService) { }
+    constructor(private readonly configService: ConfigService,
+                private readonly httpService: HttpService,
+                private readonly authService: AuthService) { }
 
     private apiKey: string = this.configService.get<string>('API_KEY');
     private apiUrl = this.configService.get<string>('API_URL') + '/channels';
@@ -14,8 +17,11 @@ export class ChannelsService {
     };
 
 
-    getChannels() { 
-        return this.httpService.get(this.apiUrl, this.config)
+    getChannels(token: string) {
+        console.log("Url: " + this.getUrlForToken(token));
+        return this.httpService.get('https://svr32.supla.org/api/v2.3.0/channels', {
+            headers: {Authorization: `Bearer ${token}`}
+        })
             .pipe(
                 map(response => response.data)
             );
@@ -33,5 +39,9 @@ export class ChannelsService {
             .pipe(
                 map(response => response.data)
             );
+    }
+
+    getUrlForToken(token: string): string {
+        return this.authService.getLoggedUserByToken(token).target_url + this.apiUrl
     }
 }

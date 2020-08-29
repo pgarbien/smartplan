@@ -16,8 +16,8 @@ export class Room {
 
     @ManyToOne(
         type => Level,
-        level => level.rooms
-        // , { primary: true }
+        level => level.rooms,
+        { onDelete: "CASCADE", onUpdate: "CASCADE" }
     )
     @JoinColumn([
         {name: 'userId', referencedColumnName: 'userId'},
@@ -28,9 +28,7 @@ export class Room {
     @OneToMany(
         type => Point,
         point => point.room,
-        {
-            cascade: true
-        }
+        {cascade: true, onUpdate: "CASCADE"}
     )
     points: Point[];
 

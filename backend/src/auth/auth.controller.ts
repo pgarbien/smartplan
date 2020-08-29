@@ -18,7 +18,7 @@ export class AuthController {
         //TODO add scopes from supla docs
         const params = {
             session: false,
-            scope: ['account_r', 'offline_access'],
+            scope: ['channels_rw', 'account_r'],
             callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`,
         };
         passport.authenticate(provider, params)(req, res, next);
@@ -43,7 +43,7 @@ export class AuthController {
 
             // I generate the JWT token myself and redirect the user,
             // but you can make it more smart.
-            return res.redirect("http://localhost:3000/draw?token=" + user.access_token)
+            return res.redirect("http://localhost:3000/auth?token=" + user.access_token)
             //   this.generateTokenAndRedirect(req, res, user);
         })(req, res, next);
     }

@@ -14,7 +14,8 @@ export class Point {
 
     @ManyToOne(
         type => Room,
-        room => room.points
+        room => room.points,
+        { onDelete: "CASCADE", onUpdate: "CASCADE" }
     )
     room: Room;
 

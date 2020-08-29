@@ -52,7 +52,11 @@ export class LocationsService {
     }
 
     async persist(userId: string, location: Location): Promise<Location> {
+        //TODO figure out a way of updating without delete
         location.userId = userId;
+        // if(location.id != null){
+        //     this.deleteById(userId, location.id);
+        // }
         console.log('userId: ' + userId);
         location.levels.forEach(location => {
             location.userId = userId;
