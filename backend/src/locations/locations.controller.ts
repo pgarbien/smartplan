@@ -1,26 +1,34 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Headers, Param, Post, UseGuards, UseInterceptors} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
 import {Location} from "./location.model";
+import {AuthGuard} from "../auth.guard";
+import AuthService from "../auth/auth.service";
+import {AuthInterceptor} from "../auth.interceptor";
 
 @Controller('locations')
+@UseGuards(AuthGuard)
+@UseInterceptors(AuthInterceptor)
 export class LocationsController {
-    constructor(private readonly locationsService: LocationsService) {
+    constructor(private readonly locationsService: LocationsService, private readonly authService: AuthService) {
     }
 
-
     @Get()
-    async get(): Promise<Location[]> {
-        return await this.locationsService.get();
+    get(@Headers('user_id') userId: string): Promise<Location[]> {
+        return this.locationsService.getAll(userId);
     }
 
     @Get('/:id')
-    getLocation(@Param('id') id: number) {
-        return this.locationsService.getLocationById(id);
+    getLocation(@Headers('user_id') userId: string, @Param('id') id: number): Promise<Location> {
+        return this.locationsService.getById(userId, id);
     }
 
     @Post()
-    save(@Body() location: Location): Promise<Location> {
-        return this.locationsService.persist(location);
+    save(@Headers('user_id') userId: string, @Body() location: Location): Promise<Location> {
+        return this.locationsService.persist(userId, location);
     }
 
+    @Delete('/:id')
+    delete(@Headers('user_id') userId: string, @Param('id') id: number) {
+        return this.locationsService.deleteById(userId, id);
+    }
 }

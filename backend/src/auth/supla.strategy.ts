@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, StrategyOptionWithRequest, VerifyFunctionWithRequest } from 'passport-oauth2';
+import {Injectable} from '@nestjs/common';
+import {PassportStrategy} from '@nestjs/passport';
+import {Strategy, StrategyOptionWithRequest, VerifyFunctionWithRequest} from 'passport-oauth2';
 
-import AuthService, { AuthProfile } from './auth.service';
+import AuthService, {AuthProfile} from './auth.service';
 
 const strategyRequest = {
     authorizationURL: 'https://svr36.supla.org/oauth/v2/auth',
@@ -12,10 +12,10 @@ const strategyRequest = {
     callbackURL: 'http://192.168.0.115:4000/auth/supla/callback'
 } as StrategyOptionWithRequest;
 
-const callbackFunction = 
+const callbackFunction =
     (authService: AuthService) => (async (req, access, refresh, profile, done) => {
         const user = await authService.getUser(req).toPromise()
-        
+
         const authProfile: AuthProfile = {
             id: user.shortUniqueId,
             access_token: refresh.access_token,
@@ -24,7 +24,7 @@ const callbackFunction =
             target_url: refresh.target_url
         }
 
-        return authService
+        return await authService
             .handlePassportAuth(authProfile)
             .then(result => done(null, result))
             .catch(error => done(error));
@@ -32,8 +32,7 @@ const callbackFunction =
 
 @Injectable()
 export class SuplaStrategy extends PassportStrategy(Strategy, 'supla') {
-  constructor(private authService: AuthService) {
-    super(strategyRequest, callbackFunction(authService));
-  }
+    constructor(private authService: AuthService) {
+        super(strategyRequest, callbackFunction(authService));
+    }
 }
-// https://svr36.supla.org/oauth/v2/auth?client_id=7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fauth&response_type=code&scope=account_r&state=example-state

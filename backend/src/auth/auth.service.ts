@@ -1,4 +1,4 @@
-import { Injectable, HttpService } from '@nestjs/common';
+import {HttpService, Injectable} from '@nestjs/common';
 import {map} from "rxjs/operators";
 
 export type AuthProvider = 'supla';
@@ -15,7 +15,8 @@ export interface AuthProfile {
 export default class AuthService {
     private loggedIn = {};
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService) {
+    }
 
     async handlePassportAuth(profile: AuthProfile) {
         // Return the existing user, or create the user entity
@@ -23,9 +24,8 @@ export default class AuthService {
 
         // Preform your business logic here\
         //add to hash
-
+        console.log(JSON.stringify(profile));
         this.loggedIn[profile.access_token] = profile;
-
         setTimeout(() => {
             this.loggedIn[profile.access_token] = null
         }, profile.expires_in * 1000);
@@ -46,7 +46,11 @@ export default class AuthService {
             );
     }
 
-    checkIfLoggedIn(token) {
-        return this.loggedIn[token]
+    getLoggedUserByToken(token: string): AuthProfile {
+        return this.loggedIn[token];
+    }
+
+    async checkIfLoggedIn(token: string) {
+        return this.loggedIn[token] != null
     }
 }
