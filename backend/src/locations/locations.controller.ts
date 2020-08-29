@@ -19,7 +19,7 @@ export class LocationsController {
 
     @Get('/:id')
     getLocation(@Headers('user_id') userId: string, @Param('id') id: number): Promise<Location> {
-        return this.locationsService.getById(userId,id);
+        return this.locationsService.getById(userId, id);
     }
 
     @Post()
