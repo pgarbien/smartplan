@@ -1,14 +1,18 @@
-import {Controller, Get, Param, Patch} from '@nestjs/common';
+import {Controller, Get, Headers, Param, Patch, UseGuards, UseInterceptors} from '@nestjs/common';
 import {ChannelsService} from "./channels.service";
+import {AuthGuard} from "../auth.guard";
+import {AuthInterceptor} from "../auth.interceptor";
 
 @Controller('channels')
+@UseGuards(AuthGuard)
+@UseInterceptors(AuthInterceptor)
 export class ChannelsController {
     constructor(private readonly channelsService: ChannelsService) {
     }
 
     @Get()
-    getChannels() {
-        return this.channelsService.getChannels();
+    getChannels(@Headers('authorization') token: string) {
+        return this.channelsService.getChannels(token);
     }
 
     @Get('/:id')
