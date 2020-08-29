@@ -6,10 +6,10 @@ export class Point {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column("real")
     x: number;
 
-    @Column()
+    @Column("real")
     y: number;
 
     @ManyToOne(
