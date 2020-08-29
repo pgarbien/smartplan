@@ -14,7 +14,7 @@ export class Level {
     name: string;
 
     @Column({nullable: true})
-    photoUrl: string;
+    blueprintUrl: string;
 
     @OneToMany(
         type => Room,

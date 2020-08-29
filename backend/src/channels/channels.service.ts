@@ -19,10 +19,9 @@ export class ChannelsService {
 
     getChannels(token: string) {
         console.log("Url: " + this.getUrlForToken(token));
-        return this.httpService.get('https://svr32.supla.org/api/v2.3.0/channels', {
+        return this.httpService.get(this.getUrlForToken(token), {
             headers: {Authorization: `Bearer ${token}`}
-        })
-            .pipe(
+        }).pipe(
                 map(response => response.data)
             );
     }
@@ -41,7 +40,7 @@ export class ChannelsService {
             );
     }
 
-    getUrlForToken(token: string): string {
+    private getUrlForToken(token: string): string {
         return this.authService.getLoggedUserByToken(token).target_url + this.apiUrl
     }
 }

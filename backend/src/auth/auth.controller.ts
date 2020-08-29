@@ -2,10 +2,23 @@ import {Controller, Get, Next, Param, Req, Res, UnauthorizedException} from '@ne
 import AuthService, {AuthProvider} from './auth.service'
 import {NextFunction, Request, Response} from 'express';
 import * as passport from 'passport';
+import {ConfigService} from "@nestjs/config";
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly auth: AuthService) {
+    constructor(private readonly auth: AuthService, private readonly configService: ConfigService) {
+    }
+
+    private callbackUrl = this.configService.get('SUPLA_CALLBACK_URL');
+    private suplaAuthUrl = this.configService.get('SUPLA_AUTH_URL');
+    private clientId = this.configService.get('SUPLA_CLIENT_ID');
+    private scopes = ['channels_r', 'account_r'];
+
+    @Get('/link')
+    getAuthUrl(): any {
+        console.log("Got request");
+        return {authUrl: `${this.suplaAuthUrl}?client_id=${this.clientId}&scope=${this.scopes.join('%20')}&state=example-state&response_type=code&redirect_uri=${this.callbackUrl}`};
+        // https://svr36.supla.org/oauth/v2/auth?client_id=7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc&scope=account_r%20channels_r&state=example-state&response_type=code&redirect_uri=http%3A%2F%2F192.168.0.115%3A4000%2Fauth%2Fsupla%2Fcallback
     }
 
     @Get(':provider(supla)')
@@ -18,9 +31,10 @@ export class AuthController {
         //TODO add scopes from supla docs
         const params = {
             session: false,
-            scope: ['channels_rw', 'account_r'],
-            callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`,
+            scope: this.scopes,
+            callbackURL: this.callbackUrl,
         };
+        console.log(params);
         passport.authenticate(provider, params)(req, res, next);
     }
 
@@ -33,18 +47,16 @@ export class AuthController {
     ) {
         const params = {
             session: false,
-            callbackURL: `http://192.168.0.115:4000/auth/${provider}/callback`
+            callbackURL: this.callbackUrl
         };
-        // We use callback here, but you can let passport do the redirect
-        // http://www.passportjs.org/docs/downloads/html/#custom-callback
+
         passport.authenticate(provider, params, (err, user) => {
-            if (err) return next(err);
+            if (err) {
+                return next(err);
+            }
             if (!user) return next(new UnauthorizedException());
 
-            // I generate the JWT token myself and redirect the user,
-            // but you can make it more smart.
             return res.redirect("http://localhost:3000/auth?token=" + user.access_token)
-            //   this.generateTokenAndRedirect(req, res, user);
         })(req, res, next);
     }
 
@@ -52,4 +64,6 @@ export class AuthController {
     async checkIfLoggedIn(@Param('token') token: string) {
         return this.auth.checkIfLoggedIn(token)
     }
+
+
 }
