@@ -10,6 +10,6 @@ export class RoomController {
 
     @Get()
     async add() {
-        const  room: Room = await this.roomService.save({id: 0, name: "aa", color: "asasa", points: [], level: null})
+        // const  room: Room = await this.roomService.save({id: 0, name: "aa", color: "asasa", points: [], level: null})
     }
 }

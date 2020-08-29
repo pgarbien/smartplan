@@ -23,7 +23,7 @@ export default class AuthService {
 
         // Preform your business logic here\
         //add to hash
-
+        console.log(JSON.stringify(profile));
         this.loggedIn[profile.access_token] = profile;
         setTimeout(() => {
             this.loggedIn[profile.access_token] = null
@@ -45,7 +45,11 @@ export default class AuthService {
             );
     }
 
-    async checkIfLoggedIn(token) {
+    getLoggedUserByToken(token: string): AuthProfile {
+        return this.loggedIn[token];
+    }
+
+    async checkIfLoggedIn(token: string) {
         return this.loggedIn[token] != null
     }
 }

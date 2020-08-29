@@ -7,7 +7,7 @@ export class Location {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @PrimaryColumn()
+    @PrimaryColumn({unique: true})
     userId: string;
 
     @Column()

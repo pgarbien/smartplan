@@ -37,8 +37,8 @@ export class LocationsService {
     //         );
     // }
 
-    get(): Promise<Location[]> {
-        return this.locationsRepository.find();
+    getAll(userId: string): Promise<Location[]> {
+        return this.locationsRepository.find({"userId": userId});
     }
 
     getById(userId: string, id: number): Promise<Location> {
@@ -52,11 +52,22 @@ export class LocationsService {
             });
     }
 
-    async persist(location: Location): Promise<Location> {
+    async persist(userId: string, location: Location): Promise<Location> {
+        location.userId = userId;
+        console.log('userId: ' + userId);
+        location.levels.forEach(location => {
+            location.userId = userId;
+            location.rooms.forEach(room => room.userId = userId)
+        });
         return await this.locationsRepository.save(location);
     }
 
-
+    deleteById(userId: string, locationId: number) {
+        this.locationsRepository.delete({
+            "id": locationId,
+            "userId": userId
+        })
+    }
 
     public rooms: Room[] =  [
         {
