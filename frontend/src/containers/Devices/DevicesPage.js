@@ -27,7 +27,7 @@ const DevicesPage = ({change, creationCanvas, parentCreator}) => {
             </div>
             <div className="drawingArea" style={{display: "grid", gridColumn: 2, gridRow: 1}}>
                 <h2 style={{justifySelf: "center"}}>Kondygnacja numer #01</h2>
-                <canvas ref={creationCanvas} id="condignationCanvas" width="600" height="600" style={{border: "1px solid #00d051", borderRadius: "25px"}}></canvas>
+                <canvas ref={creationCanvas} id="condignationCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}></canvas>
             </div>
             <div className="devicesList" style={{display: "grid", gridColumn: 3, gridRow: 1}}>
                 <Devices/>

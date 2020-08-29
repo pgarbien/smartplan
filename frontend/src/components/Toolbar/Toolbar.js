@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import NavLinks from './NavLinks'
 
 const Toolbar = (props) => {

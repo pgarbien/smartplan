@@ -40,7 +40,7 @@ const Desc = () => {
     return(
         <div className="description" style={{display: "grid", gridColumn: 3, gridRow: 1, justifySelf: "center", justifyItems: "center"}}>
               <h3>Podstawowe narzędzie do rysowania mapy domu.</h3>
-                <canvas ref={descCanvas} id="canvas" width="250" height="400" style={{border: "1px solid #00d051", borderRadius: "25px", marginTop: "15%"}}></canvas>
+                <canvas ref={descCanvas} id="canvas" width="250" height="400" style={{border: "1px solid #00d051", marginTop: "15%"}}></canvas>
         </div>
     );
 }

@@ -68,3 +68,22 @@ body {
   z-index: -1000;
   transform: scale(1.2);
 }
+
+.level {
+  text-align: center;
+  padding: 5px;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: #00d151;
+  cursor: pointer;
+}
+
+.level:first-child {
+  border-width: 1px;
+}
+
+.level-active {
+  background: #00d151;
+  border: 0;
+  color: #fff;
+}

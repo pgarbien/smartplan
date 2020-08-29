@@ -1,0 +1,31 @@
+input {
+    border: 0;
+    border-bottom: 1px solid rgb(191,191,191);
+    padding: 0 5px 3px 0px;
+    font-size: 19px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+input[type=color] {
+    padding: 0px!important;
+    height: 100px;
+}
+
+button {
+    border: 1px solid rgb(191, 191, 191);
+    background: #fff;
+    padding: 10px 15px;
+    transition: ease .5s;
+    cursor: pointer;
+}
+
+button:hover {
+    border: 1px solid #00d151;
+    background: #00d151;
+    color: #fff;
+}
+
+/* input[type=file] {
+    display: none;
+} */
