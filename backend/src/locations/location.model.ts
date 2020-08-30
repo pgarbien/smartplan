@@ -13,10 +13,13 @@ export class Location {
     @Column()
     name: string;
 
+    @Column({nullable: true})
+    photoUrl: string;
+
     @OneToMany(
         type => Level,
         level => level.location,
-        {cascade: true}
+        {cascade: true, onUpdate: "CASCADE"}
     )
     levels: Level[];
 

@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Headers, Param, Post, UseGuards, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Headers, Param, Post, Put, UseGuards, UseInterceptors} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
 import {Location} from "./location.model";
 import {AuthGuard} from "../auth.guard";
@@ -25,6 +25,11 @@ export class LocationsController {
     @Post()
     save(@Headers('user_id') userId: string, @Body() location: Location): Promise<Location> {
         return this.locationsService.persist(userId, location);
+    }
+
+    @Put()
+    update(@Headers('user_id') userId: string, @Body() location: Location): Promise<Location> {
+       return this.locationsService.update(userId, location);
     }
 
     @Delete('/:id')

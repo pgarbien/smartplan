@@ -5,16 +5,15 @@ import {ConfigModule} from "@nestjs/config";
 import {ChannelsController} from './channels/channels.controller';
 import {ChannelsService} from './channels/channels.service';
 import configuration from "../config/configuration";
-import {AuthController} from './auth/auth.controller';
-import AuthService from './auth/auth.service';
-import {SuplaStrategy} from './auth/supla.strategy';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {LevelModule} from './level/level.module';
 import {LocationsModule} from './locations/locations.module';
 import {RoomModule} from './room/room.module';
 import {Point} from "./model/point.model";
-import { AuthModule } from './auth/auth.module';
-import {AuthGuard} from "./auth.guard";
+import {AuthModule} from './auth/auth.module';
+import {ServeStaticModule} from "@nestjs/serve-static";
+import {join} from 'path';
+import { FileController } from './file/file.controller';
 
 @Module({
     imports: [
@@ -34,13 +33,17 @@ import {AuthGuard} from "./auth.guard";
             autoLoadEntities: true,
             entities: [Point]
         }),
+        ServeStaticModule.forRoot({
+            rootPath: 'C:/Users/Piotrek/Projekty/Inzynierka/atomowki/backend/static'
+        }),
         LevelModule,
         LocationsModule,
         RoomModule,
         AuthModule
     ],
-    controllers: [AppController, ChannelsController],
+    controllers: [AppController, ChannelsController, FileController],
     providers: [AppService, ChannelsService]
 })
+
 export class AppModule {
 }

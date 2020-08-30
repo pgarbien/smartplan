@@ -13,12 +13,13 @@ export class Level {
     @Column()
     name: string;
 
+    @Column({nullable: true})
+    blueprintUrl: string;
+
     @OneToMany(
         type => Room,
         room => room.level,
-        {
-            cascade: true
-        }
+        {cascade: true, onUpdate: "CASCADE"}
     )
     rooms: Room[];
 
@@ -27,8 +28,8 @@ export class Level {
 
     @ManyToOne(
         type => Location,
-        location => location.levels
-        // , { primary: true }
+        location => location.levels,
+        { onDelete: "CASCADE", onUpdate: "CASCADE" }
     )
     @JoinColumn([
         {name: 'userId', referencedColumnName: 'userId'},
