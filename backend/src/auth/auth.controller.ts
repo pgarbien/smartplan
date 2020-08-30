@@ -54,7 +54,7 @@ export class AuthController {
             }
             if (!user) return next(new UnauthorizedException());
 
-            return res.redirect("http://localhost:3000/auth?token=" + user.access_token)
+            return res.redirect("https://atomowki.azurewebsites.net/auth?token=" + user.access_token)
         })(req, res, next);
     }
 

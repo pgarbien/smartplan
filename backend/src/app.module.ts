@@ -24,11 +24,11 @@ import { FileController } from './file/file.controller';
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: 'localhost',
+            host: 'POSTGRES_TEST',
             port: 5432,
             username: 'admin',
             password: 'password',
-            database: 'supla_test',
+            database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
             entities: [Point]

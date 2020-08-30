@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  frontend:
+    container_name: FRONTEND_TEST
+    build:
+      context: ./frontend
+    ports:
+      - 2000:80
+    depends_on:
+      - backend
+  backend:
+    container_name: BACKEND_TEST
+    build:
+      context: ./backend
+    ports:
+      - 4000:4000
+    working_dir: /usr/src/app
+    command: npm start
+    depends_on:
+      - postgres
+  postgres:
+    container_name: POSTGRES_TEST
+    image: postgres:12
+    environment:
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: "admin"
+      POSTGRES_DB: "supla_db"
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
