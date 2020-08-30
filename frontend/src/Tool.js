@@ -2,24 +2,31 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Desc from './Desc'
 import {Link} from 'react-router-dom'
-import axios from './utils/API'
+import mAxios from './utils/API'
+import { useHistory } from "react-router-dom";
 
 const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCreator}) => {
+
   const creator = parentCreator;
+  
+  const history = useHistory();
   const [activeLevel, setActiveLevel] = useState(0)
 
   const levelsMapped = location && location.levels ? location.levels.slice(0).reverse().map(level => {
     return <div className={"level " + ((level.order === activeLevel) ? "level-active" : "")} onClick={() => { 
       const prevLevel =location.levels.find(level => level.order === activeLevel)
       prevLevel.rooms = creator.getRooms();
+      if(level.blueprintUrl != null) {
+          creator.setBackgroundImage(level.blueprintUrl);
+      }
       creator.setRooms(level.rooms); 
       creator.drawCanvas(); 
       setActiveLevel(level.order) 
     }}>{level.name}</div>
   }) : null
 
-  const post = () => {
-    axios.post('/locations', location,
+  const put = () => {
+    mAxios.put('/locations', location,
         {
             headers: {
                 'Content-Type': 'application/json',
@@ -27,6 +34,22 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
             }
         })
         .then(response => {
+          console.log("aaaa")
+        })
+        .catch(error => {
+            console.log(error);
+        });
+  }
+
+  const remove = () => {
+    mAxios.delete('/locations/' + location.id, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+        .then(response => {
+          history.push('locations')
         })
         .catch(error => {
             console.log(error);
@@ -62,7 +85,8 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
         <div style={{display: "grid", gridRow: 3, gridColumn: 4}}>
           <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
         </div>
-        <div onClick={() => post()}>aaa</div>
+        <div onClick={() => put()}>aaa</div>
+        <div onClick={() => remove()}>bbb</div>
       </div>
   );
 }

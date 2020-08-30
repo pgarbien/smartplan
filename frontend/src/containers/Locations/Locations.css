@@ -1,0 +1,40 @@
+.location {
+    border-radius: 5px;
+    overflow: hidden;
+    width: 31%;
+    display: inline-block;
+    margin-bottom: 3%;
+}
+
+.location-photo {
+    background-size: cover;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    height: 200px;
+}
+
+.location-name { 
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    border-width: 0px 1px 1px 1px;
+    border-color: rgb(198, 198, 198);
+    border-style: solid;
+    border-radius: 0px 0px 5px 5px;
+    background-color: #fff;
+}
+
+.location-add-photo {
+    background-color: #fff;
+    background-image: url('https://static.thenounproject.com/png/2996504-200.png');
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    border-width: 1px 1px 0px 1px;
+    border-color: rgb(198, 198, 198);
+    border-style: solid;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.location-add-name {
+    border-width: 1px 1px 1px 1px;
+}

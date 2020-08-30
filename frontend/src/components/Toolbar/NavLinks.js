@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
+import mAxios from '../../utils/API'
+import './NavLinks.css';
 
-const NavLinks = (props) => {
+const NavLinks = ({loggedIn}) => {
+    const [authUrl, setAuthUrl] = useState("")
+
+    useEffect(() => fetchAuthLink, [])
+
+    const fetchAuthLink = mAxios.get('/auth/link')
+        .then(response => {
+            setAuthUrl(response.data.authUrl)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
     const loggedInNav = <nav>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/">Home</NavLink>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations">Locations</NavLink>
@@ -12,13 +26,13 @@ const NavLinks = (props) => {
 
     const loggedOutNav = <nav>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/">Home</NavLink>
-        <a className="tool-bar_link" style={{cursor: "pointer"}} href="https://supla.org">Project page</a>
-        <a className="tool-bar_link" style={{cursor: "pointer"}} href="https://svr36.supla.org/oauth/v2/auth?client_id=7_1iz810w77xfoko0w4k4c8s88w40gs80w444wcwo404gc8kc8cc&scope=account_r&scope=channels_rw&state=example-state&response_type=code&redirect_uri=http%3A%2F%2F192.168.0.115%3A4000%2Fauth%2Fsupla%2Fcallback">Login</a>
+        <a className="tool-bar_link" href="https://supla.org">Project page</a>
+        <a className="tool-bar_link" href="https://supla.org">About us</a>
+        <a className="tool-bar_link" href="https://supla.org">Contact</a>
+        <a className="tool-bar_link" href={authUrl}>Login</a>
     </nav>
 
-    return (
-        props.loggedIn ? loggedInNav : loggedOutNav 
-    );
+    return (loggedIn ? loggedInNav : loggedOutNav);
 }
 
 export default NavLinks;

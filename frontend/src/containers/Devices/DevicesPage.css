@@ -1,3 +1,12 @@
+.devices_container {
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr 1fr;
+    justify-items: left;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
 .devices_list {
     width: 150px;
     background-color: #eaeaea;
@@ -18,4 +27,16 @@
 
 .device_button:hover {
     background-color: #c6c6c6;
+}
+
+.tools {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.drawing-area {
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
 }

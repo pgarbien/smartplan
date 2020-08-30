@@ -12,7 +12,7 @@ input[type=color] {
     height: 100px;
 }
 
-button {
+button, .upload-button {
     border: 1px solid rgb(191, 191, 191);
     background: #fff;
     padding: 10px 15px;
@@ -20,12 +20,12 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:hover, .upload-button:hover {
     border: 1px solid #00d151;
     background: #00d151;
     color: #fff;
 }
 
-/* input[type=file] {
+input[type=file] {
     display: none;
-} */
+}

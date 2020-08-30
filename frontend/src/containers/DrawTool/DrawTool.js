@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Creator from '../../tool/Creator'
-import axios from '../../utils/API'
+import mAxios from '../../utils/API'
 import DevicesPage from '../Devices/DevicesPage'
 import Tool from '../../Tool'
 import Location from '../../tool/model/Location'
@@ -41,9 +41,9 @@ const DrawTool = (props) => {
         setCreator(creator);
     };
 
-    const addNewLevel = () => {
+    const addNewLevel = (levelName, blueprintUrl) => {
         const preLocation = location; 
-        preLocation.levels.push(new Level(null, "Unknown", [], preLocation.levels.length)); 
+        preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
         setLocation(preLocation); 
         setShowAddLevelModal(false)
     }
@@ -56,7 +56,7 @@ const DrawTool = (props) => {
         const params = new URLSearchParams(query);
         const locationId = params.get('locationId');
         if(locationId != null) {
-            axios.get('/locations/' + locationId, {
+            mAxios.get('/locations/' + locationId, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token')
@@ -69,7 +69,9 @@ const DrawTool = (props) => {
                 if(location.levels.length === 0) {
                     setShowAddLevelModal(true)
                 } else {
-                    creator.setBackgroundImage("https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg");
+                    if(location.levels[0].blueprintUrl != null) {
+                        creator.setBackgroundImage(location.levels[0].blueprintUrl);
+                    }
                     creator.setRooms(location.levels[0].rooms);
                     creator.drawCanvas();
                 }
@@ -90,7 +92,7 @@ const DrawTool = (props) => {
             </Route>
             <Route path="/draw">
                 <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
-                { showAddLevelModal ? <NewLevelModal onSaveButtonClick={addNewLevel} showModal={showAddLevelModal} setShowModal={setShowAddLevelModal} /> : null }
+                { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} showModal={showAddLevelModal} setShowModal={setShowAddLevelModal} /> : null }
             </Route>
         </Switch>
     );

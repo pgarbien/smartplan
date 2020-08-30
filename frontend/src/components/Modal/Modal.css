@@ -8,6 +8,14 @@
     box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, .1)
 }
 
+.modal-background {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0px; 
+    top: 0px
+}
+
 .modal-header {
     padding: 20px;
     border-bottom: 1px solid rgb(240, 239, 239);

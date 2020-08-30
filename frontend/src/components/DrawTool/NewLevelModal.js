@@ -1,28 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
+import mAxios from '../../utils/API'
 import '../Locations/NewLocationModal.css'
 
 const NewLevelModal = (props) => {
+    const [levelName, setLevelName] = useState(null)
+    const [levelBlueprint, setLevelBlueprint] = useState(null)
 
     const modalContent = <Fragment>
-        <label for="location-name">Level name:</label>
-        <input type="text" id="location-name" name="location-name" placeholder="Level #1" />
+        <label for="level-name">Level name:</label>
+        <input type="text" id="level-name" name="level-name" placeholder="Level #1" onChange={(event) => { setLevelName(event.target.value) }} />
         {/* <br/>
-        <label for="location-photo">Location photo:</label> */}
+        <label for="level-blueprint">Level blueprint:</label> */}
         <br/>
-        <label for="location-photo">Level blueprint:</label>
-        <input type="file" id="location-photo" name="location-photo" accept="image/png, image/jpeg"/>
+        <label for="level-blueprint">Level blueprint:</label>
+        <input type="file" id="level-blueprint" name="level-blueprint" accept="image/png, image/jpeg" onChange={(event) => { setLevelBlueprint(event.target.files[0]) }}/>
         <br/>
-        {/* <label for="location-color">Level color:</label>
-        <input type="color" id="location-color" name="location-color" value="#00d151" /> */}
-        <button onClick={() => { props.onSaveButtonClick() }}>aaa</button>
+        {/* <label for="level-color">Level color:</label>
+        <input type="color" id="level-color" name="level-color" value="#00d151" /> */}
+        <button onClick={() => { levelBlueprint ? createNewLevel() : props.addNewLevel(levelName, null) }} disabled={ levelName == null || levelName === "" }>CREATE</button>
     </Fragment>
 
-    return (
-            <Fragment>
-                { props.showModal ? <Modal title="Add new level" onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null }
-            </Fragment>
-    );
+    const createNewLevel = () => {
+        const blueprintFile = new FormData() 
+        blueprintFile.append('file', levelBlueprint)
+
+        mAxios.post('/file/upload', blueprintFile)
+            .then(response => {
+                const blueprintUrl = response.data.photoUrl
+                props.addNewLevel(levelName, blueprintUrl)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    return (props.showModal ? <Modal title="Add new level" onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
 }
 
 export default NewLevelModal;

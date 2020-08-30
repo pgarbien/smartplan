@@ -11,7 +11,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
-    setLoggedIn(localStorage['token'] != null)
+    setLoggedIn(localStorage['token'])
   }, [])
 
   return [

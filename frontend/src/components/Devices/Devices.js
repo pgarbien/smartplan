@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import axios from '../../utils/API'
+import mAxios from '../../utils/API'
 
 const Devices = () => {
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {
-        axios.get('/channels', {
+        mAxios.get('/channels', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token')
