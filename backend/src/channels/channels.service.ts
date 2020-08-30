@@ -18,7 +18,6 @@ export class ChannelsService {
 
 
     getChannels(token: string) {
-        console.log("Url: " + this.getUrlForToken(token));
         return this.httpService.get(this.getUrlForToken(token), {
             headers: {Authorization: `Bearer ${token}`}
         }).pipe(

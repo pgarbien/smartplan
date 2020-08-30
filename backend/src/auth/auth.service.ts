@@ -19,18 +19,11 @@ export default class AuthService {
     }
 
     async handlePassportAuth(profile: AuthProfile) {
-        // Return the existing user, or create the user entity
-        // form profile returned by the OAuth provider
-
-        // Preform your business logic here\
-        //add to hash
-        console.log(JSON.stringify(profile));
         this.loggedIn[profile.access_token] = profile;
         setTimeout(() => {
             this.loggedIn[profile.access_token] = null
         }, profile.expires_in * 1000);
 
-        // Return the user instance
         return profile;
     }
 
