@@ -2,7 +2,6 @@ version: '3.7'
 
 services:
   frontend:
-    container_name: FRONTEND_TEST
     build:
       context: ./frontend
     ports:
@@ -10,7 +9,6 @@ services:
     depends_on:
       - backend
   backend:
-    container_name: BACKEND_TEST
     build:
       context: ./backend
     ports:
@@ -20,7 +18,6 @@ services:
     depends_on:
       - postgres
   postgres:
-    container_name: POSTGRES_TEST
     image: postgres:12
     environment:
       POSTGRES_PASSWORD: "password"

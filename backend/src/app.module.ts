@@ -24,7 +24,7 @@ import { FileController } from './file/file.controller';
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: 'POSTGRES_TEST',
+            host: 'postgres',
             port: 5432,
             username: 'admin',
             password: 'password',
