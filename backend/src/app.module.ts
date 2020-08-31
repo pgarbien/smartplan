@@ -28,7 +28,7 @@ import { FileController } from './file/file.controller';
             port: 5432,
             username: 'admin',
             password: 'password',
-            database: 'supla_test',
+            database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
             entities: [Point]
