@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const mAxios = axios.create({
-    baseURL: "http://192.168.0.115:4000/",
+    baseURL: "localhost:4000/",
     responseType: "json"
 });
 
