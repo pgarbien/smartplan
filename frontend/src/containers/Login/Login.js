@@ -1,8 +1,7 @@
-import React, { useEffect, Fragment } from 'react'
-import './Login.css'
+import React, { useEffect, Fragment } from 'react';
+import './Login.css';
 
 const Login = (props) => {
-
     useEffect(() => { props.setLoggedIn(localStorage['token']) });
   
     return (

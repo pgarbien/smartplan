@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import Devices from '../../components/Devices/Devices'
-import './DevicesPage.css'
+import { Link } from 'react-router-dom';
+import Devices from '../../components/Devices/Devices';
+import './DevicesPage.css';
 
 const DevicesPage = ({change, creationCanvas, parentCreator}) => {
     const creator = parentCreator;
 
     useEffect(() => {
         if(parentCreator != null) {
-            parentCreator.setCanvas(creationCanvas.current)
+            parentCreator.setCanvas(creationCanvas.current);
             change(parentCreator);
         }
     }, []);

@@ -7,7 +7,7 @@ const mAxios = axios.create({
 
 mAxios.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
         config.headers['Authorization'] = token;
         return config;
     },
@@ -17,8 +17,8 @@ mAxios.interceptors.response.use(
     (response) => response, 
     (error) => {
         if (error.response.status === 403) {
-            localStorage.removeItem('token')
-            window.location = "http://localhost:3000/"
+            localStorage.removeItem('token');
+            window.location = "http://localhost:3000/";
         }
     });
 

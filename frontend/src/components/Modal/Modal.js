@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import './Modal.css'
+import './Modal.css';
 
 const Modal = (props) => {
   return (

@@ -7,7 +7,7 @@ const Auth = (props) => {
     useEffect(() => saveAuthToken());
 
     const saveAuthToken = () => {
-      const query = window.location.search
+      const query = window.location.search;
       const params = new URLSearchParams(query); 
       const token = params.get('token');
 
@@ -15,8 +15,8 @@ const Auth = (props) => {
           localStorage.setItem('token', token);
       }
   
-      props.setLoggedIn(localStorage['token'])
-      history.push('/locations')
+      props.setLoggedIn(localStorage['token']);
+      history.push('/locations');
     }
   
     return (<Fragment/>);
