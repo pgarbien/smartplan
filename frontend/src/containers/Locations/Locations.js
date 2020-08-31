@@ -1,15 +1,15 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import mAxios from '../../utils/API'
+import mAxios from '../../utils/API';
 import { useHistory } from "react-router-dom";
 import NewLocationModal from '../../components/Locations/NewLocationModal';
-import './Locations.css'
+import './Locations.css';
 
 const Locations = () => {
     const history = useHistory();
-    const [locations, setLocations] = useState([])
-    const [showModal, setShowModal] = useState(false)
+    const [locations, setLocations] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
-    const staticLocationPhoto = "url('https://www.homekoncept.com.pl/wp-content/uploads/2020/05/HomeKONCEPT-NH-717-zdjecie-1.jpg')"
+    const staticLocationPhoto = "url('https://www.homekoncept.com.pl/wp-content/uploads/2020/05/HomeKONCEPT-NH-717-zdjecie-1.jpg')";
 
     useEffect(() => fetchLocations(), []);
 

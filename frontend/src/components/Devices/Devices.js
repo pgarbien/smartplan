@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import mAxios from '../../utils/API'
+import mAxios from '../../utils/API';
 
 const Devices = () => {
     const [devices, setDevices] = useState([]);
@@ -38,4 +38,4 @@ const Devices = () => {
     );
 };
 
-export default Devices
+export default Devices;

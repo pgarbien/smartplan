@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
-import mAxios from '../../utils/API'
-import '../Locations/NewLocationModal.css'
+import mAxios from '../../utils/API';
+import '../Locations/NewLocationModal.css';
 
 const NewLevelModal = (props) => {
-    const [levelName, setLevelName] = useState(null)
-    const [levelBlueprint, setLevelBlueprint] = useState(null)
+    const [levelName, setLevelName] = useState(null);
+    const [levelBlueprint, setLevelBlueprint] = useState(null);
 
     const modalContent = <Fragment>
         <label for="level-name">Level name:</label>
@@ -19,11 +19,11 @@ const NewLevelModal = (props) => {
         {/* <label for="level-color">Level color:</label>
         <input type="color" id="level-color" name="level-color" value="#00d151" /> */}
         <button onClick={() => { levelBlueprint ? createNewLevel() : props.addNewLevel(levelName, null) }} disabled={ levelName == null || levelName === "" }>CREATE</button>
-    </Fragment>
+    </Fragment>;
 
     const createNewLevel = () => {
-        const blueprintFile = new FormData() 
-        blueprintFile.append('file', levelBlueprint)
+        const blueprintFile = new FormData() ;
+        blueprintFile.append('file', levelBlueprint);
 
         mAxios.post('/file/upload', blueprintFile)
             .then(response => {

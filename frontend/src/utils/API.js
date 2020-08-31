@@ -7,7 +7,7 @@ const mAxios = axios.create({
 
 mAxios.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('token');
         config.headers['Authorization'] = token;
         return config;
     },

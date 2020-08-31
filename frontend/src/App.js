@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Login from './containers/Login/Login'
-import DrawTool from './containers/DrawTool/DrawTool'
-import Layout from './containers/Layout/Layout'
+import Login from './containers/Login/Login';
+import DrawTool from './containers/DrawTool/DrawTool';
+import Layout from './containers/Layout/Layout';
 import Locations from './containers/Locations/Locations';
-import Auth from './containers/Auth/Auth'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Auth from './containers/Auth/Auth';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     setLoggedIn(localStorage['token'])
-  }, [])
+  }, []);
 
   return [
     <BrowserRouter>
