@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
-import Location from '../../tool/model/Location'
-import mAxios from '../../utils/API'
-import './NewLocationModal.css'
+import Location from '../../tool/model/Location';
+import mAxios from '../../utils/API';
+import './NewLocationModal.css';
 
 const NewLocationModal = (props) => {
-    const [locationName, setLocationName] = useState(null)
-    const [locationPhoto, setLocationPhoto] = useState(null)
+    const [locationName, setLocationName] = useState(null);
+    const [locationPhoto, setLocationPhoto] = useState(null);
 
     const modalContent = <Fragment>
         <label for="location-name">Location name:</label>
@@ -22,11 +22,11 @@ const NewLocationModal = (props) => {
         {/* <label for="location-color">Location color:</label>
         <input type="color" id="location-color" name="location-color" value="#00d151" /> */}
         <button onClick={() => { locationPhoto ? createNewLocation() : postNewLocation() }} disabled={ locationName == null || locationName === "" }>CREATE</button>
-    </Fragment>
+    </Fragment>;
 
     const createNewLocation = () => {
-        const locationPhotoFile = new FormData() 
-        locationPhotoFile.append('file', locationPhoto)
+        const locationPhotoFile = new FormData() ;
+        locationPhotoFile.append('file', locationPhoto);
 
         mAxios.post('/file/upload', locationPhotoFile)
             .then(response => {
@@ -39,7 +39,7 @@ const NewLocationModal = (props) => {
     }
 
     const postNewLocation = (photoUrl = null) => {
-        const location = new Location(null, locationName, photoUrl, [])
+        const location = new Location(null, locationName, photoUrl, []);
 
         mAxios.post('/locations', location)
             .then(_ => {

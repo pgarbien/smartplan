@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Toolbar from '../../components/Toolbar/Toolbar';
-import './Layout.css'
+import './Layout.css';
 
 const Layout = (props) => {
     return (

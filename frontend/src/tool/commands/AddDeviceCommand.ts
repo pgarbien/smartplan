@@ -117,7 +117,6 @@ export default class AddDeviceCommand extends Command {
 
                 if(closePoint) {
                     console.log("d");
-                    
                 }
             }
         }

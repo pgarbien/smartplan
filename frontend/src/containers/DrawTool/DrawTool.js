@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Creator from '../../tool/Creator'
-import mAxios from '../../utils/API'
-import DevicesPage from '../Devices/DevicesPage'
-import Tool from '../../Tool'
-import Location from '../../tool/model/Location'
-import { Route, Switch } from 'react-router-dom'
+import Creator from '../../tool/Creator';
+import mAxios from '../../utils/API';
+import DevicesPage from '../Devices/DevicesPage';
+import Tool from '../../Tool';
+import Location from '../../tool/model/Location';
+import { Route, Switch } from 'react-router-dom';
 import Level from '../../tool/model/Level';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 
@@ -12,7 +12,7 @@ const DrawTool = (props) => {
     const creationCanvas = useRef(null);
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
-    const [showAddLevelModal, setShowAddLevelModal] = useState(false)
+    const [showAddLevelModal, setShowAddLevelModal] = useState(false);
 
     const change = (cr) => {
         creationCanvas.current = cr.canvas;
@@ -52,7 +52,7 @@ const DrawTool = (props) => {
         const creator = new Creator(creationCanvas.current);
         setCreator(creator);
 
-        const query = window.location.search
+        const query = window.location.search;
         const params = new URLSearchParams(query);
         const locationId = params.get('locationId');
         if(locationId != null) {
@@ -63,11 +63,11 @@ const DrawTool = (props) => {
                 }
             })
             .then(response => {
-                const location = response.data
-                setLocation(location)
+                const location = response.data;
+                setLocation(location);
 
                 if(location.levels.length === 0) {
-                    setShowAddLevelModal(true)
+                    setShowAddLevelModal(true);
                 } else {
                     if(location.levels[0].blueprintUrl != null) {
                         creator.setBackgroundImage(location.levels[0].blueprintUrl);
@@ -80,8 +80,8 @@ const DrawTool = (props) => {
                 console.log(error);
             });
         } else {
-            setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", []))
-            setShowAddLevelModal(true)
+            setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", []));
+            setShowAddLevelModal(true);
         }
     }, []);
 

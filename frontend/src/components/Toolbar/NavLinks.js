@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom'
-import mAxios from '../../utils/API'
+import { NavLink } from 'react-router-dom';
+import mAxios from '../../utils/API';
 import './NavLinks.css';
 
 const NavLinks = ({loggedIn}) => {
-    const [authUrl, setAuthUrl] = useState("")
+    const [authUrl, setAuthUrl] = useState("");
 
-    useEffect(() => fetchAuthLink, [])
+    useEffect(() => fetchAuthLink, []);
 
     const fetchAuthLink = mAxios.get('/auth/link')
         .then(response => {
@@ -22,7 +22,7 @@ const NavLinks = ({loggedIn}) => {
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/draw">Draw</NavLink>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/draw/devices">Draw devices</NavLink>
         <NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}>Logout</NavLink>
-    </nav>
+    </nav>;
 
     const loggedOutNav = <nav>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/">Home</NavLink>
@@ -30,7 +30,7 @@ const NavLinks = ({loggedIn}) => {
         <a className="tool-bar_link" href="https://supla.org">About us</a>
         <a className="tool-bar_link" href="https://supla.org">Contact</a>
         <a className="tool-bar_link" href={authUrl}>Login</a>
-    </nav>
+    </nav>;
 
     return (loggedIn ? loggedInNav : loggedOutNav);
 }
