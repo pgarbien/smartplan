@@ -7,12 +7,15 @@ import Location from '../../tool/model/Location';
 import { Route, Switch } from 'react-router-dom';
 import Level from '../../tool/model/Level';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
+import NewDeviceModal from '../../components/Devices/NewDeviceModal';
+import NewDevice from '../../tool/model/NewDevice';
 
 const DrawTool = (props) => {
     const creationCanvas = useRef(null);
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [showAddLevelModal, setShowAddLevelModal] = useState(false);
+    const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
 
     const change = (cr) => {
         creationCanvas.current = cr.canvas;
@@ -46,6 +49,11 @@ const DrawTool = (props) => {
         preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
         setLocation(preLocation); 
         setShowAddLevelModal(false)
+    }
+
+    const addNewDevice = (deviceName, color) => {
+        creator.addDeviceCommand(deviceName, color);
+        setShowAddDeviceModal(false);
     }
 
     useEffect(() => {
@@ -83,12 +91,14 @@ const DrawTool = (props) => {
             setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", []));
             setShowAddLevelModal(true);
         }
+        setShowAddDeviceModal(true);
     }, []);
 
     return (
         <Switch>
             <Route path="/draw/devices">
-                <DevicesPage change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
+                <DevicesPage setShowAddDeviceModal={setShowAddDeviceModal} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
+                { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} showModal={showAddDeviceModal} setShowModal={setShowAddDeviceModal}/> : null}
             </Route>
             <Route path="/draw">
                 <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
