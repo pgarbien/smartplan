@@ -24,21 +24,26 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
     }}>{level.name}</div>
   }) : null;
 
-  const put = mAxios.put('/locations', location)
-        .then(response => {
-          console.log("aaaa")
-        })
-        .catch(error => {
-            console.log(error);
-        });
+    const put = () => {
+        console.log(location);
+        mAxios.put('/locations', location)
+            .then(response => {
+                console.log("aaaa")
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
-  const remove = mAxios.delete('/locations/' + location.id)
-        .then(response => {
-          history.push('locations')
-        })
-        .catch(error => {
-            console.log(error);
-        });
+    const remove = () => {
+        mAxios.delete('/locations/' + location.id)
+            .then(response => {
+                history.push('locations')
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
   useEffect(() => {
     if(parentCreator != null) {
@@ -69,8 +74,8 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
         <div style={{display: "grid", gridRow: 3, gridColumn: 4}}>
           <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
         </div>
-        <div onClick={() => put()}>aaa</div>
-        <div onClick={() => remove()}>bbb</div>
+        <div onClick={() => { put() }}>aaa</div>
+        <div onClick={() => { remove() }}>bbb</div>
       </div>
   );
 }
