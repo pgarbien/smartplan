@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
 import './DevicesPage.css';
 
-const DevicesPage = ({change, creationCanvas, parentCreator}) => {
+const DevicesPage = ({setShowAddDeviceModal, change, creationCanvas, parentCreator}) => {
     const creator = parentCreator;
 
     useEffect(() => {
+        setShowAddDeviceModal(true);
         if(parentCreator != null) {
             parentCreator.setCanvas(creationCanvas.current);
             change(parentCreator);
@@ -18,8 +19,8 @@ const DevicesPage = ({change, creationCanvas, parentCreator}) => {
             <div className="tools">
                 <h1>Tools</h1>
                 <div className="devices_list">
-                    <button className="device_button" onClick={() => creator.addDeviceCommand()}>Add device 1</button>
-                    <button className="device_button" onClick={() => creator.addDeviceCommand()}>Add device 2</button>
+                    <button className="device_button" onClick={() => setShowAddDeviceModal(true)}>Add device 1</button>
+                    <button className="device_button" onClick={() => setShowAddDeviceModal(true)}>Add device 2</button>
                     <button className="device_button" onClick={() => creator.moveDeviceCommand()}>Move devices</button>
                     <button className="device_button" onClick={() => creator.undoCommand()}>Undo</button>
                     <button className="device_button" onClick={() => creator.redoCommand()}>Redo</button>

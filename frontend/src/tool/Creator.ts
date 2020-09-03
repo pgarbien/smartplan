@@ -77,7 +77,7 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            newDevices.push(new NewDevice(device.color, device.point, device.radius));
+            newDevices.push(new NewDevice(device.name, device.color, device.point, device.radius));
         });
 
         this.creatorDevices.setDevices(newDevices);
@@ -136,11 +136,11 @@ export default class Creator {
         return new DragCommand(this.creatorRooms, this.canvasDrawer);
     }
 
-    addDeviceCommand() {
+    addDeviceCommand(deviceName: string, color: string) {
         this.cmd = Commands.ADD_DEVICE;
 
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
-        newDevice.drawNewDevice();
+        newDevice.drawNewDevice(deviceName, color);
 
         return newDevice;
     }
