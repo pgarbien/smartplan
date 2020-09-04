@@ -10,11 +10,13 @@ import DragCommand from './commands/DragCommand';
 import AddDeviceCommand from './commands/AddDeviceCommand';
 import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
+import ManageCommand from './commands/ManageCommand';
 
 enum Commands {
     DRAW,
     MOVE_ROOMS,
-    ADD_DEVICE
+    ADD_DEVICE,
+    MANAGE
 }
 
 export default class Creator {
@@ -136,6 +138,12 @@ export default class Creator {
         return new DragCommand(this.creatorRooms, this.canvasDrawer);
     }
 
+    manageDevices() {
+        this.cmd = Commands.MANAGE;
+
+        return new ManageCommand(this.creatorRooms, this.creatorDevices, this.canvasDrawer);
+    }
+
     addDeviceCommand(deviceName: string, color: string) {
         this.cmd = Commands.ADD_DEVICE;
 
@@ -217,6 +225,8 @@ export default class Creator {
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_ROOMS:
                 return new DragCommand(this.creatorRooms, this.canvasDrawer);
+            case Commands.MANAGE:
+                return new ManageCommand(this.creatorRooms, this.creatorDevices, this.canvasDrawer);
         }
     }
 

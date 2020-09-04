@@ -8,7 +8,7 @@ import { Route, Switch } from 'react-router-dom';
 import Level from '../../tool/model/Level';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
-import NewDevice from '../../tool/model/NewDevice';
+import Manager from '../Manager/Manager';
 
 const DrawTool = (props) => {
     const creationCanvas = useRef(null);
@@ -99,6 +99,9 @@ const DrawTool = (props) => {
             <Route path="/draw/devices">
                 <DevicesPage setShowAddDeviceModal={setShowAddDeviceModal} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
                 { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} showModal={showAddDeviceModal} setShowModal={setShowAddDeviceModal}/> : null}
+            </Route>
+            <Route path="/draw/manager">
+                <Manager change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
                 <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
