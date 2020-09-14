@@ -14,6 +14,7 @@ import {AuthModule} from './auth/auth.module';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
 import { FileController } from './file/file.controller';
+import {NewDevice} from "./device/newdevice.model";
 
 @Module({
     imports: [
@@ -31,10 +32,10 @@ import { FileController } from './file/file.controller';
             database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
-            entities: [Point]
+            entities: [Point, NewDevice]
         }),
         ServeStaticModule.forRoot({
-            rootPath: 'C:/Users/Piotrek/Projekty/Inzynierka/atomowki/backend/static'
+            rootPath: join(__dirname, '../../static')
         }),
         LevelModule,
         LocationsModule,
