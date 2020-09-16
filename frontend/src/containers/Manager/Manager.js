@@ -15,11 +15,11 @@ const Manager = ({change, creationCanvas, parentCreator}) => {
 
     return(
         <div className="manager_container">
-            <button className="device_button" onClick={() => creator.manageDevices()}>Manage devices</button>
             <div className="drawing_area">
                 <canvas ref={creationCanvas} id="managerCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}/>
-                <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051"}}>Go back to drawing devices...</Link>
             </div>
+            <button className="device_button" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}} onClick={() => creator.manageDevices()}>Manage devices</button>
+            <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, marginLeft: 10, padding: 10}}>Go back to drawing devices...</Link>
         </div>
     );
 }
