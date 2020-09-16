@@ -72,10 +72,14 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
         </div>
         <Desc/>
         <div style={{display: "grid", gridRow: 3, gridColumn: 4}}>
-          <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051"}}>Add devices...</Link>
+          <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}}>Add devices...</Link>
         </div>
-        <div onClick={() => { put() }}>aaa</div>
-        <div onClick={() => { remove() }}>bbb</div>
+        <div style={{display: "grid", gridRow: 4, gridColumn: 1}}>
+          <div style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "30px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}} onClick={() => { put() }}>Save</div>
+        </div>
+        <div style={{display: "grid", gridRow: 4, gridColumn: 2}}>
+          <div style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "30px", width: "70px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, marginLeft: 10, padding: 10}} onClick={() => { remove() }}>Delete</div>
+        </div>
       </div>
   );
 }
