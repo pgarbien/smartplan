@@ -26,7 +26,7 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
 
     const put = () => {
         console.log(location);
-        mAxios.put('/locations', location)
+        mAxios.post('/locations', location)
             .then(response => {
                 console.log("aaaa")
             })
