@@ -34,12 +34,12 @@ const DevicesPage = ({setShowAddDeviceModal, change, creationCanvas, parentCreat
                 <Devices/>
             </div>
             <div style={{display: "grid", gridRow: 3, gridColumn: 1}}>
-            <Link to="/draw" className="btn btn-primary" style={{color: "#00d051"}}>Go back to drawing...</Link>
+            <Link to="/draw" className="btn btn-primary" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}}>Go back to drawing...</Link>
             <br/>
-            <Link to="/draw/manager">Manage devices</Link> 
+            <Link to="/draw/manager" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}}>Manage devices</Link> 
             </div>
             <div style={{display: "grid", gridRow: 3, gridColumn: 3}}>
-            <a id="download" download="condignation.png" href="" style={{color: "#00d051"}} onClick={() => {
+            <a id="download" download="condignation.png" href="" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}} onClick={() => {
                     const a = document.getElementById("download")
                     var dataURI = document.getElementById('condignationCanvas').toDataURL();
                     a.href = dataURI;
