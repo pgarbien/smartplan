@@ -32,7 +32,12 @@ export class LevelService {
 
     persist(userId: string, level: Level): Promise<Level> {
         level.userId = userId;
-        level.rooms.forEach(room => room.userId = userId);
+        console.log(JSON.stringify(level.rooms));
+        level.rooms.forEach(room => {
+            room.userId = userId;
+            room.level = level;
+            room.points.forEach(point => point.room = room);
+        });
         return this.levelRepository.save(level);
     }
 

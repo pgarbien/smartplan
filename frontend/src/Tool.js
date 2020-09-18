@@ -24,13 +24,16 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
     }}>{level.name}</div>
   }) : null;
 
-  const put = mAxios.put('/locations', location)
-        .then(response => {
-          console.log("aaaa")
-        })
-        .catch(error => {
-            console.log(error);
-        });
+
+    const put = () => {
+        mAxios.post('/locations', location)
+            .then(response => {
+                console.log("aaaa")
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 
   const remove = mAxios.delete('/locations/' + location.id)
         .then(response => {
