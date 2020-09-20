@@ -35,13 +35,15 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
             });
     };
 
-  const remove = mAxios.delete('/locations/' + location.id)
-        .then(response => {
-          history.push('locations')
-        })
-        .catch(error => {
-            console.log(error);
-        });
+  const remove = () => {
+      mAxios.delete('/locations/' + location.id)
+          .then(response => {
+              history.push('locations')
+          })
+          .catch(error => {
+              console.log(error);
+          });
+  }
 
   useEffect(() => {
     if(parentCreator != null) {
