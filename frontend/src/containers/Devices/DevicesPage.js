@@ -28,7 +28,7 @@ const DevicesPage = ({setShowAddDeviceModal, change, creationCanvas, parentCreat
             </div>
             <div className="drawing-area">
                 <h2 style={{justifySelf: "center"}}>Kondygnacja numer #01</h2>
-                <canvas className="canvas" ref={creationCanvas} id="condignationCanvas"></canvas>
+                <canvas className="canvas" ref={creationCanvas} id="condignationCanvas" height="600" width="600"></canvas>
             </div>
             <div className="buttons">
                 <Link to="/draw" className="directional-button">Go back to drawing...</Link>
