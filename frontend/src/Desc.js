@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import './Desc.css';
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
     var words = text.split(' ');
@@ -38,9 +39,9 @@ const Desc = () => {
     })
 
     return(
-        <div className="description" style={{display: "grid", gridColumn: 3, gridRow: 1, justifySelf: "center", justifyItems: "center"}}>
+        <div className="description">
               <h3>Podstawowe narzędzie do rysowania mapy domu.</h3>
-                <canvas ref={descCanvas} id="canvas" width="250" height="400" style={{border: "1px solid #00d051", marginTop: "15%"}}></canvas>
+                <canvas className="canvas" ref={descCanvas} id="canvas" height="400px" width="250px"></canvas>
         </div>
     );
 }

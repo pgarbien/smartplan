@@ -1,0 +1,11 @@
+.description {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center;
+    justify-items: center;
+}
+
+.canvas {
+    border: 1px solid #00d051;
+    margin-top: 15%;
+}

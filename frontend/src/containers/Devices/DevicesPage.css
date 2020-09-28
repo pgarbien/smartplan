@@ -1,23 +1,16 @@
-.devices_container {
+.devices-container {
     display: grid;
-    grid-template-columns: 0.5fr 1.5fr 1fr;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas: "tools drawing-area" ". buttons";
     justify-items: left;
     margin-top: 2%;
     margin-left: 5%;
     margin-right: 10%;
 }
 
-.devices_list {
-    width: 150px;
-    background-color: #eaeaea;
-    display: "flex";
-    flex-direction: column;
-    flex: 1;
-    justify-content: "center";
-    margin-top: 30%;
-}
-
 .device_button {
+    grid-area: device-button; 
     border: none;
     background-color: none;
     height: 100px;
@@ -30,13 +23,28 @@
 }
 
 .tools {
-    display: grid;
-    grid-column: 1;
-    grid-row: 1;
+    grid-area: tools;
+    padding: 10px;
+    margin-top: 50px;
 }
 
 .drawing-area {
-    display: grid;
-    grid-column: 2;
-    grid-row: 1;
+    grid-area: drawing-area;
+}
+
+.drawing-area .canvas {
+    width: 600px;
+    height: 600px;
+    border: 1px solid #00d051;
+}
+
+.buttons {
+    grid-area: buttons;
+    display: flex;
+    padding: 25px;
+}
+
+.buttons .directional-button {
+    margin-left: 30px;
+    margin-right: 30px;
 }
