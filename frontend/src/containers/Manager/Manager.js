@@ -20,7 +20,7 @@ const Manager = ({change, creationCanvas, parentCreator}) => {
                 <canvas ref={creationCanvas} id="managerCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}/>
             </div>
             <div className="devices-list">
-                <Devices/>
+                <Devices creator={creator}/>
             </div>
             <button className="directional-button" onClick={() => creator.manageDevices()}>Manage devices</button>
             <Link className="back-link" to="/draw/devices">Go back to drawing devices...</Link>

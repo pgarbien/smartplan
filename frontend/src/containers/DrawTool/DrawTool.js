@@ -51,8 +51,8 @@ const DrawTool = (props) => {
         setShowAddLevelModal(false)
     }
 
-    const addNewDevice = (deviceName, color) => {
-        creator.addDeviceCommand(deviceName, color);
+    const addNewDevice = (deviceName, color, deviceId) => {
+        creator.addDeviceCommand(deviceName, color, deviceId);
         setShowAddDeviceModal(false);
     }
 

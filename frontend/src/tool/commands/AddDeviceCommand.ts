@@ -5,8 +5,7 @@ import CreatorRooms from '../CreatorRooms';
 import NewDevice from '../model/NewDevice';
 import CreatorNewDevices from '../CreatorNewDevices';
 import { getClosePointDevice, getCloseOrInLineDevice, getInLinePoints } from '../utils/DrawingUtils';
-import { getPointedRoomIndex, highlightRoom, dehighlight } from '../utils/RoomUtils';
-import { getClosePoint, getCloseOrInLine, getCloseLine } from '../utils/DrawingUtils';
+import { getCloseLine } from '../utils/DrawingUtils';
 import Wall from '../model/Wall';
 
 export default class AddDeviceCommand extends Command {
@@ -22,11 +21,11 @@ export default class AddDeviceCommand extends Command {
         this.canvasDrawer = canvasDrawer;
     }
 
-    drawNewDevice(deviceName: string, color: string) {
+    drawNewDevice(deviceName: string, color: string, id: string) {
         if(color == null || color === "") {
             color = "rgba(0, 209, 81, 1)"
         }
-        this.creatorDevices.setCurrentDevice(new NewDevice(deviceName, color));
+        this.creatorDevices.setCurrentDevice(new NewDevice(deviceName, color, id));
         this.creatorDevices.getDevices().push(this.creatorDevices.getCurrentDevice());
         
     }
