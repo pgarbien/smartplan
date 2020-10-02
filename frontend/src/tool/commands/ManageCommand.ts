@@ -3,6 +3,7 @@ import Point from '../model/Point';
 import CreatorRooms from '../CreatorRooms';
 import CanvasDrawer from '../CanvasDrawer';
 import CreatorNewDevices from '../CreatorNewDevices';
+import NewDevice from '../model/NewDevice';
 
 export default class ManageCommand extends Command {
     private roomsData: CreatorRooms;
@@ -18,10 +19,10 @@ export default class ManageCommand extends Command {
     }
 
     onClick(cursorPosition: Point): void {
-        this.devicesData.getDevices().forEach(function(device) {
+        this.devicesData.getDevices().forEach((device) => {
             if(Math.abs(cursorPosition.x - device.point.x) < device.radius
             && Math.abs(cursorPosition.y - device.point.y) < device.radius){
-                alert(`ID: ${device.id}, Name: ${device.name}`);
+                console.log(`${device.name}, actions: ${device.deviceActions.length}`);
             }
         })
     }

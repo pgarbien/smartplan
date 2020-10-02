@@ -8,6 +8,7 @@ const NewDeviceModal = (props) => {
     const [deviceName, setDeviceName] = useState(null);
     const [deviceColor, setDeviceColor] = useState(null);
     const [deviceId, setDeviceId] = useState(null);
+    const [deviceActions, setDeviceActions] = useState([]);
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {
@@ -29,20 +30,26 @@ const NewDeviceModal = (props) => {
         let parameters = event.target.value.split(',');
         setDeviceName(parameters[1]);
         setDeviceId(parameters[0]);
+        for(var i=0; i<devices.length; i++) {
+            if(devices[i].id == parameters[0]) {
+                setDeviceActions(devices[i].function.possibleActions)
+            }
+        }
     }
 
-    const modalContent = <Fragment>
-        <select onChange={(event) => {setDeviceParameters(event)}}>
-            {devices.map(device => (
-                <option>
-                    {device.id},{device.caption}
-                </option>
-            ))}
-        </select>
-        <br/>
-        <input type="text" id="device-name" name="device-name" placeholder="rgba(0, 128, 128, 128)" onChange={(event) => {setDeviceColor(event.target.value)}}></input>
-        <button onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId)}}>CREATE</button>
-    </Fragment>;
+    const modalContent = 
+        <Fragment>
+            <select onChange={(event) => {setDeviceParameters(event)}}>
+                {devices.map(device => (
+                    <option>
+                        {device.id},{device.caption}
+                    </option>
+                ))}
+            </select>
+            <br/>
+            <input type="text" id="device-name" name="device-name" placeholder="rgba(0, 128, 128, 128)" onChange={(event) => {setDeviceColor(event.target.value)}}></input>
+            <button onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
+        </Fragment>;
 
     return (props.showModal ? <Modal title="Add new device" onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal> : null)
 }

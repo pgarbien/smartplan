@@ -16,6 +16,10 @@ const Manager = ({change, creationCanvas, parentCreator}) => {
 
     return(
         <div className="manager-container">
+            <div className="possible-actions-area">
+                <h3>Możliwe do wykonania akcje urządzenia.</h3>
+                
+            </div>
             <div className="drawing_area">
                 <canvas ref={creationCanvas} id="managerCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}/>
             </div>

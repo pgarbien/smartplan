@@ -9,7 +9,6 @@ import Level from '../../tool/model/Level';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import Manager from '../Manager/Manager';
-
 const DrawTool = (props) => {
     const creationCanvas = useRef(null);
     const [creator, setCreator] = useState(null);
@@ -51,8 +50,8 @@ const DrawTool = (props) => {
         setShowAddLevelModal(false)
     }
 
-    const addNewDevice = (deviceName, color, deviceId) => {
-        creator.addDeviceCommand(deviceName, color, deviceId);
+    const addNewDevice = (deviceName, color, deviceId, deviceActions) => {
+        creator.addDeviceCommand(deviceName, color, deviceId, deviceActions);
         setShowAddDeviceModal(false);
     }
 

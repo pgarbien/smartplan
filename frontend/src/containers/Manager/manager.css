@@ -1,7 +1,7 @@
 .manager-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas: "drawing-area devices-list";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: "possible-actions-area drawing-area devices-list";
 }
 
 .devices-list {
@@ -10,6 +10,10 @@
 
 .drawing_area {
     grid-area: drawing-area;
+}
+
+.possible-actions-area {
+    grid-area: possible-actions-area;
 }
 
 .back-link {
