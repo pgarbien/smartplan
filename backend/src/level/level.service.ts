@@ -11,7 +11,6 @@ export class LevelService {
     getAllByLocationId(userId: string, locationId: number): Promise<Level[]> {
         return this.levelRepository.createQueryBuilder("level")
             .leftJoinAndSelect("level.rooms", "room")
-            .leftJoinAndSelect("room.points", "point")
             .where("level.userId = :userId and level.\"locationId\" = :locationId", {
                 userId: userId,
                 locationId: locationId
@@ -26,18 +25,16 @@ export class LevelService {
                 userId: userId
             },
             {
-                relations: ["rooms", "rooms.points"]
+                relations: ["rooms"]
             })
     }
 
     persist(userId: string, level: Level): Promise<Level> {
         level.userId = userId;
-        console.log(JSON.stringify(level.rooms));
-        level.rooms.forEach(room => {
-            room.userId = userId;
-            room.level = level;
-            room.points.forEach(point => point.room = room);
-        });
+        // level.rooms.forEach(room => {
+        //     // room.userId = userId;
+        //     room.level = level;
+        // });
         return this.levelRepository.save(level);
     }
 

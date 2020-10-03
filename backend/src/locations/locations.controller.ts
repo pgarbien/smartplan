@@ -1,4 +1,16 @@
-import {Body, Controller, Delete, Get, Headers, Param, Post, Put, UseGuards, UseInterceptors} from '@nestjs/common';
+import {
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Delete,
+    Get,
+    Headers,
+    Param,
+    Post,
+    Put,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {LocationsService} from "./locations.service";
 import {Location} from "./location.model";
 import {AuthGuard} from "../auth.guard";
@@ -7,7 +19,7 @@ import {AuthInterceptor} from "../auth.interceptor";
 
 @Controller('locations')
 @UseGuards(AuthGuard)
-@UseInterceptors(AuthInterceptor)
+@UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
 export class LocationsController {
     constructor(private readonly locationsService: LocationsService, private readonly authService: AuthService) {
     }

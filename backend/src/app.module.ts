@@ -9,14 +9,13 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {LevelModule} from './level/level.module';
 import {LocationsModule} from './locations/locations.module';
 import {RoomModule} from './room/room.module';
-import {Point} from "./model/point.model";
 import {AuthModule} from './auth/auth.module';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
-import { FileController } from './file/file.controller';
+import {FileController} from './file/file.controller';
 import {Device} from "./device/device.model";
 import {DeviceModule} from "./device/device.module";
-import { ChannelsModule } from './channels/channels.module';
+import {ChannelsModule} from './channels/channels.module';
 
 @Module({
     imports: [
@@ -34,7 +33,8 @@ import { ChannelsModule } from './channels/channels.module';
             database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
-            entities: [Point, Device]
+            entities: [Device],
+            logging: false
         }),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '../../static')
