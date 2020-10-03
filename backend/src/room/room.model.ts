@@ -1,7 +1,7 @@
 import {Point} from "../model/point.model";
 import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Level} from "../level/level.model";
-import { NewDevice } from "src/device/newdevice.model";
+import { Device } from "src/device/device.model";
 
 @Entity()
 export class Room {
@@ -13,13 +13,6 @@ export class Room {
 
     @Column()
     name: string;
-
-    @OneToMany(
-        type => NewDevice,
-        device => device.room,
-        {cascade: true, onUpdate: "CASCADE"}
-    )
-    devices: NewDevice[];
 
     @ManyToOne(
         type => Level,

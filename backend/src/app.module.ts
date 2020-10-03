@@ -14,7 +14,9 @@ import {AuthModule} from './auth/auth.module';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
 import { FileController } from './file/file.controller';
-import {NewDevice} from "./device/newdevice.model";
+import {Device} from "./device/device.model";
+import {DeviceModule} from "./device/device.module";
+import { ChannelsModule } from './channels/channels.module';
 
 @Module({
     imports: [
@@ -32,7 +34,7 @@ import {NewDevice} from "./device/newdevice.model";
             database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
-            entities: [Point, NewDevice]
+            entities: [Point, Device]
         }),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '../../static')
@@ -40,7 +42,9 @@ import {NewDevice} from "./device/newdevice.model";
         LevelModule,
         LocationsModule,
         RoomModule,
-        AuthModule
+        AuthModule,
+        DeviceModule,
+        ChannelsModule
     ],
     controllers: [AppController, ChannelsController, FileController],
     providers: [AppService, ChannelsService]
