@@ -48,7 +48,7 @@ const NewDeviceModal = (props) => {
             </select>
             <br/>
             <input type="text" id="device-name" name="device-name" placeholder="rgba(0, 128, 128, 128)" onChange={(event) => {setDeviceColor(event.target.value)}}></input>
-            <button onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
+            <button className="create-button" onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
         </Fragment>;
 
     return (props.showModal ? <Modal title="Add new device" onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal> : null)

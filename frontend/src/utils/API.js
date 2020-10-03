@@ -16,7 +16,7 @@ mAxios.interceptors.request.use(
 mAxios.interceptors.response.use(
     (response) => response, 
     (error) => {
-        if (error.response.status === 403) {
+        if (error.response.status === 401) {
             localStorage.removeItem('token');
             window.location = "http://localhost:3000/";
         }

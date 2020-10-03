@@ -104,7 +104,7 @@ const DrawTool = (props) => {
             </Route>
             <Route path="/draw">
                 <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
-                { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} showModal={showAddLevelModal} setShowModal={setShowAddLevelModal} /> : null }
+                { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} showModal={showAddLevelModal} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
             </Route>
         </Switch>
     );

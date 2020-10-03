@@ -8,7 +8,7 @@ const Modal = (props) => {
             <div className="modal">
                 <div className="modal-header">
                     <span className="modal-title">{props.title}</span>
-                    <div className="modal-close" onClick={() => { props.onCloseModal() }}>X</div>
+                    <div style={ props.canClose ? {} : { display: "none" }} className="modal-close" onClick={() => { props.onCloseModal() }}>X</div>
                 </div>
                 <div className="modal-body">
                     {props.children}

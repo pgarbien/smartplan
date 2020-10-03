@@ -21,7 +21,7 @@ const NewLocationModal = (props) => {
         <br/>
         {/* <label for="location-color">Location color:</label>
         <input type="color" id="location-color" name="location-color" value="#00d151" /> */}
-        <button onClick={() => { locationPhoto ? createNewLocation() : postNewLocation() }} disabled={ locationName == null || locationName === "" }>CREATE</button>
+        <button className="create-button" onClick={() => { locationPhoto ? createNewLocation() : postNewLocation() }} disabled={ locationName == null || locationName === "" }>CREATE</button>
     </Fragment>;
 
     const createNewLocation = () => {
@@ -51,7 +51,7 @@ const NewLocationModal = (props) => {
             });
     }
 
-    return (props.showModal ? <Modal title="Create new location" onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
+    return (props.showModal ? <Modal title="Create new location" canClose={true} onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
 }
 
 export default NewLocationModal;

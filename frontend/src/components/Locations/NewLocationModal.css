@@ -12,7 +12,8 @@ input[type=color] {
     height: 100px;
 }
 
-.upload-button {
+.upload-button,
+.create-button {
     border: 1px solid rgb(191, 191, 191);
     background: #fff;
     padding: 10px 15px;
@@ -20,7 +21,8 @@ input[type=color] {
     cursor: pointer;
 }
 
-.upload-button:hover {
+.upload-button:hover,
+.create-button:hover {
     border: 1px solid #00d151;
     background: #00d151;
     color: #fff;

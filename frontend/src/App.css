@@ -106,8 +106,6 @@ h2 {
   color: #00d151;
 }
 
-.directional-button:focus,
-.tool-button:focus,
 .directional-button:active,
 .tool-button:active,
 .tool-button-active {
