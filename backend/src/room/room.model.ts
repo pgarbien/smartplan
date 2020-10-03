@@ -1,7 +1,6 @@
-import {Point} from "../model/point.model";
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Level} from "../level/level.model";
-import { NewDevice } from "src/device/newdevice.model";
+import {Transform} from "class-transformer";
 
 @Entity()
 export class Room {
@@ -14,17 +13,10 @@ export class Room {
     @Column()
     name: string;
 
-    @OneToMany(
-        type => NewDevice,
-        device => device.room,
-        {cascade: true, onUpdate: "CASCADE"}
-    )
-    devices: NewDevice[];
-
     @ManyToOne(
         type => Level,
         level => level.rooms,
-        { onDelete: "CASCADE", onUpdate: "CASCADE" }
+        {onDelete: "CASCADE", onUpdate: "CASCADE"}
     )
     @JoinColumn([
         {name: 'userId', referencedColumnName: 'userId'},
@@ -32,17 +24,14 @@ export class Room {
     ])
     level: Level;
 
-    @OneToMany(
-        type => Point,
-        point => point.room,
-        {cascade: true, onUpdate: "CASCADE"}
-    )
-    points: Point[];
+    @Transform(points => JSON.parse(points))
+    @Column()
+    points: string;
 
     @Column()
     color: string;
 
-    constructor(name: string, points: Point[], color: string) {
+    constructor(name: string, points: string, color: string) {
         this.name = name;
         this.points = points;
         this.color = color;

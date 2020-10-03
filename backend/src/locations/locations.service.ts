@@ -43,7 +43,7 @@ export class LocationsService {
                 "userId": userId
             },
             {
-                relations: ["levels", "levels.rooms", "levels.rooms.points"]
+                relations: ["levels", "levels.rooms"]
             });
     }
 
@@ -55,7 +55,10 @@ export class LocationsService {
         // }
         location.levels.forEach(location => {
             location.userId = userId;
-            location.rooms.forEach(room => room.userId = userId)
+            location.rooms.forEach(room => {
+                room.userId = userId;
+                room.points = JSON.stringify(room.points);
+            })
         });
         return await this.locationsRepository.save(location);
     }
@@ -72,21 +75,21 @@ export class LocationsService {
             "id": location.id,
             "userId": userId
         });
-
-        location.levels.forEach(location => {
-            location.userId = userId;
-            location.rooms.forEach(room => room.userId = userId)
-        });
-
-        existingLocation = this.locationsRepository.merge(existingLocation, location);
-
-        existingLocation.levels.forEach(location => {
-            location.userId = userId;
-            location.rooms.forEach(room => room.userId = userId)
-        });
-
-        console.log(JSON.stringify(existingLocation));
-
+        //
+        // location.levels.forEach(location => {
+        //     location.userId = userId;
+        //     location.rooms.forEach(room => room.userId = userId)
+        // });
+        //
+        // existingLocation = this.locationsRepository.merge(existingLocation, location);
+        //
+        // existingLocation.levels.forEach(location => {
+        //     location.userId = userId;
+        //     location.rooms.forEach(room => room.userId = userId)
+        // });
+        //
+        // console.log(JSON.stringify(existingLocation));
+        //
         return this.locationsRepository.save(existingLocation)
     }
 }
