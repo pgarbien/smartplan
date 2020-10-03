@@ -24,11 +24,17 @@ const Locations = () => {
     }
 
     const mappedLocations = locations.map(location => {
-        return <div onClick={() => { history.push(`draw?locationId=` + location.id) }} className="location">
+        return <div className="location"onClick={() => { history.push(`draw/manager?locationId=` + location.id) }}>
             <div className="location-photo"
                 style={{backgroundImage: location.photoUrl ? "url(" + location.photoUrl + ")" : staticLocationPhoto}}></div>
             <div className="location-name">
                 {location.name}
+            </div>
+            <div className="location-edit" onClick={(e) => { e.stopPropagation(); history.push(`draw?locationId=` + location.id) }}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/1024px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" />
+            </div>
+            <div className="location-add-devices" onClick={(e) => { e.stopPropagation(); history.push(`draw/devices?locationId=` + location.id) }}>
+                <img src="https://static.thenounproject.com/png/1129430-200.png" />
             </div>
         </div>
     });

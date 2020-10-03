@@ -44,6 +44,9 @@ export default class Creator {
         this.canvas.addEventListener('mousemove', this.onMouseMove);
         this.canvas.addEventListener('mousedown', this.onMouseDown);
         this.canvas.addEventListener("mouseup", this.onMouseUp);
+
+        this.canvas.height = canvas.clientHeight
+        this.canvas.width = canvas.clientWidth
     }
 
     getCanvas() {

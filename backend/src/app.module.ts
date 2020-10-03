@@ -25,7 +25,7 @@ import {NewDevice} from "./device/newdevice.model";
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: 'localhost',
+            host: '192.168.99.100',
             port: 5432,
             username: 'admin',
             password: 'password',

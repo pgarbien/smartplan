@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Creator from '../../tool/Creator';
 import mAxios from '../../utils/API';
 import DevicesPage from '../Devices/DevicesPage';
-import Tool from '../../Tool';
+import Tool from '../Tool/Tool';
 import Location from '../../tool/model/Location';
 import { Route, Switch } from 'react-router-dom';
 import Level from '../../tool/model/Level';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import Manager from '../Manager/Manager';
+
 const DrawTool = (props) => {
     const creationCanvas = useRef(null);
     const [creator, setCreator] = useState(null);
@@ -90,17 +91,16 @@ const DrawTool = (props) => {
             setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", []));
             setShowAddLevelModal(true);
         }
-        setShowAddDeviceModal(true);
     }, []);
 
     return (
         <Switch>
             <Route path="/draw/devices">
-                <DevicesPage setShowAddDeviceModal={setShowAddDeviceModal} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
+                <DevicesPage location={location} setShowAddDeviceModal={setShowAddDeviceModal} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
                 { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} showModal={showAddDeviceModal} setShowModal={setShowAddDeviceModal}/> : null}
             </Route>
             <Route path="/draw/manager">
-                <Manager change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
+                <Manager location={location} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
                 <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>

@@ -19,8 +19,9 @@ const NavLinks = ({loggedIn}) => {
     const loggedInNav = <nav>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/">Home</NavLink>
         <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations">Locations</NavLink>
-        <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/draw">Draw</NavLink>
-        <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/draw/devices">Draw devices</NavLink>
+        <a className="tool-bar_link" href="https://supla.org">Project page</a>
+        <a className="tool-bar_link" href="https://supla.org">About us</a>
+        <a className="tool-bar_link" href="https://supla.org">Contact</a>
         <NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}>Logout</NavLink>
     </nav>;
 

@@ -1,12 +1,8 @@
 .devices-container {
+    margin-top: 30px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 2fr 1fr;
-    grid-template-areas: "tools drawing-area" ". buttons";
-    justify-items: left;
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-right: 10%;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: "left-container drawing-area right-container";
 }
 
 .device_button {
@@ -20,29 +16,4 @@
 
 .device_button:hover {
     background-color: #c6c6c6;
-}
-
-.tools {
-    grid-area: tools;
-    padding: 10px;
-    margin-top: 50px;
-}
-
-.drawing-area {
-    grid-area: drawing-area;
-}
-
-.drawing-area .canvas {
-    border: 1px solid #00d051;
-}
-
-.buttons {
-    grid-area: buttons;
-    display: flex;
-    padding: 25px;
-}
-
-.buttons .directional-button {
-    margin-left: 30px;
-    margin-right: 30px;
 }

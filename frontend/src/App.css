@@ -3,6 +3,7 @@
 
 * {
   font-family: "Quicksand";
+  color: #2f2f2f;
 }
 
 body {
@@ -11,15 +12,16 @@ body {
 
 h2 {
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 400;
 }
 
-.tool-container {
-  margin: 0px;
-}
-
+.tool-container,
 .devices-container {
   margin: 0px;
+}
+
+.color-primary {
+  color: #00d151;
 }
 
 .navbar {
@@ -56,36 +58,72 @@ h2 {
   transform: scale(1.2);
 }
 
-.level {
+.left-container {
+  position: relative;
+}
+
+.right-container {
+  position: relative;
+}
+
+.levels,
+.buttons {
+  position: absolute;
+  bottom: 0px;
+}
+
+.tools,
+.buttons,
+.levels,
+.description {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
   text-align: center;
-  padding: 5px;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #00d151;
+  height: max-content;
+  border-bottom: 0px;
+}
+
+.directional-button,
+.tool-button,
+.level {
+  width: 100%;
+  border: 0px;
+  padding: 20px 0;
+  height: auto;
+  color: #000;
   cursor: pointer;
+  transition: ease .5s;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  font-size: 16px;
+} 
+
+.directional-button:hover,
+.tool-button:hover,
+.directional-button:hover > a,
+.tool-button:hover > a {
+  color: #00d151;
 }
 
-.level:first-child {
-  border-width: 1px;
-}
-
-.level-active {
+.directional-button:focus,
+.tool-button:focus,
+.directional-button:active,
+.tool-button:active,
+.tool-button-active {
   background: #00d151;
   border: 0;
   color: #fff;
 }
 
-.directional-button{
-  color: #00d051;
-  text-align: center;
-  border: 1px solid #00d051;
-  border-radius: 15px;
-  height: 50px;
-  width: 120px;
-  background-color: #ffffff;
-  margin-bottom: 10;
-  margin-top: 10;
-  padding: 10;
+.tool-button-active:hover {
+  color: #fff!important;
+}
+
+.directional-button > a,
+.tool-button > a {
+  text-decoration: none;
+  color: #000;
 }
 
 .fill-none {
@@ -97,4 +135,17 @@ h2 {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10;
+}
+
+.drawing-area {
+  width: 100%;
+  padding: 0 5%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.canvas {
+  width: 100%;
+  border: 1px solid #eee;
+  background: #fff;
 }
