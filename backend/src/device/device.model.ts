@@ -1,6 +1,5 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
-import {Room} from "src/room/room.model";
-import {Point} from "../model/point.model";
+import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Exclude, Transform} from 'class-transformer';
 
 @Entity()
 export class Device {
@@ -11,6 +10,7 @@ export class Device {
     userId: string;
 
     @Column()
+    @Exclude()
     suplaDeviceId: number;
 
     @Column()
@@ -19,24 +19,18 @@ export class Device {
     @Column({nullable: true})
     color: string;
 
+    @Transform(point => JSON.parse(point))
     @Column({nullable: true})
     point: string;
 
-    @ManyToOne(
-        type => Room
-    )
-    @JoinColumn([
-        {name: 'userId', referencedColumnName: 'userId'},
-        {name: 'roomId', referencedColumnName: 'id'}
-    ])
-    room: Room;
+    @Column({nullable: true})
+    roomId: number;
 
-
-    constructor(userId: string, suplaDeviceId: number, name: string, color: string, room: Room) {
+    constructor(userId: string, suplaDeviceId: number, name: string, color: string, roomId: number) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;
         this.color = color;
-        this.room = room;
+        this.roomId = roomId;
     }
 }

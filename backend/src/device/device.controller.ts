@@ -1,4 +1,13 @@
-import {Body, Controller, Get, Headers, Put, UseGuards, UseInterceptors} from "@nestjs/common";
+import {
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Get,
+    Headers,
+    Put,
+    UseGuards,
+    UseInterceptors
+} from "@nestjs/common";
 import {DeviceService} from "./device.service";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
@@ -6,7 +15,7 @@ import {Device} from "./device.model";
 
 @Controller('devices')
 @UseGuards(AuthGuard)
-@UseInterceptors(AuthInterceptor)
+@UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
 export class DeviceController {
     constructor(private readonly deviceService: DeviceService) {
     }
