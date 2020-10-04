@@ -53,7 +53,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     const preLocation = location; 
     preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
     setLocation(preLocation); 
-    setShowAddLevelModal(false)
+    setShowAddLevelModal(false);
   }
 
   useEffect(() => {
