@@ -26,6 +26,12 @@ export class Device {
     @Column({nullable: true})
     roomId: string;
 
+    @Column({nullable: true})
+    locationId: string;
+
+    @Column({nullable: true})
+    levelId: string;
+
     constructor(userId: string, suplaDeviceId: number, name: string, color: string, roomId: string) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;

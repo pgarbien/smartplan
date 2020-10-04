@@ -28,13 +28,13 @@ export class DeviceService {
     }
 
     async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
-        const device =  await this.deviceRepository.findOne(deviceId);
+        const device = await this.deviceRepository.findOne(deviceId);
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId);
         return this.mapToDeviceDetails(data);
     }
 
     async callAction(userId: string, deviceId: string, actionType: ActionType) {
-        const device =  await this.deviceRepository.findOne(deviceId);
+        const device = await this.deviceRepository.findOne(deviceId);
         return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
     }
 
@@ -65,7 +65,9 @@ export class DeviceService {
                     await this.deviceRepository.update({
                         userId: device.userId,
                         suplaDeviceId: device.suplaDeviceId
-                    }, {name: device.name});
+                    }, {
+                        name: device.name
+                    });
                 }
             }
         );
