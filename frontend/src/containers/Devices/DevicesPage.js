@@ -14,6 +14,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
     const [position, setPosition] = useState(null);
 
+    const [activeLevel, setActiveLevel] = useState(0);
     const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
@@ -57,7 +58,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
                         <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
                         <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
                     </div>
-                    <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} />
+                    <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                 </div>
                 <div className="drawing-area">
                     <canvas ref={creationCanvas} className="canvas" id="condignationCanvas" height="600" width="600"></canvas>

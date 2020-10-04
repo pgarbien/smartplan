@@ -12,10 +12,10 @@ import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
-  const creator = parentCreator;
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
   
+  const [activeLevel, setActiveLevel] = useState(0);
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
@@ -36,6 +36,11 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     setShowAddLevelModal(false);
   }
 
+  const addNewRoom = (room) => {
+    // location.levels[activeLevel].rooms.push(room);
+    console.log(location);
+  }
+
   useEffect(() => {
     if(creationCanvas) setupCreator(creationCanvas.current)
   }, [creationCanvas]);
@@ -45,7 +50,10 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }, [location]);
 
   useEffect(() => {
-    if(parentCreator)  parentCreator.setCommand(Commands.DRAW);
+    if(parentCreator) {
+        parentCreator.setCallback('click', addNewRoom);
+        parentCreator.setCommand(Commands.DRAW);
+    }
   }, [parentCreator]);
 
   return (
@@ -60,7 +68,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
               <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
               <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
             </div>
-            <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
+            <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
           <div className="drawing-area">
             <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600"></canvas>

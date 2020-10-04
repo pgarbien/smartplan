@@ -17,13 +17,14 @@ export default class BuildCommand extends Command {
         this.canvasDrawer = canvasDrawer;
     }
 
-    onClick(cursorPosition: Point): void {
+    onClick(cursorPosition: Point, callback?: Function): void {
         const currentRoomPoints: Point[] = this.roomsData.getCurrentRoom().points;
 
         const position = this.getModifiedPosition(cursorPosition);
 
         if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 10 && Math.abs(currentRoomPoints[0].y - (position.y)) < 10) {
             this.roomsData.getRooms().push(this.roomsData.getCurrentRoom());
+            if(callback) callback(this.roomsData.getCurrentRoom());
             this.roomsData.setCurrentRoom(new Room());
 
             this.action = {
