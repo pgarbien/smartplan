@@ -34,3 +34,44 @@ export class Device {
         this.roomId = roomId;
     }
 }
+
+export class DeviceDetails {
+    type: DeviceType;
+    caption: string;
+    actions: Action[];
+    state: JSON;
+
+    constructor(type: DeviceType, caption: string, actions: Action[], state: any) {
+        this.type = type;
+        this.caption = caption;
+        this.actions = actions;
+        this.state = state;
+    }
+}
+
+export enum DeviceType {
+    NONE, CONTROLLINGTHEGATEWAYLOCK, CONTROLLINGTHEGATE, CONTROLLINGTHEGARAGEDOOR,
+    THERMOMETER, HUMIDITY, HUMIDITYANDTEMPERATURE, OPENINGSENSOR_GATEWAY,
+    OPENINGSENSOR_GATE, OPENINGSENSOR_GARAGEDOOR, NOLIQUIDSENSOR,
+    CONTROLLINGTHEDOORLOCK, OPENINGSENSOR_DOOR, CONTROLLINGTHEROLLERSHUTTER,
+    OPENINGSENSOR_ROLLERSHUTTER, POWERSWITCH, LIGHTSWITCH, DIMMER,
+    RGBLIGHTING, DIMMERANDRGBLIGHTING, DEPTHSENSOR, DISTANCESENSOR,
+    OPENINGSENSOR_WINDOW, MAILSENSOR, WINDSENSOR, PRESSURESENSOR,
+    RAINSENSOR, WEIGHTSENSOR, WEATHER_STATION, STAIRCASETIMER
+}
+export class Action {
+    name: ActionType;
+    caption: string;
+
+
+    constructor(name: ActionType, caption: string) {
+        this.name = name;
+        this.caption = caption;
+    }
+}
+
+export enum ActionType {
+    OPEN, CLOSE, SHUT, REVEAL, REVEAL_PARTIALLY,
+    TURN_ON, TURN_OFF, SET_RGBW_PARAMETERS, OPEN_CLOSE,
+    STOP, TOGGLE, READ
+}

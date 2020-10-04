@@ -15,13 +15,13 @@ export class ChannelsController {
         return this.channelsService.getChannels(token);
     }
 
-    @Get('/:id')
-    getChannel(@Param('id') id: number) {
-        return this.channelsService.getChannelById(id);
-    }
-
-    @Patch(':id')
-    changeChannelStatus(@Param('id') id: number) {
-        return this.channelsService.toggleLight(id);
-    }
+    // @Get('/:id')
+    // getChannel(@Param('id') id: number) {
+    //     return this.channelsService.getChannelById(id);
+    // }
+    //
+    // @Patch(':id')
+    // changeChannelStatus(@Param('id') id: number) {
+    //     return this.channelsService.toggleLight(id);
+    // }
 }
