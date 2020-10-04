@@ -1,37 +1,23 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
-import {Level} from "../level/level.model";
-import {Transform} from "class-transformer";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class Room {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryColumn()
+    id: string;
 
-    @PrimaryColumn({unique: true})
+    @Column()
     userId: string;
 
     @Column()
     name: string;
 
-    @ManyToOne(
-        type => Level,
-        level => level.rooms,
-        {onDelete: "CASCADE", onUpdate: "CASCADE"}
-    )
-    @JoinColumn([
-        {name: 'userId', referencedColumnName: 'userId'},
-        {name: 'levelId', referencedColumnName: 'id'}
-    ])
-    level: Level;
-
-    @Transform(points => JSON.parse(points))
     @Column()
-    points: string;
+    points: JSON;
 
     @Column()
     color: string;
 
-    constructor(name: string, points: string, color: string) {
+    constructor(name: string, points: JSON, color: string) {
         this.name = name;
         this.points = points;
         this.color = color;

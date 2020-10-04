@@ -1,12 +1,13 @@
-import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Exclude, Transform} from 'class-transformer';
 
 @Entity()
 export class Device {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Transform(id => id.toString())
+    @ObjectIdColumn()
+    id: ObjectID;
 
-    @PrimaryColumn({unique: true})
+    @Column()
     userId: string;
 
     @Column()
@@ -19,14 +20,13 @@ export class Device {
     @Column({nullable: true})
     color: string;
 
-    @Transform(point => JSON.parse(point))
     @Column({nullable: true})
-    point: string;
+    point: JSON;
 
     @Column({nullable: true})
-    roomId: number;
+    roomId: string;
 
-    constructor(userId: string, suplaDeviceId: number, name: string, color: string, roomId: number) {
+    constructor(userId: string, suplaDeviceId: number, name: string, color: string, roomId: string) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;

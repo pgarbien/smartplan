@@ -16,6 +16,7 @@ import {Location} from "./location.model";
 import {AuthGuard} from "../auth.guard";
 import AuthService from "../auth/auth.service";
 import {AuthInterceptor} from "../auth.interceptor";
+import {UpdateResult} from "typeorm";
 
 @Controller('locations')
 @UseGuards(AuthGuard)
@@ -30,7 +31,7 @@ export class LocationsController {
     }
 
     @Get('/:id')
-    getLocation(@Headers('user_id') userId: string, @Param('id') id: number): Promise<Location> {
+    getLocation(@Headers('user_id') userId: string, @Param('id') id: string): Promise<Location> {
         return this.locationsService.getById(userId, id);
     }
 
@@ -39,13 +40,13 @@ export class LocationsController {
         return this.locationsService.persist(userId, location);
     }
 
-    @Put()
-    update(@Headers('user_id') userId: string, @Body() location: Location): Promise<Location> {
+    @Put("/:id")
+    update(@Headers('user_id') userId: string, @Body() location: Location): Promise<UpdateResult> {
        return this.locationsService.update(userId, location);
     }
 
     @Delete('/:id')
-    delete(@Headers('user_id') userId: string, @Param('id') id: number) {
+    delete(@Headers('user_id') userId: string, @Param('id') id: string) {
         return this.locationsService.deleteById(userId, id);
     }
 }

@@ -1,8 +1,9 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import {Location} from "./location.model";
-import {Repository} from "typeorm";
+import {Repository, UpdateResult} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
+import {randomStringGenerator} from "@nestjs/common/utils/random-string-generator.util";
 
 @Injectable()
 export class LocationsService {
@@ -36,60 +37,47 @@ export class LocationsService {
         return this.locationsRepository.find({"userId": userId});
     }
 
-    getById(userId: string, id: number): Promise<Location> {
-        return this.locationsRepository.findOne(
-            {
-                "id": id,
-                "userId": userId
-            },
-            {
-                relations: ["levels", "levels.rooms"]
-            });
+    getById(userId: string, id: string): Promise<Location> {
+        return this.locationsRepository.findOne(id, {
+            where: {"userId": userId}
+        });
     }
 
     async persist(userId: string, location: Location): Promise<Location> {
-        //TODO figure out a way of updating without delete
         location.userId = userId;
-        // if(location.id != null){
-        //     this.deleteById(userId, location.id);
-        // }
-        location.levels.forEach(location => {
-            location.userId = userId;
-            location.rooms.forEach(room => {
+        location.levels.forEach(level => {
+            level.userId = userId;
+            level.id = randomStringGenerator();
+            level.rooms.forEach(room => {
                 room.userId = userId;
-                room.points = JSON.stringify(room.points);
+                room.id = randomStringGenerator();
+                // room.points = JSON.stringify(room.points);
             })
         });
         return await this.locationsRepository.save(location);
     }
 
-    deleteById(userId: string, locationId: number) {
+    deleteById(userId: string, locationId: string) {
         this.locationsRepository.delete({
             "id": locationId,
             "userId": userId
         })
     }
 
-    async update(userId: string, location: Location): Promise<Location> {
-        let existingLocation = await this.locationsRepository.findOne({
-            "id": location.id,
-            "userId": userId
+    async update(userId: string, location: Location): Promise<UpdateResult> {
+        location.levels.forEach(level => {
+            if(level.id  == null) {
+                level.userId = userId;
+                level.id = randomStringGenerator();
+            }
+            level.rooms.forEach(room => {
+                if(room.id == null) {
+                    room.userId = userId;
+                    room.id = randomStringGenerator();
+                }
+                // room.points = JSON.stringify(room.points);
+            })
         });
-        //
-        // location.levels.forEach(location => {
-        //     location.userId = userId;
-        //     location.rooms.forEach(room => room.userId = userId)
-        // });
-        //
-        // existingLocation = this.locationsRepository.merge(existingLocation, location);
-        //
-        // existingLocation.levels.forEach(location => {
-        //     location.userId = userId;
-        //     location.rooms.forEach(room => room.userId = userId)
-        // });
-        //
-        // console.log(JSON.stringify(existingLocation));
-        //
-        return this.locationsRepository.save(existingLocation)
+        return await this.locationsRepository.update(location.id, location);
     }
 }
