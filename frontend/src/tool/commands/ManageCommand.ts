@@ -22,7 +22,7 @@ export default class ManageCommand extends Command {
         this.devicesData.getDevices().forEach((device) => {
             if(Math.abs(cursorPosition.x - device.point.x) < device.radius
             && Math.abs(cursorPosition.y - device.point.y) < device.radius){
-                console.log(`${device.name}, actions: ${device.deviceActions.length}`);
+                console.log(`${device.name}`);
             }
         })
     }

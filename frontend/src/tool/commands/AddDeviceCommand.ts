@@ -21,11 +21,11 @@ export default class AddDeviceCommand extends Command {
         this.canvasDrawer = canvasDrawer;
     }
 
-    drawNewDevice(deviceName: string, color: string, id: string, deviceActions: []) {
+    drawNewDevice(deviceName: string, color: string, id: string, position: Point) {
         if(color == null || color === "") {
             color = "rgba(0, 209, 81, 1)"
         }
-        this.creatorDevices.setCurrentDevice(new NewDevice(deviceName, color, id, deviceActions));
+        this.creatorDevices.setCurrentDevice(new NewDevice(deviceName, color, id, position));
         this.creatorDevices.getDevices().push(this.creatorDevices.getCurrentDevice());
         
     }

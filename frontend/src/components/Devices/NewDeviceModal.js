@@ -1,5 +1,4 @@
 import React, {Fragment, useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 import Modal from '../../components/Modal/Modal';
 import '../Locations/NewLocationModal.css';
 import mAxios from '../../utils/API';
@@ -12,12 +11,7 @@ const NewDeviceModal = (props) => {
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {
-        mAxios.get('/channels', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token')
-            }
-        })
+        mAxios.get('/channels')
         .then(response => {
             setDevices(response.data)
         })
@@ -58,7 +52,7 @@ const NewDeviceModal = (props) => {
             <button className="create-button" onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
         </Fragment>;
 
-    return (props.showModal ? <Modal title="Add new device" canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal> : null)
+    return <Modal title="Add new device" canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal>;
 }
 
 export default NewDeviceModal;

@@ -37,7 +37,7 @@ const NewLevelModal = (props) => {
             });
     }
 
-    return (props.showModal ? <Modal title="Add new level" onCloseModal={() => { props.setShowModal(!props.canClose) }} canClose={props.canClose}> {modalContent} </Modal> : null);
+    return <Modal title="Add new level" onCloseModal={() => { props.setShowModal(!props.canClose) }} canClose={props.canClose}> {modalContent} </Modal>;
 }
 
 export default NewLevelModal;

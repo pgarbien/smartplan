@@ -6,6 +6,8 @@ import LevelsList from '../../components/Levels/LevelsList';
 import '../../App.css';
 import './Tool.css';
 import { Commands } from '../../tool/commands/Commands';
+import NewLevelModal from '../../components/DrawTool/NewLevelModal';
+import Level from '../../tool/model/Level';
 
 const toolsInfos = {
   "toggle": {
@@ -30,25 +32,37 @@ const toolsInfos = {
   }
 }
 
-const Tool = ({location, changeDisplayedLevel, setShowAddLevelModal, setupCreator, parentCreator}) => {
+const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creator = parentCreator;
   const creationCanvas = useRef(null);
   const [toolInfo, setToolInfo] = useState(toolsInfos['draw']);
   const [tmpToolInfo, setTmpToolInfo] = useState(null);
+  const [showAddLevelModal, setShowAddLevelModal] = useState(false);
 
   const put = () => {
-      mAxios.post('/locations', location)
-          .catch(error => console.log(error));
+    mAxios.post('/locations', location)
+        .catch(error => console.log(error));
   }
 
   const remove = () => {
-      mAxios.delete('/locations/' + location.id)
-          .catch(error => console.log(error));
+    mAxios.delete('/locations/' + location.id)
+        .catch(error => console.log(error));
+  }
+  
+  const addNewLevel = (levelName, blueprintUrl) => {
+    const preLocation = location; 
+    preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
+    setLocation(preLocation); 
+    setShowAddLevelModal(false)
   }
 
   useEffect(() => {
-    if(creationCanvas != null) setupCreator(creationCanvas.current)
+    if(creationCanvas) setupCreator(creationCanvas.current)
   }, [creationCanvas]);
+
+  useEffect(() => {
+    if(location && location.levels.length === 0) setShowAddLevelModal(true);
+  }, [location]);
 
   return (
     <Fragment>
@@ -100,6 +114,7 @@ const Tool = ({location, changeDisplayedLevel, setShowAddLevelModal, setupCreato
             </div>
           </div>
         </div>
+        { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
       </Fragment>
   );
 }

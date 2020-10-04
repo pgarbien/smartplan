@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import mAxios from '../../utils/API';
 
-const Devices = ({creator}) => {
+const Devices = () => {
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {

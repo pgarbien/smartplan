@@ -3,15 +3,6 @@
     vertical-align: bottom;
 }
 
-/* .level {
-    text-align: center;
-    padding: 5px;
-    border-width: 0px 1px 1px 1px;
-    border-style: solid;
-    border-color: #00d151;
-    cursor: pointer;
-} */
-
 .level:first-child {
     border-width: 1px;
 }

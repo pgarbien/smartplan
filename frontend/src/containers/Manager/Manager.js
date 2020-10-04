@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
 import '../../App.css'; 
@@ -11,7 +11,7 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
     const creationCanvas = useRef(null);
 
     useEffect(() => {
-        if(creationCanvas != null) setupCreator(creationCanvas.current)
+        if(creationCanvas) setupCreator(creationCanvas.current)
     }, [creationCanvas]);
 
     return(
