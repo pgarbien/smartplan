@@ -25,9 +25,9 @@ const Manager = ({location, change, creationCanvas, parentCreator}) => {
             <div className="devices-list">
                 <Devices creator={creator}/>
             </div>
-            <button className="directional-button" onClick={() => creator.manageDevices()}>Manage devices</button>
-            <Link className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
-            <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
+            <button className="tool-button">Manage devices</button>
+            <Link className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location &nbsp;&gt;</Link>
+            <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
         </div>
     );
 }
