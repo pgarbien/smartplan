@@ -47,7 +47,14 @@ const NewDeviceModal = (props) => {
                 ))}
             </select>
             <br/>
-            <input type="text" id="device-name" name="device-name" placeholder="rgba(0, 128, 128, 128)" onChange={(event) => {setDeviceColor(event.target.value)}}></input>
+            <select onChange={(event) => {setDeviceColor(event.target.value)}} defaultValue="rgba(0, 128, 128, 128)">
+                <option>red</option>
+                <option>green</option>
+                <option>blue</option>
+                <option>yellow</option>
+                <option>black</option>
+            </select>
+            <br/>
             <button className="create-button" onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
         </Fragment>;
 

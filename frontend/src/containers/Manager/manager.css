@@ -10,11 +10,20 @@
 }
 
 .back-link {
-    color: #00d051;
-    text-align: center;
-    border: 1px solid #00d051;
-    border-radius: 15px;
-    height: 50px;
     width: 200px;
-    background-color: #ffffff;
+    border: 0px;
+    padding: 20px 0;
+    height: auto;
+    color: #000;
+    cursor: pointer;
+    transition: ease .5s;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #00d151;
 }
