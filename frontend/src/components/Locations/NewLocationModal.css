@@ -28,6 +28,13 @@ input[type=color] {
     color: #fff;
 }
 
+.upload-button:disabled,
+.create-button:disabled {
+    border: 1px solid #ccc;
+    background: #eee;
+    color: #aaa;
+}
+
 input[type=file] {
     display: none;
 }

@@ -12,7 +12,6 @@ import AddDeviceCommand from './commands/AddDeviceCommand';
 import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
 import ManageCommand from './commands/ManageCommand';
-import Location from './model/Location';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;

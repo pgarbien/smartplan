@@ -33,7 +33,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     mAxios.delete('/locations/' + location.id)
         .catch(error => console.log(error));
   }
-  
+
   const addNewLevel = (levelName, blueprintUrl) => {
     const preLocation = location; 
     preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
@@ -41,9 +41,8 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     setShowAddLevelModal(false);
   }
 
-  const addNewRoom = (room) => {
-    location.levels[activeLevel].rooms.push(room);
-    // console.log(location);
+  const updateRooms = () => {
+    location.levels[activeLevel].rooms = parentCreator.getRooms();
   }
 
   useEffect(() => {
@@ -55,10 +54,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }, [location]);
 
   useEffect(() => {
-    if(parentCreator) {
-        parentCreator.setCallback('click', addNewRoom);
-        parentCreator.setCommand(Commands.DRAW);
-    }
+    if(parentCreator) parentCreator.setCommand(Commands.DRAW);
   }, [parentCreator]);
 
   return (
@@ -76,7 +72,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
           <div className="drawing-area">
-            <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600"></canvas>
+            <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600" onClick={() => { updateRooms() }}></canvas>
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
