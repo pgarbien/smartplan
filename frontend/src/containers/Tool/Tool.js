@@ -5,41 +5,20 @@ import mAxios from '../../utils/API';
 import LevelsList from '../../components/Levels/LevelsList';
 import '../../App.css';
 import './Tool.css';
-import { Commands } from '../../tool/commands/Commands';
+import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
-
-const toolsInfos = {
-  "toggle": {
-    name: "Toggle",
-    description: "Toggles background blueprint visibility (if any photo uploaded)."
-  },
-  "draw": {
-    name: "Draw",
-    description: "LPM: Add new room point <br/>LPM (on begining point): Finish room <br/>RPM (on room): Delete selected room <br/> RPM (while building): Remove added room point <br/>"
-  },
-  "move": {
-    name: "Move",
-    description: "LPM drag (on room): Move selected room <br/>LPM drag (on wall): Move selected wall <br/>LPM drag (on point): Move selected point <br/>"
-  },
-  "undo": {
-    name: "Undo",
-    description: "Undoes the last performed action."
-  },
-  "redo": {
-    name: "Redo",
-    description: "Redoes the last performed action."
-  }
-}
+import ToolDescription from '../../components/ToolDescription/ToolDescription';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creator = parentCreator;
   const creationCanvas = useRef(null);
-  const [toolInfo, setToolInfo] = useState(toolsInfos['draw']);
-  const [tmpToolInfo, setTmpToolInfo] = useState(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
+  
+  const [toolInfo, setToolInfo] = useState(commandsDescription['draw']);
+  const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
-  const put = () => {
+  const post = () => {
     mAxios.post('/locations', location)
         .catch(error => console.log(error));
   }
@@ -53,7 +32,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     const preLocation = location; 
     preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
     setLocation(preLocation); 
-    setShowAddLevelModal(false)
+    setShowAddLevelModal(false);
   }
 
   useEffect(() => {
@@ -64,6 +43,10 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     if(location && location.levels.length === 0) setShowAddLevelModal(true);
   }, [location]);
 
+  useEffect(() => {
+    if(parentCreator)  parentCreator.setCommand(Commands.DRAW);
+  }, [parentCreator]);
+
   return (
     <Fragment>
       <h2>Edit <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
@@ -72,24 +55,24 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <div className="tools">
                 <button className="tool-button" 
                   onClick={() => creator.toggleBackgroundImage() }
-                  onMouseEnter={() => setTmpToolInfo(toolsInfos['toggle'])}
-                  onMouseLeave={() => setTmpToolInfo(null)}>Toggle image</button>
+                  onMouseEnter={() => setHoverToolInfo(commandsDescription['toggle'])}
+                  onMouseLeave={() => setHoverToolInfo(null)}>Toggle image</button>
                 <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Draw' ? " tool-button-active" : "" : "")} 
-                  onClick={() => { creator.setCommand(Commands.DRAW); setToolInfo(toolsInfos['draw']) }}
-                  onMouseEnter={() => setTmpToolInfo(toolsInfos['draw'])}
-                  onMouseLeave={() => setTmpToolInfo(null)}>Draw</button>
+                  onClick={() => { creator.setCommand(Commands.DRAW); setToolInfo(commandsDescription['draw']) }}
+                  onMouseEnter={() => setHoverToolInfo(commandsDescription['draw'])}
+                  onMouseLeave={() => setHoverToolInfo(null)}>Draw</button>
                 <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Move' ? " tool-button-active" : "" : "")}
-                  onClick={() => { creator.setCommand(Commands.MOVE_ROOMS); setToolInfo(toolsInfos['move']) }}
-                  onMouseEnter={() => setTmpToolInfo(toolsInfos['move'])}
-                  onMouseLeave={() => setTmpToolInfo(null)}>Move rooms</button>
+                  onClick={() => { creator.setCommand(Commands.MOVE_ROOMS); setToolInfo(commandsDescription['move']) }}
+                  onMouseEnter={() => setHoverToolInfo(commandsDescription['move'])}
+                  onMouseLeave={() => setHoverToolInfo(null)}>Move rooms</button>
                 <button className="tool-button" 
                   onClick={() => creator.undoCommand()}
-                  onMouseEnter={() => setTmpToolInfo(toolsInfos['undo'])}
-                  onMouseLeave={() => setTmpToolInfo(null)}>Undo</button>
+                  onMouseEnter={() => setHoverToolInfo(commandsDescription['undo'])}
+                  onMouseLeave={() => setHoverToolInfo(null)}>Undo</button>
                 <button className="tool-button" 
                   onClick={() => creator.redoCommand()}
-                  onMouseEnter={() => setTmpToolInfo(toolsInfos['redo'])}
-                  onMouseLeave={() => setTmpToolInfo(null)}>Redo</button>
+                  onMouseEnter={() => setHoverToolInfo(commandsDescription['redo'])}
+                  onMouseLeave={() => setHoverToolInfo(null)}>Redo</button>
             </div>
             <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
@@ -97,13 +80,9 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600"></canvas>
           </div>
           <div className="right-container">
-            <div className="description" style={ tmpToolInfo ? {width: "200%"} : {}}>
-              <h3>{toolInfo ? tmpToolInfo ? tmpToolInfo.name : toolInfo.name : ""} tool</h3>
-              <p dangerouslySetInnerHTML={{ __html: toolInfo ? tmpToolInfo ? tmpToolInfo.description : toolInfo.description : "" }} >
-              </p>
-            </div>
+            <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="buttons">
-              <div className="directional-button" onClick={() => { put() }}>Save</div>
+              <div className="directional-button" onClick={() => { post() }}>Save</div>
               <div className="directional-button" onClick={() => { remove() }}>Delete</div>
               <div className="directional-button">
                 <Link className="devices-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>

@@ -25,7 +25,10 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
     }, [creationCanvas]);
 
     useEffect(() => {
-        if(parentCreator) parentCreator.setCallback('click', manageDevice);
+    if(parentCreator) {
+        parentCreator.setCommand(Commands.MANAGE);
+        parentCreator.setCallback('click', manageDevice);
+    }
     }, [parentCreator]);
 
     return(

@@ -201,6 +201,8 @@ export default class Creator {
                 return new DragCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MANAGE:
                 return new ManageCommand(this.creatorRooms, this.creatorDevices, this.canvasDrawer);
+            default:
+                return new BuildCommand(this.creatorRooms, this.canvasDrawer);
         }
     }
 
