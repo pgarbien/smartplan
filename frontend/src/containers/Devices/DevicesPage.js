@@ -6,6 +6,7 @@ import LevelsList from '../../components/Levels/LevelsList';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
+import ToolButton from '../../components/ToolButton/ToolButton';
 
 const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
@@ -13,7 +14,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
     const [position, setPosition] = useState(null);
 
-    const [toolInfo, setToolInfo] = useState(commandsDescription['add_device']);
+    const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
     const downloadImage = () => {
@@ -50,22 +51,11 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
             <div className="devices-container">
                 <div className="left-container">
                     <div className="tools">
-                        <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Add device' ? " tool-button-active" : "" : "")} 
-                            onClick={() => { creator.setCommand(Commands.ADD_DEVICE); setToolInfo(commandsDescription['add_device']) }}
-                            onMouseEnter={() => setHoverToolInfo(commandsDescription['add_device'])}
-                            onMouseLeave={() => setHoverToolInfo(null)}>Add device</button>
-                        <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Move device' ? " tool-button-active" : "" : "")} 
-                            onClick={() => { creator.setCommand(Commands.MOVE_DEVICE); setToolInfo(commandsDescription['move_device']) }}
-                            onMouseEnter={() => setHoverToolInfo(commandsDescription['move_device'])}
-                            onMouseLeave={() => setHoverToolInfo(null)}>Move devices</button>
-                        <button className="tool-button" 
-                            onClick={() => creator.undoCommand()}
-                            onMouseEnter={() => setHoverToolInfo(commandsDescription['undo'])}
-                            onMouseLeave={() => setHoverToolInfo(null)}>Undo</button>
-                        <button className="tool-button" 
-                            onClick={() => creator.redoCommand()}
-                            onMouseEnter={() => setHoverToolInfo(commandsDescription['redo'])}
-                            onMouseLeave={() => setHoverToolInfo(null)}>Redo</button>
+                        <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Toggle image</ToolButton>
+                        <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Add device</ToolButton>
+                        <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Move devices</ToolButton>
+                        <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
+                        <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
                     </div>
                     <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} />
                 </div>

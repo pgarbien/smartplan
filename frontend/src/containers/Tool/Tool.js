@@ -9,13 +9,14 @@ import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
+import ToolButton from '../../components/ToolButton/ToolButton';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creator = parentCreator;
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
   
-  const [toolInfo, setToolInfo] = useState(commandsDescription['draw']);
+  const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
   const post = () => {
@@ -53,26 +54,11 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       <div className="tool-container">
           <div className="left-container">
             <div className="tools">
-                <button className="tool-button" 
-                  onClick={() => creator.toggleBackgroundImage() }
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['toggle'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Toggle image</button>
-                <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Draw' ? " tool-button-active" : "" : "")} 
-                  onClick={() => { creator.setCommand(Commands.DRAW); setToolInfo(commandsDescription['draw']) }}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['draw'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Draw</button>
-                <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Move' ? " tool-button-active" : "" : "")}
-                  onClick={() => { creator.setCommand(Commands.MOVE_ROOMS); setToolInfo(commandsDescription['move']) }}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['move'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Move rooms</button>
-                <button className="tool-button" 
-                  onClick={() => creator.undoCommand()}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['undo'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Undo</button>
-                <button className="tool-button" 
-                  onClick={() => creator.redoCommand()}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['redo'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Redo</button>
+              <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Toggle image</ToolButton>
+              <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Draw rooms</ToolButton>
+              <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Move rooms</ToolButton>
+              <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
+              <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
             </div>
             <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
