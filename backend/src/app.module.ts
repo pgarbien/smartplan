@@ -26,7 +26,7 @@ import {ChannelsModule} from './channels/channels.module';
         }),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: '192.168.99.100',
+            host: 'localhost',
             port: 5432,
             username: 'admin',
             password: 'password',
