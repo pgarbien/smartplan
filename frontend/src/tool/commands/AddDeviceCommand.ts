@@ -30,8 +30,8 @@ export default class AddDeviceCommand extends Command {
         
     }
 
-    onClick(cursorPosition: Point): void {
-        
+    onClick(cursorPosition: Point, callback: Function): void {
+        callback(cursorPosition);
     }
 
     onRightClick(cursorPosition: Point): void {

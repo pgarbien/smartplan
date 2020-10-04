@@ -1,34 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
-import '../../App.css';
-import './manager.css';
+import '../../App.css'; 
+import './Manager.css';
+import LevelsList from '../../components/Levels/LevelsList';
+import { Commands } from '../../tool/commands/Commands';
 
-const Manager = ({location, change, creationCanvas, parentCreator}) => {
+const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
+    const creationCanvas = useRef(null);
 
     useEffect(() => {
-        if(parentCreator != null) {
-            parentCreator.setCanvas(creationCanvas.current);
-            change(parentCreator);
-        }
-    },[]);
+        if(creationCanvas != null) setupCreator(creationCanvas.current)
+    }, [creationCanvas]);
 
     return(
-        <div className="manager-container">
-            <div className="possible-actions-area">
-                <h3>Możliwe do wykonania akcje urządzenia.</h3>
-            </div>
-            <div className="drawing_area">
-                <canvas ref={creationCanvas} id="managerCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}/>
-            </div>
-            <div className="devices-list">
-                <Devices creator={creator}/>
-            </div>
-            <button className="directional-button" onClick={() => creator.manageDevices()}>Manage devices</button>
-            <Link className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
-            <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
-        </div>
+        <Fragment>
+            <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
+            <div className="manager-container">
+                <div className="left-container">
+                    <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} />
+                </div>
+                <div className="drawing-area">
+                    <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>
+                </div>
+                <div className="right-container">
+                    <div className="devices-list">
+                        <Devices creator={creator}/>
+                    </div>
+                    <button className="directional-button" onClick={() => creator.setCommand(Commands.MANAGE)}>Manage devices</button>
+                    <Link className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
+                    <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
+                    </div>
+                </div>
+        </Fragment>
     );
 }
 

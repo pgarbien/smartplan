@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useHistory } from "react-router-dom";
 import mAxios from '../../utils/API';
 
 import LevelsList from '../../components/Levels/LevelsList';
 import '../../App.css';
 import './Tool.css';
+import { Commands } from '../../tool/commands/Commands';
 
 const toolsInfos = {
   "toggle": {
@@ -30,49 +30,25 @@ const toolsInfos = {
   }
 }
 
-const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCreator}) => {
+const Tool = ({location, changeDisplayedLevel, setShowAddLevelModal, setupCreator, parentCreator}) => {
   const creator = parentCreator;
-  
-  const history = useHistory();
-  const [activeLevel, setActiveLevel] = useState(0);
+  const creationCanvas = useRef(null);
   const [toolInfo, setToolInfo] = useState(toolsInfos['draw']);
   const [tmpToolInfo, setTmpToolInfo] = useState(null);
-  
-  const changeDisplayedLevel = (level) => {
-    location.levels.find(level => level.order === activeLevel).rooms = creator.getRooms();
-    creator.setBackgroundImage(level.blueprintUrl);
-    creator.setRooms(level.rooms); 
-    creator.drawCanvas(); 
-    setActiveLevel(level.order) 
-  }
 
   const put = () => {
-      console.log(location);
       mAxios.post('/locations', location)
-          .then(response => {
-              console.log("aaaa")
-          })
-          .catch(error => {
-              console.log(error);
-          });
+          .catch(error => console.log(error));
   }
 
   const remove = () => {
       mAxios.delete('/locations/' + location.id)
-          .then(response => {
-              history.push('locations')
-          })
-          .catch(error => {
-              console.log(error);
-          });
+          .catch(error => console.log(error));
   }
 
   useEffect(() => {
-    if(parentCreator != null) {
-      parentCreator.setCanvas(creationCanvas.current);
-      change(parentCreator);
-    }
-  }, []);
+    if(creationCanvas != null) setupCreator(creationCanvas.current)
+  }, [creationCanvas]);
 
   return (
     <Fragment>
@@ -85,11 +61,11 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
                   onMouseEnter={() => setTmpToolInfo(toolsInfos['toggle'])}
                   onMouseLeave={() => setTmpToolInfo(null)}>Toggle image</button>
                 <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Draw' ? " tool-button-active" : "" : "")} 
-                  onClick={() => { creator.draw(); setToolInfo(toolsInfos['draw']) }}
+                  onClick={() => { creator.setCommand(Commands.DRAW); setToolInfo(toolsInfos['draw']) }}
                   onMouseEnter={() => setTmpToolInfo(toolsInfos['draw'])}
                   onMouseLeave={() => setTmpToolInfo(null)}>Draw</button>
                 <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Move' ? " tool-button-active" : "" : "")}
-                  onClick={() => { creator.moveRooms(); setToolInfo(toolsInfos['move']) }}
+                  onClick={() => { creator.setCommand(Commands.MOVE_ROOMS); setToolInfo(toolsInfos['move']) }}
                   onMouseEnter={() => setTmpToolInfo(toolsInfos['move'])}
                   onMouseLeave={() => setTmpToolInfo(null)}>Move rooms</button>
                 <button className="tool-button" 
@@ -101,7 +77,7 @@ const Tool = ({location, setShowAddLevelModal, change, creationCanvas, parentCre
                   onMouseEnter={() => setTmpToolInfo(toolsInfos['redo'])}
                   onMouseLeave={() => setTmpToolInfo(null)}>Redo</button>
             </div>
-            <LevelsList location={location} activeLevel={activeLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
+            <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
           <div className="drawing-area">
             <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600"></canvas>

@@ -11,38 +11,16 @@ import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import Manager from '../Manager/Manager';
 
 const DrawTool = (props) => {
-    const creationCanvas = useRef(null);
+    const [creationCanvas, setCreationCanvas] = useState(useRef(null));
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [showAddLevelModal, setShowAddLevelModal] = useState(false);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
 
-    const change = (cr) => {
-        creationCanvas.current = cr.canvas;
-
-        const creator = new Creator(creationCanvas.current);
-
-        creator.setBackgroundImage("https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg");
-        creator.setRooms(cr.getRooms());
-        creator.setDevices(cr.getDevices());
-        creator.drawCanvas();
-        setCreator(creator);
-    };
-
     /*
     * This method must be created seperately as we cannot save image with background image behind our drawing
     * as it gives us SecurityError (if you want to know in details read about CORS)
     * */
-    const changeCondignation = (cr) => {
-        creationCanvas.current = cr.canvas;
-
-        const creator = new Creator(creationCanvas.current);
-
-        creator.setRooms(cr.getRooms());
-        creator.setDevices(cr.getDevices());
-        creator.drawCanvas();
-        setCreator(creator);
-    };
 
     const addNewLevel = (levelName, blueprintUrl) => {
         const preLocation = location; 
@@ -55,11 +33,27 @@ const DrawTool = (props) => {
         creator.addDeviceCommand(deviceName, color, deviceId, deviceActions);
         setShowAddDeviceModal(false);
     }
+    
+    const changeDisplayedLevel = (level) => {
+        creator.setBackgroundImage(level.blueprintUrl);
+        creator.setRooms(level.rooms); 
+        creator.drawCanvas(); 
+    }
 
-    useEffect(() => {
-        const creator = new Creator(creationCanvas.current);
-        setCreator(creator);
+    const setupCreator = (canvas) => {
+        if(creator == null) {
+            const creator = new Creator(canvas);
+            fetchLocation(creator);
+            setCreator(creator);
 
+        } else {
+            changeDisplayedLevel(location.levels[0]);
+            creator.setCanvas(canvas);
+            creator.drawCanvas();
+        }
+    }
+
+    const fetchLocation = (creator) => {
         const query = window.location.search;
         const params = new URLSearchParams(query);
         const locationId = params.get('locationId');
@@ -91,19 +85,19 @@ const DrawTool = (props) => {
             setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", []));
             setShowAddLevelModal(true);
         }
-    }, []);
+    }
 
     return (
         <Switch>
             <Route path="/draw/devices">
-                <DevicesPage location={location} setShowAddDeviceModal={setShowAddDeviceModal} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
-                { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} showModal={showAddDeviceModal} setShowModal={setShowAddDeviceModal}/> : null}
+                <DevicesPage location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddDeviceModal={setShowAddDeviceModal} setupCreator={setupCreator} parentCreator={creator}/>
+                { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} showModal={showAddDeviceModal} setShowModal={setShowAddDeviceModal} canClose={true}/> : null}
             </Route>
             <Route path="/draw/manager">
-                <Manager location={location} change={changeCondignation} creationCanvas={creationCanvas} parentCreator={creator}/>
+                <Manager location={location} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
-                <Tool location={location} setShowAddLevelModal={setShowAddLevelModal} change={change} creationCanvas={creationCanvas} parentCreator={creator}/>
+                <Tool location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setupCreator={setupCreator} parentCreator={creator}/>
                 { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} showModal={showAddLevelModal} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
             </Route>
         </Switch>

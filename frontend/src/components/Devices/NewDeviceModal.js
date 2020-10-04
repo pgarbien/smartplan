@@ -51,7 +51,7 @@ const NewDeviceModal = (props) => {
             <button className="create-button" onClick={() => {props.addNewDevice(deviceName, deviceColor, deviceId, deviceActions)}}>CREATE</button>
         </Fragment>;
 
-    return (props.showModal ? <Modal title="Add new device" onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal> : null)
+    return (props.showModal ? <Modal title="Add new device" canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal> : null)
 }
 
 export default NewDeviceModal;

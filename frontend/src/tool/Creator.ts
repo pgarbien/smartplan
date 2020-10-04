@@ -1,3 +1,4 @@
+import { Commands } from './commands/Commands';
 import BackgroundImage from './model/BackgroundImage'
 import CanvasDrawer from './CanvasDrawer'
 import Room, { RoomInterface } from './model/Room'
@@ -12,13 +13,6 @@ import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
 import ManageCommand from './commands/ManageCommand';
 
-enum Commands {
-    DRAW,
-    MOVE_ROOMS,
-    ADD_DEVICE,
-    MANAGE
-}
-
 export default class Creator {
     private canvas: HTMLCanvasElement;
     private canvasContext: CanvasRenderingContext2D;
@@ -31,8 +25,9 @@ export default class Creator {
 
     private commandIndex: number = -1;
     private commands: Command[] = [];
-
     private cmd: Commands = Commands.DRAW;
+
+    private callbacks: Map<String, Function> = new Map();
 
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
@@ -49,18 +44,23 @@ export default class Creator {
         this.canvas.width = canvas.clientWidth
     }
 
-    getCanvas() {
-        return this.canvas;
-    }
-
+    getCanvas = () => this.canvas;
     setCanvas(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
+        this.canvasContext = canvas.getContext("2d")!!;
+        this.canvasDrawer = new CanvasDrawer(this.canvasContext);
+
+        this.canvas.addEventListener('click', this.onClick);
+        this.canvas.addEventListener('contextmenu', this.onRightClick);
+        this.canvas.addEventListener('mousemove', this.onMouseMove);
+        this.canvas.addEventListener('mousedown', this.onMouseDown);
+        this.canvas.addEventListener("mouseup", this.onMouseUp);
+
+        this.canvas.height = canvas.clientHeight
+        this.canvas.width = canvas.clientWidth
     }
 
-    getRooms() {
-        return this.creatorRooms.getRooms();
-    }
-
+    getRooms = () => this.creatorRooms.getRooms();
     setRooms(rooms: RoomInterface[]) {
         const newRooms: Room[] = [];
 
@@ -74,20 +74,20 @@ export default class Creator {
         this.creatorRooms.setRooms(newRooms);
     }
 
-    getDevices() {
-        return this.creatorDevices.getDevices();
-    }
-
+    getDevices = () => this.creatorDevices.getDevices();
     setDevices(devices: NewDeviceInterface[]) {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            newDevices.push(new NewDevice(device.name, device.color, device.id, device.deviceActions, device.point, device.radius));
+            const newDevice = new NewDevice(device.name, device.color, device.id, device.deviceActions, device.point, device.radius)
+            newDevices.push(newDevice);
         });
 
         this.creatorDevices.setDevices(newDevices);
     }
 
+
+    getBackgroundImage = () => this.backgroundImage
     setBackgroundImage(imageSource: string) {
         this.backgroundImage = new BackgroundImage(imageSource);
 
@@ -96,8 +96,21 @@ export default class Creator {
         }, 200);
     }
 
-    getBackgroundImage() {
-        return this.backgroundImage
+    setCallback = (name: String, callback: Function) => this.callbacks.set(name, callback);
+    setCommand = (command: Commands) => this.cmd = command;
+
+    redoCommand() {
+        if(this.commandIndex < this.commands.length - 1) {
+            this.commands[++this.commandIndex].redo();
+        }
+        this.drawCanvas();
+    }
+
+    undoCommand() {
+        if(this.commandIndex >= 0) {
+            this.commands[this.commandIndex--].undo();
+        }
+        this.drawCanvas();
     }
 
     toggleBackgroundImage() {
@@ -115,58 +128,11 @@ export default class Creator {
         this.canvasDrawer.drawDevices(this.creatorDevices.getDevices());
     }
 
-    redoCommand() {
-        if(this.commandIndex < this.commands.length - 1) {
-            this.commands[++this.commandIndex].redo();
-        }
-        this.drawCanvas();
-    }
-
-    undoCommand() {
-        if(this.commandIndex >= 0) {
-            this.commands[this.commandIndex--].undo();
-        }
-        this.drawCanvas();
-    }
-
-    draw() {
-        this.cmd = Commands.DRAW;
-
-        return new BuildCommand(this.creatorRooms, this.canvasDrawer);
-    }
-
-    moveRooms() {
-        this.cmd = Commands.MOVE_ROOMS;
-
-        return new DragCommand(this.creatorRooms, this.canvasDrawer);
-    }
-
-    manageDevices() {
-        this.cmd = Commands.MANAGE;
-
-        return new ManageCommand(this.creatorRooms, this.creatorDevices, this.canvasDrawer);
-    }
-
-    addDeviceCommand(deviceName: string, color: string, id: string, deviceActions: []) {
-        this.cmd = Commands.ADD_DEVICE;
-
-        const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
-        newDevice.drawNewDevice(deviceName, color, id, deviceActions);
-
-        return newDevice;
-    }
-
-    moveDeviceCommand() {
-        this.cmd = Commands.ADD_DEVICE;
-
-        return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
-    }
-
     private onClick = (event: MouseEvent) => {
         const command = this.getCommand();
         const cursorPosition: Point = getCursorPosition(this.canvas, event);
 
-        command.onClick(cursorPosition);
+        command.onClick(cursorPosition, this.callbacks.get('click'));
         this.addCommandToHistory(command);
         this.drawCanvas();
     }

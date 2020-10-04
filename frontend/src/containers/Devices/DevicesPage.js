@@ -1,20 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './DevicesPage.css';
 import '../../App.css';
 import LevelsList from '../../components/Levels/LevelsList';
+import { Commands } from '../../tool/commands/Commands';
 
-const DevicesPage = ({location, setShowAddDeviceModal, change, creationCanvas, parentCreator}) => {
+const DevicesPage = ({location, changeDisplayedLevel, setShowAddDeviceModal, setupCreator, parentCreator}) => {
     const creator = parentCreator;
-    const [activeLevel, setActiveLevel] = useState(0);
-
-    const changeDisplayedLevel = (level) => {
-        location.levels.find(level => level.order === activeLevel).rooms = creator.getRooms();
-        creator.setBackgroundImage(level.blueprintUrl);
-        creator.setRooms(level.rooms); 
-        creator.drawCanvas(); 
-        setActiveLevel(level.order) 
-    }
+    const creationCanvas = useRef(null);
 
     const downloadImage = () => {
         const a = document.getElementById("download")
@@ -22,13 +15,16 @@ const DevicesPage = ({location, setShowAddDeviceModal, change, creationCanvas, p
         a.href = dataURI;
     }
 
+    const addDevice = (position) => {
+        setShowAddDeviceModal(true)
+    }
+
     useEffect(() => {
-        setShowAddDeviceModal(false);
-        if(parentCreator != null) {
-            parentCreator.setCanvas(creationCanvas.current);
-            change(parentCreator);
+        if(parentCreator) {
+            if(creationCanvas) setupCreator(creationCanvas.current);
+            parentCreator.setCallback('click', addDevice);
         }
-    }, []);
+    }, [creationCanvas, parentCreator]);
 
     return(
         <Fragment>
@@ -36,13 +32,12 @@ const DevicesPage = ({location, setShowAddDeviceModal, change, creationCanvas, p
         <div className="devices-container">
             <div className="left-container">
                 <div className="tools">
-                    <button className="tool-button" onClick={() => setShowAddDeviceModal(true)}>Add device 1</button>
-                    <button className="tool-button" onClick={() => setShowAddDeviceModal(true)}>Add device 2</button>
-                    <button className="tool-button" onClick={() => creator.moveDeviceCommand()}>Move devices</button>
+                    <button className="tool-button" onClick={() => creator.setCommand(Commands.ADD_DEVICE)}>Add device</button>
+                    <button className="tool-button" onClick={() => creator.setCommand(Commands.ADD_DEVICE)}>Move devices</button>
                     <button className="tool-button" onClick={() => creator.undoCommand()}>Undo</button>
                     <button className="tool-button" onClick={() => creator.redoCommand()}>Redo</button>
                 </div>
-                <LevelsList location={location} activeLevel={activeLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} />
             </div>
             <div className="drawing-area">
                 <canvas ref={creationCanvas} className="canvas" id="condignationCanvas" height="600" width="600"></canvas>

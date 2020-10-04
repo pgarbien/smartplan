@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import './LevelsList.css';
 
-const LevelsList = ({location, activeLevel, changeDisplayedLevel, setShowAddLevelModal}) => {
-  const levelsMapped = location && location.levels ? location.levels.slice(0).reverse().map(level => {
-    return <div className={"level " + ((level.order === activeLevel) ? "level-active" : "")} onClick={() => { changeDisplayedLevel(level) }}>{level.name}</div>
-  }) : null;
+const LevelsList = ({location, changeDisplayedLevel, setShowAddLevelModal}) => {
+  const [activeLevel, setActiveLevel] = useState(0);
+  const [levelsMapped, setLevelsMapped] = useState(null);
+
+  useEffect(() => {
+    if(location && location.levels) {
+      let newLevelsMapped = location.levels.slice(0).reverse().map(level => {
+        return <div className={level.order === activeLevel ? "level level-active" : "level"} onClick={() => { 
+          changeDisplayedLevel(level);
+          setActiveLevel(level.order);
+         }}>{level.name}</div>
+      });
+
+      setLevelsMapped(newLevelsMapped)
+    }
+  }, [location, activeLevel])
 
   return (
     <div className="levels">

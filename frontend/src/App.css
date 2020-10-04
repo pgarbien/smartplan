@@ -16,7 +16,8 @@ h2 {
 }
 
 .tool-container,
-.devices-container {
+.devices-container,
+.manager-container {
   margin: 0px;
 }
 
