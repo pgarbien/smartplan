@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Creator from '../../tool/Creator';
 import mAxios from '../../utils/API';
 import DevicesPage from '../Devices/DevicesPage';
@@ -10,6 +10,7 @@ import Manager from '../Manager/Manager';
 const DrawTool = (props) => {
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
+    const [devices, setDevices] = useState([]);
     
     const changeDisplayedLevel = (level) => {
         creator.setBackgroundImage(level.blueprintUrl);
@@ -42,6 +43,15 @@ const DrawTool = (props) => {
                     creator.setBackgroundImage(location.levels[0].blueprintUrl);
                     creator.setRooms(location.levels[0].rooms);
                     creator.drawCanvas();
+                    
+                    mAxios.get('/devices')
+                        .then(response => {
+                            const devices = response.data
+                            setDevices(devices);
+                            creator.setDevices(devices);
+                            creator.drawCanvas();
+                        })
+                        .catch(error => console.log(error));
                 }
             })
             .catch(error => console.log(error));
@@ -53,10 +63,10 @@ const DrawTool = (props) => {
     return (
         <Switch>
             <Route path="/draw/devices">
-                <DevicesPage location={location} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
+                <DevicesPage location={location} devices={devices} setDevices={setDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
             </Route>
             <Route path="/draw/manager">
-                <Manager location={location} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
+                <Manager location={location} devices={devices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
                 <Tool location={location} setLocation={setLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>

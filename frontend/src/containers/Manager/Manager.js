@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
 import '../../App.css'; 
@@ -11,6 +11,7 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
     const creator = parentCreator;
     const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const creationCanvas = useRef(null);
+    const [activeLevel, setActiveLevel] = useState(0);
 
     const manageDevices = () => {
         setShowManageDeviceModal(false);
@@ -36,7 +37,7 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
             <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
             <div className="manager-container">
                 <div className="left-container">
-                    <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} />
+                    <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                 </div>
                 <div className="drawing-area">
                     <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>

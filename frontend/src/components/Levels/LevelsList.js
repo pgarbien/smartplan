@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../App.css';
 import './LevelsList.css';
 
-const LevelsList = ({location, changeDisplayedLevel, setShowAddLevelModal}) => {
-  const [activeLevel, setActiveLevel] = useState(0);
-
+const LevelsList = ({location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal}) => {
   const levelsMapped = location ? location.levels.slice(0).reverse().map(level => {
     return <div className={level.order === activeLevel ? "level level-active" : "level"} onClick={() => { 
       changeDisplayedLevel(level);

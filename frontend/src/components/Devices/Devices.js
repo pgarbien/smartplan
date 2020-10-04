@@ -5,12 +5,7 @@ const Devices = () => {
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {
-        mAxios.get('/channels', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token')
-            }
-        })
+        mAxios.get('/devices')
         .then(response => {
             setDevices(response.data)
         })
@@ -28,11 +23,11 @@ const Devices = () => {
         <div>
             <h2>Your devices: </h2>
             <ul style={{border: "1px solid #00d051", margin: 15, padding: 10, listStyleType: "none"}} onClick={event => alert(getEventTarget(event).innerHTML)}>
-                {devices ? devices.map(device => (
+                {devices.map(device => (
                     <li style={{margin: 10, padding: 10, borderBottom: "1px solid #00d051"}}>
                         ID{device.id}, name:{device.name}
                     </li>
-                )) : ""}
+                ))}
             </ul>
         </div>
     );

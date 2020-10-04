@@ -9,13 +9,14 @@ import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
+import ToolButton from '../../components/ToolButton/ToolButton';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
-  const creator = parentCreator;
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
   
-  const [toolInfo, setToolInfo] = useState(commandsDescription['draw']);
+  const [activeLevel, setActiveLevel] = useState(0);
+  const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
   const post = () => {
@@ -23,16 +24,25 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
         .catch(error => console.log(error));
   }
 
+  const put = () => {
+    mAxios.put(`/locations/${location.id}`, location)
+        .catch(error => console.log(error));
+  }
+
   const remove = () => {
     mAxios.delete('/locations/' + location.id)
         .catch(error => console.log(error));
   }
-  
+
   const addNewLevel = (levelName, blueprintUrl) => {
     const preLocation = location; 
     preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
     setLocation(preLocation); 
     setShowAddLevelModal(false);
+  }
+
+  const updateRooms = () => {
+    location.levels[activeLevel].rooms = parentCreator.getRooms();
   }
 
   useEffect(() => {
@@ -44,7 +54,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }, [location]);
 
   useEffect(() => {
-    if(parentCreator)  parentCreator.setCommand(Commands.DRAW);
+    if(parentCreator) parentCreator.setCommand(Commands.DRAW);
   }, [parentCreator]);
 
   return (
@@ -53,36 +63,21 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       <div className="tool-container">
           <div className="left-container">
             <div className="tools">
-                <button className="tool-button" 
-                  onClick={() => creator.toggleBackgroundImage() }
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['toggle'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Toggle image</button>
-                <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Draw' ? " tool-button-active" : "" : "")} 
-                  onClick={() => { creator.setCommand(Commands.DRAW); setToolInfo(commandsDescription['draw']) }}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['draw'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Draw</button>
-                <button className={"tool-button" + (toolInfo ? toolInfo.name === 'Move' ? " tool-button-active" : "" : "")}
-                  onClick={() => { creator.setCommand(Commands.MOVE_ROOMS); setToolInfo(commandsDescription['move']) }}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['move'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Move rooms</button>
-                <button className="tool-button" 
-                  onClick={() => creator.undoCommand()}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['undo'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Undo</button>
-                <button className="tool-button" 
-                  onClick={() => creator.redoCommand()}
-                  onMouseEnter={() => setHoverToolInfo(commandsDescription['redo'])}
-                  onMouseLeave={() => setHoverToolInfo(null)}>Redo</button>
+              <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Toggle image</ToolButton>
+              <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Draw rooms</ToolButton>
+              <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Move rooms</ToolButton>
+              <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
+              <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
             </div>
-            <LevelsList location={location} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
+            <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
           <div className="drawing-area">
-            <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600"></canvas>
+            <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600" onClick={() => { updateRooms() }}></canvas>
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="buttons">
-              <div className="directional-button" onClick={() => { post() }}>Save</div>
+              <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
               <div className="directional-button" onClick={() => { remove() }}>Delete</div>
               <div className="directional-button">
                 <Link className="devices-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
