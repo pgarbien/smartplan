@@ -24,6 +24,11 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
         .catch(error => console.log(error));
   }
 
+  const put = () => {
+    mAxios.put(`/locations/${location.id}`, location)
+        .catch(error => console.log(error));
+  }
+
   const remove = () => {
     mAxios.delete('/locations/' + location.id)
         .catch(error => console.log(error));
@@ -37,8 +42,8 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }
 
   const addNewRoom = (room) => {
-    // location.levels[activeLevel].rooms.push(room);
-    console.log(location);
+    location.levels[activeLevel].rooms.push(room);
+    // console.log(location);
   }
 
   useEffect(() => {
@@ -76,7 +81,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="buttons">
-              <div className="directional-button" onClick={() => { post() }}>Save</div>
+              <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
               <div className="directional-button" onClick={() => { remove() }}>Delete</div>
               <div className="directional-button">
                 <Link className="devices-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
