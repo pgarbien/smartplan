@@ -28,7 +28,7 @@ export class LevelController {
     }
 
     @Get('/:id')
-    getById(@Headers('user_id') userId: string, @Param('id') id: number): Promise<Level> {
+    getById(@Headers('user_id') userId: string, @Param('id') id: string): Promise<Level> {
         return this.levelService.getById(userId, id);
     }
 
@@ -38,7 +38,7 @@ export class LevelController {
     }
 
     @Delete('/:id')
-    delete(@Headers('user_id') userId: string, @Param('id') id: number) {
+    delete(@Headers('user_id') userId: string, @Param('id') id: string) {
         return this.levelService.deleteById(userId, id);
     }
 }

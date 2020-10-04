@@ -1,13 +1,15 @@
 import {Level} from "../level/level.model";
-import {Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ObjectID, ObjectIdColumn, OneToMany, PrimaryColumn} from "typeorm";
+import {Transform} from "class-transformer";
 
 
 @Entity()
 export class Location {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Transform(id => id.toString())
+    @ObjectIdColumn()
+    id: ObjectID;
 
-    @PrimaryColumn({unique: true})
+    @Column()
     userId: string;
 
     @Column()
@@ -16,11 +18,7 @@ export class Location {
     @Column({nullable: true})
     photoUrl: string;
 
-    @OneToMany(
-        type => Level,
-        level => level.location,
-        {cascade: true, onUpdate: "CASCADE"}
-    )
+    @Column(type => Level)
     levels: Level[];
 
     constructor(userId: string, name: string, levels: Level[]) {

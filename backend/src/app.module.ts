@@ -25,11 +25,9 @@ import {ChannelsModule} from './channels/channels.module';
             load: [configuration]
         }),
         TypeOrmModule.forRoot({
-            type: 'postgres',
+            type: 'mongodb',
             host: 'localhost',
-            port: 5432,
-            username: 'admin',
-            password: 'password',
+            port: 27017,
             database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,

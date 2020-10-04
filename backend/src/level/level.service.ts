@@ -1,11 +1,11 @@
 import {Injectable} from '@nestjs/common';
-import {Repository} from "typeorm";
+import {MongoRepository, Repository} from "typeorm";
 import {Level} from "./level.model";
 import {InjectRepository} from "@nestjs/typeorm";
 
 @Injectable()
 export class LevelService {
-    constructor(@InjectRepository(Level) private levelRepository: Repository<Level>) {
+    constructor(@InjectRepository(Level) private levelRepository: MongoRepository<Level>) {
     }
 
     getAllByLocationId(userId: string, locationId: number): Promise<Level[]> {
@@ -18,14 +18,11 @@ export class LevelService {
             .getMany();
     }
 
-    getById(userId: string, levelId: number): Promise<Level> {
+    getById(userId: string, levelId: string): Promise<Level> {
         return this.levelRepository.findOne(
             {
                 id: levelId,
                 userId: userId
-            },
-            {
-                relations: ["rooms"]
             })
     }
 
@@ -38,7 +35,7 @@ export class LevelService {
         return this.levelRepository.save(level);
     }
 
-    deleteById(userId: string, levelId: number) {
+    deleteById(userId: string, levelId: string) {
         this.levelRepository.delete({
             "id": levelId,
             "userId": userId

@@ -1,13 +1,12 @@
 import {Room} from "../room/room.model";
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
-import {Location} from "../locations/location.model";
+import {Column, Entity} from "typeorm";
 
 @Entity()
 export class Level {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Column()
+    id: string;
 
-    @PrimaryColumn({unique: true})
+    @Column()
     userId: string;
 
     @Column()
@@ -16,26 +15,11 @@ export class Level {
     @Column({nullable: true})
     blueprintUrl: string;
 
-    @OneToMany(
-        type => Room,
-        room => room.level,
-        {cascade: true, onUpdate: "CASCADE"}
-    )
+    @Column(type => Room)
     rooms: Room[];
 
     @Column()
     order: number;
-
-    @ManyToOne(
-        type => Location,
-        location => location.levels,
-        { onDelete: "CASCADE", onUpdate: "CASCADE" }
-    )
-    @JoinColumn([
-        {name: 'userId', referencedColumnName: 'userId'},
-        {name: 'locationId', referencedColumnName: 'id'}
-    ])
-    location: Location;
 
     constructor(name: string, rooms: Room[], order: number) {
         this.name = name;

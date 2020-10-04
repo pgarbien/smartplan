@@ -1,12 +1,12 @@
 import {Injectable} from "@nestjs/common";
 import {Device} from "./device.model";
-import {Repository} from "typeorm";
+import {MongoRepository, Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
 
 @Injectable()
 export class DeviceService {
-    constructor(@InjectRepository(Device) private deviceRepository: Repository<Device>,
+    constructor(@InjectRepository(Device) private deviceRepository: MongoRepository<Device>,
                 private readonly channelsService: ChannelsService) {
     }
 
@@ -23,13 +23,8 @@ export class DeviceService {
     }
 
     updateAll(userId: string, devices: Device[]): void {
-        devices.forEach(device => this.deviceRepository.update({
-            userId: device.userId,
-            id: device.id
-        }, {
-            color: device.color,
-            point: device.point
-        }))
+        devices.forEach(device => console.log(device.point));
+        devices.forEach(device => this.deviceRepository.update(device.id, device))
     }
 
     private mapToDevice(suplaDevice, userId): Device {

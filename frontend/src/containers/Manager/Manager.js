@@ -5,18 +5,32 @@ import '../../App.css';
 import './Manager.css';
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
+import ManageDeviceModal from './ManageDeviceModal';
 
-const Manager = ({location, changeDisplayedLevel, setupCreator, creator}) => {
+const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
+    const creator = parentCreator;
+    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const creationCanvas = useRef(null);
     const [activeLevel, setActiveLevel] = useState(0);
 
+    const manageDevices = () => {
+        setShowManageDeviceModal(false);
+    }
+
+    const manageDevice = (position) => {
+        setShowManageDeviceModal(true);
+    }
+
     useEffect(() => {
-        if(creationCanvas) setupCreator(creationCanvas.current)
+        if(creationCanvas) setupCreator(creationCanvas.current)  
     }, [creationCanvas]);
 
     useEffect(() => {
-      if(creator) creator.setCommand(Commands.MANAGE);
-    }, [creator]);
+    if(parentCreator) {
+        parentCreator.setCommand(Commands.MANAGE);
+        parentCreator.setCallback('click', manageDevice);
+    }
+    }, [parentCreator]);
 
     return(
         <Fragment>
@@ -37,6 +51,7 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, creator}) => {
                     <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
                     </div>
                 </div>
+                { showManageDeviceModal ? <ManageDeviceModal manageDevices={manageDevices} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
         </Fragment>
     );
 }
