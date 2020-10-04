@@ -22,6 +22,15 @@ export class DeviceService {
         return Promise.all(await promises);
     }
 
+    async getAllByLocationId(userId: string, locationId: string): Promise<Device[]> {
+        return this.deviceRepository.find({
+            where: {
+                'userId': userId,
+                'locationId': locationId
+            }
+        })
+    }
+
     updateAll(userId: string, devices: Device[]): void {
         devices.forEach(device => console.log(device.point));
         devices.forEach(device => this.deviceRepository.update(device.id, device))
