@@ -11,16 +11,10 @@ import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import Manager from '../Manager/Manager';
 
 const DrawTool = (props) => {
-    const [creationCanvas, setCreationCanvas] = useState(useRef(null));
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [showAddLevelModal, setShowAddLevelModal] = useState(false);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
-
-    /*
-    * This method must be created seperately as we cannot save image with background image behind our drawing
-    * as it gives us SecurityError (if you want to know in details read about CORS)
-    * */
 
     const addNewLevel = (levelName, blueprintUrl) => {
         const preLocation = location; 
