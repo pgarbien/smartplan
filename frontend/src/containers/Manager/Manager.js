@@ -14,6 +14,10 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
         if(creationCanvas) setupCreator(creationCanvas.current)
     }, [creationCanvas]);
 
+    useEffect(() => {
+      if(parentCreator) parentCreator.setCommand(Commands.MANAGE);
+    }, [parentCreator]);
+
     return(
         <Fragment>
             <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
