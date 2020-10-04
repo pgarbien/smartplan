@@ -7,6 +7,7 @@ import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
+import mAxios from '../../utils/API';
 
 const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
@@ -34,6 +35,18 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
         setShowAddDeviceModal(true);
     }
 
+    const [devices, setDevices] = useState([]);
+
+    useEffect(() => {
+        mAxios.get('/devices')
+        .then(response => {
+            setDevices(response.data)
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
+
     useEffect(() => {
         if(creationCanvas) setupCreator(creationCanvas.current)
     }, [creationCanvas]);
@@ -48,6 +61,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, parentCreato
 
     return(
         <Fragment>
+            {console.log(devices.color)}
             <h2>Add devices to <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
             <div className="devices-container">
                 <div className="left-container">
