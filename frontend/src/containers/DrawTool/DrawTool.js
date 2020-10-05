@@ -49,6 +49,7 @@ const DrawTool = (props) => {
                             const devices = response.data
                             setDevices(devices);
                             creator.setDevices(devices);
+                            creator.setAddedDevices(devices);
                             creator.drawCanvas();
                         })
                         .catch(error => console.log(error));

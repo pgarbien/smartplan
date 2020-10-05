@@ -12,9 +12,11 @@ function getClosePoint(rooms: Room[], point: Point): Point | null {
 }
 
 function getClosePointDevice(rooms: NewDevice[], point: Point): Point | null {
+    
     const closePoint = rooms
+        .filter(room => !!room.point)
         .flatMap(room => room.point)
-        .find(roomPoint => Math.abs(roomPoint.x - point.x) < 10 && Math.abs(roomPoint.y - point.y) < 10);
+        .find(roomPoint => Math.abs(roomPoint!.x - point.x) < 10 && Math.abs(roomPoint!.y - point.y) < 10);
 
     return closePoint ? closePoint : null;
 }
@@ -85,17 +87,19 @@ function getCloseOrInLine(room: Room, rooms: Room[], point: Point) {
 
 function getCloseOrInLineDevice(room: NewDevice, rooms: NewDevice[], point: Point) {
     const close = getClosePointDevice(rooms, point);
-
+    
     if(close) {
         point.x = close.x;
         point.y = close.y;
     } else {
-        point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point.x : point.x;
-        point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point.y : point.y;
+        if(room.point) {
+            point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point!.x : point.x;
+            point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point!.y : point.y;
 
-        
-        point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point.x : point.x;
-        point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point.y : point.y;
+            
+            point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point!.x : point.x;
+            point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point!.y : point.y;
+        }
     }
 
     return point

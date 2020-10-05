@@ -79,9 +79,8 @@ export default class Creator {
     getDevices = () => this.creatorDevices.getDevices();
     setDevices(devices: NewDeviceInterface[]) {
         const newDevices: NewDevice[] = [];
-
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.radius)
+            const newDevice = new NewDevice(device.name, device.color, device.id, device.point!, device.radius)
             newDevices.push(newDevice);
         });
 
@@ -93,8 +92,10 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.radius)
-            newDevices.push(newDevice);
+            if(device.point != null) {
+                const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.radius)
+                newDevices.push(newDevice);
+            }
         });
 
         this.creatorAddedDevices.setDevices(newDevices);

@@ -31,6 +31,7 @@ export default class AddDeviceCommand extends Command {
         const device = new NewDevice(deviceName, color, id, position);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
+        mAxios.put('/devices', this.creatorAddedDevices.getDevices());
         var devIndex = this.creatorDevices.getDevices().map(x => {
             return x.id;
         }).indexOf(device.id);
@@ -43,7 +44,8 @@ export default class AddDeviceCommand extends Command {
 
     onRightClick(cursorPosition: Point): void {
         this.creatorAddedDevices.getDevices().forEach(device => {
-            if(Math.abs(cursorPosition.x - device.point.x) < device.radius
+            if(device.point != null) {
+                if(Math.abs(cursorPosition.x - device.point.x) < device.radius
                 && Math.abs(cursorPosition.y - device.point.y) < device.radius) {
                     this.action = {
                         type: "removedDevice",
@@ -52,8 +54,18 @@ export default class AddDeviceCommand extends Command {
                             device: device
                         }
                     }
+                    device.point = null;
                     this.creatorAddedDevices.removeDevice(device);
-                    mAxios.put('/devices', this.creatorDevices.getDevices().push(device)).catch(error => console.log(error));
+                    this.creatorDevices.getDevices().forEach(dev => {
+                        if(dev.id == device.id) {
+                            this.creatorDevices.removeDevice(dev);
+                            mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
+                        }
+                    });
+                    this.creatorDevices.getDevices().push(device);
+                    mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
+                    
+            }
             }
         });
     }

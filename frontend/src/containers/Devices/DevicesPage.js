@@ -21,8 +21,8 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
 
     const save = () => {
         devices = setDevices(creator.getDevices());
-
-        mAxios.put('/devices', devices)
+        const addedDevices = creator.getAddedDevices();
+        mAxios.put('/devices', addedDevices)
             .catch(error => console.log(error));
     }
 
@@ -32,8 +32,6 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
 
         device.point = position;
         device.color = color;
-
-        save();
     }
 
     const addDevice = (position) => {
