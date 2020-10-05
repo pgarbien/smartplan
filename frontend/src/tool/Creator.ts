@@ -195,6 +195,8 @@ export default class Creator {
         switch(this.cmd) {
             case Commands.ADD_DEVICE:
                 return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
+            case Commands.MOVE_DEVICE:
+                return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
             case Commands.DRAW:
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_ROOMS:

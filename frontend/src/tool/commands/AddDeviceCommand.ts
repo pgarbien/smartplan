@@ -7,6 +7,7 @@ import CreatorNewDevices from '../CreatorNewDevices';
 import { getClosePointDevice, getCloseOrInLineDevice, getInLinePoints } from '../utils/DrawingUtils';
 import { getCloseLine } from '../utils/DrawingUtils';
 import Wall from '../model/Wall';
+import mAxios from '../../utils/API';
 
 export default class AddDeviceCommand extends Command {
     private creatorDevices: CreatorNewDevices;
@@ -57,10 +58,12 @@ export default class AddDeviceCommand extends Command {
 
     onDown(cursorPosition: Point): void {
         const position = this.getModifiedPosition(cursorPosition);
+        
         const closePoint: Point | null = getClosePointDevice(this.creatorDevices.getDevices(), cursorPosition);
 
         if(closePoint) {
-            const previousPoint: Point = closePoint.getCopy();
+
+            const previousPoint: Point = new Point(closePoint.x, closePoint.y);
             
             this.action = {
                 type: "pointMove",
@@ -111,16 +114,12 @@ export default class AddDeviceCommand extends Command {
 
     onUp(cursorPosition: Point): void {
         if(this.action) {
-            const endPoint: Point = this.action.details.movedPoint.getCopy();
+            const endPoint: Point = new Point(this.action.details.movedPoint.x, this.action.details.movedPoint.y);
 
             this.action.details.endPoint = endPoint;
 
             if(this.action.type === 'pointMove') {
                 const closePoint: Wall | null = getCloseLine(this.roomsData.getRooms(), cursorPosition);
-
-                if(closePoint) {
-                    console.log("d");
-                }
             }
         }
     }
