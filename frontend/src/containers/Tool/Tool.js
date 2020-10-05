@@ -81,12 +81,8 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <div className="buttons">
               <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
               <div className="directional-button" onClick={() => { setshowDeleteLocationModal(true) }}>Delete</div>
-              <div className="directional-button">
-                <Link className="devices-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
-              </div>
-              <div className="directional-button">
-                  <Link className="directional-button" to={location ? "/draw/manager?locationId=" + location.id : "#"}>Manage devices &nbsp;&gt;</Link> 
-              </div>
+              <Link className="directional-button" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
+              <Link className="directional-button" to={location ? "/draw/manager?locationId=" + location.id : "#"}>Manage devices &nbsp;&gt;</Link> 
             </div>
           </div>
         </div>

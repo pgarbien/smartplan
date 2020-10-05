@@ -5,7 +5,7 @@ import '../../App.css';
 import './Manager.css';
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
-import ManageDeviceModal from './ManageDeviceModal';
+import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
 
 const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
@@ -47,8 +47,8 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
                         <Devices creator={creator}/>
                     </div>
                     <button className="directional-button" onClick={() => creator.setCommand(Commands.MANAGE)}>Manage devices</button>
-                    <Link className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
-                    <Link className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
+                    <Link className="directional-button" className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
+                    <Link className="directional-button" className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
                     </div>
                 </div>
                 { showManageDeviceModal ? <ManageDeviceModal manageDevices={manageDevices} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
