@@ -11,13 +11,15 @@ import mAxios from '../../utils/API';
 
 export default class AddDeviceCommand extends Command {
     private creatorDevices: CreatorNewDevices;
+    private creatorAddedDevices: CreatorNewDevices;
     private roomsData: CreatorRooms;
     private canvasDrawer: CanvasDrawer;
 
-    constructor(creatorDevices: CreatorNewDevices, roomsData: CreatorRooms, canvasDrawer: CanvasDrawer) {
+    constructor(creatorDevices: CreatorNewDevices, creatorAddedDevices: CreatorNewDevices, roomsData: CreatorRooms, canvasDrawer: CanvasDrawer) {
         super();
 
         this.creatorDevices = creatorDevices;
+        this.creatorAddedDevices = creatorAddedDevices;
         this.roomsData = roomsData;
         this.canvasDrawer = canvasDrawer;
     }
@@ -26,9 +28,13 @@ export default class AddDeviceCommand extends Command {
         if(color == null || color === "") {
             color = "rgba(0, 209, 81, 1)"
         }
-        this.creatorDevices.setCurrentDevice(new NewDevice(deviceName, color, id, position));
-        this.creatorDevices.getDevices().push(this.creatorDevices.getCurrentDevice());
-        
+        const device = new NewDevice(deviceName, color, id, position);
+        this.creatorAddedDevices.setCurrentDevice(device);
+        this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
+        var devIndex = this.creatorDevices.getDevices().map(x => {
+            return x.id;
+        }).indexOf(device.id);
+        this.creatorDevices.getDevices().splice(devIndex, 1);
     }
 
     onClick(cursorPosition: Point, callback: Function): void {
@@ -36,7 +42,7 @@ export default class AddDeviceCommand extends Command {
     }
 
     onRightClick(cursorPosition: Point): void {
-        this.creatorDevices.getDevices().forEach(device => {
+        this.creatorAddedDevices.getDevices().forEach(device => {
             if(Math.abs(cursorPosition.x - device.point.x) < device.radius
                 && Math.abs(cursorPosition.y - device.point.y) < device.radius) {
                     this.action = {
@@ -46,8 +52,8 @@ export default class AddDeviceCommand extends Command {
                             device: device
                         }
                     }
-
-                    this.creatorDevices.removeDevice(device);
+                    this.creatorAddedDevices.removeDevice(device);
+                    mAxios.put('/devices', this.creatorDevices.getDevices().push(device)).catch(error => console.log(error));
             }
         });
     }
@@ -59,7 +65,7 @@ export default class AddDeviceCommand extends Command {
     onDown(cursorPosition: Point): void {
         const position = this.getModifiedPosition(cursorPosition);
         
-        const closePoint: Point | null = getClosePointDevice(this.creatorDevices.getDevices(), cursorPosition);
+        const closePoint: Point | null = getClosePointDevice(this.creatorAddedDevices.getDevices(), cursorPosition);
 
         if(closePoint) {
 
