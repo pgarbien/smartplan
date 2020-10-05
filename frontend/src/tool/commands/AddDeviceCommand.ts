@@ -24,11 +24,11 @@ export default class AddDeviceCommand extends Command {
         this.canvasDrawer = canvasDrawer;
     }
 
-    drawNewDevice(deviceName: string, color: string, id: string, position: Point) {
+    drawNewDevice(deviceName: string, color: string, id: string, position: Point, roomId: string, locationId: string, levelId: string) {
         if(color == null || color === "") {
             color = "rgba(0, 209, 81, 1)"
         }
-        const device = new NewDevice(deviceName, color, id, position);
+        const device = new NewDevice(deviceName, color, id, position, roomId, locationId, levelId);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
         mAxios.put('/devices', this.creatorAddedDevices.getDevices());
@@ -45,8 +45,8 @@ export default class AddDeviceCommand extends Command {
     onRightClick(cursorPosition: Point): void {
         this.creatorAddedDevices.getDevices().forEach(device => {
             if(device.point != null) {
-                if(Math.abs(cursorPosition.x - device.point.x) < device.radius
-                && Math.abs(cursorPosition.y - device.point.y) < device.radius) {
+                if(Math.abs(cursorPosition.x - device.point.x) < 10
+                && Math.abs(cursorPosition.y - device.point.y) < 10) {
                     this.action = {
                         type: "removedDevice",
                         cursorPosition: cursorPosition,

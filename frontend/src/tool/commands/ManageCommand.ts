@@ -20,8 +20,8 @@ export default class ManageCommand extends Command {
 
     onClick(cursorPosition: Point, callback: Function): void {
         this.devicesData.getDevices().forEach((device) => {
-            if(Math.abs(cursorPosition.x - device.point!.x) < device.radius
-            && Math.abs(cursorPosition.y - device.point!.y) < device.radius){
+            if(Math.abs(cursorPosition.x - device.point!.x) < 10
+            && Math.abs(cursorPosition.y - device.point!.y) < 10){
                 callback(cursorPosition);
             }
         })

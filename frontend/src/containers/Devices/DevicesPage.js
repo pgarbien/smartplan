@@ -14,7 +14,6 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     const creationCanvas = useRef(null);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
     const [position, setPosition] = useState(null);
-
     const [activeLevel, setActiveLevel] = useState(0);
     const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
@@ -24,14 +23,45 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
         const addedDevices = creator.getAddedDevices();
         mAxios.put('/devices', addedDevices)
             .catch(error => console.log(error));
+
+        console.log(addedDevices)
     }
 
     const addNewDevice = (device, color) => {
-        creator.addDevice(device.name, color, device.id, position);
-        setShowAddDeviceModal(false);
-
         device.point = position;
         device.color = color;
+        device.locationId = location.id;
+        device.levelId = activeLevel;
+        device.roomId = setRoomId(position);
+        creator.addDevice(device.name, color, device.id, position, device.roomId, device.locationId, device.levelId);
+        setShowAddDeviceModal(false);
+    }
+
+    function setRoomId(position) {
+        let roomId = null;
+        let activeLvl = null
+        location.levels.map(level => {
+            if(activeLevel == level.order) {
+                activeLvl = level;
+            }
+        });
+        if (activeLvl.rooms) {
+            activeLvl.rooms.map(room => {
+                let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+                room.points.map(point => {
+                    minX = point.x < minX ? point.x : minX;
+                    maxX = point.x > maxX ? point.x : maxX;
+                    minY = point.y < minY ? point.y : minY;
+                    maxY = point.y > maxY ? point.y : maxY;
+                
+                });
+                if(position.x > minX && position.x < maxX && position.y > minY && position.y < maxY){
+                    roomId = room.id;
+                }
+            });
+        }
+
+        return roomId;
     }
 
     const addDevice = (position) => {

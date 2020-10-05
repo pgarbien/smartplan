@@ -80,7 +80,7 @@ export default class Creator {
     setDevices(devices: NewDeviceInterface[]) {
         const newDevices: NewDevice[] = [];
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point!, device.radius)
+            const newDevice = new NewDevice(device.name, device.color, device.id, device.point!)
             newDevices.push(newDevice);
         });
 
@@ -93,7 +93,7 @@ export default class Creator {
 
         devices.forEach(device => {
             if(device.point != null) {
-                const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.radius)
+                const newDevice = new NewDevice(device.name, device.color, device.id, device.point)
                 newDevices.push(newDevice);
             }
         });
@@ -143,9 +143,9 @@ export default class Creator {
         this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices());
     }
 
-    addDevice(deviceName: string, color: string, deviceId: string, position: Point) {
+    addDevice(deviceName: string, color: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
-        newDevice.drawNewDevice(deviceName, color, deviceId, position);
+        newDevice.drawNewDevice(deviceName, color, deviceId, position, roomId, locationId, levelId);
     }
 
     private onClick = (event: MouseEvent) => {
