@@ -71,7 +71,7 @@ export default class CanvasDrawer {
 
     drawDevice(newDevice: NewDevice) {
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point.x, newDevice.point.y,newDevice.radius, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point.x, newDevice.point.y, newDevice.radius, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = newDevice.color;
         this.canvasContext.fill();
         this.canvasContext.closePath();

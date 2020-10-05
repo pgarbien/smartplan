@@ -1,6 +1,6 @@
 
 import React, {Fragment, useState, useEffect} from 'react';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../Modal/Modal';
 
 const ManageDeviceModal = (props) => {
 
