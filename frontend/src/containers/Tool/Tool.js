@@ -10,10 +10,12 @@ import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
+import DeleteLocationModal from '../../components/Locations/DeleteLocationModal';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
+  const [showDeleteLocationModal, setshowDeleteLocationModal] = useState(false);
   
   const [activeLevel, setActiveLevel] = useState(0);
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
@@ -78,7 +80,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="buttons">
               <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
-              <div className="directional-button" onClick={() => { remove() }}>Delete</div>
+              <div className="directional-button" onClick={() => { setshowDeleteLocationModal(true) }}>Delete</div>
               <div className="directional-button">
                 <Link className="devices-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
               </div>
@@ -89,6 +91,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
           </div>
         </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
+        { showDeleteLocationModal ? <DeleteLocationModal location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>
   );
 }
