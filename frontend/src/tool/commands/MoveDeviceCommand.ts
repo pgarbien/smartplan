@@ -1,15 +1,12 @@
-import Command from './Command';
-import Point from '../model/Point';
-import CanvasDrawer from '../CanvasDrawer';
-import CreatorRooms from '../CreatorRooms';
-import NewDevice from '../model/NewDevice';
-import CreatorNewDevices from '../CreatorNewDevices';
-import { getClosePointDevice, getCloseOrInLineDevice, getInLinePoints } from '../utils/DrawingUtils';
-import { getCloseLine } from '../utils/DrawingUtils';
-import Wall from '../model/Wall';
-import mAxios from '../../utils/API';
+import CanvasDrawer from "../CanvasDrawer";
+import CreatorNewDevices from "../CreatorNewDevices";
+import CreatorRooms from "../CreatorRooms";
+import Point from "../model/Point";
+import Wall from "../model/Wall";
+import { getCloseLine, getCloseOrInLineDevice, getClosePointDevice, getInLinePoints } from "../utils/DrawingUtils";
+import Command from "./Command";
 
-export default class AddDeviceCommand extends Command {
+export default class MoveDeviceCommand extends Command {
     private creatorDevices: CreatorNewDevices;
     private creatorAddedDevices: CreatorNewDevices;
     private roomsData: CreatorRooms;
@@ -23,45 +20,13 @@ export default class AddDeviceCommand extends Command {
         this.roomsData = roomsData;
         this.canvasDrawer = canvasDrawer;
     }
-
-    drawNewDevice(deviceName: string, color: string, id: string, position: Point) {
-        if(color == null || color === "") {
-            color = "rgba(0, 209, 81, 1)"
-        }
-        const device = new NewDevice(deviceName, color, id, position);
-        this.creatorAddedDevices.setCurrentDevice(device);
-        this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
-        var devIndex = this.creatorDevices.getDevices().map(x => {
-            return x.id;
-        }).indexOf(device.id);
-        this.creatorDevices.getDevices().splice(devIndex, 1);
+    
+    onClick(cursorPosition: Point, callback?: Function): void {
     }
-
-    onClick(cursorPosition: Point, callback: Function): void {
-        callback(cursorPosition);
-    }
-
     onRightClick(cursorPosition: Point): void {
-        this.creatorAddedDevices.getDevices().forEach(device => {
-            if(Math.abs(cursorPosition.x - device.point.x) < device.radius
-                && Math.abs(cursorPosition.y - device.point.y) < device.radius) {
-                    this.action = {
-                        type: "removedDevice",
-                        cursorPosition: cursorPosition,
-                        details: {
-                            device: device
-                        }
-                    }
-                    this.creatorAddedDevices.removeDevice(device);
-                    mAxios.put('/devices', this.creatorDevices.getDevices().push(device)).catch(error => console.log(error));
-            }
-        });
     }
-
     onMove(cursorPosition: Point): void {
-
     }
-
     onDown(cursorPosition: Point): void {
         const position = this.getModifiedPosition(cursorPosition);
         
@@ -82,7 +47,6 @@ export default class AddDeviceCommand extends Command {
         }
     }
 
-    // TODO [Brawurka] Fix fitting to line 
     onDownMove(cursorPosition: Point): void {
         if(this.action) {
             const horizontalDelta: number = cursorPosition.x - this.action.cursorPosition.x;
@@ -118,6 +82,11 @@ export default class AddDeviceCommand extends Command {
          }
     }
 
+    private getModifiedPosition(cursorPosition: Point) {
+        const cloreOrInLinePoint: Point | null = getCloseOrInLineDevice(this.creatorDevices.getCurrentDevice(), this.creatorDevices.getDevices(), cursorPosition);
+        return cloreOrInLinePoint ? cloreOrInLinePoint : cursorPosition;
+    }
+
     onUp(cursorPosition: Point): void {
         if(this.action) {
             const endPoint: Point = new Point(this.action.details.movedPoint.x, this.action.details.movedPoint.y);
@@ -129,7 +98,6 @@ export default class AddDeviceCommand extends Command {
             }
         }
     }
-
     undo(): void {
         switch(this.action!!.type) {
             case "removedDevice":
@@ -159,10 +127,4 @@ export default class AddDeviceCommand extends Command {
                 break;
         }
     }
-
-    private getModifiedPosition(cursorPosition: Point) {
-        const cloreOrInLinePoint: Point | null = getCloseOrInLineDevice(this.creatorDevices.getCurrentDevice(), this.creatorDevices.getDevices(), cursorPosition);
-        return cloreOrInLinePoint ? cloreOrInLinePoint : cursorPosition;
-    }
-
 }

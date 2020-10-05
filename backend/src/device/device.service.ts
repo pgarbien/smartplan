@@ -22,19 +22,28 @@ export class DeviceService {
         return Promise.all(await promises);
     }
 
+    async getAllByLocationId(userId: string, locationId: string): Promise<Device[]> {
+        return this.deviceRepository.find({
+            where: {
+                'userId': userId,
+                'locationId': locationId
+            }
+        })
+    }
+
     updateAll(userId: string, devices: Device[]): void {
         devices.forEach(device => console.log(device.point));
         devices.forEach(device => this.deviceRepository.update(device.id, device))
     }
 
     async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
-        const device =  await this.deviceRepository.findOne(deviceId);
+        const device = await this.deviceRepository.findOne(deviceId);
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId);
         return this.mapToDeviceDetails(data);
     }
 
     async callAction(userId: string, deviceId: string, actionType: ActionType) {
-        const device =  await this.deviceRepository.findOne(deviceId);
+        const device = await this.deviceRepository.findOne(deviceId);
         return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
     }
 
@@ -65,7 +74,9 @@ export class DeviceService {
                     await this.deviceRepository.update({
                         userId: device.userId,
                         suplaDeviceId: device.suplaDeviceId
-                    }, {name: device.name});
+                    }, {
+                        name: device.name
+                    });
                 }
             }
         );

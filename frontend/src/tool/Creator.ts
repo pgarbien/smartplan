@@ -12,6 +12,7 @@ import AddDeviceCommand from './commands/AddDeviceCommand';
 import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
 import ManageCommand from './commands/ManageCommand';
+import MoveDeviceCommand from './commands/MoveDeviceCommand';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
@@ -22,6 +23,7 @@ export default class Creator {
 
     private creatorRooms: CreatorRooms = new CreatorRooms();
     private creatorDevices: CreatorNewDevices = new CreatorNewDevices();
+    private creatorAddedDevices: CreatorNewDevices = new CreatorNewDevices();
 
     private commandIndex: number = -1;
     private commands: Command[] = [];
@@ -86,6 +88,18 @@ export default class Creator {
         this.creatorDevices.setDevices(newDevices);
     }
 
+    getAddedDevices = () => this.creatorAddedDevices.getDevices();
+    setAddedDevices(devices: NewDeviceInterface[]) {
+        const newDevices: NewDevice[] = [];
+
+        devices.forEach(device => {
+            const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.radius)
+            newDevices.push(newDevice);
+        });
+
+        this.creatorAddedDevices.setDevices(newDevices);
+    }
+
 
     getBackgroundImage = () => this.backgroundImage
     setBackgroundImage(imageSource: string) {
@@ -125,11 +139,11 @@ export default class Creator {
         }
         this.canvasDrawer.drawRooms(this.creatorRooms.getRooms());
         this.canvasDrawer.drawRoom(this.creatorRooms.getCurrentRoom(), true, true); 
-        this.canvasDrawer.drawDevices(this.creatorDevices.getDevices());
+        this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices());
     }
 
     addDevice(deviceName: string, color: string, deviceId: string, position: Point) {
-        const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
+        const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
         newDevice.drawNewDevice(deviceName, color, deviceId, position);
     }
 
@@ -194,13 +208,15 @@ export default class Creator {
     private getCommand(): Command {
         switch(this.cmd) {
             case Commands.ADD_DEVICE:
-                return new AddDeviceCommand(this.creatorDevices, this.creatorRooms, this.canvasDrawer);
+                return new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
+            case Commands.MOVE_DEVICE:
+                return new MoveDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
             case Commands.DRAW:
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_ROOMS:
                 return new DragCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MANAGE:
-                return new ManageCommand(this.creatorRooms, this.creatorDevices, this.canvasDrawer);
+                return new ManageCommand(this.creatorRooms, this.creatorAddedDevices, this.canvasDrawer);
             default:
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
         }

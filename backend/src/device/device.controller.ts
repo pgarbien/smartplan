@@ -3,7 +3,9 @@ import {
     ClassSerializerInterceptor,
     Controller,
     Get,
-    Headers, Param, Post,
+    Headers,
+    Param,
+    Post,
     Put,
     UseGuards,
     UseInterceptors
@@ -12,7 +14,6 @@ import {DeviceService} from "./device.service";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
 import {ActionType, Device, DeviceDetails} from "./device.model";
-import {Location} from "../locations/location.model";
 
 export class Req {
     actionType: ActionType;
@@ -36,12 +37,17 @@ export class DeviceController {
     }
 
     @Get('/details/:id')
-    getDetails(@Headers('user_id') userId: string,  @Param('id') deviceId: string): Promise<DeviceDetails> {
+    getDetails(@Headers('user_id') userId: string, @Param('id') deviceId: string): Promise<DeviceDetails> {
         return this.deviceService.getDetails(userId, deviceId);
     }
 
-    @Post('/action/:id')
-    callAction(@Headers('user_id') userId: string,  @Param('id') deviceId: string,
+    @Get('/locations/:locationId')
+    getAllByLocationId(@Headers('user_id') userId: string, @Param('locationId') locationId: string): Promise<Device[]> {
+        return this.deviceService.getAllByLocationId(userId, locationId);
+    }
+
+    @Post('/actions/:id')
+    callAction(@Headers('user_id') userId: string, @Param('id') deviceId: string,
                @Body() actionType: Req) {
         //TODO change this request body
         return this.deviceService.callAction(userId, deviceId, actionType.actionType);

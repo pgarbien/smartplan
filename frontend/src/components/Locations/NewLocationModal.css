@@ -13,7 +13,9 @@ input[type=color] {
 }
 
 .upload-button,
-.create-button {
+.create-button,
+.delete-button,
+.cancel-button {
     border: 1px solid rgb(191, 191, 191);
     background: #fff;
     padding: 10px 15px;
@@ -22,9 +24,16 @@ input[type=color] {
 }
 
 .upload-button:hover,
-.create-button:hover {
+.create-button:hover,
+.cancel-button:hover  {
     border: 1px solid #00d151;
     background: #00d151;
+    color: #fff;
+}
+
+.delete-button:hover {
+    border: 1px solid red;
+    background: red;
     color: #fff;
 }
 

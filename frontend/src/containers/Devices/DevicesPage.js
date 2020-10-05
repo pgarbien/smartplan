@@ -20,6 +20,8 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
 
     const save = () => {
+        devices = setDevices(creator.getDevices());
+
         mAxios.put('/devices', devices)
             .catch(error => console.log(error));
     }
@@ -31,7 +33,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
         device.point = position;
         device.color = color;
 
-        setDevices(devices);
+        save();
     }
 
     const addDevice = (position) => {
@@ -44,11 +46,10 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     }, [creationCanvas]);
 
     useEffect(() => {
-        if(parentCreator) parentCreator.setCallback('click', addDevice);
-    }, [parentCreator]);
-
-    useEffect(() => {
-      if(parentCreator) parentCreator.setCommand(Commands.ADD_DEVICE);
+        if(parentCreator) {
+            parentCreator.setCommand(Commands.ADD_DEVICE);
+            parentCreator.setCallback('click', addDevice);
+        }
     }, [parentCreator]);
 
     return(
