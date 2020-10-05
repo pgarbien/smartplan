@@ -47,11 +47,16 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
                         <Devices creator={creator}/>
                     </div>
                     <button className="directional-button" onClick={() => creator.setCommand(Commands.MANAGE)}>Manage devices</button>
-                    <Link className="directional-button" className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
-                    <Link className="directional-button" className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
+                    <div className="directional-button">
+                        <Link className="directional-button" className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
+
+                    </div>
+                    <div className="directional-button">
+                        <Link className="directional-button" className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
                     </div>
                 </div>
-                { showManageDeviceModal ? <ManageDeviceModal manageDevices={manageDevices} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
+            </div>
+            { showManageDeviceModal ? <ManageDeviceModal manageDevices={manageDevices} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
         </Fragment>
     );
 }
