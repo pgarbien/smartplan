@@ -12,6 +12,7 @@ import AddDeviceCommand from './commands/AddDeviceCommand';
 import NewDevice, { NewDeviceInterface } from './model/NewDevice';
 import CreatorNewDevices from './CreatorNewDevices';
 import ManageCommand from './commands/ManageCommand';
+import MoveDeviceCommand from './commands/MoveDeviceCommand';
 
 export default class Creator {
     private canvas: HTMLCanvasElement;
@@ -209,7 +210,7 @@ export default class Creator {
             case Commands.ADD_DEVICE:
                 return new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_DEVICE:
-                return new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
+                return new MoveDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
             case Commands.DRAW:
                 return new BuildCommand(this.creatorRooms, this.canvasDrawer);
             case Commands.MOVE_ROOMS:
