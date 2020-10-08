@@ -6,18 +6,27 @@ import './Manager.css';
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
 import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
+import mAxios from '../../utils/API';
 
 const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
     const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const creationCanvas = useRef(null);
     const [activeLevel, setActiveLevel] = useState(0);
+    const [actions, setActions] = useState([]);
+    const [device, setDevice] = useState(null);
 
     const manageDevices = () => {
         setShowManageDeviceModal(false);
     }
 
-    const manageDevice = (position) => {
+    const manageDevice = (position, device) => {
+        setDevice(device);
+        mAxios.get(`/devices/details/${device.id}`)
+        .then(response => {
+            setActions(response.data.actions);
+        })
+        .catch(error => console.log(error));
         setShowManageDeviceModal(true);
     }
 
@@ -56,7 +65,7 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
                     </div>
                 </div>
             </div>
-            { showManageDeviceModal ? <ManageDeviceModal manageDevices={manageDevices} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
+            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevices={manageDevices} actions={actions} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
         </Fragment>
     );
 }
