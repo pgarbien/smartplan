@@ -31,6 +31,7 @@ export default class AddDeviceCommand extends Command {
         const device = new NewDevice(deviceName, color, id, position, roomId, locationId, levelId);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
+    
         mAxios.put('/devices', this.creatorAddedDevices.getDevices());
         var devIndex = this.creatorDevices.getDevices().map(x => {
             return x.id;
