@@ -9,7 +9,7 @@ const ManageDeviceModal = (props) => {
 
     function handleAction(action) {
         console.log(props.device.name);
-        mAxios.post(`/devices/action/${props.device.id}`, { "actionType": action.name})
+        mAxios.post(`/devices/actions/${props.device.id}`, { "actionType": action.name})
         .then(response => {
             console.log(response.data);
         })
