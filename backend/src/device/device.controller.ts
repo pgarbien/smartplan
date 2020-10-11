@@ -52,4 +52,9 @@ export class DeviceController {
         //TODO change this request body
         return this.deviceService.callAction(userId, deviceId, actionType.actionType);
     }
+
+    @Get('/states')
+    getStates(@Headers('user_id') userId: string) {
+        return this.deviceService.getStates(userId);
+    }
 }

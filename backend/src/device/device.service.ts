@@ -1,12 +1,12 @@
 import {Injectable} from "@nestjs/common";
-import {Action, ActionType, Device, DeviceDetails, DeviceType} from "./device.model";
+import {Action, ActionType, Device, DeviceDetails, DeviceState, DeviceType} from "./device.model";
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
 
 @Injectable()
 export class DeviceService {
-    constructor(@InjectRepository(Device) private deviceRepository: MongoRepository<Device>,
+    constructor(@InjectRepository(Device) private readonly deviceRepository: MongoRepository<Device>,
                 private readonly channelsService: ChannelsService) {
     }
 
@@ -45,6 +45,21 @@ export class DeviceService {
     async callAction(userId: string, deviceId: string, actionType: ActionType) {
         const device = await this.deviceRepository.findOne(deviceId);
         return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
+    }
+
+    async getStates(userId: string): Promise<DeviceState[]> {
+        const suplaDevicesWithStates = await this.channelsService.getChannelsWithStates(userId);
+        console.log(JSON.stringify(suplaDevicesWithStates, null, 2));
+        const promises = suplaDevicesWithStates.map(device => this.mapToDeviceState(device, userId));
+        return Promise.all(await promises);
+    }
+
+    private async mapToDeviceState(suplaDevice, userId): Promise<DeviceState> {
+        const device = await this.deviceRepository.findOne({
+            suplaDeviceId: suplaDevice.id,
+            userId: userId
+        });
+        return new DeviceState(device.id.toString(), suplaDevice.state);
     }
 
     private mapToDevice(suplaDevice, userId): Device {
