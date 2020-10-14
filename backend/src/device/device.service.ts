@@ -3,6 +3,7 @@ import {Action, ActionType, Device, DeviceDetails, DeviceState, DeviceType} from
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
+import {DeviceQuery} from "./device.controller";
 
 @Injectable()
 export class DeviceService {
@@ -14,25 +15,14 @@ export class DeviceService {
         return this.deviceRepository.save(device);
     }
 
-    async getAll(userId: string): Promise<Device[]> {
-        const promises = this.channelsService.getChannels(userId)
-            .then(suplaDevices =>
-                suplaDevices.map(device => this.updateAndGet(this.mapToDevice(device, userId)))
-            );
-        return Promise.all(await promises);
-    }
+    async getAll(userId: string, query: DeviceQuery): Promise<Device[]> {
+        const channels = await this.channelsService.getChannels(userId);
+        const devices: Device[] = await Promise.all(channels.map(device => this.updateAndGet(this.mapToDevice(device, userId))));
 
-    async getAllByLocationId(userId: string, locationId: string): Promise<Device[]> {
-        return this.deviceRepository.find({
-            where: {
-                'userId': userId,
-                'locationId': locationId
-            }
-        })
+        return devices.filter(device => this.assertQuery(device, query));
     }
 
     updateAll(userId: string, devices: Device[]): void {
-        devices.forEach(device => console.log(device.point));
         devices.forEach(device => this.deviceRepository.update(device.id, device))
     }
 
@@ -47,11 +37,27 @@ export class DeviceService {
         return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
     }
 
-    async getStates(userId: string): Promise<DeviceState[]> {
+    async getStates(userId: string, query: DeviceQuery): Promise<DeviceState[]> {
         const suplaDevicesWithStates = await this.channelsService.getChannelsWithStates(userId);
-        console.log(JSON.stringify(suplaDevicesWithStates, null, 2));
-        const promises = suplaDevicesWithStates.map(device => this.mapToDeviceState(device, userId));
-        return Promise.all(await promises);
+        const deviceStates: DeviceState[] = await Promise.all(suplaDevicesWithStates.map(device => this.mapToDeviceState(device, userId)));
+        const devices = {};
+
+        //TODO think of other model to not make calls to db twice for each device as it is now (because we want the state and locationId etc.. maybe search for device model and only return DeviceState
+        for (const deviceState of deviceStates) {
+            devices[deviceState.id] = await this.deviceRepository.findOne(deviceState.id, {
+                where: {
+                    "userId": userId
+                }
+            });
+        }
+        return deviceStates.filter(deviceState => this.assertQuery(devices[deviceState.id], query));
+    }
+
+    private assertQuery(device: Device, query: DeviceQuery): boolean {
+        return (query.roomId != null && device.roomId == query.roomId)
+            || (query.levelId != null && query.roomId == null && device.levelId == query.levelId)
+            || (query.locationId != null && query.roomId == null && query.levelId == null && device.locationId == query.locationId)
+            || (query.locationId == null && query.levelId == null && query.roomId == null)
     }
 
     private async mapToDeviceState(suplaDevice, userId): Promise<DeviceState> {

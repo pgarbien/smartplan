@@ -22,7 +22,7 @@ import {UpdateResult} from "typeorm";
 @UseGuards(AuthGuard)
 @UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
 export class LocationsController {
-    constructor(private readonly locationsService: LocationsService, private readonly authService: AuthService) {
+    constructor(private readonly locationsService: LocationsService) {
     }
 
     @Get()

@@ -6,14 +6,14 @@ import {
     Headers,
     Param,
     Post,
-    Put,
+    Put, Query,
     UseGuards,
     UseInterceptors
 } from "@nestjs/common";
 import {DeviceService} from "./device.service";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
-import {ActionType, Device, DeviceDetails} from "./device.model";
+import {ActionType, Device, DeviceDetails, DeviceState} from "./device.model";
 
 export class Req {
     actionType: ActionType;
@@ -27,8 +27,9 @@ export class DeviceController {
     }
 
     @Get()
-    getAll(@Headers('user_id') userId: string): Promise<Device[]> {
-        return this.deviceService.getAll(userId);
+    getAll(@Headers('user_id') userId: string, @Query() query: DeviceQuery): Promise<Device[]> {
+        console.log(query);
+        return this.deviceService.getAll(userId, query);
     }
 
     @Put()
@@ -41,20 +42,21 @@ export class DeviceController {
         return this.deviceService.getDetails(userId, deviceId);
     }
 
-    @Get('/locations/:locationId')
-    getAllByLocationId(@Headers('user_id') userId: string, @Param('locationId') locationId: string): Promise<Device[]> {
-        return this.deviceService.getAllByLocationId(userId, locationId);
-    }
-
     @Post('/actions/:id')
     callAction(@Headers('user_id') userId: string, @Param('id') deviceId: string,
-               @Body() actionType: Req) {
+               @Body() actionType: Req): Promise<any> {
         //TODO change this request body
         return this.deviceService.callAction(userId, deviceId, actionType.actionType);
     }
 
     @Get('/states')
-    getStates(@Headers('user_id') userId: string) {
-        return this.deviceService.getStates(userId);
+    getStates(@Headers('user_id') userId: string, @Query() query: DeviceQuery): Promise<DeviceState[]> {
+        return this.deviceService.getStates(userId, query);
     }
+}
+
+export interface DeviceQuery {
+    locationId: string;
+    levelId: string;
+    roomId: string;
 }

@@ -60,7 +60,6 @@ export class DeviceState {
     id: string;
     state: JSON;
 
-
     constructor(id: string, state: JSON) {
         this.id = id;
         this.state = state;
