@@ -63,15 +63,15 @@ export default class CanvasDrawer {
         }
     }
 
-    drawDevices(devices: NewDevice[]) {
+    drawDevices(devices: NewDevice[], highlightedDevice: String | null) {
         devices.forEach((device: NewDevice) => {
-            this.drawDevice(device);
+            this.drawDevice(device, device.id === highlightedDevice);
         })
     }
 
-    drawDevice(newDevice: NewDevice) {
+    drawDevice(newDevice: NewDevice, highlighted: boolean) {
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y,10, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  15 : 10, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = newDevice.color;
         this.canvasContext.fill();
         this.canvasContext.closePath();

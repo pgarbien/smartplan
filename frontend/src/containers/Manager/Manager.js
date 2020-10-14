@@ -8,26 +8,27 @@ import { Commands } from '../../tool/commands/Commands';
 import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
 import mAxios from '../../utils/API';
 
-const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) => {
+const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
-    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const creationCanvas = useRef(null);
+
+    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const [activeLevel, setActiveLevel] = useState(0);
-    const [actions, setActions] = useState([]);
+    const [deviceState, setDeviceState] = useState([]);
     const [device, setDevice] = useState(null);
 
     const manageDevices = () => {
         setShowManageDeviceModal(false);
     }
 
-    const manageDevice = (position, device) => {
+    const manageDevice = (device) => {
         setDevice(device);
         mAxios.get(`/devices/details/${device.id}`)
-        .then(response => {
-            setActions(response.data.actions);
-        })
-        .catch(error => console.log(error));
-        setShowManageDeviceModal(true);
+            .then(response => {
+                setDeviceState(response.data);
+                setShowManageDeviceModal(true);
+            })
+            .catch(error => console.log(error));
     }
 
     useEffect(() => {
@@ -50,22 +51,22 @@ const Manager = ({location, changeDisplayedLevel, setupCreator, parentCreator}) 
                 </div>
                 <div className="drawing-area">
                     <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>
-                </div>
+                </div> 
                 <div className="right-container">
                     <div className="devices-list">
-                        <Devices creator={creator}/>
+                        <Devices activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
                     </div>
-                    <button className="directional-button" onClick={() => creator.setCommand(Commands.MANAGE)}>Manage devices</button>
-                    <div className="directional-button">
-                        <Link className="directional-button" className="back-link" to={location ? "/draw?locationId=" + location.id : "#"}>Edit location</Link>
-
-                    </div>
-                    <div className="directional-button">
-                        <Link className="directional-button" className="back-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices</Link>
+                    <div className="buttons">
+                        <Link to={location ? "/draw?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Edit location &nbsp;&gt;</div>
+                        </Link>
+                        <Link to={location ? "/draw/devices?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Add devices &nbsp;&gt;</div>
+                        </Link>
                     </div>
                 </div>
             </div>
-            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevices={manageDevices} actions={actions} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
+            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
         </Fragment>
     );
 }

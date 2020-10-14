@@ -31,6 +31,9 @@ export default class Creator {
 
     private callbacks: Map<String, Function> = new Map();
 
+    //TODO TMP
+    highlightedDevice = null
+
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
@@ -92,10 +95,8 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            if(device.point != null) {
-                const newDevice = new NewDevice(device.name, device.color, device.id, device.point)
-                newDevices.push(newDevice);
-            }
+            const newDevice = new NewDevice(device.name, device.color, device.id, device.point)
+            newDevices.push(newDevice);
         });
 
         this.creatorAddedDevices.setDevices(newDevices);
@@ -140,7 +141,7 @@ export default class Creator {
         }
         this.canvasDrawer.drawRooms(this.creatorRooms.getRooms());
         this.canvasDrawer.drawRoom(this.creatorRooms.getCurrentRoom(), true, true); 
-        this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices());
+        this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices(), this.highlightedDevice);
     }
 
     addDevice(deviceName: string, color: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
