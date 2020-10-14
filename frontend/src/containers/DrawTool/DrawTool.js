@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Creator from '../../tool/Creator';
 import mAxios from '../../utils/API';
 import DevicesPage from '../Devices/DevicesPage';
@@ -11,6 +11,7 @@ const DrawTool = (props) => {
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [devices, setDevices] = useState([]);
+    const [activeDevices, setActiveDevices] = useState([]);
     
     const changeDisplayedLevel = (level) => {
         creator.setBackgroundImage(level.blueprintUrl);
@@ -47,9 +48,11 @@ const DrawTool = (props) => {
                     mAxios.get('/devices')
                         .then(response => {
                             const devices = response.data
+                            const activeDevices = devices.filter(device => device.point)
                             setDevices(devices);
+                            setActiveDevices(activeDevices);
                             creator.setDevices(devices);
-                            creator.setAddedDevices(devices);
+                            creator.setAddedDevices(activeDevices);
                             creator.drawCanvas();
                         })
                         .catch(error => console.log(error));
@@ -67,7 +70,7 @@ const DrawTool = (props) => {
                 <DevicesPage location={location} devices={devices} setDevices={setDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
             </Route>
             <Route path="/draw/manager">
-                <Manager location={location} devices={devices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
+                <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
             </Route>
             <Route path="/draw">
                 <Tool location={location} setLocation={setLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>

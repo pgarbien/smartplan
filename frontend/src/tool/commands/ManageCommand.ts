@@ -23,7 +23,7 @@ export default class ManageCommand extends Command {
             if(device.point != null) {
                 if(Math.abs(cursorPosition.x - device.point.x) < 10
                 && Math.abs(cursorPosition.y - device.point.y) < 10){
-                    callback(cursorPosition, device);
+                    callback(device);
                 }
             }
         })

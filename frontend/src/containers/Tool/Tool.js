@@ -79,14 +79,14 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="buttons">
-            <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
-            <div className="directional-button" onClick={() => { setshowDeleteLocationModal(true) }}>Delete</div>
-            <div className="directional-button">
-              <Link to={location ? "/draw/devices?locationId=" + location.id : "#"}>Add devices &nbsp;&gt;</Link>
-            </div>
-            <div className="directional-button">
-              <Link to={location ? "/draw/manager?locationId=" + location.id : "#"}>Manage devices &nbsp;&gt;</Link> 
-            </div>
+              <div className="directional-button" onClick={() => { if(location.id) put(); else post();  }}>Save</div>
+              <div className="directional-button" onClick={() => { setshowDeleteLocationModal(true) }}>Delete</div>
+              <Link to={location ? "/draw/devices?locationId=" + location.id : "#"}>
+                <div className="directional-button">Add devices &nbsp;&gt;</div>
+              </Link>
+              <Link to={location ? "/draw/manager?locationId=" + location.id : "#"}>
+                <div className="directional-button">Manage devices &nbsp;&gt;</div>
+              </Link> 
             </div>
           </div>
         </div>

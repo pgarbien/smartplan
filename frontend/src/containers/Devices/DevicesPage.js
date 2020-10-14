@@ -99,14 +99,14 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                     <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
                     <div className="buttons">
                         <div className="directional-button">
-                            <a onClick={() => { save() }}>Save Condignation</a>
+                            <a onClick={() => { save() }}>Save condignation</a>
                         </div>
-                        <div className="directional-button">
-                            <Link to={location ? "/draw?locationId=" + location.id : "#"}>Edit location &nbsp;&gt;</Link>
-                        </div>
-                        <div className="directional-button">
-                            <Link to={location ? "/draw/manager?locationId=" + location.id : "#"}>Manage devices &nbsp;&gt;</Link> 
-                        </div>
+                        <Link to={location ? "/draw?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Edit location &nbsp;&gt;</div>
+                        </Link>
+                        <Link to={location ? "/draw/manager?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Manage devices &nbsp;&gt;</div>
+                        </Link> 
                     </div>
                 </div>
         </div>
