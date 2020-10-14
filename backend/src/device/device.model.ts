@@ -54,6 +54,18 @@ export class DeviceDetails {
         this.state = state;
     }
 }
+//TODO analyze states and make model for them
+
+export class DeviceState {
+    id: string;
+    state: JSON;
+
+
+    constructor(id: string, state: JSON) {
+        this.id = id;
+        this.state = state;
+    }
+}
 
 export enum DeviceType {
     NONE, CONTROLLINGTHEGATEWAYLOCK, CONTROLLINGTHEGATE, CONTROLLINGTHEGARAGEDOOR,

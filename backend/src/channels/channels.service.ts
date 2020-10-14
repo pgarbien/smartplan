@@ -23,6 +23,14 @@ export class ChannelsService {
         ).toPromise();
     }
 
+    getChannelsWithStates(userId: string) {
+        const token: string = this.authService.getTokenByUserId(userId);
+
+        return this.httpService.get(this.getUrlForToken(token) + '?include=connected&include=state', this.getHeaders(token)).pipe(
+            map(response => response.data)
+        ).toPromise();
+    }
+
     getChannelById(userId: string, channelId: number) {
         const token: string = this.authService.getTokenByUserId(userId);
 
