@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
   frontend:
-    build:
-      context: ./frontend
+    container_name: frontend
+    image: pgarbien/atomowki:frontend
     ports:
       - 2000:80
     depends_on:
       - backend
   backend:
-    build:
-      context: ./backend
+    container_name: backend
+    image: pgarbien/atomowki:backend
     ports:
       - 4000:4000
     working_dir: /usr/src/app

@@ -26,7 +26,7 @@ import {ChannelsModule} from './channels/channels.module';
         }),
         TypeOrmModule.forRoot({
             type: 'mongodb',
-            host: 'localhost',
+            host: 'mongo',
             port: 27017,
             database: 'supla_db',
             synchronize: true,
