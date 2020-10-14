@@ -1,0 +1,14 @@
+.levels {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.level:first-child {
+    border-width: 1px;
+}
+
+.level-active {
+    background: #00d151;
+    border: 0;
+    color: #fff;
+}

@@ -2,7 +2,9 @@
 
 
 * {
+  text-decoration: none;
   font-family: "Quicksand";
+  color: #2f2f2f;
 }
 
 body {
@@ -11,15 +13,17 @@ body {
 
 h2 {
   font-size: 1.5em;
-  font-weight: 600;
+  font-weight: 400;
 }
 
-.tool-container {
+.tool-container,
+.devices-container,
+.manager-container {
   margin: 0px;
 }
 
-.devices-container {
-  margin: 0px;
+.color-primary {
+  color: #00d151;
 }
 
 .navbar {
@@ -56,23 +60,83 @@ h2 {
   transform: scale(1.2);
 }
 
-.level {
+.active-devices {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.left-container {
+  position: relative;
+}
+
+.right-container {
+  position: relative;
+}
+
+.levels,
+.buttons {
+  position: absolute;
+  bottom: 0px;
+}
+
+.tools,
+.buttons,
+.levels,
+.description,
+.devices-list {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
   text-align: center;
-  padding: 5px;
-  border-width: 0px 1px 1px 1px;
-  border-style: solid;
-  border-color: #00d151;
+  height: max-content;
+  border-bottom: 0px;
+}
+
+.description {
+  border-bottom: 1px solid #eee!important;
+}
+
+.directional-button,
+.tool-button,
+.level,
+.active-device {
+  width: 100%;
+  border: 0px;
+  padding: 20px 25px;
+  height: auto;
+  color: #000;
   cursor: pointer;
+  transition: ease .5s;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+} 
+
+.directional-button:hover,
+.tool-button:hover,
+.directional-button:hover > a,
+.tool-button:hover > a {
+  color: #00d151;
 }
 
-.level:first-child {
-  border-width: 1px;
-}
-
-.level-active {
+.directional-button:active,
+.tool-button:active,
+.tool-button-active {
   background: #00d151;
   border: 0;
   color: #fff;
+}
+
+.tool-button-active:hover {
+  color: #fff!important;
+}
+
+.directional-button > a,
+.tool-button > a {
+  text-decoration: none;
+  color: #000;
 }
 
 .fill-none {
@@ -84,4 +148,40 @@ h2 {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10;
+}
+
+.drawing-area {
+  width: 100%;
+  padding: 0 5%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.canvas {
+  width: 100%;
+  border: 1px solid #eee;
+  background: #fff;
+}
+
+.device, 
+.action {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #eee;
+  margin-right: 20px;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.device:hover,
+.action:hover {
+  border: 1px solid #00d151;
+}
+
+.selected-device {
+  border: 2px solid #00d151!important;
 }

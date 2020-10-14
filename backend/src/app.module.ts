@@ -9,12 +9,13 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {LevelModule} from './level/level.module';
 import {LocationsModule} from './locations/locations.module';
 import {RoomModule} from './room/room.module';
-import {Point} from "./model/point.model";
 import {AuthModule} from './auth/auth.module';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {join} from 'path';
-import { FileController } from './file/file.controller';
-import {NewDevice} from "./device/newdevice.model";
+import {FileController} from './file/file.controller';
+import {Device} from "./device/device.model";
+import {DeviceModule} from "./device/device.module";
+import {ChannelsModule} from './channels/channels.module';
 
 @Module({
     imports: [
@@ -24,15 +25,14 @@ import {NewDevice} from "./device/newdevice.model";
             load: [configuration]
         }),
         TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'postgres',
-            port: 5432,
-            username: 'admin',
-            password: 'password',
+            type: 'mongodb',
+            host: 'localhost',
+            port: 27017,
             database: 'supla_db',
             synchronize: true,
             autoLoadEntities: true,
-            entities: [Point, NewDevice]
+            entities: [Device],
+            logging: false
         }),
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '../../static')
@@ -40,7 +40,9 @@ import {NewDevice} from "./device/newdevice.model";
         LevelModule,
         LocationsModule,
         RoomModule,
-        AuthModule
+        AuthModule,
+        DeviceModule,
+        ChannelsModule
     ],
     controllers: [AppController, ChannelsController, FileController],
     providers: [AppService, ChannelsService]

@@ -4,6 +4,8 @@
     width: 31%;
     display: inline-block;
     margin-bottom: 3%;
+    cursor: pointer;
+    position: relative;
 }
 
 .location-photo {
@@ -37,4 +39,35 @@
 
 .location-add-name {
     border-width: 1px 1px 1px 1px;
+}
+
+.location-edit {
+    right: 10px;
+    top: 10px;
+}
+
+.location-add-devices {
+    right: 10px;
+    top: 50px;
+}
+
+.location-edit, 
+.location-add-devices {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    transition: ease .5s;
+    transform: translateX(calc(100% + 10px));
+}
+
+.location-edit > img, 
+.location-add-devices > img {
+    width: 100%;
+    height: 100%;
+    filter: invert(100%);
+}
+
+.location:hover > .location-edit,
+.location:hover > .location-add-devices {
+    transform: translateX(0);
 }

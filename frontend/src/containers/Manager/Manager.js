@@ -1,26 +1,73 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Point from '../../tool/model/Point';
-import NewDevice from '../../tool/model/NewDevice';
+import Devices from '../../components/Devices/Devices';
+import '../../App.css'; 
+import './Manager.css';
+import LevelsList from '../../components/Levels/LevelsList';
+import { Commands } from '../../tool/commands/Commands';
+import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
+import mAxios from '../../utils/API';
 
-const Manager = ({change, creationCanvas, parentCreator}) => {
+const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, parentCreator}) => {
     const creator = parentCreator;
+    const creationCanvas = useRef(null);
+
+    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
+    const [activeLevel, setActiveLevel] = useState(0);
+    const [deviceState, setDeviceState] = useState([]);
+    const [device, setDevice] = useState(null);
+
+    const manageDevices = () => {
+        setShowManageDeviceModal(false);
+    }
+
+    const manageDevice = (device) => {
+        setDevice(device);
+        mAxios.get(`/devices/details/${device.id}`)
+            .then(response => {
+                setDeviceState(response.data);
+                setShowManageDeviceModal(true);
+            })
+            .catch(error => console.log(error));
+    }
 
     useEffect(() => {
-        if(parentCreator != null) {
-            parentCreator.setCanvas(creationCanvas.current);
-            change(parentCreator);
-        }
-    },[]);
+        if(creationCanvas) setupCreator(creationCanvas.current)  
+    }, [creationCanvas]);
+
+    useEffect(() => {
+    if(parentCreator) {
+        parentCreator.setCommand(Commands.MANAGE);
+        parentCreator.setCallback('click', manageDevice);
+    }
+    }, [parentCreator]);
 
     return(
-        <div className="manager_container">
-            <div className="drawing_area">
-                <canvas ref={creationCanvas} id="managerCanvas" width="600" height="600" style={{border: "1px solid #00d051"}}/>
+        <Fragment>
+            <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
+            <div className="manager-container">
+                <div className="left-container">
+                    <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                </div>
+                <div className="drawing-area">
+                    <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>
+                </div> 
+                <div className="right-container">
+                    <div className="devices-list">
+                        <Devices activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
+                    </div>
+                    <div className="buttons">
+                        <Link to={location ? "/draw?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Edit location &nbsp;&gt;</div>
+                        </Link>
+                        <Link to={location ? "/draw/devices?locationId=" + location.id : "#"}>
+                            <div className="directional-button">Add devices &nbsp;&gt;</div>
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <button className="device_button" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, padding: 10}} onClick={() => creator.manageDevices()}>Manage devices</button>
-            <Link to="/draw/devices" className="btn btn-primary" style={{color: "#00d051", textAlign: "center", border: "1px solid #00d051", borderRadius: "15px", height: "50px", width: "120px", backgroundColor: "#ffffff", marginBottom: 10, marginTop: 10, marginLeft: 10, padding: 10}}>Go back to drawing devices...</Link>
-        </div>
+            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
+        </Fragment>
     );
 }
 

@@ -10,7 +10,7 @@ export class AuthInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
         const request: Request = context.switchToHttp().getRequest();
         request.headers['user_id'] = this.authService.getLoggedUserByToken(request.headers['authorization']).id;
-
+        console.log("Auth code: " + request.headers['authorization']);
         return next.handle();
     }
 }

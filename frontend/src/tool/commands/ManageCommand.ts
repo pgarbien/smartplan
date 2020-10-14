@@ -1,12 +1,9 @@
 import Command from './Command';
 import Point from '../model/Point';
-import Wall from '../model/Wall';
-import Room from '../model/Room';
 import CreatorRooms from '../CreatorRooms';
-import { getPointedRoomIndex, highlightRoom, dehighlight } from '../utils/RoomUtils';
-import { getClosePoint, getCloseOrInLine, getCloseLine } from '../utils/DrawingUtils';
 import CanvasDrawer from '../CanvasDrawer';
 import CreatorNewDevices from '../CreatorNewDevices';
+import NewDevice from '../model/NewDevice';
 
 export default class ManageCommand extends Command {
     private roomsData: CreatorRooms;
@@ -21,11 +18,13 @@ export default class ManageCommand extends Command {
         this.canvasDrawer = canvasDrawer;
     }
 
-    onClick(cursorPosition: Point): void {
-        this.devicesData.getDevices().forEach(function(device) {
-            if(Math.abs(cursorPosition.x - device.point.x) < device.radius
-            && Math.abs(cursorPosition.y - device.point.y) < device.radius){
-                device.color = device.color == "grey"? "green" : "grey";
+    onClick(cursorPosition: Point, callback: Function): void {
+        this.devicesData.getDevices().forEach((device) => {
+            if(device.point != null) {
+                if(Math.abs(cursorPosition.x - device.point.x) < 10
+                && Math.abs(cursorPosition.y - device.point.y) < 10){
+                    callback(device);
+                }
             }
         })
     }

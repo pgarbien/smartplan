@@ -12,7 +12,7 @@ export class AuthController {
     private callbackUrl = this.configService.get('SUPLA_CALLBACK_URL');
     private suplaAuthUrl = this.configService.get('SUPLA_AUTH_URL');
     private clientId = this.configService.get('SUPLA_CLIENT_ID');
-    private scopes = ['channels_r', 'account_r'];
+    private scopes = ['channels_r', 'account_r', 'channels_ea'];
 
     @Get('/link')
     getAuthUrl(): any {

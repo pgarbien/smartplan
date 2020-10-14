@@ -16,8 +16,8 @@ mAxios.interceptors.request.use(
 mAxios.interceptors.response.use(
     (response) => response, 
     (error) => {
-        if (error.response.status === 403) {
-            localStorage.removeItem('token')
+        if (error.response.status === 401) {
+            localStorage.removeItem('token');
             window.location = "https://atomowki.azurewebsites.net/"
         }
     });

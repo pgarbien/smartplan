@@ -1,38 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import mAxios from '../../utils/API';
+import React from 'react';
 
-const Devices = () => {
-    const [devices, setDevices] = useState([]);
+const Devices = ({ activeDevices, manageDevice, creator }) => {
 
-    useEffect(() => {
-        mAxios.get('/channels', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token')
-                }
-            })
-            .then(response => {
-                setDevices(response.data)
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-
-    function getEventTarget(e) {
-        e = e || window.event;
-        return e.target || e.srcElement;
+    function handleDeviceInListClick(event) {
+        console.log(event.target.innerHTML);
     }
 
     return (
         <div>
             <h2>Your devices: </h2>
-            <ul style={{border: "1px solid #00d051", margin: 15, padding: 10, listStyleType: "none"}} onClick={event => alert(getEventTarget(event).innerHTML)}>
-                {devices.map(device => (
-                    <li style={{margin: 10, padding: 10, borderBottom: "1px solid #00d051"}}>
-                        ID{device.id} name: {device.caption}
+            <ul className="active-devices" onClick={handleDeviceInListClick}>
+                { activeDevices.map(device => (
+                    <li className="active-device" key={device.name} 
+                        onClick={() => { manageDevice(device) }}
+                        onMouseEnter={() => { creator.highlightedDevice = device.id; creator.drawCanvas() }}
+                        onMouseLeave={() => { creator.highlightedDevice = null; creator.drawCanvas() }}>
+                        {device.name}
                     </li>
-                ))}
+                )) }
             </ul>
         </div>
     );

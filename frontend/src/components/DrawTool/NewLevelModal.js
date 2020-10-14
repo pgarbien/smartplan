@@ -10,15 +10,17 @@ const NewLevelModal = (props) => {
     const modalContent = <Fragment>
         <label for="level-name">Level name:</label>
         <input type="text" id="level-name" name="level-name" placeholder="Level #1" onChange={(event) => { setLevelName(event.target.value) }} />
-        {/* <br/>
-        <label for="level-blueprint">Level blueprint:</label> */}
         <br/>
         <label for="level-blueprint">Level blueprint:</label>
+        <br/>
+        <br/>
+        <label for="level-blueprint" className="upload-button">{levelBlueprint ? ("Selected blueprint: " + levelBlueprint.name) : "Upload level blueprint"}</label>
         <input type="file" id="level-blueprint" name="level-blueprint" accept="image/png, image/jpeg" onChange={(event) => { setLevelBlueprint(event.target.files[0]) }}/>
+        <br/>
         <br/>
         {/* <label for="level-color">Level color:</label>
         <input type="color" id="level-color" name="level-color" value="#00d151" /> */}
-        <button onClick={() => { levelBlueprint ? createNewLevel() : props.addNewLevel(levelName, null) }} disabled={ levelName == null || levelName === "" }>CREATE</button>
+        <button className="create-button" onClick={() => { levelBlueprint ? createNewLevel() : props.addNewLevel(levelName, null) }} disabled={ levelName == null || levelName === "" }>CREATE</button>
     </Fragment>;
 
     const createNewLevel = () => {
@@ -35,7 +37,7 @@ const NewLevelModal = (props) => {
             });
     }
 
-    return (props.showModal ? <Modal title="Add new level" onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
+    return <Modal title="Add new level" onCloseModal={() => { props.setShowModal(!props.canClose) }} canClose={props.canClose}> {modalContent} </Modal>;
 }
 
 export default NewLevelModal;

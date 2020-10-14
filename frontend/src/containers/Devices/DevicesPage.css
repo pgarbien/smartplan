@@ -1,23 +1,12 @@
-.devices_container {
+.devices-container {
+    margin-top: 30px;
     display: grid;
-    grid-template-columns: 0.5fr 1.5fr 1fr;
-    justify-items: left;
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-right: 10%;
-}
-
-.devices_list {
-    width: 150px;
-    background-color: #eaeaea;
-    display: "flex";
-    flex-direction: column;
-    flex: 1;
-    justify-content: "center";
-    margin-top: 30%;
+    grid-template-columns: 1fr 4fr 1.5fr;
+    grid-template-areas: "left-container drawing-area right-container";
 }
 
 .device_button {
+    grid-area: device-button; 
     border: none;
     background-color: none;
     height: 100px;
@@ -27,16 +16,4 @@
 
 .device_button:hover {
     background-color: #c6c6c6;
-}
-
-.tools {
-    display: grid;
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.drawing-area {
-    display: grid;
-    grid-column: 2;
-    grid-row: 1;
 }

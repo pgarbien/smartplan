@@ -13,15 +13,18 @@ export interface AuthProfile {
 
 @Injectable()
 export default class AuthService {
-    private loggedIn = {};
+    private tokenToUserMap = {};
+    private userIdToTokenMap = {};
 
     constructor(private httpService: HttpService) {
     }
 
     async handlePassportAuth(profile: AuthProfile) {
-        this.loggedIn[profile.access_token] = profile;
+        this.tokenToUserMap[profile.access_token] = profile;
+        this.userIdToTokenMap[profile.id] = profile.access_token;
         setTimeout(() => {
-            this.loggedIn[profile.access_token] = null
+            this.tokenToUserMap[profile.access_token] = null;
+            this.userIdToTokenMap[profile.id] = null;
         }, profile.expires_in * 1000);
 
         return profile;
@@ -40,10 +43,14 @@ export default class AuthService {
     }
 
     getLoggedUserByToken(token: string): AuthProfile {
-        return this.loggedIn[token];
+        return this.tokenToUserMap[token];
     }
 
-    async checkIfLoggedIn(token: string) {
-        return this.loggedIn[token] != null
+    checkIfLoggedIn(token: string): boolean {
+        return this.tokenToUserMap[token] != null
+    }
+
+    getTokenByUserId(userId: string): string {
+        return this.userIdToTokenMap[userId];
     }
 }
