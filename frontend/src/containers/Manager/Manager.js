@@ -38,11 +38,16 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                 response.data.actions.map(action => {
                     if(action.caption == "Toggle") {
                         mAxios.post(`/devices/actions/${device.id}`, { "actionType": 10 })
+                        changeDeviceColor(device, response.data.state.on)
                         .catch(error => console.log(error));
                     }
                 });
             })
             .catch(error => console.log(error));
+    }
+
+    const changeDeviceColor = (device, deviceOn) => {
+        device.color = deviceOn ? "rgba(0, 209, 81, 1)" : "grey";
     }
 
     useEffect(() => {
@@ -81,7 +86,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                     </div>
                 </div>
             </div>
-            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
+            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} changeDeviceColor={changeDeviceColor} canClose={true}/> : null}
         </Fragment>
     );
 }
