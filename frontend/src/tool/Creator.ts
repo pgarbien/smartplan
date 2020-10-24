@@ -163,7 +163,7 @@ export default class Creator {
         const command = this.getCommand();
         const cursorPosition: Point = getCursorPosition(this.canvas, event);
 
-        command.onRightClick(cursorPosition);
+        command.onRightClick(cursorPosition, this.callbacks.get('rightclick'));
         this.addCommandToHistory(command);
         this.drawCanvas();
     }

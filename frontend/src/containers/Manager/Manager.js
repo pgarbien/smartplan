@@ -31,6 +31,20 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
             .catch(error => console.log(error));
     }
 
+    const manageDefaultDeviceAction = (device) => {
+        setDevice(device);
+        mAxios.get(`/devices/details/${device.id}`)
+            .then(response => {
+                response.data.actions.map(action => {
+                    if(action.caption == "Toggle") {
+                        mAxios.post(`/devices/actions/${device.id}`, { "actionType": 10 })
+                        .catch(error => console.log(error));
+                    }
+                });
+            })
+            .catch(error => console.log(error));
+    }
+
     useEffect(() => {
         if(creationCanvas) setupCreator(creationCanvas.current)  
     }, [creationCanvas]);
@@ -38,7 +52,8 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     useEffect(() => {
     if(parentCreator) {
         parentCreator.setCommand(Commands.MANAGE);
-        parentCreator.setCallback('click', manageDevice);
+        parentCreator.setCallback('click', manageDefaultDeviceAction);
+        parentCreator.setCallback('rightclick', manageDevice);
     }
     }, [parentCreator]);
 

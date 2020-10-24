@@ -29,7 +29,15 @@ export default class ManageCommand extends Command {
         })
     }
 
-    onRightClick(cursorPosition: Point): void {
+    onRightClick(cursorPosition: Point, callback: Function): void {
+        this.devicesData.getDevices().forEach((device) => {
+            if(device.point != null) {
+                if(Math.abs(cursorPosition.x - device.point.x) < 10
+                && Math.abs(cursorPosition.y - device.point.y) < 10){
+                    callback(device);
+                }
+            }
+        })
     }
 
     onMove(cursorPosition: Point): void {
