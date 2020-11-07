@@ -67,7 +67,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
             <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
             <div className="manager-container">
                 <div className="left-container">
-                    <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                    <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                 </div>
                 <div className="drawing-area">
                     <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>

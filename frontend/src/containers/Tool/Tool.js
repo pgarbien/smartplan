@@ -71,7 +71,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
               <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
               <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
             </div>
-            <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
+            <LevelsList creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
           </div>
           <div className="drawing-area">
             <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600" onClick={() => { updateRooms() }}></canvas>
