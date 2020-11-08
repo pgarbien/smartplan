@@ -18,8 +18,6 @@ const NewLevelModal = (props) => {
         <input type="file" id="level-blueprint" name="level-blueprint" accept="image/png, image/jpeg" onChange={(event) => { setLevelBlueprint(event.target.files[0]) }}/>
         <br/>
         <br/>
-        {/* <label for="level-color">Level color:</label>
-        <input type="color" id="level-color" name="level-color" value="#00d151" /> */}
         <button className="create-button" onClick={() => { levelBlueprint ? createNewLevel() : props.addNewLevel(levelName, null) }} disabled={ levelName == null || levelName === "" }>CREATE</button>
     </Fragment>;
 
