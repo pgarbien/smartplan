@@ -56,6 +56,9 @@ export default class AddDeviceCommand extends Command {
                         }
                     }
                     device.point = null;
+                    device.levelId = null;
+                    device.locationId = null;
+                    device.roomId = null;
                     this.creatorAddedDevices.removeDevice(device);
                     this.creatorDevices.getDevices().forEach(dev => {
                         if(dev.id == device.id) {

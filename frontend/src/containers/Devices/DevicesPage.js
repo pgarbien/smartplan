@@ -65,6 +65,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     const addDevice = (position) => {
         setPosition(position);
         setShowAddDeviceModal(true);
+        save();
     }
 
     useEffect(() => {
