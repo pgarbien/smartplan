@@ -74,7 +74,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                 </div> 
                 <div className="right-container">
                     <div className="devices-list">
-                        <Devices activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
+                        <Devices activeLevel={activeLevel} activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
                     </div>
                     <div className="buttons">
                         <Link to={location ? "/draw?locationId=" + location.id : "#"}>
