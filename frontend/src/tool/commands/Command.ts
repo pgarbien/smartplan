@@ -12,7 +12,7 @@ export default abstract class Command {
     abstract onClick(cursorPosition: Point, callback?: Function): void;
     abstract onRightClick(cursorPosition: Point, callback?: Function): void;
     abstract onMove(cursorPosition: Point): void;
-    abstract onDown(cursorPosition: Point): void;
+    abstract onDown(cursorPosition: Point, callback?: Function): void;
     abstract onDownMove(cursorPosition: Point): void;
     abstract onUp(cursorPosition: Point): void;
     abstract undo(): void;

@@ -43,7 +43,7 @@ export default class Creator {
         this.canvas.addEventListener('contextmenu', this.onRightClick);
         this.canvas.addEventListener('mousemove', this.onMouseMove);
         this.canvas.addEventListener('mousedown', this.onMouseDown);
-        this.canvas.addEventListener("mouseup", this.onMouseUp);
+        this.canvas.addEventListener('mouseup', this.onMouseUp);
 
         this.canvas.height = canvas.clientHeight
         this.canvas.width = canvas.clientWidth
@@ -59,7 +59,7 @@ export default class Creator {
         this.canvas.addEventListener('contextmenu', this.onRightClick);
         this.canvas.addEventListener('mousemove', this.onMouseMove);
         this.canvas.addEventListener('mousedown', this.onMouseDown);
-        this.canvas.addEventListener("mouseup", this.onMouseUp);
+        this.canvas.addEventListener('mouseup', this.onMouseUp);
 
         this.canvas.height = canvas.clientHeight
         this.canvas.width = canvas.clientWidth
@@ -183,7 +183,8 @@ export default class Creator {
         const command = this.getCommand();
         const cursorPosition: Point = getCursorPosition(this.canvas, event);
 
-        command.onDown(cursorPosition);
+        command.onDown(cursorPosition, this.callbacks.get('down'));
+        this.addCommandToHistory(command);
         this.command = command;
         this.drawCanvas();
 
@@ -203,7 +204,7 @@ export default class Creator {
         this.addCommandToHistory(this.command!!);
         this.drawCanvas();
 
-        this.canvas.removeEventListener("mousemove", this.onMouseMoveDown);
+        this.canvas.removeEventListener('mousemove', this.onMouseMoveDown);
         this.canvas.addEventListener('mousemove', this.onMouseMove);
     }
 

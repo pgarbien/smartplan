@@ -59,6 +59,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
         parentCreator.setCommand(Commands.MANAGE);
         parentCreator.setCallback('click', manageDefaultDeviceAction);
         parentCreator.setCallback('rightclick', manageDevice);
+        parentCreator.setCallback('down', manageDevice)
     }
     }, [parentCreator]);
 

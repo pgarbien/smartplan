@@ -10,6 +10,8 @@ export default class ManageCommand extends Command {
     private devicesData: CreatorNewDevices;
     private canvasDrawer: CanvasDrawer;
 
+    isOnHold = false;
+
     constructor(roomsData: CreatorRooms, devicesData: CreatorNewDevices, canvasDrawer: CanvasDrawer) {
         super();
 
@@ -44,8 +46,22 @@ export default class ManageCommand extends Command {
         
     }
 
-    onDown(cursorPosition: Point): void {
-        
+    onDown(cursorPosition: Point, callback: Function): void {
+        this.isOnHold = true;
+        this.devicesData.getDevices().forEach((device) => {
+            if(device.point != null) {
+                setTimeout(() =>{
+                    if(this.isOnHold) {
+                        if(device.point != null) {
+                            if(Math.abs(cursorPosition.x - device.point.x) < 10
+                            && Math.abs(cursorPosition.y - device.point.y) < 10){
+                                callback(device);
+                            }
+                        }
+                    }
+                }, 250);
+            }
+        })
     }
 
     onDownMove(cursorPosition: Point): void {
@@ -53,7 +69,7 @@ export default class ManageCommand extends Command {
     }
 
     onUp(cursorPosition: Point): void {
-       
+        this.isOnHold = false;
     }
 
     undo(): void {
