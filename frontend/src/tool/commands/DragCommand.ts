@@ -23,7 +23,35 @@ export default class DragCommand extends Command {
     }
 
     onRightClick(cursorPosition: Point): void {
+        const currentRoomPoints = this.roomsData.getCurrentRoom().points;
 
+        if(currentRoomPoints.length > 0) {
+            const removedPoint = currentRoomPoints[currentRoomPoints.length - 1];
+            this.roomsData.getCurrentRoom().removePoint();
+            
+            this.action = {
+                type: "removedPoint",
+                cursorPosition: cursorPosition,
+                details: {
+                    point: removedPoint
+                }
+            }
+        } else {
+            const pointerRoomIndex: number = getPointedRoomIndex(cursorPosition, this.roomsData.getRooms());
+            if(pointerRoomIndex >= 0) {
+                const rooms = this.roomsData.getRooms();
+                const removedRoom = rooms.splice(pointerRoomIndex, 1);
+                this.roomsData.setRooms(rooms);
+            
+                this.action = {
+                    type: "removedRoom",
+                    cursorPosition: cursorPosition,
+                    details: {
+                        room: removedRoom[0]
+                    }
+                }
+            }
+        }
     }
 
     onMove(cursorPosition: Point): void {
@@ -37,7 +65,7 @@ export default class DragCommand extends Command {
             this.canvasDrawer.highlightPoint(closePoint);
         } else if(closeLine) {
             this.canvasDrawer.highlightLine(closeLine.start, closeLine.end);
-        } else if (pointedRoomIndex > 0) {
+        } else if (pointedRoomIndex >= 0) {
             highlightRoom(this.roomsData.getRooms(), pointedRoomIndex);
         }
     }
@@ -70,7 +98,8 @@ export default class DragCommand extends Command {
                     startWall: previousWall
                 }
             }
-        } else if (pointedRoomIndex > 0) {
+        } else if (pointedRoomIndex >= 0) {
+            
             const pointedRoom = this.roomsData.getRooms()[pointedRoomIndex];
 
             const previousPoints = pointedRoom.points;
@@ -91,6 +120,7 @@ export default class DragCommand extends Command {
                 }
             }
         }
+        
     }
 
     onDownMove(cursorPosition: Point): void {
