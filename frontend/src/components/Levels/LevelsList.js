@@ -3,7 +3,8 @@ import '../../App.css';
 import mAxios from '../../utils/API';
 import './LevelsList.css';
 
-const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal}) => {
+const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal}) => {
+
   const levelsMapped = location ? location.levels.slice(0).reverse().map(level => {
     return <div className={level.order === activeLevel ? "level level-active" : "level"} onClick={() => { 
       changeDisplayedLevel(level);
@@ -14,6 +15,9 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
             creator.drawCanvas();
         })
         .catch(error => console.log(error));
+     }} onContextMenu={(event) => {
+      event.preventDefault();
+      setShowDeleteLevelModal(true)
      }}>{level.name}</div>
   }) : null;
 

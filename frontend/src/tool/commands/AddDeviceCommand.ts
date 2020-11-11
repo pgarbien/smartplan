@@ -39,6 +39,22 @@ export default class AddDeviceCommand extends Command {
         this.creatorDevices.getDevices().splice(devIndex, 1);
     }
 
+    removeDevice(device: NewDevice) {
+        device.point = null;
+        device.levelId = null;
+        device.locationId = null;
+        device.roomId = null;
+        this.creatorAddedDevices.removeDevice(device);
+        this.creatorDevices.getDevices().forEach(dev => {
+            if(dev.id == device.id) {
+                this.creatorDevices.removeDevice(dev);
+                mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
+            }
+        });
+        this.creatorDevices.getDevices().push(device);
+        mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
+    }
+
     onClick(cursorPosition: Point, callback: Function): void {
         callback(cursorPosition);
     }
@@ -55,20 +71,7 @@ export default class AddDeviceCommand extends Command {
                             device: device
                         }
                     }
-                    device.point = null;
-                    device.levelId = null;
-                    device.locationId = null;
-                    device.roomId = null;
-                    this.creatorAddedDevices.removeDevice(device);
-                    this.creatorDevices.getDevices().forEach(dev => {
-                        if(dev.id == device.id) {
-                            this.creatorDevices.removeDevice(dev);
-                            mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
-                        }
-                    });
-                    this.creatorDevices.getDevices().push(device);
-                    mAxios.put('/devices', this.creatorDevices.getDevices()).catch(error => console.log(error));
-                    
+                    this.removeDevice(device)
             }
             }
         });

@@ -149,6 +149,11 @@ export default class Creator {
         newDevice.drawNewDevice(deviceName, color, deviceId, position, roomId, locationId, levelId);
     }
 
+    removeDevice(device: NewDevice) {
+        const command = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
+        command.removeDevice(device);
+    }
+
     private onClick = (event: MouseEvent) => {
         const command = this.getCommand();
         const cursorPosition: Point = getCursorPosition(this.canvas, event);

@@ -11,10 +11,12 @@ import Level from '../../tool/model/Level';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
 import DeleteLocationModal from '../../components/Locations/DeleteLocationModal';
+import DeleteLevelModal from '../../components/DrawTool/DeleteLevelModal';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
+  const [showDeleteLevelModal, setShowDeleteLevelModal] = useState(false);
   const [showDeleteLocationModal, setshowDeleteLocationModal] = useState(false);
   
   const [activeLevel, setActiveLevel] = useState(0);
@@ -42,6 +44,26 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     setLocation(preLocation); 
     setShowAddLevelModal(false);
     put();
+  }
+
+  const deleteLevel = (levelName) => {
+    const preLocation = location;
+    
+    let index = preLocation.levels.filter(level => level.name == levelName)[0].order;
+    if(index > -1) {
+      preLocation.levels.splice(index,1);
+
+      mAxios.get('/devices?levelId=' + index)
+        .then(response => {
+          response.data.filter(device => device.levelId == index).map(device => {console.log(device.name); parentCreator.removeDevice(device)})
+        });
+
+      preLocation.levels.map(level => level.order = preLocation.levels.indexOf(level))
+
+      setLocation(preLocation);
+      setActiveLevel(location.levels[0].order)
+      put();
+    }
   }
 
   const updateRooms = () => {
@@ -73,7 +95,10 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
               <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
               <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
             </div>
-            <LevelsList creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} />
+            <LevelsList 
+              creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
+              changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
+            />
           </div>
           <div className="drawing-area">
             <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600" onClick={() => { updateRooms() }}></canvas>
@@ -93,6 +118,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
           </div>
         </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
+        { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={window.event.target.innerHTML} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
         { showDeleteLocationModal ? <DeleteLocationModal location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>
   );
