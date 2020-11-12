@@ -1,9 +1,10 @@
 import {Injectable} from "@nestjs/common";
-import {Action, ActionType, Device, DeviceDetails, DeviceState, DeviceType} from "./device.model";
+import {Action, ActionType, Device, DeviceDetails, DeviceState, DeviceType, DeviceConfig} from "./device.model";
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
 import {DeviceQuery} from "./device.controller";
+import devicesConfig from "../../config/devices_config";
 
 @Injectable()
 export class DeviceService {
@@ -18,6 +19,19 @@ export class DeviceService {
     async getAll(userId: string, query: DeviceQuery): Promise<Device[]> {
         const channels = await this.channelsService.getChannels(userId);
         const devices: Device[] = await Promise.all(channels.map(device => this.updateAndGet(this.mapToDevice(device, userId))));
+
+        for await (const device of devices) {
+            if (devicesConfig.has(device.type)) {
+                const config: DeviceConfig = devicesConfig.get(device.type);
+                if(device.suplaIconId == null) {
+                    device.icons = config.images;
+                } else {
+                    const iconsData = await this.channelsService.getIconById(userId, device.suplaIconId);
+                    device.icons = iconsData[0].images;
+                }
+                device.defaultAction = config.defaultAction;
+            }
+        }
 
         return devices.filter(device => this.assertQuery(device, query));
     }
@@ -69,7 +83,11 @@ export class DeviceService {
     }
 
     private mapToDevice(suplaDevice, userId): Device {
-        return new Device(userId, suplaDevice.id, suplaDevice.caption, null, null);
+        return new Device(
+            userId,
+            suplaDevice.id,
+            suplaDevice.caption
+        );
     }
 
     private mapToDeviceDetails(suplaDevice): DeviceDetails {
@@ -96,7 +114,9 @@ export class DeviceService {
                         userId: device.userId,
                         suplaDeviceId: device.suplaDeviceId
                     }, {
-                        name: device.name
+                        name: device.name,
+                        suplaIconId: device.suplaIconId,
+                        type: device.type
                     });
                 }
             }
