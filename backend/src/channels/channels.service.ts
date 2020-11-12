@@ -12,13 +12,13 @@ export class ChannelsService {
     }
 
     private apiKey: string = this.configService.get<string>('API_KEY');
-    private apiUrl = this.configService.get<string>('API_URL') + '/channels';
-
+    private channelsUrl = this.configService.get<string>('API_URL') + '/channels';
+    private iconsUrl = this.configService.get<string>('API_URL') + '/user-icons';
 
     getChannels(userId: string) {
         const token: string = this.authService.getTokenByUserId(userId);
 
-        return this.httpService.get(this.getUrlForToken(token), this.getHeaders(token)).pipe(
+        return this.httpService.get(this.getUrlForToken(token) + this.channelsUrl, this.getHeaders(token)).pipe(
             map(response => response.data)
         ).toPromise();
     }
@@ -26,7 +26,7 @@ export class ChannelsService {
     getChannelsWithStates(userId: string) {
         const token: string = this.authService.getTokenByUserId(userId);
 
-        return this.httpService.get(this.getUrlForToken(token) + '?include=connected&include=state', this.getHeaders(token)).pipe(
+        return this.httpService.get(this.getUrlForToken(token) + `${this.channelsUrl}?include=connected&include=state`, this.getHeaders(token)).pipe(
             map(response => response.data)
         ).toPromise();
     }
@@ -34,7 +34,7 @@ export class ChannelsService {
     getChannelById(userId: string, channelId: number) {
         const token: string = this.authService.getTokenByUserId(userId);
 
-        return this.httpService.get(this.getUrlForToken(token) + `/${channelId}?include=connected&include=state`,
+        return this.httpService.get(this.getUrlForToken(token) + `${this.channelsUrl}/${channelId}?include=connected&include=state`,
             this.getHeaders(token)).pipe(
                 map(response => response.data)
             ).toPromise();
@@ -42,14 +42,21 @@ export class ChannelsService {
 
     callAction(userId: string, channelId: number, actionType: ActionType) {
         const token: string = this.authService.getTokenByUserId(userId);
-        return this.httpService.patch(this.getUrlForToken(token) + `/${channelId}`, {action: ActionType[actionType]},
+        return this.httpService.patch(this.getUrlForToken(token) + `${this.channelsUrl}/${channelId}`, {action: ActionType[actionType]},
             this.getHeaders(token)).pipe(
                 map(response => response.data)
             ).toPromise();
     }
 
+    getIconById(userId: string, iconId: number) {
+        const token: string = this.authService.getTokenByUserId(userId);
+        return this.httpService.get(this.getUrlForToken(token) + `${this.iconsUrl}?include=images&ids=${iconId}`, this.getHeaders(token)).pipe(
+            map(response => response.data)
+        ).toPromise();
+    }
+
     private getUrlForToken(token: string): string {
-        return this.authService.getLoggedUserByToken(token).target_url + this.apiUrl
+        return this.authService.getLoggedUserByToken(token).target_url;
     }
 
     private getHeaders(token: string) {

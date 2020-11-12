@@ -32,12 +32,21 @@ export class Device {
     @Column({nullable: true})
     levelId: string;
 
-    constructor(userId: string, suplaDeviceId: number, name: string, color: string, roomId: string) {
+    @Exclude()
+    @Column({nullable: true})
+    suplaIconId: number;
+
+    icons: string[];
+
+    defaultAction: ActionType;
+
+    @Column({nullable: true})
+    type: DeviceType;
+
+    constructor(userId: string, suplaDeviceId: number, name: string) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;
-        this.color = color;
-        this.roomId = roomId;
     }
 }
 
@@ -91,4 +100,9 @@ export enum ActionType {
     OPEN, CLOSE, SHUT, REVEAL, REVEAL_PARTIALLY,
     TURN_ON, TURN_OFF, SET_RGBW_PARAMETERS, OPEN_CLOSE,
     STOP, TOGGLE, READ
+}
+
+export interface DeviceConfig {
+    images: string[];
+    defaultAction: ActionType;
 }
