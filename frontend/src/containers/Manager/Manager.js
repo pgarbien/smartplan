@@ -17,6 +17,14 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     const [deviceState, setDeviceState] = useState([]);
     const [device, setDevice] = useState(null);
 
+    const handleMouseClick = (device) => {
+        if(device.defaultAction) {
+            manageDefaultDeviceAction(device)
+        } else {
+            manageDevice(device)
+        }
+    }
+
     const manageDevice = (device) => {
         setDevice(device);
         mAxios.get(`/devices/details/${device.id}`)
@@ -48,7 +56,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     useEffect(() => {
     if(parentCreator) {
         parentCreator.setCommand(Commands.MANAGE);
-        parentCreator.setCallback('click', manageDefaultDeviceAction);
+        parentCreator.setCallback('click', handleMouseClick);
         parentCreator.setCallback('rightclick', manageDevice);
         parentCreator.setCallback('down', manageDevice)
     }
