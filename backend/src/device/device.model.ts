@@ -6,6 +6,7 @@ export interface BaseDevice {
     icons: string[];
     defaultAction: ActionType;
     type: DeviceType;
+    possibleVisualStates: string[];
 }
 
 @Entity()
@@ -44,18 +45,21 @@ export class Device implements BaseDevice {
     suplaIconId: number;
 
     icons: string[];
-
     defaultAction: ActionType;
+
+    @Column({nullable: true})
+    possibleVisualStates: string[];
 
     @Column({nullable: true})
     type: DeviceType;
 
-    constructor(userId: string, suplaDeviceId: number, name: string, suplaIconId: number, type: DeviceType) {
+    constructor(userId: string, suplaDeviceId: number, name: string, suplaIconId: number, type: DeviceType, possibleVisualStates: string[]) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;
         this.suplaIconId = suplaIconId;
         this.type = type;
+        this.possibleVisualStates = possibleVisualStates;
     }
 }
 
@@ -69,13 +73,15 @@ export class DeviceDetails implements BaseDevice {
     suplaIconId: number;
     icons: string[];
     defaultAction: ActionType;
+    possibleVisualStates: string[];
 
-    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType) {
+    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType, possibleVisualStates: string[]) {
         this.type = type;
         this.caption = caption;
         this.actions = actions;
         this.state = state;
         this.suplaIconId = suplaIconId;
+        this.possibleVisualStates = possibleVisualStates;
     }
 }
 //TODO analyze states and make model for them

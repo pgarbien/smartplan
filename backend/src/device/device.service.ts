@@ -105,7 +105,8 @@ export class DeviceService {
             suplaDevice.id,
             suplaDevice.caption,
             suplaDevice.userIconId,
-            DeviceType[suplaDevice.function.name as keyof typeof DeviceType]
+            DeviceType[suplaDevice.function.name as keyof typeof DeviceType],
+            suplaDevice.function.possibleVisualStates
         );
     }
 
@@ -117,7 +118,8 @@ export class DeviceService {
             details.caption,
             details.possibleActions.map(data => new Action(ActionType[data.name as keyof typeof ActionType], data.caption)),
             suplaDevice.state,
-            suplaDevice.userIconId
+            suplaDevice.userIconId,
+            details.possibleVisualStates
         );
     }
 
@@ -137,7 +139,8 @@ export class DeviceService {
                     }, {
                         name: device.name,
                         suplaIconId: device.suplaIconId,
-                        type: device.type
+                        type: device.type,
+                        possibleVisualStates: device.possibleVisualStates
                     });
                 }
             }
