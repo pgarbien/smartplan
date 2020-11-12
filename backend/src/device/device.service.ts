@@ -22,14 +22,7 @@ export class DeviceService {
 
         for await (const device of devices) {
             if (devicesConfig.has(device.type)) {
-                const config: DeviceConfig = devicesConfig.get(device.type);
-                if(device.suplaIconId == null) {
-                    device.icons = config.images;
-                } else {
-                    const iconsData = await this.channelsService.getIconById(userId, device.suplaIconId);
-                    device.icons = iconsData[0].images;
-                }
-                device.defaultAction = config.defaultAction;
+                await this.setDeviceIconsAndDefaultAction(device, userId);
             }
         }
 
@@ -67,6 +60,17 @@ export class DeviceService {
         return deviceStates.filter(deviceState => this.assertQuery(devices[deviceState.id], query));
     }
 
+    private async setDeviceIconsAndDefaultAction(device: Device, userId: string) {
+        const config: DeviceConfig = devicesConfig.get(device.type);
+        if(device.suplaIconId == null) {
+            device.icons = config.images;
+        } else {
+            const iconsData = await this.channelsService.getIconById(userId, device.suplaIconId);
+            device.icons = iconsData[0].images;
+        }
+        device.defaultAction = config.defaultAction;
+    }
+
     private assertQuery(device: Device, query: DeviceQuery): boolean {
         return (query.roomId != null && device.roomId == query.roomId)
             || (query.levelId != null && query.roomId == null && device.levelId == query.levelId)
@@ -86,7 +90,9 @@ export class DeviceService {
         return new Device(
             userId,
             suplaDevice.id,
-            suplaDevice.caption
+            suplaDevice.caption,
+            suplaDevice.userIconId,
+            DeviceType[suplaDevice.function.name as keyof typeof DeviceType]
         );
     }
 

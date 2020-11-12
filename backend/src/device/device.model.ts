@@ -43,10 +43,12 @@ export class Device {
     @Column({nullable: true})
     type: DeviceType;
 
-    constructor(userId: string, suplaDeviceId: number, name: string) {
+    constructor(userId: string, suplaDeviceId: number, name: string, suplaIconId: number, type: DeviceType) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;
+        this.suplaIconId = suplaIconId;
+        this.type = type;
     }
 }
 
