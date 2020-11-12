@@ -1,8 +1,15 @@
 import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Exclude, Transform} from 'class-transformer';
 
+export interface BaseDevice {
+    suplaIconId: number;
+    icons: string[];
+    defaultAction: ActionType;
+    type: DeviceType;
+}
+
 @Entity()
-export class Device {
+export class Device implements BaseDevice {
     @Transform(id => id.toString())
     @ObjectIdColumn()
     id: ObjectID;
@@ -52,17 +59,23 @@ export class Device {
     }
 }
 
-export class DeviceDetails {
+export class DeviceDetails implements BaseDevice {
     type: DeviceType;
     caption: string;
     actions: Action[];
     state: JSON;
 
-    constructor(type: DeviceType, caption: string, actions: Action[], state: any) {
+    @Exclude()
+    suplaIconId: number;
+    icons: string[];
+    defaultAction: ActionType;
+
+    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType) {
         this.type = type;
         this.caption = caption;
         this.actions = actions;
         this.state = state;
+        this.suplaIconId = suplaIconId;
     }
 }
 //TODO analyze states and make model for them

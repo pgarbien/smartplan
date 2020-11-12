@@ -1,5 +1,14 @@
 import {Injectable} from "@nestjs/common";
-import {Action, ActionType, Device, DeviceDetails, DeviceState, DeviceType, DeviceConfig} from "./device.model";
+import {
+    Action,
+    ActionType,
+    Device,
+    DeviceDetails,
+    DeviceState,
+    DeviceType,
+    DeviceConfig,
+    BaseDevice
+} from "./device.model";
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
@@ -36,7 +45,11 @@ export class DeviceService {
     async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
         const device = await this.deviceRepository.findOne(deviceId);
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId);
-        return this.mapToDeviceDetails(data);
+        const deviceDetails: DeviceDetails = this.mapToDeviceDetails(data);
+
+        await this.setDeviceIconsAndDefaultAction(deviceDetails, userId);
+
+        return deviceDetails;
     }
 
     async callAction(userId: string, deviceId: string, actionType: ActionType) {
@@ -60,7 +73,7 @@ export class DeviceService {
         return deviceStates.filter(deviceState => this.assertQuery(devices[deviceState.id], query));
     }
 
-    private async setDeviceIconsAndDefaultAction(device: Device, userId: string) {
+    private async setDeviceIconsAndDefaultAction(device: BaseDevice, userId: string) {
         const config: DeviceConfig = devicesConfig.get(device.type);
         if(device.suplaIconId == null) {
             device.icons = config.images;
@@ -98,11 +111,13 @@ export class DeviceService {
 
     private mapToDeviceDetails(suplaDevice): DeviceDetails {
         const details = suplaDevice.function;
+
         return new DeviceDetails(
             DeviceType[details.name as keyof typeof DeviceType],
             details.caption,
             details.possibleActions.map(data => new Action(ActionType[data.name as keyof typeof ActionType], data.caption)),
-            suplaDevice.state
+            suplaDevice.state,
+            suplaDevice.userIconId
         );
     }
 
