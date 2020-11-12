@@ -12,12 +12,15 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
       mAxios.get('/devices?levelId=' + level.order)
         .then(response => {
             creator.setAddedDevices(response.data);
-            creator.drawCanvas();
+            creator.refresh();
         })
         .catch(error => console.log(error));
-     }} onContextMenu={(event) => {
-      event.preventDefault();
-      setShowDeleteLevelModal(true)
+     }} 
+     onContextMenu={(event) => {
+       if(setShowDeleteLevelModal) {
+          event.preventDefault();
+          setShowDeleteLevelModal(true)
+       }
      }}>{level.name}</div>
   }) : null;
 

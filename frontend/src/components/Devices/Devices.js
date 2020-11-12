@@ -22,8 +22,8 @@ const Devices = ({ activeLevel, activeDevices, manageDevice, creator }) => {
                 {  devices.map(device => (
                     <li className="active-device" key={device.name} 
                         onClick={() => { manageDevice(device) }}
-                        onMouseEnter={() => { creator.highlightedDevice = device.id; creator.drawCanvas() }}
-                        onMouseLeave={() => { creator.highlightedDevice = null; creator.drawCanvas() }}>
+                        onMouseEnter={() => { creator.highlightedDevice = device.id; creator.refresh() }}
+                        onMouseLeave={() => { creator.highlightedDevice = null; creator.refresh() }}>
                         {device.name}
                     </li>
                 )) }

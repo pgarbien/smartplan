@@ -34,6 +34,8 @@ export default class Creator {
     //TODO TMP
     highlightedDevice = null
 
+    refresh = () => this.drawCanvas();
+
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
@@ -134,16 +136,6 @@ export default class Creator {
         this.drawCanvas();
     }
 
-    drawCanvas() {
-        this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        if(this.backgroundImage && this.backgroundImage.isImageLoaded()) {
-            this.canvasDrawer.drawBackground(this.backgroundImage!!, this.canvas.height, this.canvas.width);
-        }
-        this.canvasDrawer.drawRooms(this.creatorRooms.getRooms());
-        this.canvasDrawer.drawRoom(this.creatorRooms.getCurrentRoom(), true, true); 
-        this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices(), this.highlightedDevice);
-    }
-
     addDevice(deviceName: string, color: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
         newDevice.drawNewDevice(deviceName, color, deviceId, position, roomId, locationId, levelId);
@@ -152,6 +144,16 @@ export default class Creator {
     removeDevice(device: NewDevice) {
         const command = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
         command.removeDevice(device);
+    }
+
+    private drawCanvas() {
+        this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if(this.backgroundImage && this.backgroundImage.isImageLoaded()) {
+            this.canvasDrawer.drawBackground(this.backgroundImage!!, this.canvas.height, this.canvas.width);
+        }
+        this.canvasDrawer.drawRooms(this.creatorRooms.getRooms());
+        this.canvasDrawer.drawRoom(this.creatorRooms.getCurrentRoom(), true, true); 
+        this.canvasDrawer.drawDevices(this.creatorAddedDevices.getDevices(), this.highlightedDevice);
     }
 
     private onClick = (event: MouseEvent) => {

@@ -35,19 +35,21 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
         setDevice(device);
         mAxios.get(`/devices/details/${device.id}`)
             .then(response => {
-                response.data.actions.map(action => {
-                    if(action.caption == "Toggle") {
-                        mAxios.post(`/devices/actions/${device.id}`, { "actionType": 10 })
-                        changeDeviceColor(device, response.data.state.on)
-                        .catch(error => console.log(error));
-                    }
-                });
+                const toogleAction = response.data.actions.find(action => action.caption == "Toggle")
+                if(toogleAction) {
+                    mAxios.post(`/devices/actions/${device.id}`, { "actionType": 10 })
+                        .then(() => {
+                            mAxios.get(`/devices/details/${device.id}`)
+                                .then(response => changeDeviceColor(device, response.data.state.on))
+                        })
+                }
             })
             .catch(error => console.log(error));
     }
 
     const changeDeviceColor = (device, deviceOn) => {
         device.color = deviceOn ? "rgba(0, 209, 81, 1)" : "grey";
+        creator.refresh();
     }
 
     useEffect(() => {

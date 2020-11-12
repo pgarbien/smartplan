@@ -51,17 +51,23 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
     
     let index = preLocation.levels.filter(level => level.name == levelName)[0].order;
     if(index > -1) {
-      preLocation.levels.splice(index,1);
+      preLocation.levels.splice(index, 1);
 
       mAxios.get('/devices?levelId=' + index)
         .then(response => {
-          response.data.filter(device => device.levelId == index).map(device => {console.log(device.name); parentCreator.removeDevice(device)})
+          if(response) response.data
+            .filter(device => device.levelId == index)
+            .map(device => parentCreator.removeDevice(device))
         });
 
       preLocation.levels.map(level => level.order = preLocation.levels.indexOf(level))
 
       setLocation(preLocation);
-      setActiveLevel(location.levels[0].order)
+      if(location.levels.length === 0) {
+        setShowAddLevelModal(true)
+      } else {
+        setActiveLevel(location.levels[0].order)
+      }
       put();
     }
   }
