@@ -43,7 +43,13 @@ export default class ManageCommand extends Command {
     }
 
     onMove(cursorPosition: Point): void {
-        
+        const close = this.devicesData.getDevices().some((device) => {
+            return device.point && 
+                Math.abs(cursorPosition.x - device.point.x) < 15 && 
+                Math.abs(cursorPosition.y - device.point.y) < 15
+        })
+
+        this.canvasDrawer.setCursor(close ? "pointer" : "default")
     }
 
     onDown(cursorPosition: Point, callback: Function): void {

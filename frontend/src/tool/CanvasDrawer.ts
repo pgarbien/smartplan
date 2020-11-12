@@ -70,11 +70,28 @@ export default class CanvasDrawer {
     }
 
     drawDevice(newDevice: NewDevice, highlighted: boolean) {
+        var image = new Image();
+        image.src = "data:image/  png;base64," + (newDevice.icons ? newDevice.icons[0] : "");
+        
+        const size = 25
+        let width = image.naturalWidth
+        let height = image.naturalWidth
+        if(width > height) {
+            const ratio = height / width
+            width = size
+            height = size * ratio
+        } else {
+            const ratio = width / height
+            width = size * ratio
+            height = size
+        }
+
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  15 : 10, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  20 : 15, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = newDevice.color;
         this.canvasContext.fill();
         this.canvasContext.closePath();
+        this.canvasContext.drawImage(image, newDevice.point!.x - width/2, newDevice.point!.y - height/2, width, height);
     }
 
     drawLine(startPoint: Point, endPoint: Point, primary: Boolean = false) {
@@ -127,5 +144,9 @@ export default class CanvasDrawer {
         this.canvasContext.stroke();
         this.canvasContext.closePath();
         this.canvasContext.setLineDash([0,0]);
+    }
+
+    setCursor(type: string) {
+        this.canvasContext.canvas.style.cursor = type
     }
 }

@@ -68,6 +68,9 @@ export default class DragCommand extends Command {
         } else if (pointedRoomIndex >= 0) {
             highlightRoom(this.roomsData.getRooms(), pointedRoomIndex);
         }
+
+        const grabbable = closePoint || closeLine || pointedRoomIndex >= 0
+        this.canvasDrawer.setCursor(grabbable ? "grab" : "default")
     }
 
     onDown(cursorPosition: Point): void {
@@ -120,7 +123,9 @@ export default class DragCommand extends Command {
                 }
             }
         }
-        
+
+        const grabbing = closePoint || closeLine || pointedRoomIndex >= 0
+        if(grabbing) this.canvasDrawer.setCursor("grabbing")
     }
 
     onDownMove(cursorPosition: Point): void {
@@ -170,6 +175,7 @@ export default class DragCommand extends Command {
             } else if(this.action.type === "roomMove") {
                 this.action.details.endPoints = this.action.details.movedRoom.points;
             }
+            this.canvasDrawer.setCursor("grab")
         }
     }
 

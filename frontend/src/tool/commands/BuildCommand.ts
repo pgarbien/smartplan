@@ -15,6 +15,8 @@ export default class BuildCommand extends Command {
 
         this.roomsData = roomsData;
         this.canvasDrawer = canvasDrawer;
+
+        this.canvasDrawer.setCursor("default")
     }
 
     onClick(cursorPosition: Point): void {

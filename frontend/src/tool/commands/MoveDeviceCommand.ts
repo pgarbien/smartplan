@@ -23,19 +23,24 @@ export default class MoveDeviceCommand extends Command {
     
     onClick(cursorPosition: Point, callback?: Function): void {
     }
+
     onRightClick(cursorPosition: Point): void {
     }
+
     onMove(cursorPosition: Point): void {
+        const closePoint: Point | null = getClosePointDevice(this.creatorAddedDevices.getDevices(), cursorPosition);
+        this.canvasDrawer.setCursor(closePoint ? "grab" : "default")
     }
+
     onDown(cursorPosition: Point): void {
         const position = this.getModifiedPosition(cursorPosition);
         
         const closePoint: Point | null = getClosePointDevice(this.creatorAddedDevices.getDevices(), cursorPosition);
 
         if(closePoint) {
-
             const previousPoint: Point = new Point(closePoint.x, closePoint.y);
             
+            this.canvasDrawer.setCursor("grabbing")
             this.action = {
                 type: "pointMove",
                 cursorPosition: cursorPosition,
@@ -88,9 +93,12 @@ export default class MoveDeviceCommand extends Command {
     }
 
     onUp(cursorPosition: Point): void {
+        const closePoint: Wall | null = getCloseLine(this.roomsData.getRooms(), cursorPosition);
+        
         if(this.action) {
             const endPoint: Point = new Point(this.action.details.movedPoint.x, this.action.details.movedPoint.y);
 
+            this.canvasDrawer.setCursor("grab")
             this.action.details.endPoint = endPoint;
 
             if(this.action.type === 'pointMove') {
@@ -98,6 +106,7 @@ export default class MoveDeviceCommand extends Command {
             }
         }
     }
+
     undo(): void {
         switch(this.action!!.type) {
             case "removedDevice":

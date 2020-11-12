@@ -17,10 +17,6 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     const [deviceState, setDeviceState] = useState([]);
     const [device, setDevice] = useState(null);
 
-    const manageDevices = () => {
-        setShowManageDeviceModal(false);
-    }
-
     const manageDevice = (device) => {
         setDevice(device);
         mAxios.get(`/devices/details/${device.id}`)
@@ -33,18 +29,11 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
 
     const manageDefaultDeviceAction = (device) => {
         setDevice(device);
-        mAxios.get(`/devices/details/${device.id}`)
-            .then(response => {
-                const toogleAction = response.data.actions.find(action => action.caption == "Toggle")
-                if(toogleAction) {
-                    mAxios.post(`/devices/actions/${device.id}`, { "actionType": 10 })
-                        .then(() => {
-                            mAxios.get(`/devices/details/${device.id}`)
-                                .then(response => changeDeviceColor(device, response.data.state.on))
-                        })
-                }
-            })
-            .catch(error => console.log(error));
+        if(device.defaultAction) {
+            mAxios.post(`/devices/actions/${device.id}`, { "actionType": device.defaultAction })
+                .then(mAxios.get(`/devices/details/${device.id}`)
+                    .then(response => changeDeviceColor(device, response.data.state.on)))
+        }
     }
 
     const changeDeviceColor = (device, deviceOn) => {
