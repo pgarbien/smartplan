@@ -1,0 +1,9 @@
+.home-page .main-page-image {
+  width: 100%;
+  height: 80vh;
+  background-image: url("https://www.supla.org/assets/img/home.jpg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/*# sourceMappingURL=MainPage.css.map */

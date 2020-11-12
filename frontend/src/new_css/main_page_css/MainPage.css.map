@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AACI,UADM,CACN,gBAAgB,CAAC;EACb,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,gBAAgB,EAAE,gDAAgD;EAClE,eAAe,EAAE,GAAG;EACpB,iBAAiB,EAAE,SAAS;EAC5B,mBAAmB,EAAE,MAAM;CAC9B",
+    "sources": [
+        "MainPage.scss",
+        "../_variables.scss"
+    ],
+    "names": [],
+    "file": "MainPage.css"
+}
