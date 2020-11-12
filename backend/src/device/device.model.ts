@@ -1,8 +1,16 @@
 import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Exclude, Transform} from 'class-transformer';
 
+export interface BaseDevice {
+    suplaIconId: number;
+    icons: string[];
+    defaultAction: ActionType;
+    type: DeviceType;
+    possibleVisualStates: string[];
+}
+
 @Entity()
-export class Device {
+export class Device implements BaseDevice {
     @Transform(id => id.toString())
     @ObjectIdColumn()
     id: ObjectID;
@@ -37,32 +45,43 @@ export class Device {
     suplaIconId: number;
 
     icons: string[];
-
     defaultAction: ActionType;
+
+    @Column({nullable: true})
+    possibleVisualStates: string[];
 
     @Column({nullable: true})
     type: DeviceType;
 
-    constructor(userId: string, suplaDeviceId: number, name: string, suplaIconId: number, type: DeviceType) {
+    constructor(userId: string, suplaDeviceId: number, name: string, suplaIconId: number, type: DeviceType, possibleVisualStates: string[]) {
         this.userId = userId;
         this.suplaDeviceId = suplaDeviceId;
         this.name = name;
         this.suplaIconId = suplaIconId;
         this.type = type;
+        this.possibleVisualStates = possibleVisualStates;
     }
 }
 
-export class DeviceDetails {
+export class DeviceDetails implements BaseDevice {
     type: DeviceType;
     caption: string;
     actions: Action[];
     state: JSON;
 
-    constructor(type: DeviceType, caption: string, actions: Action[], state: any) {
+    @Exclude()
+    suplaIconId: number;
+    icons: string[];
+    defaultAction: ActionType;
+    possibleVisualStates: string[];
+
+    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType, possibleVisualStates: string[]) {
         this.type = type;
         this.caption = caption;
         this.actions = actions;
         this.state = state;
+        this.suplaIconId = suplaIconId;
+        this.possibleVisualStates = possibleVisualStates;
     }
 }
 //TODO analyze states and make model for them
