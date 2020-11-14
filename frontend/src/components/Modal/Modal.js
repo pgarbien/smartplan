@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import './Modal.css';
+import '../../new_css/modal_css/Modal.css';
 
 const Modal = (props) => {
   return (
-      <Fragment>
+        <Fragment>
             <div className="modal-background" onClick={() => {props.onCloseModal()}}></div>
             <div className="modal">
                 <div className="modal-header">

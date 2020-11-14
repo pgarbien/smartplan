@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
 import Location from '../../tool/model/Location';
 import mAxios from '../../utils/API';
-import './NewLocationModal.css';
+import '../../new_css/modal_css/Modal.css';
 
 const NewLocationModal = (props) => {
     const [locationName, setLocationName] = useState(null);

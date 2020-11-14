@@ -1,12 +1,10 @@
 import React, { Component, useEffect, useState } from 'react';
 import mAxios from '../../utils/API';
+import '../../new_css/levels_list_css/LevelsList.css';
+import '../../new_css/devices_css/Devices.css';
 
 const Devices = ({ activeLevel, activeDevices, manageDevice, creator }) => {
-    const [devices, setDevices] = useState(activeDevices)
-
-    function handleDeviceInListClick(event) {
-        console.log(event.target.innerHTML);
-    }
+    const [devices, setDevices] = useState(activeDevices);
 
     useEffect(() => {
         mAxios.get('/devices?levelId=' + activeLevel)
@@ -18,16 +16,19 @@ const Devices = ({ activeLevel, activeDevices, manageDevice, creator }) => {
     return (
         <div>
             <h2>Your devices: </h2>
-            <ul className="active-devices" onClick={handleDeviceInListClick}>
-                {  devices.map(device => (
-                    <li className="active-device" key={device.name} 
-                        onClick={() => { manageDevice(device) }}
-                        onMouseEnter={() => { creator.highlightedDevice = device.id; creator.refresh() }}
-                        onMouseLeave={() => { creator.highlightedDevice = null; creator.refresh() }}>
-                        {device.name}
-                    </li>
-                )) }
-            </ul>
+            <div class="dropdown">
+                <button class="drop-btn"> Wszystkie <span class="caret"/> </button>
+                <div class="dropdown-content active-devices">
+                    {  devices.map(device => (
+                        <div className="level" key={device.name} 
+                            onClick={() => { manageDevice(device) }}
+                            onMouseEnter={() => { creator.highlightedDevice = device.id; creator.drawCanvas() }}
+                            onMouseLeave={() => { creator.highlightedDevice = null; creator.drawCanvas() }}>
+                            {device.name}
+                        </div>
+                    )) }
+                </div>
+            </div>
         </div>
     );
 };

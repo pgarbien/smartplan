@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
-import './NewLocationModal.css';
 import mAxios from '../../utils/API';
+import '../../new_css/modal_css/Modal.css';
 
 const DeleteLocationModal = (props) => {
 
@@ -22,7 +22,7 @@ const DeleteLocationModal = (props) => {
             </div>
             <br/>
             <br/>
-            <button className="delete-button" onClick={ handleDeleteModal }>DELETE</button>
+            <button className="delete-button-modal" onClick={ handleDeleteModal }>DELETE</button>
             <button className="cancel-button" onClick={ handleCloseModal }>CANCEL</button>
         </Fragment>
 

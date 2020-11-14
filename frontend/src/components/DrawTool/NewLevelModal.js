@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import Modal from '../../components/Modal/Modal';
 import mAxios from '../../utils/API';
-import '../Locations/NewLocationModal.css';
 
 const NewLevelModal = (props) => {
     const [levelName, setLevelName] = useState(null);

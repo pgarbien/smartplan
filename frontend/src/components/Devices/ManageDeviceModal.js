@@ -1,8 +1,8 @@
 
 import React, { Fragment } from 'react';
 import Modal from '../Modal/Modal';
-import '../../App.css'
 import mAxios from '../../utils/API';
+import '../../new_css/modal_css/Modal.css';
 
 const ManageDeviceModal = (props) => {
 

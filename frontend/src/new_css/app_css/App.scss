@@ -1,0 +1,175 @@
+@import '../variables';
+
+* {
+    outline-color: #00d151 !important;
+    box-sizing: border-box;
+    margin-top: 0;
+}
+
+html {
+    font-family: sans-serif;
+    overflow-y: scroll;
+}
+
+#root, body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Open sans, sans-serif;
+    background: $backgroundGrey;
+    color: $black;
+    background-size: auto;
+    background-origin: padding-box;
+    background-clip: border-box;
+    transition: background-color .5s;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857143; //this weird value is taken from supla website
+}
+
+
+.page-content {
+    min-height: 100%;
+    height: auto;
+    margin-bottom: -60px;
+    padding: 0 0 60px;
+}
+
+nav {
+    background: $white;
+    border: 0;
+    display: block;
+
+    .navbar {
+        border-radius: 4px;
+        position: relative;
+        min-height: 50px;
+        margin-bottom: 20px;
+        border: 0;
+    }
+}
+
+.container {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 500px;
+    max-width: 1100px;
+}
+
+.tool-bar_supla {
+    float: left;
+    height: 50px;
+    padding: 15px;
+    padding-top: 20px;
+    font-size: 18px;
+    line-height: 20px;
+    text-decoration: none;
+    background-color: transparent;
+    transition: all .3s;
+    cursor: pointer;
+    width: 160px;
+    font-size: 2em;
+    color: $iconGrey;
+    font-family: Quicksand,sans-serif;
+    .logo-svg {
+        width: 45px;
+        height: 45px;
+        vertical-align: text-top;
+        overflow: hidden;
+
+        .fill-none {
+            fill: none!important;
+        }
+      }
+}
+
+.navbar-nav {
+    width: auto;
+    flex: 1;
+    display: flex !important;
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    li {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        display: flex;
+        transition: all .3s;
+        float: left;
+        position: relative;
+
+    }
+    .tool-bar_link {
+        text-align: center;
+        font-size: 12px;
+        width: 100%;
+        position: relative;
+        display: block;
+        color: $iconGrey;
+        padding: 10px 15px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: all .3s;
+        text-decoration: none;
+
+        i {
+            font-size: 2em;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0px;
+            margin-bottom: 10px;
+        }
+    }
+    
+    .tool-bar_link--active {
+        color: #00d151;
+        transition: all 0.6s ease;
+        z-index: 99;
+        left: 0px;
+        padding: 5px 10px;
+    }
+}
+
+.layout-body {
+    .loaded-content {
+        transition: opacity .3s;
+    }
+}
+
+.footer {
+    height: 60px;
+    padding-top: 25px;
+
+    .footer-left {
+        float: left;
+    }
+    .footer-right {
+        text-align: right;
+        float: right;
+    }
+    .footer-center {
+        text-align: center;
+        
+        .brand-nav-link {
+            text-decoration: none;
+            color: $black;
+        }
+    }
+}
+
+
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}

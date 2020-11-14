@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './new_css/app_css/App.css';
+import './new_css/main_page_css/MainPage.css';
 import Login from './containers/Login/Login';
 import DrawTool from './containers/DrawTool/DrawTool';
 import Layout from './containers/Layout/Layout';

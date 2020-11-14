@@ -1,5 +1,4 @@
 import React from 'react';
-import '../Locations/NewLocationModal.css';
 
 const ToolDescription = ({toolInfo, hoverToolInfo}) => {
     const descriptionWidth = hoverToolInfo ? { width: "200%" } : {}
@@ -7,9 +6,12 @@ const ToolDescription = ({toolInfo, hoverToolInfo}) => {
     const toolDescription = toolInfo ? hoverToolInfo ? hoverToolInfo.description : toolInfo.description : ""
 
     return (
-        <div className="description" style={descriptionWidth}>
-            <h3>{toolName} tool</h3>
-            <p dangerouslySetInnerHTML={{ __html: toolDescription }} />
+        <div className="description">
+            <div class="description-content">
+                <i class="custom-icon pe-7s-home"/>
+                <h3 class="tool-name">{toolName} tool</h3>
+            </div>
+            <p class="description-hovered" dangerouslySetInnerHTML={{ __html: toolDescription }} />
         </div>
     )
 }
