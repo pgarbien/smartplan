@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../App.css';
 import mAxios from '../../utils/API';
-import './LevelsList.css';
+import '../../new_css/levels_list_css/LevelsList.css';
 
 const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal}) => {
 
-  const levelsMapped = location ? location.levels.slice(0).reverse().map(level => {
-    return <div className={level.order === activeLevel ? "level level-active" : "level"} onClick={() => { 
+  const levels = location ? location.levels.slice(0).map(level => {
+    return <div class="level" key={level.order} onClick={() => { 
       changeDisplayedLevel(level);
       setActiveLevel(level.order);
       mAxios.get('/devices?levelId=' + level.order)
@@ -21,9 +21,16 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
      }}>{level.name}</div>
   }) : null;
 
+  const levelsMapped = <div class="dropdown">
+    <button class="drop-btn">{location ? location.levels[activeLevel].name : ""}<span class="caret"/></button>
+    <div class="dropdown-content">
+      {levels}
+      {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>DODAJ POZIOM</div> : null}
+    </div>
+  </div>
+
   return (
     <div className="levels">
-        {setShowAddLevelModal ? <div className="level" onClick={() => { setShowAddLevelModal(true) }}>+</div> : null}
         {levelsMapped}
     </div>
   );

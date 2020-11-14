@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
-import '../../App.css'; 
-import './Manager.css';
+import '../../new_css/app_css/App.css';
+import '../../new_css/tool_css/Tool.css';
+import '../../new_css/manager_css/Manager.css';
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
 import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
@@ -65,25 +66,29 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
 
     return(
         <Fragment>
-            <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
-            <div className="manager-container">
-                <div className="left-container">
-                    <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
-                </div>
-                <div className="drawing-area">
-                    <canvas ref={creationCanvas} className="canvas" id="managerCanvas" width="600" height="600"/>
-                </div> 
-                <div className="right-container">
-                    <div className="devices-list">
-                        <Devices activeLevel={activeLevel} activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
+            <div class="container manager-page">
+                <div class="manager-localization-header">
+                    <div class="left-header-wrapper">
+                        <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
+                        <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
-                    <div className="buttons">
-                        <Link to={location ? "/draw?locationId=" + location.id : "#"}>
-                            <div className="directional-button">Edit location &nbsp;&gt;</div>
-                        </Link>
-                        <Link to={location ? "/draw/devices?locationId=" + location.id : "#"}>
-                            <div className="directional-button">Add devices &nbsp;&gt;</div>
-                        </Link>
+                </div>
+                <div className="manager-page-layout">
+                    <div className="drawing-area">
+                    <canvas ref={creationCanvas} class="canvas" id="managerCanvas"/>
+                    </div>
+                    <div className="right-container">
+                        <div class="manager-devices-list">
+                            <Devices activeLevel={activeLevel} activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
+                        </div>
+                        <div className="right-container-buttons">
+                            <Link class="directional-button-link" to={location ? "/draw?locationId=" + location.id : "#"}>
+                                <div className="directional-button">Edit location &nbsp;&gt;</div>
+                            </Link>
+                            <Link class="directional-button-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>
+                                <div className="directional-button">Add devices &nbsp;&gt;</div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

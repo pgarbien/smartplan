@@ -1,0 +1,260 @@
+@import '../variables';
+
+.tool-page {
+    display: grid;
+    grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(30px,5%) minmax(40px, 10%);
+    grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
+    max-width: 100%;
+}
+
+.localization-header {
+    grid-area: 1 / 2 / 1 / span 2;
+}
+
+.left-header-wrapper {
+    float: left;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-family: Quicksand, sans-serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.levels {
+    margin-left: 1em;
+}
+
+.button-header {
+    float: right;
+    margin-bottom: 10px;
+
+    .btn {
+        float: right;
+        margin-bottom: 5px;
+        margin-left: 5px;
+    }
+}
+
+.no-margin-top {
+    margin-top: 0 !important;
+}
+
+button {
+    font-family: inherit;
+    text-transform: none;
+    overflow: visible;
+    margin: 0;
+}
+
+.btn {
+    transition: all .2s;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    touch-action: manipulation;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.14285713;
+    border-radius: 4px;
+    user-select: none;
+}
+
+.save-button {
+    background: $white;
+    color: $green;
+    border: 1px solid $green;
+
+    &:hover {
+        color: $black;
+        text-decoration: none;
+        border: 1px solid $green;
+        background: $buttonBackgroundGrey;
+    }
+}
+
+.delete-button {
+    background: $red;
+    color: $white;
+    border: 1px solid $red;
+
+    &:hover {
+        color: $white;
+        background-color: $buttonRed;
+        border-color: $buttonBorderRed;
+    }
+}
+
+.tool-page-layout {
+    grid-area: 2 / 1 / 2 / span 4;
+    display: inherit;
+    grid-template-columns: inherit;
+
+    .left-container {
+        grid-column: 1;
+    }
+}
+
+.tools-col {
+    height: 100%;
+    min-width: 2px;
+    padding-right: 2em;
+    padding-left: 2em;
+    margin-top: -2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dots-route {
+    position: relative;
+    clear: both;
+    width: 3px;
+    height: 0;
+    background: $black;
+    transition: width .3s ease-in;
+}
+
+.shown {
+    text-align: center;
+    height: 60%;
+}
+
+.dot {
+    border: 2px solid $black;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    position: absolute;
+    left: -20px;
+    background: $backgroundGrey;
+    transition: all .3s;
+
+    &:first-child {
+        top: -3%;
+    }
+    &:nth-child(2) {
+        top: 33.3334%;
+    }
+
+    &:nth-child(3) {
+        top: 65%;
+    }
+
+    &:nth-child(4) {
+        top: 85%;
+    }
+
+    &:nth-child(5) {
+        top: 100%;
+    }
+}
+
+.tool-button {
+    &:hover {
+        border-color: $green;
+        color: $green;
+    }
+}
+
+.tool-button-active {
+    width: 65px;
+    height: 65px;
+    left: -30px;
+    background: $green;
+
+    &:hover {
+        border-color: $backgroundGrey;
+        color: $backgroundGrey;
+    }
+}
+
+.drawing-area {
+    padding-right: 1%;
+}
+
+.canvas {
+    height: 100%;
+    width: 100%;
+    background: $white;
+    border: 1px dashed $iconGrey;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding-left: 1em;
+    width: max-content;
+}
+
+.description {
+    position: relative;
+    display: block;
+    width: 13em;
+    height: 11em;
+    background: $green;
+    transition: ease .5s;
+    border: 1px slid $white;
+
+    &:hover {
+        height: 28em;
+
+        .description-hovered {
+            opacity: 1;
+        }        
+    }
+}
+
+.description-content {
+    margin-top: 1.2em;
+    text-align: center;
+}
+
+.custom-icon {
+    font-size: 4em;
+    margin-top: .5em;
+    margin-bottom: 2px;
+}
+
+.description-hovered {
+    opacity: 0;
+    padding: 0 1em;
+    margin-top: 30%;
+    transition: ease .7s;
+}
+
+.tool-name {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.directional-button-link {
+    text-decoration: none;
+}
+
+.directional-button {
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 26px;
+    padding: 8px 10px;
+    font-size: 1em;
+    border: 1px solid $buttonGrey;
+    border-radius: 3px;
+    background: $white;
+    color: $black;
+    cursor: pointer;
+    transition: ease-out .2s;
+
+    &:hover {
+        color: $green;
+    }
+}

@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import Modal from '../../components/Modal/Modal';
 import '../Locations/NewLocationModal.css';
+import '../../new_css/modal_css/Modal.css';
 
 const NewDeviceModal = (props) => {
     const [deviceColor, setDeviceColor] = useState(null);

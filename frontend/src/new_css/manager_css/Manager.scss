@@ -1,0 +1,23 @@
+@import '../variables';
+
+.manager-page {
+    display: grid;
+    grid-template-columns: minmax(600px, auto) minmax(70px,15%);
+    grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
+    max-width: 100%;
+    padding:0 2em 0 10em;
+}
+
+.manager-localization-header {
+    grid-area: 1 / 1 / 1 / span 2;
+}
+
+.manager-page-layout {
+    grid-area: 2 / 1 / 2 / span 2;
+    display: inherit;
+    grid-template-columns: inherit;
+}
+
+.manager-devices-list {
+    width: 100%;
+}

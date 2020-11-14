@@ -1,13 +1,12 @@
 import React from 'react';
-import Command from '../../tool/commands/Command';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import '../Locations/NewLocationModal.css';
 
 const ToolButton = ({ toolInfo, persistent, setToolInfo, setHoverToolInfo, creator, command, children }) => {
-    const buttonClass = "tool-button" + (persistent && toolInfo && toolInfo.type === command ? " tool-button-active" : "")
+    const buttonClass = "dot" + (persistent && toolInfo && toolInfo.type === command ? " tool-button-active" : " tool-button")
 
     return (
-        <button className={buttonClass}
+        <button class={buttonClass}
             onClick={() => { 
                 if(command === Commands.TOGGLE) {
                     creator.toggleBackgroundImage();

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import './DevicesPage.css';
-import '../../App.css';
+import '../../new_css/app_css/App.css';
+import '../../new_css/tool_css/Tool.css';
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
@@ -81,36 +81,45 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
 
     return(
         <Fragment>
-            <h2>Add devices to <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
-            <div className="devices-container">
-                <div className="left-container">
-                    <div className="tools">
-                        <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Toggle image</ToolButton>
-                        <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Add device</ToolButton>
-                        <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Move devices</ToolButton>
-                        <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
-                        <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
+            <div class="container tool-page">
+                <div class="localization-header">
+                    <div class="left-header-wrapper">
+                        <h2 class="no-margin-top">Add devices to <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
+                        <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
-                    <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                    <div class="button-header no-margin-top">
+                        <button class="btn save-button" onClick={() => { save() }}>Zapisz zmiany</button>
+                        {/* <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button> */}
+                    </div>
                 </div>
-                <div className="drawing-area">
-                    <canvas ref={creationCanvas} className="canvas" id="condignationCanvas" height="600" width="600"></canvas>
-                </div>
-                <div className="right-container">
-                    <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
-                    <div className="buttons">
-                        <div className="directional-button">
-                            <a onClick={() => { save() }}>Save condignation</a>
+                <div class="tool-page-layout">
+                    <div className="left-container">
+                        <div class="tools-col">
+                            <div class="dots-route shown">
+                                <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>AD</ToolButton>
+                                <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MD</ToolButton>
+                                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
+                                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
+                                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
+                            </div>
                         </div>
-                        <Link to={location ? "/draw?locationId=" + location.id : "#"}>
-                            <div className="directional-button">Edit location &nbsp;&gt;</div>
-                        </Link>
-                        <Link to={location ? "/draw/manager?locationId=" + location.id : "#"}>
-                            <div className="directional-button">Manage devices &nbsp;&gt;</div>
-                        </Link> 
+                    </div>
+                    <div class="drawing-area">
+                        <canvas ref={creationCanvas} class="canvas" id="condignationCanvas"></canvas>
+                    </div>
+                    <div class="right-container">
+                        <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
+                        <div className="right-container-buttons">
+                            <Link class="directional-button-link" to={location ? "/draw?locationId=" + location.id : "#"}>
+                                <div className="directional-button">Edit location &nbsp;&gt;</div>
+                            </Link>
+                            <Link class="directional-button-link" to={location ? "/draw/manager?locationId=" + location.id : "#"}>
+                                <div className="directional-button">Manage devices &nbsp;&gt;</div>
+                            </Link> 
+                        </div>
                     </div>
                 </div>
-        </div>
+            </div>
         { showAddDeviceModal ? <NewDeviceModal devices={devices} addNewDevice={addNewDevice} setShowModal={setShowAddDeviceModal} canClose={true}/> : null}
       </Fragment>
     );

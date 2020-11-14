@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import mAxios from '../../utils/API';
 
 import LevelsList from '../../components/Levels/LevelsList';
-import '../../App.css';
-import './Tool.css';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
@@ -12,6 +10,10 @@ import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
 import DeleteLocationModal from '../../components/Locations/DeleteLocationModal';
 import DeleteLevelModal from '../../components/DrawTool/DeleteLevelModal';
+
+
+import '../../new_css/app_css/App.css';
+import '../../new_css/tool_css/Tool.css';
 
 const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
   const creationCanvas = useRef(null);
@@ -85,38 +87,48 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
 
   return (
     <Fragment>
-      <h2>Edit <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
-      <div className="tool-container">
-          <div className="left-container">
-            <div className="tools">
-              <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Toggle image</ToolButton>
-              <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Draw rooms</ToolButton>
-              <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Move rooms</ToolButton>
-              <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Undo</ToolButton>
-              <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>Redo</ToolButton>
-            </div>
+      <div class="container tool-page">
+        <div class="localization-header">
+          <div class="left-header-wrapper">
+            <h2 class="no-margin-top">Lokalizacja {location ? location.name : ""}</h2>
             <LevelsList 
-              creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
-              changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
+                creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
+                changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
             />
           </div>
+          <div class="button-header no-margin-top">
+            <button class="btn save-button" onClick={() => { if(location.id) updateRooms(); else post();  }}>Zapisz zmiany</button>
+            <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button>
+          </div>
+        </div>
+        <div className="tool-page-layout">
+          <div className="left-container">
+            <div class="tools-col">
+              <div class="dots-route shown">
+                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>DR</ToolButton>
+                  <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MR</ToolButton>
+                  <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
+                  <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
+                  <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
+              </div>
+            </div>
+          </div>
           <div className="drawing-area">
-            <canvas ref={creationCanvas} id="mainCanvas" className="canvas" width="600" height="600" onClick={() => { updateRooms() }}></canvas>
+            <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { updateRooms() }}></canvas>
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
-            <div className="buttons">
-              <div className="directional-button" onClick={() => { if(location.id) updateRooms(); else post();  }}>Save</div>
-              <div className="directional-button" onClick={() => { setshowDeleteLocationModal(true) }}>Delete</div>
-              <Link to={location ? "/draw/devices?locationId=" + location.id : "#"} onClick={updateRooms}>
+            <div className="right-container-buttons">
+              <Link class="directional-button-link" to={location ? "/draw/devices?locationId=" + location.id : "#"} onClick={updateRooms}>
                 <div className="directional-button">Add devices &nbsp;&gt;</div>
               </Link>
-              <Link to={location ? "/draw/manager?locationId=" + location.id : "#"} onClick={updateRooms}>
+              <Link class="directional-button-link" to={location ? "/draw/manager?locationId=" + location.id : "#"} onClick={updateRooms}>
                 <div className="directional-button">Manage devices &nbsp;&gt;</div>
               </Link> 
             </div>
           </div>
         </div>
+      </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
         { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={window.event.target.innerHTML} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
         { showDeleteLocationModal ? <DeleteLocationModal location={location} setShowModal={setshowDeleteLocationModal}/> : null }

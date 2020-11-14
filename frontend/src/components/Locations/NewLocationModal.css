@@ -1,4 +1,4 @@
-input {
+/* input {
     border: 0;
     border-bottom: 1px solid rgb(191,191,191);
     padding: 0 5px 3px 0px;
@@ -14,7 +14,6 @@ input[type=color] {
 
 .upload-button,
 .create-button,
-.delete-button,
 .cancel-button {
     border: 1px solid rgb(191, 191, 191);
     background: #fff;
@@ -31,12 +30,6 @@ input[type=color] {
     color: #fff;
 }
 
-.delete-button:hover {
-    border: 1px solid red;
-    background: red;
-    color: #fff;
-}
-
 .upload-button:disabled,
 .create-button:disabled {
     border: 1px solid #ccc;
@@ -46,4 +39,4 @@ input[type=color] {
 
 input[type=file] {
     display: none;
-}
+} */
