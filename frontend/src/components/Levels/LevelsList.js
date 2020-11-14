@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import mAxios from '../../utils/API';
 import '../../new_css/levels_list_css/LevelsList.css';
 
 const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal}) => {
+  const [activeLevelName, setActiveLevelName] = useState("Wszystkie poziomy")
 
   const levels = location ? location.levels.slice(0).map(level => {
     return <div class="level" key={level.order} onClick={() => { 
       changeDisplayedLevel(level);
       setActiveLevel(level.order);
+      setActiveLevelName(level.name)
       mAxios.get('/devices?levelId=' + level.order)
         .then(response => {
             creator.setAddedDevices(response.data);
@@ -23,8 +25,12 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
      }}>{level.name}</div>
   }) : null;
 
+  if(location && location.levels.size > 0) {
+    setActiveLevelName(location.levels[activeLevel].name);
+  }
+
   const levelsMapped = <div class="dropdown">
-    <button class="drop-btn">{location && location.levels.size > 0 ? location.levels[activeLevel].name : "Dodaj poziom"}<span class="caret"/></button>
+    <button class="drop-btn">{activeLevelName}<span class="caret"/></button>
     <div class="dropdown-content">
       {levels}
       {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>DODAJ POZIOM</div> : null}
