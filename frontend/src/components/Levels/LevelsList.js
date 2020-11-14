@@ -24,7 +24,7 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
   }) : null;
 
   const levelsMapped = <div class="dropdown">
-    <button class="drop-btn">{location ? location.levels[activeLevel].name : ""}<span class="caret"/></button>
+    <button class="drop-btn">{location && location.levels.size > 0 ? location.levels[activeLevel].name : "Dodaj poziom"}<span class="caret"/></button>
     <div class="dropdown-content">
       {levels}
       {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>DODAJ POZIOM</div> : null}
