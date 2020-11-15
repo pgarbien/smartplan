@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 .tool-page {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: minmax(50px, 10%) minmax(600px, auto) minmax(30px, 5%) minmax(40px, 10%);
-      grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(30px, 5%) minmax(40px, 10%);
+  -ms-grid-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
+      grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
   -ms-grid-rows: minmax(70px, 10%) minmax(500px, auto);
       grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
   max-width: 100%;
@@ -11,8 +12,8 @@
 .localization-header {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
-  -ms-grid-column-span: 2;
-  grid-area: 1 / 2 / 1 / span 2;
+  -ms-grid-column-span: 1;
+  grid-area: 1 / 2 / 1 / span 1;
 }
 
 .left-header-wrapper {
@@ -43,6 +44,7 @@ h2 {
 .button-header {
   float: right;
   margin-bottom: 10px;
+  padding-right: 1%;
 }
 
 .button-header .btn {
@@ -109,8 +111,8 @@ button {
 .tool-page-layout {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 4;
-  grid-area: 2 / 1 / 2 / span 4;
+  -ms-grid-column-span: 3;
+  grid-area: 2 / 1 / 2 / span 3;
   display: inherit;
   -ms-grid-columns: inherit;
       grid-template-columns: inherit;
@@ -225,7 +227,8 @@ button {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 100%;
-  padding-left: 1em;
+  padding-left: 1sem;
+  padding-right: .5em;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -240,6 +243,7 @@ button {
   -webkit-transition: ease .5s;
   transition: ease .5s;
   border: 1px slid #ffffff;
+  overflow: hidden;
 }
 
 .description:hover {
@@ -247,6 +251,14 @@ button {
 }
 
 .description:hover .description-hovered {
+  opacity: 1;
+}
+
+.active {
+  height: 28em;
+}
+
+.active .description-hovered {
   opacity: 1;
 }
 

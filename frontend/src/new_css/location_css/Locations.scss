@@ -35,7 +35,7 @@
     position: relative;
     margin: 0 -5px;
     padding-top: 2vh;
-    padding-bottom: 30vh;
+    padding-bottom: 20vh;
     overflow: hidden;
     display: grid;
     align-items: left;
@@ -62,9 +62,7 @@
     display: block;
     background: $green;
     color: $white;
-    padding: 10px 15px;
     border-radius: 3px;
-    border: 2px solid $green;
     transition: all .3s;
     height: 100%;
 }
@@ -85,7 +83,7 @@
     width: 100%;
     height: 100%;
     color: inherit;
-    grid-template-columns: 95% auto;
+    grid-template-columns: 85% 15% auto;
     grid-template-rows: 80% auto;
 
     &:hover {
@@ -112,8 +110,7 @@
 }
 
 .dynamic-buttons {
-    grid-column: 3;
-    grid-row: 1;
+    grid-area: 1 / 2 / 1 / 3;
     display: list-item;
     align-items: center;
     justify-content: center;
@@ -124,7 +121,7 @@
     width: 30px;
     height: 30px;
     transition: ease .5s;
-    transform: translateX(calc(100% + 20px));
+    transform: translateX(calc(100% + 10px));
 }
 
 .location-edit > img, 
@@ -143,9 +140,8 @@
     background-size: cover;
     background-position-x: 50%;
     background-position-y: 50%;
-    height: 100px;
+    height: 125px;
     width: 100%;
-    border: 1px solid $labelLightGrey;
 }
 
 .separator {

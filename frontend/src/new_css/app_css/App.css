@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 * {
   outline-color: #00d151 !important;
   -webkit-box-sizing: border-box;
@@ -57,7 +58,7 @@ nav .navbar {
   margin-right: auto;
   margin-left: auto;
   min-width: 500px;
-  max-width: 1100px;
+  max-width: 1250px;
 }
 
 .tool-bar_supla {

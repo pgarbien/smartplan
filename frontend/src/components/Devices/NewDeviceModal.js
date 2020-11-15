@@ -12,7 +12,7 @@ const NewDeviceModal = (props) => {
     const mappedDevices = props.devices.map(device => {
         const deviceClass = selectedDevice && selectedDevice.id === device.id ? "device selected-device" : "device";
         return <div className={ deviceClass } onClick={() => { setSelectedDevice(device) }}>
-            <p style={{marginTop: "50%", transform: "translateY(-50%)"}}>{device.name}</p>
+            <p class="model-button">{device.name}</p>
         </div>
     });
 

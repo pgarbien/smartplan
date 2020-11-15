@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 .row {
   margin-right: -15px;
   margin-left: -15px;
@@ -33,7 +34,7 @@
   position: relative;
   margin: 0 -5px;
   padding-top: 2vh;
-  padding-bottom: 30vh;
+  padding-bottom: 20vh;
   overflow: hidden;
   display: -ms-grid;
   display: grid;
@@ -78,9 +79,7 @@
   display: block;
   background: #00d151;
   color: #ffffff;
-  padding: 10px 15px;
   border-radius: 3px;
-  border: 2px solid #00d151;
   -webkit-transition: all .3s;
   transition: all .3s;
   height: 100%;
@@ -104,8 +103,8 @@
   width: 100%;
   height: 100%;
   color: inherit;
-  -ms-grid-columns: 95% auto;
-      grid-template-columns: 95% auto;
+  -ms-grid-columns: 85% 15% auto;
+      grid-template-columns: 85% 15% auto;
   -ms-grid-rows: 80% auto;
       grid-template-rows: 80% auto;
 }
@@ -138,10 +137,10 @@
 }
 
 .dynamic-buttons {
-  -ms-grid-column: 3;
-  grid-column: 3;
   -ms-grid-row: 1;
-  grid-row: 1;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-area: 1 / 2 / 1 / 3;
   display: list-item;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -157,8 +156,8 @@
   height: 30px;
   -webkit-transition: ease .5s;
   transition: ease .5s;
-  -webkit-transform: translateX(calc(100% + 20px));
-          transform: translateX(calc(100% + 20px));
+  -webkit-transform: translateX(calc(100% + 10px));
+          transform: translateX(calc(100% + 10px));
 }
 
 .location-edit > img,
@@ -178,9 +177,8 @@
   background-size: cover;
   background-position-x: 50%;
   background-position-y: 50%;
-  height: 100px;
+  height: 125px;
   width: 100%;
-  border: 1px solid #eeeeee;
 }
 
 .separator {

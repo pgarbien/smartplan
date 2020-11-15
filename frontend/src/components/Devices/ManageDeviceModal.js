@@ -17,7 +17,7 @@ const ManageDeviceModal = (props) => {
 
     const mappedActions = props.deviceState.actions.map(action => {
         return <div className = "action" onClick={() => { handleAction(action) }}>
-                <p style={{marginTop: "50%", transform: "translateY(-50%)"}}>{action.caption}</p>
+                <p class="model-button">{action.caption}</p>
             </div>
     })
 
