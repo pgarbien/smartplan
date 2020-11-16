@@ -11,7 +11,6 @@ import ToolButton from '../../components/ToolButton/ToolButton';
 import DeleteLocationModal from '../../components/Locations/DeleteLocationModal';
 import DeleteLevelModal from '../../components/DrawTool/DeleteLevelModal';
 
-
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 
@@ -43,7 +42,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   const addNewLevel = (levelName, blueprintUrl) => {
     const preLocation = location; 
     preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
-    setLocation(preLocation); 
+    setLocation(preLocation);
     setShowAddLevelModal(false);
     put();
   }
