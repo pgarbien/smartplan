@@ -30,7 +30,7 @@ export default class AddDeviceCommand extends Command {
         if(color == null || color === "") {
             color = "rgba(0, 209, 81, 1)"
         }
-        const device = new NewDevice(deviceName, color, id, position, null, null, roomId, locationId, levelId);
+        const device = new NewDevice(deviceName, color, id, position, null, null, null, roomId, locationId, levelId);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
     

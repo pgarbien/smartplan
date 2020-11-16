@@ -26,7 +26,11 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
         }
     }
 
-    const manageDevice = (device) => {
+    const manageDevice = (device, actionCaption) => {
+        if(actionCaption) {
+            device.activeIconId = device.possibleVisualStates.indexOf(device.possibleVisualStates.filter(state => state == actionCaption.toLowerCase())[0]);
+            creator.changeDevice(device);
+        }
         setDevice(device);
         mAxios.get(`/devices/details/${device.id}`)
             .then(response => {
@@ -41,7 +45,11 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
         if(device.defaultAction) {
             mAxios.post(`/devices/actions/${device.id}`, { "actionType": device.defaultAction })
                 .then(mAxios.get(`/devices/details/${device.id}`)
-                    .then(response => changeDeviceColor(device, response.data.state.on)))
+                    .then(response => {
+                        device.activeIconId = response.data.possibleVisualStates.indexOf(response.data.possibleVisualStates.filter(state => state == (response.data.state.on ? "on" : "off"))[0])
+                        creator.changeDevice(device);
+                        changeDeviceColor(device, response.data.state.on);
+                    }))
         }
     }
 

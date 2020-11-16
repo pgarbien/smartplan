@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Modal from '../../components/Modal/Modal';
+import '../../new_css/modal_css/Modal.css';
 
 const DeleteLevelModal = (props) => {
 
@@ -19,7 +20,7 @@ const DeleteLevelModal = (props) => {
             </div>
             <br/>
             <br/>
-            <button className="delete-button" onClick={ handleDeleteModal }>DELETE</button>
+            <button className="delete-button-modal" onClick={ handleDeleteModal }>DELETE</button>
             <button className="cancel-button" onClick={ handleCloseModal }>CANCEL</button>
         </Fragment>
 

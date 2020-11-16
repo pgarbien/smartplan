@@ -71,7 +71,8 @@ export default class CanvasDrawer {
 
     drawDevice(newDevice: NewDevice, highlighted: boolean) {
         var image = new Image();
-        image.src = "data:image/  png;base64," + (newDevice.icons ? newDevice.icons[0] : "");
+        // console.log(newDevice.activeIconId);
+        image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
         
         const size = 25
         let width = image.naturalWidth

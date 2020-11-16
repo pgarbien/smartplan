@@ -88,8 +88,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                         <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                     <div class="button-header no-margin-top">
-                        <button class="btn save-button" onClick={() => { save() }}>Zapisz zmiany</button>
-                        {/* <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button> */}
+                        <button class="btn save-button" onClick={() => { save(); }}>Zapisz zmiany</button>
                     </div>
                 </div>
                 <div class="tool-page-layout">
