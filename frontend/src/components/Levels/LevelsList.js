@@ -9,7 +9,7 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
     return <div class="level" key={level.order} onClick={() => { 
       changeDisplayedLevel(level);
       setActiveLevel(level.order);
-      setActiveLevelName(level.name)
+      setActiveLevelName(level.name);
       mAxios.get('/devices?levelId=' + level.order)
         .then(response => {
             creator.setAddedDevices(response.data);
@@ -25,9 +25,11 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
      }}>{level.name}</div>
   }) : null;
 
-  if(location && location.levels.size > 0) {
-    setActiveLevelName(location.levels[activeLevel].name);
-  }
+  useEffect(() => {
+    if(levels && location.levels.length > 0) {
+      setActiveLevelName(location.levels[activeLevel].name);
+    }
+  }, [location]);
 
   const levelsMapped = <div class="dropdown">
     <button class="drop-btn">{activeLevelName}<span class="caret"/></button>
