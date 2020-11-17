@@ -25,13 +25,12 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
             .catch(error => console.log(error));
     }
 
-    const addNewDevice = (device, color) => {
+    const addNewDevice = (device) => {
         device.point = position;
-        device.color = color;
         device.locationId = location.id;
         device.levelId = activeLevel;
         device.roomId = setRoomId(position);
-        creator.addDevice(device.name, color, device.id, position, device.roomId, device.locationId, device.levelId);
+        creator.addDevice(device.name, device.id, position, device.roomId, device.locationId, device.levelId);
         setShowAddDeviceModal(false);
     }
 

@@ -3,7 +3,6 @@ import Modal from '../../components/Modal/Modal';
 import '../../new_css/modal_css/Modal.css';
 
 const NewDeviceModal = (props) => {
-    const [deviceColor, setDeviceColor] = useState(null);
     const [selectedDevice, setSelectedDevice] = useState(null);
     const [scrollPosition, setScrollPosition] = useState(0); 
 
@@ -30,16 +29,8 @@ const NewDeviceModal = (props) => {
                 <img style={{ width: "100%", transform: "rotate(180deg)", opacity: .2, cursor: "pointer" }} src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-back-512.png"></img>   
             </div>
             <br/>
-            <input type="color" value={deviceColor ? deviceColor : "#00d151"} onChange={(event) => { setDeviceColor(event.target.value) }} />
-            {/*<select onChange={(event) => {setDeviceColor(event.target.value)}} defaultValue="rgba(0, 128, 128, 128)">
-                <option>red</option>
-                <option>green</option>
-                <option>blue</option>
-                <option>yellow</option>
-                <option>black</option>
-</select>*/}
             <br/>
-            <button className="create-button" onClick={() => { props.addNewDevice(selectedDevice, deviceColor)} } disabled={!selectedDevice}>Add</button>
+            <button className="create-button" onClick={() => { props.addNewDevice(selectedDevice)} } disabled={!selectedDevice}>Add</button>
         </Fragment>;
 
     return <Modal title="Add new device" canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal>;

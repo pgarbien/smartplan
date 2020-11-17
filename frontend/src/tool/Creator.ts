@@ -86,7 +86,7 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point!, device.icons, device.activeIconId, device.defaultAction)
+            const newDevice = new NewDevice(device.name, device.id, device.point!, device.icons, device.activeIconId, device.defaultAction)
             newDevices.push(newDevice);
         });
 
@@ -99,7 +99,7 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.icons, device.activeIconId, device.defaultAction)
+            const newDevice = new NewDevice(device.name, device.id, device.point, device.icons, device.activeIconId, device.defaultAction)
             newDevices.push(newDevice);
         });
 
@@ -141,9 +141,9 @@ export default class Creator {
         this.drawCanvas();
     }
 
-    addDevice(deviceName: string, color: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
+    addDevice(deviceName: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
-        newDevice.drawNewDevice(deviceName, color, deviceId, position, roomId, locationId, levelId);
+        newDevice.drawNewDevice(deviceName, deviceId, position, roomId, locationId, levelId);
     }
 
     removeDevice(device: NewDevice) {

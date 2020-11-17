@@ -54,7 +54,6 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     }
 
     const changeDeviceColor = (device, deviceOn) => {
-        device.color = deviceOn ? "rgba(0, 209, 81, 1)" : "grey";
         creator.refresh();
     }
 

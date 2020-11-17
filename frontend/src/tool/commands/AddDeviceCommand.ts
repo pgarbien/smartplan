@@ -26,11 +26,8 @@ export default class AddDeviceCommand extends Command {
         this.canvasDrawer.setCursor("pointer")
     }
 
-    drawNewDevice(deviceName: string, color: string, id: string, position: Point, roomId: string, locationId: string, levelId: string) {
-        if(color == null || color === "") {
-            color = "rgba(0, 209, 81, 1)"
-        }
-        const device = new NewDevice(deviceName, color, id, position, null, null, null, roomId, locationId, levelId);
+    drawNewDevice(deviceName: string, id: string, position: Point, roomId: string, locationId: string, levelId: string) {
+        const device = new NewDevice(deviceName, id, position, null, null, null, roomId, locationId, levelId);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
     

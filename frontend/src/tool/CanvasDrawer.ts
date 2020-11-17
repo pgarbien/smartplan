@@ -71,10 +71,8 @@ export default class CanvasDrawer {
 
     drawDevice(newDevice: NewDevice, highlighted: boolean) {
         var image = new Image();
-        // console.log(newDevice.activeIconId);
         image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
-        
-        const size = 25
+        const size = 24
         let width = image.naturalWidth
         let height = image.naturalWidth
         if(width > height) {
@@ -88,9 +86,12 @@ export default class CanvasDrawer {
         }
 
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  20 : 15, 0, 2 * Math.PI);
-        this.canvasContext.fillStyle = newDevice.color;
+        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  25 : 20, 0, 2 * Math.PI);
+        this.canvasContext.fillStyle = "#ffffff";
+        this.canvasContext.strokeStyle = newDevice.activeIconId == 1 ? "#00d151" : "#777777";
+        this.canvasContext.lineWidth = 1;
         this.canvasContext.fill();
+        this.canvasContext.stroke();
         this.canvasContext.closePath();
         this.canvasContext.drawImage(image, newDevice.point!.x - width/2, newDevice.point!.y - height/2, width, height);
     }
