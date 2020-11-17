@@ -46,9 +46,9 @@ export default class CanvasDrawer {
 
         if(points[0]) {
             this.canvasContext.beginPath(); 
-            this.canvasContext.lineWidth = 5;
+            this.canvasContext.lineWidth = 2;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
-            this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
+            this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.35)" : "rgba(0, 209, 81, .7)";
             this.canvasContext.moveTo(points[0].x, points[0].y);
 
             for(let i=1; i<points.length; ++i) {
@@ -136,7 +136,7 @@ export default class CanvasDrawer {
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
-        this.canvasContext.lineWidth = 5;
+        this.canvasContext.lineWidth = 3;
         
         this.canvasContext.lineTo(
             endPoint.x, 
