@@ -16,10 +16,10 @@ const Layout = (props) => {
             <div class="footer">
                 <div class="container-fluid">
                     <div class="footer-left">Polski</div>
-                    <div class="footer-right">Token nie wygaśnie</div>
+                    <div class="footer-right">Made by: atomówki</div>
                     <div class="footer-center">
                     <div class="footer-center">
-                        <span class="text-muted">SUPLA 2D Home </span>
+                        <span class="text-muted">SUPLA 2D Home, extension for </span>
                         <a href="https://www.supla.org" class="brand-nav-link">www.supla.org</a></div>
                     </div>
                 </div>

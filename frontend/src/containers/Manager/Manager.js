@@ -48,13 +48,8 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                     .then(response => {
                         device.activeIconId = response.data.possibleVisualStates.indexOf(response.data.possibleVisualStates.filter(state => state == (response.data.state.on ? "on" : "off"))[0])
                         creator.changeDevice(device);
-                        changeDeviceColor(device, response.data.state.on);
                     }))
         }
-    }
-
-    const changeDeviceColor = (device, deviceOn) => {
-        creator.refresh();
     }
 
     useEffect(() => {
@@ -98,7 +93,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                     </div>
                 </div>
             </div>
-            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} changeDeviceColor={changeDeviceColor} canClose={true}/> : null}
+            { showManageDeviceModal ? <ManageDeviceModal device={device} manageDevice={manageDevice} deviceState={deviceState} setShowModal={setShowManageDeviceModal} canClose={true}/> : null}
         </Fragment>
     );
 }
