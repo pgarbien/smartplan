@@ -11,6 +11,7 @@ export class AuthController {
 
     private callbackUrl = this.configService.get('SUPLA_CALLBACK_URL');
     private suplaAuthUrl = this.configService.get('SUPLA_AUTH_URL');
+    private websiteUrl = this.configService.get('WEBSITE_URL');
     private clientId = this.configService.get('SUPLA_CLIENT_ID');
     private scopes = ['channels_r', 'account_r', 'channels_ea'];
 
@@ -54,7 +55,7 @@ export class AuthController {
             }
             if (!user) return next(new UnauthorizedException());
 
-            return res.redirect("http://localhost:3000/auth?token=" + user.access_token)
+            return res.redirect(`${this.websiteUrl}/auth?token=${user.access_token}`)
         })(req, res, next);
     }
 

@@ -106,7 +106,6 @@ export default class MoveDeviceCommand extends Command {
             }
         }
     }
-
     undo(): void {
         switch(this.action!!.type) {
             case "removedDevice":
