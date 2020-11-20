@@ -11,7 +11,6 @@ export class ChannelsService {
                 private readonly authService: AuthService) {
     }
 
-    private apiKey: string = this.configService.get<string>('API_KEY');
     private channelsUrl = this.configService.get<string>('API_URL') + '/channels';
     private iconsUrl = this.configService.get<string>('API_URL') + '/user-icons';
 
