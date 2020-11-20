@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const mAxios = axios.create({
-    baseURL: "http://localhost:4000/",
+    baseURL: process.env.REACT_APP_SERVER_URL,
     responseType: "json"
 });
 
@@ -18,7 +18,7 @@ mAxios.interceptors.response.use(
     (error) => {
         if (error.response.status === 401) {
             localStorage.removeItem('token');
-            window.location = "http://localhost:3000/";
+            window.location = process.env.REACT_APP_WEBSITE_URL;
         }
     });
 
