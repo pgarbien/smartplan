@@ -3,13 +3,13 @@ import mAxios from '../../utils/API';
 import '../../new_css/levels_list_css/LevelsList.css';
 import '../../new_css/devices_css/Devices.css';
 
-const Devices = ({ activeLevel, activeDevices, manageDevice, creator }) => {
+const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }) => {
     const [devices, setDevices] = useState(activeDevices);
 
     useEffect(() => {
         mAxios.get('/devices?levelId=' + activeLevel)
             .then(response => {
-                setDevices(response.data);
+                setDevices(response.data.filter(dev => dev.locationId == location.id));
             });
     }, [activeLevel]);
 

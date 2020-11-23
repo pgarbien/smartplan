@@ -80,7 +80,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
                     </div>
                     <div className="right-container">
                         <div class="manager-devices-list">
-                            <Devices activeLevel={activeLevel} activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
+                            <Devices location={location} activeLevel={activeLevel} activeDevices={activeDevices} manageDevice={manageDevice} creator={creator} />
                         </div>
                         <div className="right-container-buttons">
                             <Link class="directional-button-link" to={location ? "/draw?locationId=" + location.id : "#"}>

@@ -12,7 +12,7 @@ const LevelsList = ({creator, location, activeLevel, setActiveLevel, changeDispl
       setActiveLevelName(level.name);
       mAxios.get('/devices?levelId=' + level.order)
         .then(response => {
-            creator.setAddedDevices(response.data);
+            creator.setAddedDevices(response.data.filter(device => device.locationId == location.id));
             creator.refresh();
         })
         .catch(error => console.log(error));
