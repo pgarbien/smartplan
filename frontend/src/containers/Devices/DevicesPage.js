@@ -25,12 +25,18 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
             .catch(error => console.log(error));
     }
 
-    const addNewDevice = (device) => {
+     const addNewDevice = (device) => {
         device.point = position;
         device.locationId = location.id;
         device.levelId = activeLevel;
         device.roomId = setRoomId(position);
         creator.addDevice(device.name, device.id, position, device.roomId, device.locationId, device.levelId);
+        mAxios.get('/devices?levelId=' + activeLevel)
+        .then(response => {
+            creator.setAddedDevices(response.data.filter(device => device.locationId == location.id));
+            creator.refresh();
+        })
+        .catch(error => console.log(error));
         setShowAddDeviceModal(false);
     }
 
