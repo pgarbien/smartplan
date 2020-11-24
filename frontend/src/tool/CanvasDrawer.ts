@@ -48,7 +48,7 @@ export default class CanvasDrawer {
 
         if(points[0]) {
             this.canvasContext.beginPath(); 
-            this.canvasContext.lineWidth = 2;
+            this.canvasContext.lineWidth = 3;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
             this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.35)" : "rgba(0, 209, 81, .7)";
             this.canvasContext.moveTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
