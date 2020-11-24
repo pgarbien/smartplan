@@ -78,7 +78,6 @@ const DrawTool = (props) => {
     return (
         <Switch>
             <Route path="/draw/devices">
-                {console.log(">> " + isLocationEmpty)}
                 { isLocationEmpty ?
                     <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/> :
                     <DevicesPage location={location} devices={devices} setDevices={setDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>

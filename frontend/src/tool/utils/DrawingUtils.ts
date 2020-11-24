@@ -6,7 +6,7 @@ import NewDevice from '../model/NewDevice'
 function getClosePoint(rooms: Room[], point: Point): Point | null {
     const closePoint = rooms
         .flatMap(room => room.points)
-        .find(roomPoint => Math.abs(roomPoint.x - point.x) < 10 && Math.abs(roomPoint.y - point.y) < 10);
+        .find(roomPoint => Math.abs(roomPoint.x - point.x) < 0.01 && Math.abs(roomPoint.y - point.y) < 0.01);
 
     return closePoint ? closePoint : null;
 }
@@ -16,14 +16,14 @@ function getClosePointDevice(rooms: NewDevice[], point: Point): Point | null {
     const closePoint = rooms
         .filter(room => !!room.point)
         .flatMap(room => room.point)
-        .find(roomPoint => Math.abs(roomPoint!.x - point.x) < 10 && Math.abs(roomPoint!.y - point.y) < 10);
+        .find(roomPoint => Math.abs(roomPoint!.x - point.x) < 0.01 && Math.abs(roomPoint!.y - point.y) < 0.01);
 
     return closePoint ? closePoint : null;
 }
 
 //TODO refactor this function and functions used by it
 function getCloseLine(rooms: Room[], point: Point): Wall | null {
-    let minDistance = 10;
+    let minDistance = 0.01;
     let line: Wall | null = null;
 
     rooms.forEach(room => {
@@ -61,7 +61,7 @@ function dist2 (startPoint: Point, endPoint: Point) {
 function getInLinePoints(rooms: Room[], point: Point): Point[] {
     const inLine = rooms
         .flatMap(room => room.points)
-        .filter(roomPoint => Math.abs(roomPoint.x - point.x) <= .5 || Math.abs(roomPoint.y - point.y) <= .5);
+        .filter(roomPoint => Math.abs(roomPoint.x - point.x) <= 0.0005 || Math.abs(roomPoint.y - point.y) <= 0.0005);
 
     return inLine;
 }
@@ -74,12 +74,12 @@ function getCloseOrInLine(room: Room, rooms: Room[], point: Point) {
         point.y = close.y;
     } else if(room.points.length > 0) {
         //Line vertically or horizontally with previous point
-        point.x = (Math.abs(room.points[room.points.length-1].x - point.x) < 10) ? room.points[room.points.length-1].x : point.x;
-        point.y = (Math.abs(room.points[room.points.length-1].y - point.y) < 10) ? room.points[room.points.length-1].y : point.y;
+        point.x = (Math.abs(room.points[room.points.length-1].x - point.x) < 0.01) ? room.points[room.points.length-1].x : point.x;
+        point.y = (Math.abs(room.points[room.points.length-1].y - point.y) < 0.01) ? room.points[room.points.length-1].y : point.y;
 
         //Line vertically or horizontally with starting point
-        point.x = (Math.abs(room.points[0].x - point.x) < 10) ? room.points[0].x : point.x;
-        point.y = (Math.abs(room.points[0].y - point.y) < 10) ? room.points[0].y : point.y;
+        point.x = (Math.abs(room.points[0].x - point.x) < 0.01) ? room.points[0].x : point.x;
+        point.y = (Math.abs(room.points[0].y - point.y) < 0.01) ? room.points[0].y : point.y;
     }
 
     return point
@@ -93,12 +93,12 @@ function getCloseOrInLineDevice(room: NewDevice, rooms: NewDevice[], point: Poin
         point.y = close.y;
     } else {
         if(room.point) {
-            point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point!.x : point.x;
-            point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point!.y : point.y;
+            point.x = (Math.abs(room.point.x - point.x) < 0.01) ? room.point!.x : point.x;
+            point.y = (Math.abs(room.point.y - point.y) < 0.01) ? room.point!.y : point.y;
 
             
-            point.x = (Math.abs(room.point.x - point.x) < 10) ? room.point!.x : point.x;
-            point.y = (Math.abs(room.point.y - point.y) < 10) ? room.point!.y : point.y;
+            point.x = (Math.abs(room.point.x - point.x) < 0.01) ? room.point!.x : point.x;
+            point.y = (Math.abs(room.point.y - point.y) < 0.01) ? room.point!.y : point.y;
         }
     }
 

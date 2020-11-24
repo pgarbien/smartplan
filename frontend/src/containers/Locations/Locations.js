@@ -60,6 +60,7 @@ const Locations = () => {
                         <div class="loading-cover">
                             {/* <div class="filters">WSZYSTKO|INNE|WYŁĄCZONE|WŁĄCZONE|---SZUKAJ---</div> */}
                             <div class="locations">
+                                { mappedLocations }
                                 <div class="slide">
                                     <div onClick={() => {setShowModal(true)}} class="location lift-up black">
                                         <div class="center">
@@ -69,8 +70,6 @@ const Locations = () => {
                                         </div>
                                     </div>
                                 </div>
-                                { mappedLocations }
-
                                 <NewLocationModal showModal={showModal} setShowModal={setShowModal} fetchLocations={fetchLocations} />
                             </div>
                         </div>

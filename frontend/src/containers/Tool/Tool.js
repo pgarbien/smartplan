@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import mAxios from '../../utils/API';
 
 import LevelsList from '../../components/Levels/LevelsList';
+import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
@@ -23,6 +24,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   const [activeLevel, setActiveLevel] = useState(0);
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
+  const [fullscreen, setFullscreen] = useState(false);
 
   const post = () => {
     mAxios.post('/locations', location)
@@ -95,13 +97,13 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       <div class="container tool-page">
         <div class="localization-header">
           <div class="left-header-wrapper">
-            <h2 class="no-margin-top">Lokalizacja {location ? location.name : ""}</h2>
+            <h2>Lokalizacja <span class="primary_color">{location ? location.name : ""}</span></h2>
             <LevelsList 
                 creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
                 changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
             />
           </div>
-          <div class="button-header no-margin-top">
+          <div class="button-header">
             <button class="btn save-button" onClick={() => { if(location.id) updateRooms(); else post();  }}>Zapisz zmiany</button>
             <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button>
           </div>
@@ -111,15 +113,16 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
             <div class="tools-col">
               <div class="dots-route shown">
                 <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>DR</ToolButton>
-                  <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MR</ToolButton>
-                  <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
-                  <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
-                  <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
+                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MR</ToolButton>
+                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
+                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
+                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
               </div>
             </div>
           </div>
-          <div className="drawing-area">
-            <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { updateRooms() }}></canvas>
+          <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
+              <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { updateRooms() }}></canvas>
+              <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>

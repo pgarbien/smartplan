@@ -23,8 +23,8 @@ export default class ManageCommand extends Command {
     onClick(cursorPosition: Point, callback: Function): void {
         this.devicesData.getDevices().forEach((device) => {
             if(device.point != null) {
-                if(Math.abs(cursorPosition.x - device.point.x) < 10
-                && Math.abs(cursorPosition.y - device.point.y) < 10){
+                if(Math.abs(cursorPosition.x - device.point.x) < 0.01
+                && Math.abs(cursorPosition.y - device.point.y) < 0.01){
                     callback(device);
                 }
             }
@@ -34,8 +34,8 @@ export default class ManageCommand extends Command {
     onRightClick(cursorPosition: Point, callback: Function): void {
         this.devicesData.getDevices().forEach((device) => {
             if(device.point != null) {
-                if(Math.abs(cursorPosition.x - device.point.x) < 10
-                && Math.abs(cursorPosition.y - device.point.y) < 10){
+                if(Math.abs(cursorPosition.x - device.point.x) < 0.01
+                && Math.abs(cursorPosition.y - device.point.y) < 0.01){
                     callback(device);
                 }
             }
@@ -45,8 +45,8 @@ export default class ManageCommand extends Command {
     onMove(cursorPosition: Point): void {
         const close = this.devicesData.getDevices().some((device) => {
             return device.point && 
-                Math.abs(cursorPosition.x - device.point.x) < 15 && 
-                Math.abs(cursorPosition.y - device.point.y) < 15
+                Math.abs(cursorPosition.x - device.point.x) < 0.01 && 
+                Math.abs(cursorPosition.y - device.point.y) < 0.01
         })
 
         this.canvasDrawer.setCursor(close ? "pointer" : "default")
@@ -59,8 +59,8 @@ export default class ManageCommand extends Command {
                 setTimeout(() =>{
                     if(this.isOnHold) {
                         if(device.point != null) {
-                            if(Math.abs(cursorPosition.x - device.point.x) < 10
-                            && Math.abs(cursorPosition.y - device.point.y) < 10){
+                            if(Math.abs(cursorPosition.x - device.point.x) < 0.01
+                            && Math.abs(cursorPosition.y - device.point.y) < 0.01){
                                 callback(device);
                             }
                         }

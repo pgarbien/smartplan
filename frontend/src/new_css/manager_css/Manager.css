@@ -2,26 +2,19 @@
 .manager-page {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: minmax(600px, auto) minmax(70px, 15%);
-      grid-template-columns: minmax(600px, auto) minmax(70px, 15%);
+  -ms-grid-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
+      grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
   -ms-grid-rows: minmax(70px, 10%) minmax(500px, auto);
       grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
   max-width: 100%;
-  padding: 0 2em 0 10em;
-}
-
-.manager-localization-header {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: 1 / 1 / 1 / span 2;
-}
+  /* padding: 0 2em 0 10em; */
+} 
 
 .manager-page-layout {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: 2 / 1 / 2 / span 2;
+  -ms-grid-column-span: 3;
+  grid-area: 2 / 1 / 2 / span 3;
   display: inherit;
   -ms-grid-columns: inherit;
       grid-template-columns: inherit;

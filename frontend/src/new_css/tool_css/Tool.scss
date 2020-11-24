@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px,15%);
     grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
-    max-width: 100%;
+    max-width: 100%; 
 }
 
 .localization-header {
@@ -15,16 +15,7 @@
     float: left;
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-family: Quicksand, sans-serif;
-    font-size: 30px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    line-height: 1.1;
-    color: inherit;
+    margin: 25px 0 20px 0 !important
 }
 
 .levels {
@@ -33,7 +24,7 @@ h2 {
 
 .button-header {
     float: right;
-    margin-bottom: 10px;
+    margin: 25px 0 20px 0 !important;
     padding-right: 1%;
     
     .btn {
@@ -41,10 +32,6 @@ h2 {
         margin-bottom: 5px;
         margin-left: 5px;
     }
-}
-
-.no-margin-top {
-    margin-top: 0 !important;
 }
 
 button {

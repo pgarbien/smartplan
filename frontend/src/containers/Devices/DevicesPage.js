@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useRef, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
+import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
@@ -17,6 +18,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     const [activeLevel, setActiveLevel] = useState(0);
     const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
+    const [fullscreen, setFullscreen] = useState(false);
 
     const save = () => {
         devices = setDevices(creator.getDevices());
@@ -84,10 +86,10 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
             <div class="container tool-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
-                        <h2 class="no-margin-top">Add devices to <span className='color-primary'>{location ? location.name : "your"}</span> location:</h2>
+                        <h2>Add devices to <span class="primary_color">{location ? location.name : "your"}</span> location:</h2>
                         <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
-                    <div class="button-header no-margin-top">
+                    <div class="button-header">
                         <button class="btn save-button" onClick={() => { save() }}>Zapisz zmiany</button>
                         {/* <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button> */}
                     </div>
@@ -104,8 +106,9 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                             </div>
                         </div>
                     </div>
-                    <div class="drawing-area">
+                    <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
                         <canvas ref={creationCanvas} class="canvas" id="condignationCanvas"></canvas>
+                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
                     </div>
                     <div class="right-container">
                         <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>

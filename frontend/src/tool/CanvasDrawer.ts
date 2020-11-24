@@ -4,9 +4,11 @@ import Point from './model/Point'
 import NewDevice from './model/NewDevice';
 
 export default class CanvasDrawer {
+    private canvas: HTMLCanvasElement;
     private canvasContext: CanvasRenderingContext2D;
 
-    constructor(canvasContext: CanvasRenderingContext2D) {
+    constructor(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D) {
+        this.canvas = canvas;
         this.canvasContext = canvasContext;
         this.canvasContext.lineCap = "round";
         this.canvasContext.lineJoin = 'round';
@@ -49,13 +51,13 @@ export default class CanvasDrawer {
             this.canvasContext.lineWidth = 5;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
             this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
-            this.canvasContext.moveTo(points[0].x, points[0].y);
+            this.canvasContext.moveTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
 
             for(let i=1; i<points.length; ++i) {
-                this.canvasContext.lineTo(points[i].x, points[i].y);
+                this.canvasContext.lineTo(points[i].x * this.canvas.width, points[i].y * this.canvas.height);
             }
             if(!building) { 
-                this.canvasContext.lineTo(points[0].x, points[0].y);
+                this.canvasContext.lineTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
                 this.canvasContext.fill();
             }
             this.canvasContext.stroke();
@@ -73,7 +75,7 @@ export default class CanvasDrawer {
         var image = new Image();
         image.src = "data:image/  png;base64," + (newDevice.icons ? newDevice.icons[0] : "");
         
-        const size = 25
+        const size = 30
         let width = image.naturalWidth
         let height = image.naturalWidth
         if(width > height) {
@@ -87,28 +89,30 @@ export default class CanvasDrawer {
         }
 
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x, newDevice.point!.y, highlighted ?  20 : 15, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  30 : 20, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = newDevice.color;
         this.canvasContext.fill();
         this.canvasContext.closePath();
-        this.canvasContext.drawImage(image, newDevice.point!.x - width/2, newDevice.point!.y - height/2, width, height);
+        this.canvasContext.drawImage(image, newDevice.point!.x * this.canvas.width - width/2, newDevice.point!.y * this.canvas.height - height/2, width, height);
     }
 
     drawLine(startPoint: Point, endPoint: Point, primary: Boolean = false) {
         this.canvasContext.beginPath();
         this.canvasContext.moveTo(
-            startPoint.x, 
-            startPoint.y
+            startPoint.x * this.canvas.width, 
+            startPoint.y * this.canvas.height
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
         this.canvasContext.setLineDash(primary ? [0, 0] : [5, 5]);
-        this.canvasContext.lineWidth = primary ? 2 : 1;
+        this.canvasContext.lineWidth = primary ? 3 : 2;
         
         this.canvasContext.lineTo(
-            endPoint.x, 
-            endPoint.y
+            endPoint.x * this.canvas.width, 
+            endPoint.y * this.canvas.height
         );
+
+        console.log(endPoint.x  * this.canvas.width + " / " + this.canvas.width)
         
         this.canvasContext.stroke();
         this.canvasContext.closePath();
@@ -117,9 +121,9 @@ export default class CanvasDrawer {
 
     highlightPoint(point: Point) {
         this.canvasContext.beginPath();
-        this.canvasContext.lineWidth = 1;
+        this.canvasContext.lineWidth = 2;
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
-        this.canvasContext.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+        this.canvasContext.arc(point.x * this.canvas.width, point.y * this.canvas.height, 5, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)"
         this.canvasContext.fill();
         this.canvasContext.stroke();
@@ -129,16 +133,16 @@ export default class CanvasDrawer {
     highlightLine(startPoint: Point, endPoint: Point) {
         this.canvasContext.beginPath();
         this.canvasContext.moveTo(
-            startPoint.x, 
-            startPoint.y
+            startPoint.x * this.canvas.width, 
+            startPoint.y * this.canvas.height
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
         this.canvasContext.lineWidth = 5;
         
         this.canvasContext.lineTo(
-            endPoint.x, 
-            endPoint.y
+            endPoint.x * this.canvas.width, 
+            endPoint.y * this.canvas.height
         );
             
         this.canvasContext.stroke();

@@ -15,14 +15,12 @@
 
 .carousel-title {
   font-family: Quicksand,sans-serif;
-  font-size: 42px;
-  line-height: 42px;
+  font-size: 35px;
+  line-height: 35px;
   font-weight: 300;
   text-transform: capitalize;
-  margin-top: 20px;
-  margin-bottom: 10px;
   color: inherit;
-  margin: .67em 0;
+  margin: .67em 0 0.3em 0;
 }
 
 .filters {
@@ -41,8 +39,8 @@
   -webkit-box-align: left;
       -ms-flex-align: left;
           align-items: left;
-  -ms-grid-columns: (minmax(200px, 277.5px))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(200px, 277.5px));
+  -ms-grid-columns: (25%)[auto-fit];
+      grid-template-columns: repeat(auto-fit, 25%);
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   -webkit-transform: translateX(0px);
@@ -83,6 +81,7 @@
   -webkit-transition: all .3s;
   transition: all .3s;
   height: 100%;
+  overflow: hidden;
 }
 
 .black {
@@ -182,9 +181,8 @@
 }
 
 .separator {
-  border-top: 1px solid #eeeeee;
   display: block;
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 i {

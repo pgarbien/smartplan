@@ -4,11 +4,22 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-top: 0;
+  /* color: #2f2f2f; */
+  /* text-decoration: none;
+  font-family: "Quicksand"; */
 }
 
 html {
   font-family: sans-serif;
   overflow-y: scroll;
+}
+
+h2 {
+  font-family: Quicksand,sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 300;
+  margin: 0!important;
 }
 
 #root, body, html {
@@ -29,6 +40,10 @@ body {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.42857143;
+}
+
+.primary_color {
+  color: #00d151 !important;
 }
 
 .page-content {
@@ -192,5 +207,17 @@ nav .navbar {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.fullscreen {
+  position: fixed !important;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  padding: 5vh !important;
+  box-sizing: border-box;
+  background: #fafbfc;
 }
 /*# sourceMappingURL=App.css.map */

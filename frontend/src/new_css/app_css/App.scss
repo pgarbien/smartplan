@@ -11,6 +11,14 @@ html {
     overflow-y: scroll;
 }
 
+h2 {
+  font-family: Quicksand,sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 300;
+  margin: 0!important;
+}
+
 #root, body, html {
     height: 100%;
     margin: 0;
@@ -30,6 +38,9 @@ body {
     line-height: 1.42857143; //this weird value is taken from supla website
 }
 
+.primary_color {
+    color: #00d151 !important;
+  }
 
 .page-content {
     min-height: 100%;

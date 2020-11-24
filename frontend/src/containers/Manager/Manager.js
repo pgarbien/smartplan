@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
+import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 import '../../new_css/manager_css/Manager.css';
@@ -17,6 +18,7 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     const [activeLevel, setActiveLevel] = useState(0);
     const [deviceState, setDeviceState] = useState([]);
     const [device, setDevice] = useState(null);
+    const [fullscreen, setFullscreen] = useState(false);
 
     const handleMouseClick = (device) => {
         if(device.defaultAction) {
@@ -66,15 +68,17 @@ const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, p
     return(
         <Fragment>
             <div class="container manager-page">
-                <div class="manager-localization-header">
+                <div class="localization-header">
                     <div class="left-header-wrapper">
-                        <h2>Manage <span className='color-primary'>{location ? location.name : "your"}</span> devices:</h2>
+                        <h2>Manage <span class="primary_color">{location ? location.name : "your"}</span> devices:</h2>
                         <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                 </div>
                 <div className="manager-page-layout">
-                    <div className="drawing-area">
-                    <canvas ref={creationCanvas} class="canvas" id="managerCanvas"/>
+                    <div className="left-container"></div>
+                    <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
+                        <canvas ref={creationCanvas} class="canvas" id="managerCanvas"/>
+                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
                     </div>
                     <div className="right-container">
                         <div class="manager-devices-list">

@@ -24,7 +24,7 @@ export default class BuildCommand extends Command {
 
         const position = this.getModifiedPosition(cursorPosition);
 
-        if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 10 && Math.abs(currentRoomPoints[0].y - (position.y)) < 10) {
+        if(currentRoomPoints.length > 2 && Math.abs(currentRoomPoints[0].x - (position.x)) < 0.05 && Math.abs(currentRoomPoints[0].y - (position.y)) < 0.05) {
             this.roomsData.getRooms().push(this.roomsData.getCurrentRoom());
             this.roomsData.setCurrentRoom(new Room());
 

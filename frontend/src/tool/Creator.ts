@@ -39,7 +39,7 @@ export default class Creator {
     constructor(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
-        this.canvasDrawer = new CanvasDrawer(this.canvasContext);
+        this.canvasDrawer = new CanvasDrawer(this.canvas, this.canvasContext);
 
         this.canvas.addEventListener('click', this.onClick);
         this.canvas.addEventListener('contextmenu', this.onRightClick);
@@ -47,15 +47,15 @@ export default class Creator {
         this.canvas.addEventListener('mousedown', this.onMouseDown);
         this.canvas.addEventListener('mouseup', this.onMouseUp);
 
-        this.canvas.height = canvas.clientHeight
-        this.canvas.width = canvas.clientWidth
+        this.canvas.height = canvas.clientHeight * 1.5
+        this.canvas.width = canvas.clientWidth * 1.5
     }
 
     getCanvas = () => this.canvas;
     setCanvas(canvas: HTMLCanvasElement) {
         this.canvas = canvas;
         this.canvasContext = canvas.getContext("2d")!!;
-        this.canvasDrawer = new CanvasDrawer(this.canvasContext);
+        this.canvasDrawer = new CanvasDrawer(this.canvas, this.canvasContext);
 
         this.canvas.addEventListener('click', this.onClick);
         this.canvas.addEventListener('contextmenu', this.onRightClick);
@@ -63,8 +63,8 @@ export default class Creator {
         this.canvas.addEventListener('mousedown', this.onMouseDown);
         this.canvas.addEventListener('mouseup', this.onMouseUp);
 
-        this.canvas.height = canvas.clientHeight
-        this.canvas.width = canvas.clientWidth
+        this.canvas.height = canvas.clientHeight * 1.5
+        this.canvas.width = canvas.clientWidth * 1.5
     }
 
     getRooms = () => this.creatorRooms.getRooms();
