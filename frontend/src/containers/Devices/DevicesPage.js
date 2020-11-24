@@ -27,13 +27,18 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
             .catch(error => console.log(error));
     }
 
-    const addNewDevice = (device, color) => {
+     const addNewDevice = (device) => {
         device.point = position;
-        device.color = color;
         device.locationId = location.id;
         device.levelId = activeLevel;
         device.roomId = setRoomId(position);
-        creator.addDevice(device.name, color, device.id, position, device.roomId, device.locationId, device.levelId);
+        creator.addDevice(device.name, device.id, position, device.roomId, device.locationId, device.levelId);
+        mAxios.get('/devices?levelId=' + activeLevel)
+        .then(response => {
+            creator.setAddedDevices(response.data.filter(device => device.locationId == location.id));
+            creator.refresh();
+        })
+        .catch(error => console.log(error));
         setShowAddDeviceModal(false);
     }
 
@@ -89,9 +94,8 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                         <h2>Add devices to <span class="primary_color">{location ? location.name : "your"}</span> location:</h2>
                         <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
-                    <div class="button-header">
-                        <button class="btn save-button" onClick={() => { save() }}>Zapisz zmiany</button>
-                        {/* <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button> */}
+                    <div class="button-header no-margin-top">
+                        <button class="btn save-button" onClick={() => { save(); }}>Zapisz zmiany</button>
                     </div>
                 </div>
                 <div class="tool-page-layout">

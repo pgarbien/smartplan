@@ -84,12 +84,14 @@ export default class Creator {
     getDevices = () => this.creatorDevices.getDevices();
     setDevices(devices: NewDeviceInterface[]) {
         const newDevices: NewDevice[] = [];
+
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point!, device.icons, device.defaultAction)
+            const newDevice = new NewDevice(device.name, device.id, device.point!, device.icons, device.activeIconId, device.defaultAction, device.roomId, device.locationId, device.levelId)
             newDevices.push(newDevice);
         });
 
         this.creatorDevices.setDevices(newDevices);
+        
     }
 
     getAddedDevices = () => this.creatorAddedDevices.getDevices();
@@ -97,13 +99,16 @@ export default class Creator {
         const newDevices: NewDevice[] = [];
 
         devices.forEach(device => {
-            const newDevice = new NewDevice(device.name, device.color, device.id, device.point, device.icons, device.defaultAction)
+            const newDevice = new NewDevice(device.name, device.id, device.point, device.icons, device.activeIconId, device.defaultAction, device.roomId, device.locationId, device.levelId)
             newDevices.push(newDevice);
         });
-
+        
         this.creatorAddedDevices.setDevices(newDevices);
     }
 
+    changeDevice(device: NewDevice) {
+        this.getAddedDevices().filter(dev => dev.id == device.id).map(d => d.activeIconId = device.activeIconId);
+    }
 
     getBackgroundImage = () => this.backgroundImage
     setBackgroundImage(imageSource: string) {
@@ -136,9 +141,9 @@ export default class Creator {
         this.drawCanvas();
     }
 
-    addDevice(deviceName: string, color: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
+    addDevice(deviceName: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
-        newDevice.drawNewDevice(deviceName, color, deviceId, position, roomId, locationId, levelId);
+        newDevice.drawNewDevice(deviceName, deviceId, position, roomId, locationId, levelId);
     }
 
     removeDevice(device: NewDevice) {

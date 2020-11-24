@@ -21,14 +21,14 @@ import {ChannelsModule} from './channels/channels.module';
     imports: [
         HttpModule,
         ConfigModule.forRoot({
-            envFilePath: './config/api_config.env',
+            envFilePath: './config/config.local.env',
             load: [configuration]
         }),
         TypeOrmModule.forRoot({
             type: 'mongodb',
-            host: 'localhost',
-            port: 27017,
-            database: 'supla_db',
+            host: configuration().database.host,
+            port: configuration().database.port,
+            database: configuration().database.name,
             synchronize: true,
             autoLoadEntities: true,
             entities: [Device],

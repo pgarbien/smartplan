@@ -1,5 +1,6 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {map} from "rxjs/operators";
+import {ConfigService} from "@nestjs/config";
 
 export type AuthProvider = 'supla';
 
@@ -16,7 +17,7 @@ export default class AuthService {
     private tokenToUserMap = {};
     private userIdToTokenMap = {};
 
-    constructor(private httpService: HttpService) {
+    constructor(private readonly httpService: HttpService, private readonly configService: ConfigService) {
     }
 
     async handlePassportAuth(profile: AuthProfile) {
@@ -30,13 +31,14 @@ export default class AuthService {
         return profile;
     }
 
-    getUser(token) {
-        const url = "https://svr36.supla.org/api/v2.3.0";
+    getUser(token: string, url: string) {
+        const apiUrl = this.configService.get<string>('API_URL')
+
         const config = {
             headers: {Authorization: `Bearer ${token}`}
         };
 
-        return this.httpService.get(url + "/users/current", config)
+        return this.httpService.get(url + apiUrl + "/users/current", config)
             .pipe(
                 map(response => response.data)
             );

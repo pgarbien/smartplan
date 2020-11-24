@@ -112,7 +112,6 @@ export class DeviceService {
 
     private mapToDeviceDetails(suplaDevice): DeviceDetails {
         const details = suplaDevice.function;
-
         return new DeviceDetails(
             DeviceType[details.name as keyof typeof DeviceType],
             details.caption,

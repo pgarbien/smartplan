@@ -9,8 +9,7 @@ const ManageDeviceModal = (props) => {
     function handleAction(action) {
         mAxios.post(`/devices/actions/${props.device.id}`, { "actionType": action.name })
             .then(response => {
-                props.changeDeviceColor(props.device, action.caption == "On");
-                props.manageDevice(props.device);
+                props.manageDevice(props.device, action.caption);
             })
             .catch(error => console.log(error));
     }

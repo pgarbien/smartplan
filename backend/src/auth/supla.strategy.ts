@@ -7,7 +7,8 @@ import {ConfigService} from "@nestjs/config";
 
 const callbackFunction =
     (authService: AuthService) => (async (req, access, refresh, profile, done) => {
-        const user = await authService.getUser(req).toPromise();
+        const user = await authService.getUser(req, refresh.target_url).toPromise();
+
         const authProfile: AuthProfile = {
             id: user.shortUniqueId,
             access_token: refresh.access_token,

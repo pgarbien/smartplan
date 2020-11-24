@@ -34,8 +34,6 @@
     "passport": "^0.4.1",
     "passport-oauth2": "^1.5.0",
     "pg": "^8.3.3",
-    "postgres": "^1.0.2",
-    "postgresql": "0.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",

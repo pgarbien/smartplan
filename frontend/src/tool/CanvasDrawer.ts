@@ -48,9 +48,9 @@ export default class CanvasDrawer {
 
         if(points[0]) {
             this.canvasContext.beginPath(); 
-            this.canvasContext.lineWidth = 5;
+            this.canvasContext.lineWidth = 2;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
-            this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.5)" : "rgba(0, 209, 81, .7)";
+            this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.35)" : "rgba(0, 209, 81, .7)";
             this.canvasContext.moveTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
 
             for(let i=1; i<points.length; ++i) {
@@ -73,8 +73,8 @@ export default class CanvasDrawer {
 
     drawDevice(newDevice: NewDevice, highlighted: boolean) {
         var image = new Image();
-        image.src = "data:image/  png;base64," + (newDevice.icons ? newDevice.icons[0] : "");
         
+        image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
         const size = 30
         let width = image.naturalWidth
         let height = image.naturalWidth
@@ -90,8 +90,11 @@ export default class CanvasDrawer {
 
         this.canvasContext.beginPath();
         this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  30 : 20, 0, 2 * Math.PI);
-        this.canvasContext.fillStyle = newDevice.color;
+        this.canvasContext.fillStyle = "#ffffff";
+        this.canvasContext.strokeStyle = newDevice.activeIconId == 1 ? "#00d151" : "#777777";
+        this.canvasContext.lineWidth = 1;
         this.canvasContext.fill();
+        this.canvasContext.stroke();
         this.canvasContext.closePath();
         this.canvasContext.drawImage(image, newDevice.point!.x * this.canvas.width - width/2, newDevice.point!.y * this.canvas.height - height/2, width, height);
     }
@@ -138,7 +141,7 @@ export default class CanvasDrawer {
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
-        this.canvasContext.lineWidth = 5;
+        this.canvasContext.lineWidth = 3;
         
         this.canvasContext.lineTo(
             endPoint.x * this.canvas.width, 
