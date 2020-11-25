@@ -15,7 +15,7 @@ const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }
 
     return (
         <div>
-            <h2>Your devices: </h2>
+            <h3 className="devices_header">Your devices: </h3>
             <div class="dropdown">
                 <button class="drop-btn"> Wszystkie <span class="caret"/> </button>
                 <div class="dropdown-content active-devices">

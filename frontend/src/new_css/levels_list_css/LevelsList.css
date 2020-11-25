@@ -19,15 +19,15 @@
   color: #000000;
   text-transform: uppercase;
   line-height: 26px;
-  padding: 4px 10px;
+  padding: 5px 10px;
   font-size: .8em;
   font-weight: 400;
-  border-radius: 3px;
   outline-color: #eaeaea;
   cursor: pointer;
   -webkit-transition: all .2s;
   transition: all .2s;
   border: 1px solid #eaeaea;
+  min-width: 160px;
 }
 
 .caret {
@@ -46,20 +46,21 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
   display: none;
   float: left;
   min-width: 160px;
-  padding: 5px 0;
-  font-size: 1em;
+  padding: 0;
   text-align: left;
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
+  text-transform: uppercase;
   z-index: 1;
+  width: -moz-max-content;
+  color: #000;
+  border-color: #eaeaea;
+  border-width: 0 1px 1px 1px;
 }
 
 .level {
@@ -68,6 +69,8 @@
   text-align: center;
   padding: inherit;
   cursor: pointer;
+  padding: 8px 10px;
+  font-size: 12px;
 }
 
 .level:hover {
