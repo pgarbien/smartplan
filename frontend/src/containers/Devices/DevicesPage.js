@@ -9,8 +9,11 @@ import NewDeviceModal from '../../components/Devices/NewDeviceModal';
 import ToolDescription from '../../components/ToolDescription/ToolDescription';
 import ToolButton from '../../components/ToolButton/ToolButton';
 import mAxios from '../../utils/API';
+import {useTranslation} from "react-i18next";
 
 const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setupCreator, parentCreator}) => {
+    const {t, i18n} = useTranslation('main');
+
     const creator = parentCreator;
     const creationCanvas = useRef(null);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
@@ -92,7 +95,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
             <div class="container tool-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
-                        <h2>Add devices to <span class="primary_color">{location ? location.name : "your"}</span> location:</h2>
+                        <h2>{t('add_devices.title_beginning')} <span class="primary_color">{location ? location.name : "your"}</span>{t('add_devices.title_ending')}</h2>
                         <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                     <div class="button-header no-margin-top">
