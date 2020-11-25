@@ -13,7 +13,8 @@ import {AuthModule} from "../auth/auth.module";
         AuthModule
     ],
     providers: [DeviceService],
-    controllers: [DeviceController]
+    controllers: [DeviceController],
+    exports: [DeviceService]
 })
 
 export class DeviceModule {

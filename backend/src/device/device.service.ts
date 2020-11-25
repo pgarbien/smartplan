@@ -21,11 +21,11 @@ export class DeviceService {
                 private readonly channelsService: ChannelsService) {
     }
 
-    save(device: Device): Promise<Device> {
+    public save(device: Device): Promise<Device> {
         return this.deviceRepository.save(device);
     }
 
-    async getAll(userId: string, query: DeviceQuery): Promise<Device[]> {
+    public async getAll(userId: string, query: DeviceQuery): Promise<Device[]> {
         const channels = await this.channelsService.getChannels(userId);
         const devices: Device[] = await Promise.all(channels.map(device => this.updateAndGet(this.mapToDevice(device, userId))));
 
@@ -38,11 +38,11 @@ export class DeviceService {
         return devices.filter(device => this.assertQuery(device, query));
     }
 
-    updateAll(userId: string, devices: Device[]): void {
+    public updateAll(userId: string, devices: Device[]): void {
         devices.forEach(device => this.deviceRepository.update(device.id, device))
     }
 
-    async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
+    public async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
         const device = await this.deviceRepository.findOne(deviceId);
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId);
         const deviceDetails: DeviceDetails = this.mapToDeviceDetails(data);
@@ -52,12 +52,12 @@ export class DeviceService {
         return deviceDetails;
     }
 
-    async callAction(userId: string, deviceId: string, actionType: ActionType) {
+    public async callAction(userId: string, deviceId: string, actionType: ActionType) {
         const device = await this.deviceRepository.findOne(deviceId);
         return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
     }
 
-    async getStates(userId: string, query: DeviceQuery): Promise<DeviceState[]> {
+    public async getStates(userId: string, query: DeviceQuery): Promise<DeviceState[]> {
         const suplaDevicesWithStates = await this.channelsService.getChannelsWithStates(userId);
         const deviceStates: DeviceState[] = await Promise.all(suplaDevicesWithStates.map(device => this.mapToDeviceState(device, userId)));
         const devices = {};
@@ -71,6 +71,30 @@ export class DeviceService {
             });
         }
         return deviceStates.filter(deviceState => this.assertQuery(devices[deviceState.id], query));
+    }
+
+    public removeAllFromLevel(userId: string, levelId: string) {
+        this.deviceRepository.update({
+            userId: userId,
+            levelId: levelId
+        }, {
+            locationId: null,
+            levelId: null,
+            roomId: null,
+            point: null
+        })
+    }
+
+    public removeAllFromLocation(userId: string, locationId: string) {
+        this.deviceRepository.update({
+            userId: userId,
+            locationId: locationId
+        }, {
+            locationId: null,
+            levelId: null,
+            roomId: null,
+            point: null
+        })
     }
 
     private async setDeviceIconsAndDefaultAction(device: BaseDevice, userId: string) {

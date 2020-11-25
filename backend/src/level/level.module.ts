@@ -5,11 +5,13 @@ import {Level} from "./level.model";
 import {LevelController} from './level.controller';
 import {Location} from "../locations/location.model";
 import {AuthModule} from "../auth/auth.module";
+import {DeviceModule} from "../device/device.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Level, Location]),
-        AuthModule
+        AuthModule,
+        DeviceModule
     ],
     providers: [LevelService],
     controllers: [LevelController],

@@ -3,23 +3,25 @@ import {Location} from "./location.model";
 import {MongoRepository, UpdateResult} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {randomStringGenerator} from "@nestjs/common/utils/random-string-generator.util";
+import {DeviceService} from "../device/device.service";
 
 @Injectable()
 export class LocationsService {
-    constructor(@InjectRepository(Location) private readonly locationsRepository: MongoRepository<Location>) {
+    constructor(@InjectRepository(Location) private readonly locationsRepository: MongoRepository<Location>,
+                private readonly deviceService: DeviceService) {
     }
 
-    getAll(userId: string): Promise<Location[]> {
+    public getAll(userId: string): Promise<Location[]> {
         return this.locationsRepository.find({"userId": userId});
     }
 
-    getById(userId: string, id: string): Promise<Location> {
+    public getById(userId: string, id: string): Promise<Location> {
         return this.locationsRepository.findOne(id, {
             where: {"userId": userId}
         });
     }
 
-    async persist(userId: string, location: Location): Promise<Location> {
+    public async persist(userId: string, location: Location): Promise<Location> {
         location.userId = userId;
         location.levels.forEach(level => {
             level.userId = userId;
@@ -32,14 +34,11 @@ export class LocationsService {
         return await this.locationsRepository.save(location);
     }
 
-    deleteById(userId: string, locationId: string) {
-        this.locationsRepository.deleteOne({
-            "id": locationId,
-            "userId": userId
-        })
-    }
+    public async update(userId: string, location: Location): Promise<UpdateResult> {
+        const dbLocationLevels = (await this.locationsRepository.findOne(location.id, {
+            where: {userId: userId}
+        })).levels.map(level => level.id);
 
-    async update(userId: string, location: Location): Promise<UpdateResult> {
         location.levels.forEach(level => {
             if (level.id == null) {
                 level.userId = userId;
@@ -50,9 +49,21 @@ export class LocationsService {
                     room.userId = userId;
                     room.id = randomStringGenerator();
                 }
-                // room.points = JSON.stringify(room.points);
             })
         });
+
+        dbLocationLevels.forEach(levelId => {
+            if(!location.levels.map(level => level.id).includes(levelId))
+                this.deviceService.removeAllFromLevel(userId, levelId);}
+        );
         return await this.locationsRepository.update(location.id, location);
+    }
+
+    public deleteById(userId: string, locationId: string) {
+        this.deviceService.removeAllFromLocation(userId, locationId);
+        this.locationsRepository.deleteOne({
+            "id": locationId,
+            "userId": userId
+        });
     }
 }
