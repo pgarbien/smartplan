@@ -1,2 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+.active-devices {
+    width: 100%;
+}
+
+.devices_header {
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
 /*# sourceMappingURL=Devices.css.map */

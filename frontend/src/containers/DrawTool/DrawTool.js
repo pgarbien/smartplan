@@ -26,6 +26,7 @@ const DrawTool = (props) => {
     const changeDisplayedLevel = (level) => {
         creator.setBackgroundImage(level.blueprintUrl);
         creator.setRooms(level.rooms); 
+        creator.setAddedDevices([]);
         creator.refresh(); 
     }
 

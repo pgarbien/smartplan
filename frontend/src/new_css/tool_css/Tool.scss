@@ -183,6 +183,7 @@ button {
     padding-left: 1sem;
     padding-right: .5em;
     width: max-content;
+    min-width: 80%;
 }
 
 .description {
@@ -240,6 +241,7 @@ button {
 }
 
 .directional-button {
+    font-family: Quicksand,sans-serif;
     text-align: center;
     text-transform: uppercase;
     line-height: 26px;
@@ -251,6 +253,7 @@ button {
     color: $black;
     cursor: pointer;
     transition: ease-out .2s;
+    margin-top: 10px;
 
     &:hover {
         color: $green;

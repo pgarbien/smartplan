@@ -97,7 +97,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       <div class="container tool-page">
         <div class="localization-header">
           <div class="left-header-wrapper">
-            <h2>Lokalizacja <span class="primary_color">{location ? location.name : ""}</span></h2>
+            <h2>Edit <span class="primary_color">{location ? location.name : ""}</span> location:</h2>
             <LevelsList 
                 creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
                 changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
@@ -139,7 +139,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
         { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={window.event.target.innerHTML} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
-        { showDeleteLocationModal ? <DeleteLocationModal location={location} setShowModal={setshowDeleteLocationModal}/> : null }
+        { showDeleteLocationModal ? <DeleteLocationModal creator={parentCreator} location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>
   );
 }
