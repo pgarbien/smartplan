@@ -139,7 +139,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
         { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={window.event.target.innerHTML} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
-        { showDeleteLocationModal ? <DeleteLocationModal location={location} setShowModal={setshowDeleteLocationModal}/> : null }
+        { showDeleteLocationModal ? <DeleteLocationModal creator={parentCreator} location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>
   );
 }

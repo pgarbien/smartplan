@@ -6,9 +6,17 @@ import '../../new_css/modal_css/Modal.css';
 const DeleteLocationModal = (props) => {
 
     const handleDeleteModal = () => {
-        mAxios.delete('/locations/' + props.location.id)
-                .catch(error => console.log(error));
-        window.location.href='/locations';
+        console.log(props.location.id);
+        mAxios.get('/devices').then(response => {
+            response.data
+            .filter(device => device.locationId == props.location.id)
+            .map(device => {
+                props.creator.removeDevice(device)
+            });
+            mAxios.delete('/locations/' + props.location.id)
+            .catch(error => console.log(error));
+            window.location.href='/locations';
+        });
     }
 
     const handleCloseModal = () => {
