@@ -7,7 +7,8 @@ const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }
     const [devices, setDevices] = useState(activeDevices);
 
     useEffect(() => {
-        mAxios.get('/devices?levelId=' + activeLevel)
+        const levelId = location.levels[activeLevel].id
+        mAxios.get('/devices?levelId=' + levelId)
             .then(response => {
                 setDevices(response.data.filter(dev => dev.locationId == location.id));
             });
@@ -19,14 +20,14 @@ const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }
             <div class="dropdown">
                 <button class="drop-btn"> Wszystkie <span class="caret"/> </button>
                 <div class="dropdown-content active-devices">
-                    {  devices.map(device => (
+                    {  devices && devices.length > 0 ? devices.map(device => (
                         <div className="level" key={device.name} 
                             onClick={() => { manageDevice(device) }}
                             onMouseEnter={() => { creator.highlightedDevice = device.id; creator.drawCanvas() }}
                             onMouseLeave={() => { creator.highlightedDevice = null; creator.drawCanvas() }}>
                             {device.name}
                         </div>
-                    )) }
+                    )) : <div className="level">No devices found</div> }
                 </div>
             </div>
         </div>
