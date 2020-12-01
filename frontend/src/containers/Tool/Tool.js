@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import mAxios from '../../utils/API';
+import { Prompt } from 'react-router'
 
 import LevelsList from '../../components/Levels/LevelsList';
 import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
@@ -15,7 +16,7 @@ import DeleteLevelModal from '../../components/DrawTool/DeleteLevelModal';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 
-const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parentCreator}) => {
+const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creator}) => {
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
   const [showDeleteLevelModal, setShowDeleteLevelModal] = useState(false);
@@ -25,6 +26,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
   const [fullscreen, setFullscreen] = useState(false);
+  const [saved, setSaved] = useState(true)
 
   const post = () => {
     mAxios.post('/locations', location)
@@ -60,7 +62,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
         .then(response => {
           if(response) response.data
             .filter(device => device.levelId == index)
-            .map(device => parentCreator.removeDevice(device))
+            .map(device => creator.removeDevice(device))
         });
 
       preLocation.levels.map(level => level.order = preLocation.levels.indexOf(level))
@@ -76,7 +78,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }
 
   const updateRooms = () => {
-    location.levels[activeLevel].rooms = parentCreator.getRooms();
+    location.levels[activeLevel].rooms = creator.getRooms();
     put();
   }
 
@@ -89,22 +91,26 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
   }, [location]);
 
   useEffect(() => {
-    if(parentCreator) parentCreator.setCommand(Commands.DRAW);
-  }, [parentCreator]);
+    if(creator) creator.setCommand(Commands.DRAW);
+  }, [creator]);
 
   return (
     <Fragment>
+      <Prompt
+        when={!saved}
+        message='You have unsaved changes, are you sure you want to leave?'
+      />
       <div class="container tool-page">
         <div class="localization-header">
           <div class="left-header-wrapper">
             <h2>Edit <span class="primary_color">{location ? location.name : ""}</span> location:</h2>
             <LevelsList 
-                creator={parentCreator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
+                creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
                 changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
             />
           </div>
           <div class="button-header">
-            <button class="btn save-button" onClick={() => { if(location.id) updateRooms(); else post();  }}>Zapisz zmiany</button>
+            <button class="btn save-button" onClick={() => { if(location.id) updateRooms(); else post(); setSaved(true)  }}>Zapisz zmiany</button>
             <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button>
           </div>
         </div>
@@ -112,16 +118,16 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
           <div className="left-container">
             <div class="tools-col">
               <div class="dots-route shown">
-                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>DR</ToolButton>
-                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MR</ToolButton>
-                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
-                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
-                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
+                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>DR</ToolButton>
+                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>MR</ToolButton>
+                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>TI</ToolButton>
+                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>U</ToolButton>
+                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>R</ToolButton>
               </div>
             </div>
           </div>
           <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
-              <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { updateRooms() }}></canvas>
+              <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { setSaved(false); updateRooms() }}></canvas>
               <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
           </div>
           <div className="right-container">
@@ -139,7 +145,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, parent
       </div>
         { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
         { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={window.event.target.innerHTML} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
-        { showDeleteLocationModal ? <DeleteLocationModal creator={parentCreator} location={location} setShowModal={setshowDeleteLocationModal}/> : null }
+        { showDeleteLocationModal ? <DeleteLocationModal creator={creator} location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>
   );
 }

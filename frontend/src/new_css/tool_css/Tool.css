@@ -232,6 +232,7 @@ button {
   transition: ease .5s;
   border: 1px slid #ffffff;
   overflow: hidden;
+  color: white;
 }
 
 .description:hover {

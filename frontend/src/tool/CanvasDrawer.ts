@@ -1,7 +1,7 @@
 import BackgroundImage from './model/BackgroundImage'
 import Room from './model/Room'
 import Point from './model/Point'
-import NewDevice from './model/NewDevice';
+import NewDevice, { DeviceState } from './model/NewDevice';
 
 export default class CanvasDrawer {
     private canvas: HTMLCanvasElement;
@@ -74,7 +74,7 @@ export default class CanvasDrawer {
     drawDevice(newDevice: NewDevice, highlighted: boolean) {
         var image = new Image();
         
-        image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
+        image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.deviceState == DeviceState.ACTIVE && newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
         const size = 30
         let width = image.naturalWidth
         let height = image.naturalWidth
@@ -91,7 +91,7 @@ export default class CanvasDrawer {
         this.canvasContext.beginPath();
         this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  30 : 20, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "#ffffff";
-        this.canvasContext.strokeStyle = newDevice.activeIconId == 1 ? "#00d151" : "#777777";
+        this.canvasContext.strokeStyle = newDevice.deviceState == DeviceState.ACTIVE ? "#00d151" : newDevice.deviceState == DeviceState.DISABLED ? "#ff0000" : "#777777"
         this.canvasContext.lineWidth = 1;
         this.canvasContext.fill();
         this.canvasContext.stroke();

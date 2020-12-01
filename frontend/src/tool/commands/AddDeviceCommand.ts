@@ -27,7 +27,7 @@ export default class AddDeviceCommand extends Command {
     }
 
     drawNewDevice(deviceName: string, id: string, position: Point, roomId: string, locationId: string, levelId: string) {
-        const device = new NewDevice(deviceName, id, position, null, null, null, roomId, locationId, levelId);
+        const device = new NewDevice(deviceName, id, position, null, null, null, roomId, locationId, levelId, null);
         this.creatorAddedDevices.setCurrentDevice(device);
         this.creatorAddedDevices.getDevices().push(this.creatorAddedDevices.getCurrentDevice());
     

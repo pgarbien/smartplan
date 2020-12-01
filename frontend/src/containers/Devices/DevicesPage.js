@@ -11,10 +11,8 @@ import ToolButton from '../../components/ToolButton/ToolButton';
 import mAxios from '../../utils/API';
 import {useTranslation} from "react-i18next";
 
-const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setupCreator, parentCreator}) => {
+const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) => {
     const {t, i18n} = useTranslation('main');
-
-    const creator = parentCreator;
     const creationCanvas = useRef(null);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
     const [position, setPosition] = useState(null);
@@ -24,7 +22,6 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     const [fullscreen, setFullscreen] = useState(false);
 
     const save = () => {
-        devices = setDevices(creator.getDevices());
         const addedDevices = creator.getAddedDevices();
         mAxios.put('/devices', addedDevices)
             .catch(error => console.log(error));
@@ -38,11 +35,11 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
         device.roomId = setRoomId(position);
         creator.addDevice(device.name, device.id, position, device.roomId, device.locationId, device.levelId);
         mAxios.get('/devices?levelId=' + levelId)
-        .then(response => {
-            creator.setAddedDevices(response.data.filter(device => device.locationId == location.id));
-            creator.refresh();
-        })
-        .catch(error => console.log(error));
+            .then(response => {
+                creator.setAddedDevices(response.data.filter(device => device.locationId == location.id));
+                creator.refresh();
+            })
+            .catch(error => console.log(error));
         setShowAddDeviceModal(false);
     }
 
@@ -84,11 +81,11 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
     }, [creationCanvas]);
 
     useEffect(() => {
-        if(parentCreator) {
-            parentCreator.setCommand(Commands.ADD_DEVICE);
-            parentCreator.setCallback('click', addDevice);
+        if(creator) {
+            creator.setCommand(Commands.ADD_DEVICE);
+            creator.setCallback('click', addDevice);
         }
-    }, [parentCreator]);
+    }, [creator]);
 
     return(
         <Fragment>
@@ -106,11 +103,11 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                     <div className="left-container">
                         <div class="tools-col">
                             <div class="dots-route shown">
-                                <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>AD</ToolButton>
-                                <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>MD</ToolButton>
-                                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>TI</ToolButton>
-                                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>U</ToolButton>
-                                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={parentCreator}>R</ToolButton>
+                                <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>AD</ToolButton>
+                                <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>MD</ToolButton>
+                                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>TI</ToolButton>
+                                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>U</ToolButton>
+                                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>R</ToolButton>
                             </div>
                         </div>
                     </div>
@@ -131,7 +128,7 @@ const DevicesPage = ({location, devices, setDevices, changeDisplayedLevel, setup
                     </div>
                 </div>
             </div>
-        { showAddDeviceModal ? <NewDeviceModal devices={devices} addNewDevice={addNewDevice} setShowModal={setShowAddDeviceModal} canClose={true}/> : null}
+        { showAddDeviceModal ? <NewDeviceModal addNewDevice={addNewDevice} setShowModal={setShowAddDeviceModal} canClose={true}/> : null}
       </Fragment>
     );
 }

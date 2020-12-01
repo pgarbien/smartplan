@@ -21,6 +21,8 @@
 }
 
 .manager-devices-list {
+  /* Brzydko, ale na szybko <3 */
+  margin-top: -40px;
   width: 100%;
 }
 /*# sourceMappingURL=Manager.css.map */

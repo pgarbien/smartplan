@@ -1,14 +1,27 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import Modal from '../../components/Modal/Modal';
 import '../../new_css/modal_css/Modal.css';
+import mAxios from '../../utils/API';
 
 const NewDeviceModal = (props) => {
+    const [devices, setDevices] = useState([])
     const [selectedDevice, setSelectedDevice] = useState(null);
-    const [scrollPosition, setScrollPosition] = useState(0); 
+    const [scrollPosition, setScrollPosition] = useState(0);
 
-    const styless = {width: "max-content", transition: "ease .5s", transform: "translateX(" + scrollPosition * -50 + "%" }
+    const styless = { width: "max-content", transition: "ease .5s", transform: "translateX(" + scrollPosition * -50 + "%" }
+
+    useEffect(() => fetchDevices(), [])
+
+    const fetchDevices = () => {
+        mAxios.get('/devices')
+            .then(response => {
+                const unbindDevices = response.data.filter(device => !device.point)
+                setDevices(unbindDevices);
+            })
+            .catch(error => console.log(error));
+    }
     
-    const mappedDevices = props.devices.map(device => {
+    const mappedDevices = devices.map(device => {
         const deviceClass = selectedDevice && selectedDevice.id === device.id ? "device selected-device" : "device";
         return <div className={ deviceClass } onClick={() => { setSelectedDevice(device) }}>
             <p class="model-button">{device.name}</p>

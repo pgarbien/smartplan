@@ -3,32 +3,18 @@ import Creator from '../../tool/Creator';
 import mAxios from '../../utils/API';
 import DevicesPage from '../Devices/DevicesPage';
 import Tool from '../Tool/Tool';
-import Location from '../../tool/model/Location';
 import { Route, Switch } from 'react-router-dom';
 import Manager from '../Manager/Manager';
 
-const DrawTool = (props) => {
+const DrawTool = () => {
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [isLocationEmpty, setIsLocationEmpty] = useState(true)
-    const [devices, setDevices] = useState([]);
     const [activeDevices, setActiveDevices] = useState([]);
 
     useEffect(() => {
         setIsLocationEmpty(location == null || location.levels.length === 0)
     }, [location])
-
-    const setCurrentLocation = (location) => {
-        setLocation(location)
-        setIsLocationEmpty(location == null || location.levels.length === 0)
-    }
-    
-    const changeDisplayedLevel = (level) => {
-        creator.setBackgroundImage(level.blueprintUrl);
-        creator.setRooms(level.rooms); 
-        creator.setAddedDevices([]);
-        creator.refresh(); 
-    }
 
     const setupCreator = (canvas) => {
         if(creator == null) {
@@ -36,7 +22,7 @@ const DrawTool = (props) => {
             fetchLocation(creator);
             setCreator(creator);
         } else {
-            if(!isLocationEmpty) changeDisplayedLevel(location.levels[0]);
+            if(!isLocationEmpty) setCurrentLevel(location.levels[0]);
             creator.setCanvas(canvas);
             creator.refresh();
         }
@@ -47,51 +33,48 @@ const DrawTool = (props) => {
         const params = new URLSearchParams(query);
         const locationId = params.get('locationId');
 
-        if(locationId != null) {
-            mAxios.get('/locations/' + locationId)
+        mAxios.get('/locations/' + locationId)
+            .then(response => setCurrentLocation(response.data, creator))
+            .catch(error => console.log(error));
+    }
+
+    const setCurrentLocation = (location, mCreator = creator) => {
+        setLocation(location);
+        const hasLevels = location.levels && location.levels.length > 0
+        if(hasLevels) setCurrentLevel(location.levels[0], mCreator)
+    }
+
+    const setCurrentLevel = (level, mCreator = creator) => {
+        mCreator.setBackgroundImage(level.blueprintUrl);
+        mCreator.setRooms(level.rooms);
+        mCreator.setAddedDevices([]);
+        mCreator.refresh();
+        
+        mAxios.get('/devices?levelId=' + level.id)
             .then(response => {
-                const location = response.data;
-                setLocation(location);
-                if(location.levels.length > 0) {
-                    creator.setBackgroundImage(location.levels[0].blueprintUrl);
-                    creator.setRooms(location.levels[0].rooms);
-                    creator.refresh();
-                    
-                    mAxios.get('/devices')
-                        .then(response => {
-                            const devices = response.data.filter(device => !device.point)
-                            const activeDevices = response.data.filter(device => device.point && device.levelId == 0 && device.locationId == locationId)
-                            setDevices(devices);
-                            setActiveDevices(activeDevices);
-                            creator.setDevices(devices);
-                            creator.setAddedDevices(activeDevices);
-                            creator.refresh();
-                        })
-                        .catch(error => console.log(error));
-                }
+                setActiveDevices(response.data);
+                mCreator.setAddedDevices(response.data);
+                mCreator.refresh();
             })
             .catch(error => console.log(error));
-        } else {
-            setLocation(new Location(0, props.locationName ? props.locationName : "Unknown", "", []));
-        }
     }
 
     return (
         <Switch>
             <Route path="/draw/devices">
                 { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/> :
-                    <DevicesPage location={location} devices={devices} setDevices={setDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
+                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> :
+                    <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/>
                 }
             </Route>
             <Route path="/draw/manager">
                 { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/> :
-                    <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/> 
+                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> :
+                    <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> 
                 }
             </Route>
             <Route path="/draw">
-                <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={changeDisplayedLevel} setupCreator={setupCreator} parentCreator={creator}/>
+                <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/>
             </Route>
         </Switch>
     );
