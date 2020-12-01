@@ -21,7 +21,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options, {
         include: [AuthModule, LocationsModule, DeviceModule, FileModule]
     });
-    SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('api_docs', app, document);
 
     await app.listen(configuration().port);
 }

@@ -5,12 +5,13 @@ import AuthService from "./auth/auth.service";
 
 @Injectable()
 export class AuthInterceptor implements NestInterceptor {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) {
+    }
 
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Promise<Observable<any>> {
-        const request: Request = context.switchToHttp().getRequest();
-        request.headers['user_id'] = this.authService.getLoggedUserByToken(request.headers['authorization']).id;
-        console.log("Auth code: " + request.headers['authorization']);
+        const request = context.switchToHttp().getRequest();
+        request.userId = this.authService.getLoggedUserByToken(request.headers['authorization'].replace("Bearer ", "")).id;
+        console.log("Auth code: " + request.headers['authorization'].replace("Bearer ", ""));
         return next.handle();
     }
 }
