@@ -28,7 +28,7 @@ export const commandsDescription = {
     [Commands.ADD_DEVICE]: {
         type: Commands.ADD_DEVICE,
         name: "Add device",
-        description: "LPM: Adds new device in selected place <br/> RPM: Removes selected device"
+        description: "<table><tbody><tr><td>LPM:</td><td>Adds new device in selected place</td></tr><tr><td>RPM:</td><td>Removes selected device</td></tr></tbody></table>"
     },
     [Commands.MOVE_DEVICE]: {
         type: Commands.MOVE_DEVICE,

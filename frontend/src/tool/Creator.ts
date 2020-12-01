@@ -91,7 +91,6 @@ export default class Creator {
         });
 
         this.creatorDevices.setDevices(newDevices);
-        
     }
 
     getAddedDevices = () => this.creatorAddedDevices.getDevices();
@@ -107,7 +106,10 @@ export default class Creator {
     }
 
     changeDevice(device: NewDevice) {
-        this.getAddedDevices().filter(dev => dev.id == device.id).map(d => d.activeIconId = device.activeIconId);
+        this.getAddedDevices().filter(dev => dev.id == device.id).map(d => {
+            d.deviceState = device.deviceState
+            d.activeIconId = device.activeIconId
+        });
     }
 
     getBackgroundImage = () => this.backgroundImage

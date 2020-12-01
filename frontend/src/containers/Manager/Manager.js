@@ -9,63 +9,86 @@ import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
 import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
 import mAxios from '../../utils/API';
+import { DeviceState } from '../../tool/model/NewDevice'
 
-const Manager = ({location, activeDevices, changeDisplayedLevel, setupCreator, parentCreator}) => {
-    const creator = parentCreator;
+const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, creator }) => {
     const creationCanvas = useRef(null);
-
-    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
+    const [device, setDevice] = useState(null);
     const [activeLevel, setActiveLevel] = useState(0);
     const [deviceState, setDeviceState] = useState([]);
-    const [device, setDevice] = useState(null);
     const [fullscreen, setFullscreen] = useState(false);
+    const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
 
-    const handleMouseClick = (device) => {
-        if(device.defaultAction) {
-            manageDefaultDeviceAction(device)
-        } else {
-            manageDevice(device)
-        }
-    }
-
-    const manageDevice = (device, actionCaption) => {
-        if(actionCaption) {
-            device.activeIconId = device.possibleVisualStates.indexOf(device.possibleVisualStates.filter(state => state == actionCaption.toLowerCase())[0]);
-            creator.changeDevice(device);
-        }
-        setDevice(device);
-        mAxios.get(`/devices/details/${device.id}`)
-            .then(response => {
-                setDeviceState(response.data);
-                setShowManageDeviceModal(true);
-            })
+    const fetchDevices = () => {
+        mAxios.get('/devices?levelId=' + location.levels[activeLevel].id)
+            .then(response => fetchDevicesStates(response.data))
             .catch(error => console.log(error));
     }
 
-    const manageDefaultDeviceAction = (device) => {
+    const fetchDevicesStates = (devices) => {
+        devices.forEach(device => {
+            if(device.defaultAction) fetchDeviceState(device)
+        })
+    }
+
+    const fetchDeviceState = (device) => {
+        mAxios.get(`/devices/details/${device.id}`)
+            .then(response => setDeviceDetails(device, response.data), 1000)
+    }
+
+    const onMouseClick = (device) => {
+        if(device.defaultAction) manageDefaultDeviceAction(device)
+        else manageDevice(device)
+    }
+
+    const manageDevice = (device) => {
         setDevice(device);
-        if(device.defaultAction) {
-            mAxios.post(`/devices/actions/${device.id}`, { "actionType": device.defaultAction })
-                .then(mAxios.get(`/devices/details/${device.id}`)
-                    .then(response => {
-                        device.activeIconId = response.data.possibleVisualStates.indexOf(response.data.possibleVisualStates.filter(state => state == (response.data.state.on ? "on" : "off"))[0])
-                        creator.changeDevice(device);
-                    }))
-        }
+        setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+            .then(response => {
+                setDeviceDetails(device, response.data);
+                setDeviceState(response.data);
+                setShowManageDeviceModal(true);
+            })
+            .catch(error => console.log(error)), 100)
+    }
+
+    const manageDefaultDeviceAction = (device) => {
+        mAxios.post(`/devices/actions/${device.id}`, { "actionType": device.defaultAction })
+            .then(() => {
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 100)
+                }
+            )
+            .catch(error => console.log(error))
+    }
+
+    const setDeviceDetails = (device, deviceDetails) => {
+        const deviceVisualState = deviceDetails.possibleVisualStates.find(state => state == (deviceDetails.state.on ? "on" : "off"));
+        device.deviceState = deviceDetails.state.connected ? deviceDetails.state.on ? DeviceState.ACTIVE : DeviceState.NOT_ACTIVE : DeviceState.DISABLED
+        device.activeIconId = deviceDetails.possibleVisualStates.indexOf(deviceVisualState)
+        creator.changeDevice(device);
+        creator.refresh();
     }
 
     useEffect(() => {
-        if(creationCanvas) setupCreator(creationCanvas.current)  
+        fetchDevices()
+        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), 10000);
+        return () => clearInterval(interval);
+    }, [activeLevel]);
+
+    useEffect(() => {
+        if(creationCanvas) setupCreator(creationCanvas.current)     
     }, [creationCanvas]);
 
     useEffect(() => {
-    if(parentCreator) {
-        parentCreator.setCommand(Commands.MANAGE);
-        parentCreator.setCallback('click', handleMouseClick);
-        parentCreator.setCallback('rightclick', manageDevice);
-        parentCreator.setCallback('down', manageDevice)
-    }
-    }, [parentCreator]);
+        if(creator) {
+            creator.setCommand(Commands.MANAGE);
+            creator.setCallback('click', onMouseClick);
+            creator.setCallback('rightclick', manageDevice);
+            creator.setCallback('down', manageDevice)
+        }
+    }, [creator]);
 
     return(
         <Fragment>

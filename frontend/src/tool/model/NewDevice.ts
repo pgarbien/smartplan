@@ -1,5 +1,11 @@
 import Point from "./Point";
 
+export enum DeviceState {
+    ACTIVE,
+    NOT_ACTIVE,
+    DISABLED
+}
+
 interface NewDeviceInterface {
     name: string,
     id: string,
@@ -10,6 +16,7 @@ interface NewDeviceInterface {
     roomId: string | null,
     locationId: string | null,
     levelId: string | null
+    deviceState: DeviceState | null
 }
 
 export default class NewDevice implements NewDeviceInterface {
@@ -22,8 +29,20 @@ export default class NewDevice implements NewDeviceInterface {
     roomId: string | null;
     locationId: string | null;
     levelId: string | null;
+    deviceState: DeviceState | null;
 
-    constructor(name: string = "", id: string = "null", point: Point | null = null, icons: string[] | null = null, activeIconId: number | null=null, defaultAction: number | null = null, roomId: string | null = null, locationId: string | null = null, levelId: string | null = null) {
+    constructor(
+        name: string = "", 
+        id: string = "null", 
+        point: Point | null = null, 
+        icons: string[] | null = null, 
+        activeIconId: number | null = null, 
+        defaultAction: number | null = null, 
+        roomId: string | null = null, 
+        locationId: string | null = null, 
+        levelId: string | null = null,
+        deviceState: DeviceState | null = null
+    ) {
         this.name = name;
         this.id = id;
         this.point = point;
@@ -33,10 +52,11 @@ export default class NewDevice implements NewDeviceInterface {
         this.roomId = roomId;
         this.locationId = locationId;
         this.levelId = levelId;
+        this.deviceState = deviceState;
     }
 
     getCopy(): NewDevice {
-        return new NewDevice(this.name, this.id, this.point, this.icons, this.activeIconId, this.defaultAction, this.roomId, this.locationId, this.levelId);
+        return new NewDevice(this.name, this.id, this.point, this.icons, this.activeIconId, this.defaultAction, this.roomId, this.locationId, this.levelId, this.deviceState);
     }
 
 }
