@@ -1,4 +1,4 @@
-import {ActionType} from "./device.model";
+import {ActionType} from "./device.supla.model";
 
 export interface DeviceQuery {
     locationId: string;

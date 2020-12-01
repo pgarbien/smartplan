@@ -2,7 +2,7 @@ import {HttpService, Injectable} from '@nestjs/common';
 import {ConfigService} from "@nestjs/config";
 import {map} from "rxjs/operators";
 import AuthService from "../auth/auth.service";
-import {ActionType} from "../device/device.model";
+import {ActionType} from "../device/device.supla.model";
 
 @Injectable()
 export class ChannelsService {

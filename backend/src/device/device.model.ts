@@ -1,6 +1,7 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ObjectID, ObjectIdColumn} from "typeorm";
 import {Exclude, Transform} from 'class-transformer';
 import {ApiProperty} from "@nestjs/swagger";
+import {ActionType, DeviceType} from "./device.supla.model";
 
 export interface BaseDevice {
     suplaIconId: number;
@@ -70,7 +71,9 @@ export class Device implements BaseDevice {
     @Column({nullable: true})
     possibleVisualStates: string[];
 
-    @ApiProperty()
+    @ApiProperty({
+        enum: DeviceType
+    })
     @Column({nullable: true})
     type: DeviceType;
 
@@ -103,13 +106,15 @@ export class DeviceDetails implements BaseDevice {
     @ApiProperty()
     icons: string[];
 
-    @ApiProperty()
+    @ApiProperty({
+        enum: ActionType
+    })
     defaultAction: ActionType;
 
     @ApiProperty()
     possibleVisualStates: string[];
 
-    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType, possibleVisualStates: string[]) {
+    constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: number, possibleVisualStates: string[]) {
         this.type = type;
         this.caption = caption;
         this.actions = actions;
@@ -133,34 +138,20 @@ export class DeviceState {
     }
 }
 
-export enum DeviceType {
-    NONE, CONTROLLINGTHEGATEWAYLOCK, CONTROLLINGTHEGATE, CONTROLLINGTHEGARAGEDOOR,
-    THERMOMETER, HUMIDITY, HUMIDITYANDTEMPERATURE, OPENINGSENSOR_GATEWAY,
-    OPENINGSENSOR_GATE, OPENINGSENSOR_GARAGEDOOR, NOLIQUIDSENSOR,
-    CONTROLLINGTHEDOORLOCK, OPENINGSENSOR_DOOR, CONTROLLINGTHEROLLERSHUTTER,
-    OPENINGSENSOR_ROLLERSHUTTER, POWERSWITCH, LIGHTSWITCH, DIMMER,
-    RGBLIGHTING, DIMMERANDRGBLIGHTING, DEPTHSENSOR, DISTANCESENSOR,
-    OPENINGSENSOR_WINDOW, MAILSENSOR, WINDSENSOR, PRESSURESENSOR,
-    RAINSENSOR, WEIGHTSENSOR, WEATHER_STATION, STAIRCASETIMER
-}
+
 export class Action {
-    @ApiProperty()
+    @ApiProperty({
+        enum: ActionType
+    })
     name: ActionType;
 
     @ApiProperty()
     caption: string;
 
-
     constructor(name: ActionType, caption: string) {
         this.name = name;
         this.caption = caption;
     }
-}
-
-export enum ActionType {
-    OPEN, CLOSE, SHUT, REVEAL, REVEAL_PARTIALLY,
-    TURN_ON, TURN_OFF, SET_RGBW_PARAMETERS, OPEN_CLOSE,
-    STOP, TOGGLE, READ
 }
 
 export interface DeviceConfig {

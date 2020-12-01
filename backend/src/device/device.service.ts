@@ -1,11 +1,9 @@
 import {Injectable} from "@nestjs/common";
 import {
     Action,
-    ActionType,
     Device,
     DeviceDetails,
     DeviceState,
-    DeviceType,
     DeviceConfig,
     BaseDevice
 } from "./device.model";
@@ -14,6 +12,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
 import devicesConfig from "../../config/devices_config";
 import {DeviceQuery} from "./device.api.model";
+import {ActionType, DeviceType} from "./device.supla.model";
 
 @Injectable()
 export class DeviceService {
@@ -129,7 +128,7 @@ export class DeviceService {
             suplaDevice.id,
             suplaDevice.caption,
             suplaDevice.userIconId,
-            DeviceType[suplaDevice.function.name as keyof typeof DeviceType],
+            DeviceType[suplaDevice.function.name],
             suplaDevice.function.possibleVisualStates
         );
     }
@@ -137,9 +136,9 @@ export class DeviceService {
     private mapToDeviceDetails(suplaDevice): DeviceDetails {
         const details = suplaDevice.function;
         return new DeviceDetails(
-            DeviceType[details.name as keyof typeof DeviceType],
+            DeviceType[details.name],
             details.caption,
-            details.possibleActions.map(data => new Action(ActionType[data.name as keyof typeof ActionType], data.caption)),
+            details.possibleActions.map(data => new Action(ActionType[data.name], data.caption)),
             suplaDevice.state,
             suplaDevice.userIconId,
             details.possibleVisualStates
