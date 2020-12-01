@@ -2,7 +2,6 @@ import {HttpModule, Module} from '@nestjs/common';
 import {AppController} from './app.controller';
 import {AppService} from './app.service';
 import {ConfigModule} from "@nestjs/config";
-import {ChannelsController} from './channels/channels.controller';
 import {ChannelsService} from './channels/channels.service';
 import configuration from "../config/configuration";
 import {TypeOrmModule} from "@nestjs/typeorm";
@@ -16,6 +15,7 @@ import {FileController} from './file/file.controller';
 import {Device} from "./device/device.model";
 import {DeviceModule} from "./device/device.module";
 import {ChannelsModule} from './channels/channels.module';
+import { FileModule } from './file/file.module';
 
 @Module({
     imports: [
@@ -42,9 +42,10 @@ import {ChannelsModule} from './channels/channels.module';
         RoomModule,
         AuthModule,
         DeviceModule,
-        ChannelsModule
+        ChannelsModule,
+        FileModule
     ],
-    controllers: [AppController, ChannelsController, FileController],
+    controllers: [AppController, FileController],
     providers: [AppService, ChannelsService]
 })
 

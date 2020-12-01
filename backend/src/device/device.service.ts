@@ -12,8 +12,8 @@ import {
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
-import {DeviceQuery} from "./device.controller";
 import devicesConfig from "../../config/devices_config";
+import {DeviceQuery} from "./device.api.model";
 
 @Injectable()
 export class DeviceService {

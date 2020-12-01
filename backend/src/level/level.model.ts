@@ -1,23 +1,37 @@
 import {Room} from "../room/room.model";
 import {Column, Entity} from "typeorm";
+import {ApiProperty} from "@nestjs/swagger";
+import {Exclude} from "class-transformer";
 
 @Entity()
 export class Level {
+    @ApiProperty()
     @Column()
     id: string;
 
     @Column()
+    @Exclude()
     userId: string;
 
+    @ApiProperty()
     @Column()
     name: string;
 
-    @Column({nullable: true})
+    @ApiProperty({
+        required: false
+    })
+    @Column({
+        nullable: true
+    })
     blueprintUrl: string;
 
-    @Column(type => Room)
+    @ApiProperty({
+        type: () => [Room]
+    })
+    @Column(() => Room)
     rooms: Room[];
 
+    @ApiProperty()
     @Column()
     order: number;
 

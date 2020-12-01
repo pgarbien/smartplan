@@ -1,5 +1,6 @@
 import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 import {Exclude, Transform} from 'class-transformer';
+import {ApiProperty} from "@nestjs/swagger";
 
 export interface BaseDevice {
     suplaIconId: number;
@@ -11,6 +12,7 @@ export interface BaseDevice {
 
 @Entity()
 export class Device implements BaseDevice {
+    @ApiProperty({type: () => String})
     @Transform(id => id.toString())
     @ObjectIdColumn()
     id: ObjectID;
@@ -22,21 +24,33 @@ export class Device implements BaseDevice {
     @Exclude()
     suplaDeviceId: number;
 
+    @ApiProperty()
     @Column()
     name: string;
 
+    @ApiProperty()
     @Column({nullable: true})
     color: string;
 
+    @ApiProperty()
     @Column({nullable: true})
     point: JSON;
 
+    @ApiProperty({
+        required: false
+    })
     @Column({nullable: true})
     roomId: string;
 
+    @ApiProperty({
+        required: false
+    })
     @Column({nullable: true})
     locationId: string;
 
+    @ApiProperty({
+        required: false
+    })
     @Column({nullable: true})
     levelId: string;
 
@@ -44,12 +58,19 @@ export class Device implements BaseDevice {
     @Column({nullable: true})
     suplaIconId: number;
 
+    @ApiProperty()
+    @Column({nullable: true})
     icons: string[];
+
+    @ApiProperty()
+    @Column()
     defaultAction: ActionType;
 
+    @ApiProperty()
     @Column({nullable: true})
     possibleVisualStates: string[];
 
+    @ApiProperty()
     @Column({nullable: true})
     type: DeviceType;
 
@@ -64,15 +85,28 @@ export class Device implements BaseDevice {
 }
 
 export class DeviceDetails implements BaseDevice {
+    @ApiProperty()
     type: DeviceType;
+
+    @ApiProperty()
     caption: string;
+
+    @ApiProperty()
     actions: Action[];
+
+    @ApiProperty()
     state: JSON;
 
     @Exclude()
     suplaIconId: number;
+
+    @ApiProperty()
     icons: string[];
+
+    @ApiProperty()
     defaultAction: ActionType;
+
+    @ApiProperty()
     possibleVisualStates: string[];
 
     constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: DeviceType, possibleVisualStates: string[]) {
@@ -87,7 +121,10 @@ export class DeviceDetails implements BaseDevice {
 //TODO analyze states and make model for them
 
 export class DeviceState {
+    @ApiProperty()
     id: string;
+
+    @ApiProperty()
     state: JSON;
 
     constructor(id: string, state: JSON) {
@@ -107,7 +144,10 @@ export enum DeviceType {
     RAINSENSOR, WEIGHTSENSOR, WEATHER_STATION, STAIRCASETIMER
 }
 export class Action {
+    @ApiProperty()
     name: ActionType;
+
+    @ApiProperty()
     caption: string;
 
 

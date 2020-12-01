@@ -14,6 +14,7 @@ import {LevelService} from "./level.service";
 import {Level} from "./level.model";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
+import {ApiExcludeEndpoint} from "@nestjs/swagger";
 
 @Controller('/locations/:locationId/levels')
 @UseGuards(AuthGuard)
