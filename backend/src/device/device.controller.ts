@@ -13,13 +13,12 @@ import {
 import {DeviceService} from "./device.service";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
-import {ActionType, Device, DeviceDetails, DeviceState} from "./device.model";
-
-export class Req {
-    actionType: ActionType;
-}
+import {Device, DeviceDetails, DeviceState} from "./device.model";
+import {ApiBearerAuth, ApiHideProperty, ApiOkResponse} from "@nestjs/swagger";
+import {ActionTypeRequest, DeviceQuery} from "./device.api.model";
 
 @Controller('devices')
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
 export class DeviceController {
@@ -27,36 +26,33 @@ export class DeviceController {
     }
 
     @Get()
+    @ApiOkResponse({type: [Device]})
     getAll(@Headers('user_id') userId: string, @Query() query: DeviceQuery): Promise<Device[]> {
-        console.log(query);
         return this.deviceService.getAll(userId, query);
     }
 
     @Put()
+    @ApiOkResponse({type: [Device]})
     updateAll(@Headers('user_id') userId: string, @Body() devices: Device[]): void {
         this.deviceService.updateAll(userId, devices);
     }
 
     @Get('/details/:id')
+    @ApiOkResponse({type: [DeviceDetails]})
     getDetails(@Headers('user_id') userId: string, @Param('id') deviceId: string): Promise<DeviceDetails> {
         return this.deviceService.getDetails(userId, deviceId);
     }
 
     @Post('/actions/:id')
+    @ApiOkResponse()
     callAction(@Headers('user_id') userId: string, @Param('id') deviceId: string,
-               @Body() actionType: Req): Promise<any> {
-        //TODO change this request body
+               @Body() actionType: ActionTypeRequest): Promise<any> {
         return this.deviceService.callAction(userId, deviceId, actionType.actionType);
     }
 
     @Get('/states')
+    @ApiOkResponse({type: [DeviceState]})
     getStates(@Headers('user_id') userId: string, @Query() query: DeviceQuery): Promise<DeviceState[]> {
         return this.deviceService.getStates(userId, query);
     }
-}
-
-export interface DeviceQuery {
-    locationId: string;
-    levelId: string;
-    roomId: string;
 }

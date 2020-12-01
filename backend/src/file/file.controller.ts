@@ -1,18 +1,28 @@
-import {Controller, Post, UploadedFile, UseInterceptors} from '@nestjs/common';
+import {ClassSerializerInterceptor, Controller, Post, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from 'multer';
 import {extname, join} from 'path';
 import {ConfigService} from "@nestjs/config";
+import {FileResponse, UploadFile} from "./file.model";
+import {ApiBearerAuth, ApiBody, ApiConsumes, ApiCreatedResponse} from "@nestjs/swagger";
+import {AuthGuard} from "../auth.guard";
+import {AuthInterceptor} from "../auth.interceptor";
 
 
 @Controller('file')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
+@UseInterceptors(AuthInterceptor)
 export class FileController {
     constructor(private configService: ConfigService) {
     }
 
-    private serverUrl: string = this.configService.get('SERVER_URL');
-
     @Post('upload')
+    @ApiConsumes('multipart/form-data')
+    @ApiCreatedResponse({type: FileResponse})
+    @ApiBody({
+        type: UploadFile,
+    })
     @UseInterceptors(FileInterceptor('file', {
             storage: diskStorage({
                 destination: join(__dirname, '../../../static'),
@@ -23,8 +33,10 @@ export class FileController {
             })
         })
     )
-    uploadFile(@UploadedFile() file): any {
-        return {photoUrl: this.serverUrl + '/' + file.filename};
+    uploadFile(@UploadedFile() file): FileResponse {
+        return new FileResponse(this.serverUrl + '/' + file.filename);
     }
+
+    private serverUrl: string = this.configService.get('SERVER_URL');
 }
 

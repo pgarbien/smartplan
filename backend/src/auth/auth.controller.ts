@@ -3,6 +3,8 @@ import AuthService, {AuthProvider} from './auth.service'
 import {NextFunction, Request, Response} from 'express';
 import * as passport from 'passport';
 import {ConfigService} from "@nestjs/config";
+import {ApiOkResponse} from "@nestjs/swagger";
+import {AuthUrlResponse} from "./auth.model";
 
 @Controller('auth')
 export class AuthController {
@@ -16,8 +18,16 @@ export class AuthController {
     private scopes = ['channels_r', 'account_r', 'channels_ea'];
 
     @Get('/link')
+    @ApiOkResponse({type: AuthUrlResponse})
     getAuthUrl(): any {
-        return {authUrl: `${this.suplaAuthUrl}?client_id=${this.clientId}&scope=${this.scopes.join('%20')}&state=example-state&response_type=code&redirect_uri=${this.callbackUrl}`};
+        return new AuthUrlResponse(
+            this.suplaAuthUrl +
+                `?client_id=${this.clientId}` +
+                `&scope=${this.scopes.join('%20')}` +
+                `&state=example-state` +
+                `&response_type=code` +
+                `&redirect_uri=${this.callbackUrl}`
+        );
     }
 
     @Get(':provider(supla)')
@@ -27,7 +37,6 @@ export class AuthController {
         @Next() next: NextFunction,
         @Param('provider') provider: AuthProvider
     ) {
-        //TODO add scopes from supla docs
         const params = {
             session: false,
             scope: this.scopes,
