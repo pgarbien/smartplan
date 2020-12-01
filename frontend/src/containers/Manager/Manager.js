@@ -73,7 +73,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
     useEffect(() => {
         fetchDevices()
-        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), 10000);
+        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
         return () => clearInterval(interval);
     }, [activeLevel]);
 
