@@ -19,7 +19,7 @@ const LevelsList = ({ creator, location, activeLevel, setActiveLevel, changeDisp
       changeDisplayedLevel(level);
       setActiveLevel(level.order);
       setActiveLevelName(level.name);
-      fetchDevices()
+      fetchDevices(level)
   }
 
   const onRightLevelClick = (event) => {

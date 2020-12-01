@@ -75,7 +75,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
         fetchDevices()
         const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), 10000);
         return () => clearInterval(interval);
-    }, []);
+    }, [activeLevel]);
 
     useEffect(() => {
         if(creationCanvas) setupCreator(creationCanvas.current)     

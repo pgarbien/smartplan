@@ -26,60 +26,63 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
   const [fullscreen, setFullscreen] = useState(false);
+  const [autosave, setAutosave] = useState(false)
   const [saved, setSaved] = useState(true)
 
-  const post = () => {
+  const saveLocation = () => {
     mAxios.post('/locations', location)
         .catch(error => console.log(error));
   }
 
-  const put = () => {
+  const updateLocation = () => {
     mAxios.put(`/locations/${location.id}`, location)
         .catch(error => console.log(error));
   }
 
-  const remove = () => {
-    mAxios.delete('/locations/' + location.id)
-        .catch(error => console.log(error));
+  const updateRooms = () => {
+    location.levels[activeLevel].rooms = creator.getRooms();
+    updateLocation();
   }
 
   const addNewLevel = (levelName, blueprintUrl) => {
-    const preLocation = location; 
-    preLocation.levels.push(new Level(null, levelName, blueprintUrl, [], preLocation.levels.length)); 
-    setLocation(preLocation);
+    location.levels.push(new Level(null, levelName, blueprintUrl, [], location.levels.length)); 
+    setLocation(location);
     setShowAddLevelModal(false);
-    put();
+
+    if(autosave) updateLocation();
+    else setSaved(false);
   }
 
   const deleteLevel = (levelName) => {
-    const preLocation = location;
-    
-    let index = preLocation.levels.filter(level => level.name == levelName)[0].order;
-    if(index > -1) {
-      preLocation.levels.splice(index, 1);
+      let level = location.levels.find(level => level.name == levelName);
+      location.levels.splice(level.order, 1);
 
-      mAxios.get('/devices?levelId=' + index)
+      mAxios.get('/devices?levelId=' + level.id)
         .then(response => {
           if(response) response.data
-            .filter(device => device.levelId == index)
-            .map(device => creator.removeDevice(device))
+            .filter(device => device.levelId == level.id)
+            .forEach(device => creator.removeDevice(device))
         });
 
-      preLocation.levels.map(level => level.order = preLocation.levels.indexOf(level))
+      location.levels.map(level => level.order = location.levels.indexOf(level))
+      setLocation(location);
 
-      setLocation(preLocation);
-      if(location.levels.length === 0) {
-        setShowAddLevelModal(true)
-      } else {
-        setActiveLevel(location.levels[0].order)
-      }
-      put();
-    }
+      if(location.levels.length === 0)setShowAddLevelModal(true)
+      else setActiveLevel(location.levels[0].order)
+
+      if(autosave) updateLocation();
+      else setSaved(false);
   }
 
-  const updateRooms = () => {
-    location.levels[activeLevel].rooms = creator.getRooms();
-    put();
+  const onSaveClick = () => {
+    setSaved(true);
+    if(location.id) updateRooms();
+    else saveLocation();
+  }
+
+  const onAutosaveClick = () => {
+    onSaveClick()
+    setAutosave(!autosave)
   }
 
   useEffect(() => {
@@ -97,7 +100,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   return (
     <Fragment>
       <Prompt
-        when={!saved}
+        when={!autosave && !saved}
         message='You have unsaved changes, are you sure you want to leave?'
       />
       <div class="container tool-page">
@@ -110,8 +113,9 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
             />
           </div>
           <div class="button-header">
-            <button class="btn save-button" onClick={() => { if(location.id) updateRooms(); else post(); setSaved(true)  }}>Zapisz zmiany</button>
-            <button class="btn delete-button"  onClick={() => { setshowDeleteLocationModal(true) }}>Usuń</button>
+            <div className="tools-button" onClick={() => onSaveClick()} style={{display: autosave ? "none" : "inline-block"}}>Save changes</div>
+            <div className="tools-button" onClick={() => setshowDeleteLocationModal(true)}>Delete</div>
+            <div className="tools-button" onClick={() => onAutosaveClick() }>Autosave &nbsp;<div style={{height: 10, width: 10, background: (autosave ? "#00ff00" : "#ff0000"), borderRadius: 10, display: "inline-block"}}></div></div>
           </div>
         </div>
         <div className="tool-page-layout">
@@ -127,16 +131,16 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
             </div>
           </div>
           <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
-              <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { setSaved(false); updateRooms() }}></canvas>
+              <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { if(autosave) updateRooms(); else setSaved(false); }}></canvas>
               <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
             <div className="right-container-buttons">
-              <Link class="directional-button-link" to={location ? "/draw/devices?locationId=" + location.id : "#"} onClick={updateRooms}>
+              <Link class="directional-button-link" to={location ? "/draw/devices?locationId=" + location.id : "#"} onClick={() => { if(autosave) updateRooms() }}>
                 <div className="directional-button">Add devices &nbsp;&gt;</div>
               </Link>
-              <Link class="directional-button-link" to={location ? "/draw/manager?locationId=" + location.id : "#"} onClick={updateRooms}>
+              <Link class="directional-button-link" to={location ? "/draw/manager?locationId=" + location.id : "#"} onClick={() => { if(autosave) updateRooms() }}>
                 <div className="directional-button">Manage devices &nbsp;&gt;</div>
               </Link> 
             </div>
