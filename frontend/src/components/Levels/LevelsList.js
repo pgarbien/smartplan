@@ -1,25 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import mAxios from '../../utils/API';
 import '../../new_css/levels_list_css/LevelsList.css';
 
-const LevelsList = ({ creator, location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal }) => {
+const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal }) => {
   const [activeLevelName, setActiveLevelName] = useState("Wszystkie poziomy")
-
-  const fetchDevices = (level) => {
-    mAxios.get('/devices?levelId=' + level.id)
-      .then(response => {
-        const activeDevices = response.data.filter(device => device.locationId == location.id)
-        creator.setAddedDevices(activeDevices);
-        creator.refresh();
-      })
-      .catch(error => console.log(error));
-  }
 
   const onLeftLevelClick = (level) => {
       changeDisplayedLevel(level);
       setActiveLevel(level.order);
       setActiveLevelName(level.name);
-      fetchDevices(level)
   }
 
   const onRightLevelClick = (event) => {

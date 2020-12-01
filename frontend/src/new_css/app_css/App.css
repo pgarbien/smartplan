@@ -227,4 +227,10 @@ nav .navbar {
   box-sizing: border-box;
   background: #fafbfc;
 }
+
+.right-container-buttons {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
 /*# sourceMappingURL=App.css.map */

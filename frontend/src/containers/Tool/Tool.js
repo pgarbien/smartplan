@@ -108,8 +108,8 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
           <div class="left-header-wrapper">
             <h2>Edit <span class="primary_color">{location ? location.name : ""}</span> location:</h2>
             <LevelsList 
-                creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} 
-                changeDisplayedLevel={changeDisplayedLevel} setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
+                location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} 
+                setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
             />
           </div>
           <div class="button-header">

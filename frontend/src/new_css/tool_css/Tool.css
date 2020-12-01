@@ -203,6 +203,7 @@ button {
 }
 
 .right-container {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -223,9 +224,9 @@ button {
 }
 
 .description {
-  position: relative;
+  width: 98%;
+  position: absolute;
   display: block;
-  width: 13em;
   height: 11em;
   background: #00d151;
   -webkit-transition: ease .5s;
