@@ -4,13 +4,14 @@ import {diskStorage} from 'multer';
 import {extname, join} from 'path';
 import {ConfigService} from "@nestjs/config";
 import {FileResponse, UploadFile} from "./file.model";
-import {ApiBearerAuth, ApiBody, ApiConsumes, ApiCreatedResponse} from "@nestjs/swagger";
+import {ApiBearerAuth, ApiBody, ApiConsumes, ApiCreatedResponse, ApiUnauthorizedResponse} from "@nestjs/swagger";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
 
 
 @Controller('file')
 @ApiBearerAuth()
+@ApiUnauthorizedResponse()
 @UseGuards(AuthGuard)
 @UseInterceptors(AuthInterceptor)
 export class FileController {
