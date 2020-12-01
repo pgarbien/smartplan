@@ -3,9 +3,10 @@ import AuthService, {AuthProvider} from './auth.service'
 import {NextFunction, Request, Response} from 'express';
 import * as passport from 'passport';
 import {ConfigService} from "@nestjs/config";
-import {ApiOkResponse} from "@nestjs/swagger";
+import {ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {AuthUrlResponse} from "./auth.model";
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
     constructor(private readonly auth: AuthService, private readonly configService: ConfigService) {

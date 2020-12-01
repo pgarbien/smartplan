@@ -22,12 +22,13 @@ import {
     ApiCreatedResponse,
     ApiHeaders,
     ApiHideProperty,
-    ApiOkResponse,
+    ApiOkResponse, ApiTags,
     ApiUnauthorizedResponse
 } from "@nestjs/swagger";
 
 @Controller('locations')
 @UseGuards(AuthGuard)
+@ApiTags('Locations')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse()
 @UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
