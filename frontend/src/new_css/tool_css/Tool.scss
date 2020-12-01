@@ -176,6 +176,7 @@ button {
 }
 
 .right-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -187,9 +188,9 @@ button {
 }
 
 .description {
-    position: relative;
+    width: 98%;
+    position: absolute;
     display: block;
-    width: 13em;
     height: 11em;
     background: $green;
     transition: ease .5s;

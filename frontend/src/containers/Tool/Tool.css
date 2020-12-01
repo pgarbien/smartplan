@@ -10,6 +10,8 @@
 }
 
 .description {
+    width: 100%;
+    position: absolute;
     transition: ease .5s;
     overflow: hidden;
     color: white;

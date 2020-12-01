@@ -93,7 +93,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
                 <div class="localization-header">
                     <div class="left-header-wrapper">
                         <h2>{t('add_devices.title_beginning')} <span class="primary_color">{location ? location.name : "your"}</span>{t('add_devices.title_ending')}</h2>
-                        <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                        <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                     <div class="button-header no-margin-top">
                         <button class="btn save-button" onClick={() => { save(); }}>Zapisz zmiany</button>

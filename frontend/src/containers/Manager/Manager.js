@@ -96,7 +96,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                 <div class="localization-header">
                     <div class="left-header-wrapper">
                         <h2>Manage <span class="primary_color">{location ? location.name : "your"}</span> devices:</h2>
-                        <LevelsList creator={creator} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                        <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                 </div>
                 <div className="manager-page-layout">
