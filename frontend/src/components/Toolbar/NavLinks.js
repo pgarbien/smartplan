@@ -24,19 +24,16 @@ const NavLinks = ({loggedIn}) => {
         {suplaLogo}
         <ul class="navbar-nav">
             <li>
-                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-plug"></i>Strona SUPLA</a>
-            </li>
-            <li>
-                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-phone"></i>Strona SUPLA</a>
+                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>Strona SUPLA</a>
             </li>
             <li>
                 <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations"><i class="pe-7s-home"></i>Lokalizacje</NavLink>
             </li>
             <li>
-                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-key"></i>Strona SUPLA</a>
+                <NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>O Nas</NavLink>
             </li>
             <li>
-                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-config"></i>Strona SUPLA</a>
+                <a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"api_docs"}><i class="pe-7s-help2"></i>Dokumentacja API</a>
             </li>
             <li>
                 <NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}><i class="pe-7s-user"></i>Wyloguj</NavLink>
@@ -47,10 +44,9 @@ const NavLinks = ({loggedIn}) => {
     const loggedOutNav = <div class="container">
         {suplaLogo}
         <ul class="navbar-nav">
-            <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-plug"></i>Strona SUPLA</a></li>
-            <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-phone"></i>Strona SUPLA</a></li>
-            <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-key"></i>Strona SUPLA</a></li>
-            <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-config"></i>Strona SUPLA</a></li>
+            <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>Strona SUPLA</a></li>
+            <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>O Nas</NavLink></li>
+            <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"api_docs"}><i class="pe-7s-help2"></i>Dokumentacja API</a></li>
             <li><a className="tool-bar_link" href={authUrl}><i class="pe-7s-user"></i>Zaloguj</a></li>
         </ul>
     </div>;
