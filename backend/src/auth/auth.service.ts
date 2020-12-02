@@ -1,34 +1,49 @@
 import {HttpService, Injectable} from '@nestjs/common';
 import {map} from "rxjs/operators";
 import {ConfigService} from "@nestjs/config";
+import {AuthProfile} from "./auth.model";
 
 export type AuthProvider = 'supla';
 
-export interface AuthProfile {
-    id: string,
-    access_token: string,
-    expires_in: number,
-    scope: string,
-    target_url: string
-}
+
 
 @Injectable()
 export default class AuthService {
     private tokenToUserMap = {};
-    private userIdToTokenMap = {};
 
     constructor(private readonly httpService: HttpService, private readonly configService: ConfigService) {
     }
 
     async handlePassportAuth(profile: AuthProfile) {
         this.tokenToUserMap[profile.access_token] = profile;
-        this.userIdToTokenMap[profile.id] = profile.access_token;
+
         setTimeout(() => {
             this.tokenToUserMap[profile.access_token] = null;
-            this.userIdToTokenMap[profile.id] = null;
         }, profile.expires_in * 1000);
 
         return profile;
+    }
+
+    async refreshOAuthToken(accessToken: string): Promise<string> {
+        const refreshToken = this.tokenToUserMap[accessToken].refresh_token;
+
+        const request = {
+            "grant_type": "refresh_token",
+            "client_id": this.configService.get<string>('SUPLA_CLIENT_ID'),
+            "client_secret": this.configService.get<string>('SUPLA_CLIENT_SECRET'),
+            "refresh_token": refreshToken
+        }
+
+        const refreshedProfile: AuthProfile = await this.httpService.post(
+            this.configService.get<string>('SUPLA_TOKEN_URL'),
+            request
+        )
+            .pipe(map(response => response.data))
+            .toPromise();
+
+        this.tokenToUserMap[refreshedProfile.access_token] = refreshedProfile;
+
+        return refreshedProfile.access_token;
     }
 
     getUser(token: string, url: string) {
@@ -52,7 +67,7 @@ export default class AuthService {
         return this.tokenToUserMap[token] != null
     }
 
-    getTokenByUserId(userId: string): string {
-        return this.userIdToTokenMap[userId];
+    static getTokenFromRequest(req: any) {
+        return req.headers['authorization'];
     }
 }

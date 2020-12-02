@@ -1,26 +1,38 @@
-import {Controller, Get, Next, Param, Req, Res, UnauthorizedException} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Headers,
+    Next,
+    Param,
+    Req,
+    Res,
+    UnauthorizedException,
+    UseGuards
+} from '@nestjs/common';
 import AuthService, {AuthProvider} from './auth.service'
 import {NextFunction, Request, Response} from 'express';
 import * as passport from 'passport';
 import {ConfigService} from "@nestjs/config";
-import {ApiOkResponse, ApiTags} from "@nestjs/swagger";
-import {AuthUrlResponse} from "./auth.model";
+import {ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
+import {AuthUrlResponse, RefreshTokenResponse} from "./auth.model";
+import {AuthGuard} from "../auth.guard";
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly auth: AuthService, private readonly configService: ConfigService) {
+    constructor(private readonly authService: AuthService, private readonly configService: ConfigService) {
     }
 
     private callbackUrl = this.configService.get('SUPLA_CALLBACK_URL');
     private suplaAuthUrl = this.configService.get('SUPLA_AUTH_URL');
     private websiteUrl = this.configService.get('WEBSITE_URL');
     private clientId = this.configService.get('SUPLA_CLIENT_ID');
-    private scopes = ['channels_r', 'account_r', 'channels_ea'];
+    private scopes = ['channels_r', 'account_r', 'channels_ea', 'offline_access'];
+
 
     @Get('/link')
     @ApiOkResponse({type: AuthUrlResponse})
-    getAuthUrl(): any {
+    public getAuthUrl(): any {
         return new AuthUrlResponse(
             this.suplaAuthUrl +
                 `?client_id=${this.clientId}` +
@@ -29,6 +41,15 @@ export class AuthController {
                 `&response_type=code` +
                 `&redirect_uri=${this.callbackUrl}`
         );
+    }
+
+    @Get('/refresh')
+    @UseGuards(AuthGuard)
+    @ApiOkResponse()
+    @ApiUnauthorizedResponse()
+    public async refreshToken(@Req() req: any): Promise<RefreshTokenResponse>{
+        const token = await this.authService.refreshOAuthToken(req.headers['authorization'].replace("Bearer ", ""));
+        return new  RefreshTokenResponse(token);
     }
 
     @Get(':provider(supla)')
@@ -65,14 +86,14 @@ export class AuthController {
             }
             if (!user) return next(new UnauthorizedException());
 
-            return res.redirect(`${this.websiteUrl}/auth?token=${user.access_token}`)
+            return res.redirect(`${this.websiteUrl}/auth?token=${user.access_token}&timeout=${user.expires_in}`)
         })(req, res, next);
     }
 
-    @Get(':token')
-    async checkIfLoggedIn(@Param('token') token: string) {
-        return this.auth.checkIfLoggedIn(token)
-    }
+    // @Get(':token')
+    // async checkIfLoggedIn(@Param('token') token: string) {
+    //     return this.authService.checkIfLoggedIn(token)
+    // }
 
 
 }

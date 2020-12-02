@@ -2,8 +2,9 @@ import {Injectable} from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
 import {Strategy, StrategyOptionWithRequest, VerifyFunctionWithRequest} from 'passport-oauth2';
 
-import AuthService, {AuthProfile} from './auth.service';
+import AuthService from './auth.service';
 import {ConfigService} from "@nestjs/config";
+import {AuthProfile} from "./auth.model";
 
 const callbackFunction =
     (authService: AuthService) => (async (req, access, refresh, profile, done) => {
@@ -14,7 +15,8 @@ const callbackFunction =
             access_token: refresh.access_token,
             expires_in: refresh.expires_in,
             scope: refresh.scope,
-            target_url: refresh.target_url
+            target_url: refresh.target_url,
+            refresh_token: access
         }
 
         return await authService
