@@ -3,6 +3,7 @@ import './new_css/app_css/App.css';
 import './new_css/main_page_css/MainPage.css';
 import Login from './containers/Login/Login';
 import DrawTool from './containers/DrawTool/DrawTool';
+import AboutUs from './components/About/AboutUs';
 import Layout from './containers/Layout/Layout';
 import Locations from './containers/Locations/Locations';
 import Auth from './containers/Auth/Auth';
@@ -27,6 +28,9 @@ const App = () => {
             </Route>
             <Route path="/auth">
               <Auth setLoggedIn={setLoggedIn}/>
+            </Route>
+            <Route path="/about_us">
+              <AboutUs/>
             </Route>
             <Route path="/">
               <Login setLoggedIn={setLoggedIn}/>

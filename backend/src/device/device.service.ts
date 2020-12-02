@@ -24,40 +24,42 @@ export class DeviceService {
         return this.deviceRepository.save(device);
     }
 
-    public async getAll(userId: string, query: DeviceQuery): Promise<Device[]> {
-        const channels = await this.channelsService.getChannels(userId);
+    public async getAll(userId: string, query: DeviceQuery, token: string): Promise<Device[]> {
+        const channels = await this.channelsService.getChannels(userId, token);
         const devices: Device[] = await Promise.all(channels.map(device => this.updateAndGet(this.mapToDevice(device, userId))));
 
         for await (const device of devices) {
             if (devicesConfig.has(device.type)) {
-                await this.setDeviceIconsAndDefaultAction(device, userId);
+                await this.setDeviceIconsAndDefaultAction(device, userId, token);
             }
         }
 
         return devices.filter(device => this.assertQuery(device, query));
     }
 
-    public updateAll(userId: string, devices: Device[]): void {
+    public updateAll(userId: string, devices: Device[], token: string): void {
         devices.forEach(device => this.deviceRepository.update(device.id, device))
     }
 
-    public async getDetails(userId: string, deviceId: string): Promise<DeviceDetails> {
+    public async getDetails(userId: string, deviceId: string, token: string): Promise<DeviceDetails> {
         const device = await this.deviceRepository.findOne(deviceId);
-        const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId);
+        const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId, token);
         const deviceDetails: DeviceDetails = this.mapToDeviceDetails(data);
 
-        await this.setDeviceIconsAndDefaultAction(deviceDetails, userId);
+        if (devicesConfig.has(device.type)) {
+            await this.setDeviceIconsAndDefaultAction(device, userId, token);
+        }
 
         return deviceDetails;
     }
 
-    public async callAction(userId: string, deviceId: string, actionType: ActionType) {
+    public async callAction(userId: string, deviceId: string, actionType: ActionType, token: string) {
         const device = await this.deviceRepository.findOne(deviceId);
-        return this.channelsService.callAction(userId, device.suplaDeviceId, actionType);
+        return this.channelsService.callAction(userId, device.suplaDeviceId, actionType, token);
     }
 
-    public async getStates(userId: string, query: DeviceQuery): Promise<DeviceState[]> {
-        const suplaDevicesWithStates = await this.channelsService.getChannelsWithStates(userId);
+    public async getStates(userId: string, query: DeviceQuery, token: string): Promise<DeviceState[]> {
+        const suplaDevicesWithStates = await this.channelsService.getChannelsWithStates(userId, token);
         const deviceStates: DeviceState[] = await Promise.all(suplaDevicesWithStates.map(device => this.mapToDeviceState(device, userId)));
         const devices = {};
 
@@ -96,12 +98,12 @@ export class DeviceService {
         })
     }
 
-    private async setDeviceIconsAndDefaultAction(device: BaseDevice, userId: string) {
+    private async setDeviceIconsAndDefaultAction(device: BaseDevice, userId: string, token: string) {
         const config: DeviceConfig = devicesConfig.get(device.type);
         if(device.suplaIconId == null) {
             device.icons = config.images;
         } else {
-            const iconsData = await this.channelsService.getIconById(userId, device.suplaIconId);
+            const iconsData = await this.channelsService.getIconById(userId, device.suplaIconId, token);
             device.icons = iconsData[0].images;
         }
         device.defaultAction = config.defaultAction;
@@ -126,7 +128,7 @@ export class DeviceService {
         return new Device(
             userId,
             suplaDevice.id,
-            suplaDevice.caption,
+            suplaDevice.caption != null ? suplaDevice.caption : `ID${suplaDevice.id} ${suplaDevice.function.caption}`,
             suplaDevice.userIconId,
             DeviceType[suplaDevice.function.name],
             suplaDevice.function.possibleVisualStates
