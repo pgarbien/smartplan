@@ -63,7 +63,7 @@ export default class BuildCommand extends Command {
             }
         } else {
             const pointerRoomIndex: number = getPointedRoomIndex(cursorPosition, this.roomsData.getRooms());
-            if(pointerRoomIndex > 0) {
+            if(pointerRoomIndex >= 0) {
                 const rooms = this.roomsData.getRooms();
                 const removedRoom = rooms.splice(pointerRoomIndex, 1);
                 this.roomsData.setRooms(rooms);
@@ -89,7 +89,7 @@ export default class BuildCommand extends Command {
         dehighlight(this.roomsData.getRooms());
         if(closePoint) {
             this.canvasDrawer.highlightPoint(closePoint);
-        } else if(!constructingRoom && pointedRoomIndex > 0) {
+        } else if(!constructingRoom && pointedRoomIndex >= 0) {
             highlightRoom(this.roomsData.getRooms(), pointedRoomIndex);
         }
 

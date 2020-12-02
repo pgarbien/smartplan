@@ -23,7 +23,9 @@ const ManageDeviceModal = (props) => {
     const modalContent =
         <Fragment>
             <p>Connection: {props.deviceState.state.connected ? <span style={{color: "#00d151"}}>connected</span> : <span style={{color: "red"}}>disconnected</span>}</p>
-            <p>State: {props.deviceState.state.on ? <span style={{color: "#00d151"}}>on</span> : <span style={{color: "red"}}>off</span>}</p>
+            {props.deviceState.state.on != undefined ? <p>State: {props.deviceState.state.on ? <span style={{color: "#00d151"}}>on</span> : <span style={{color: "red"}}>off</span>}</p> : ""}
+            {props.deviceState.state.temperature ? <p>Temperature: <span style={{color: "#00d151"}}>{props.deviceState.state['temperature']}ºC</span></p> : ""}
+            {console.log(props.deviceState)}
             <br/>
             {mappedActions}
         </Fragment>;

@@ -27,13 +27,16 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
     const fetchDevicesStates = (devices) => {
         devices.forEach(device => {
-            if(device.defaultAction) fetchDeviceState(device)
+            //TODO Czemu tu było if(device.defaultAction)
+            fetchDeviceState(device)
         })
     }
 
     const fetchDeviceState = (device) => {
         mAxios.get(`/devices/details/${device.id}`)
-            .then(response => setDeviceDetails(device, response.data), 1000)
+            .then(response => {
+                if(response) setDeviceDetails(device, response.data)
+            }, 1000)
     }
 
     const onMouseClick = (device) => {
@@ -65,6 +68,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
     const setDeviceDetails = (device, deviceDetails) => {
         const deviceVisualState = deviceDetails.possibleVisualStates.find(state => state == (deviceDetails.state.on ? "on" : "off"));
+        console.log(deviceDetails.state.connected)
         device.deviceState = deviceDetails.state.connected ? deviceDetails.state.on ? DeviceState.ACTIVE : DeviceState.NOT_ACTIVE : DeviceState.DISABLED
         device.activeIconId = deviceDetails.possibleVisualStates.indexOf(deviceVisualState)
         creator.changeDevice(device);
