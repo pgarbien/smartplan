@@ -244,10 +244,6 @@ button {
   opacity: 1;
 }
 
-.active {
-  height: 28em;
-}
-
 .active .description-hovered {
   opacity: 1;
 }

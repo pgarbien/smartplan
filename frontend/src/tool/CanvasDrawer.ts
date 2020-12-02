@@ -77,7 +77,7 @@ export default class CanvasDrawer {
         image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.deviceState == DeviceState.ACTIVE && newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
         const size = 30
         let width = image.naturalWidth
-        let height = image.naturalWidth
+        let height = image.naturalHeight
         if(width > height) {
             const ratio = height / width
             width = size
@@ -89,7 +89,7 @@ export default class CanvasDrawer {
         }
 
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  30 : 20, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  26 : 22, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "#ffffff";
         this.canvasContext.strokeStyle = newDevice.deviceState == DeviceState.ACTIVE ? "#00d151" : newDevice.deviceState == DeviceState.DISABLED ? "#ff0000" : "#777777"
         this.canvasContext.lineWidth = 1;
