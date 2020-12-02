@@ -128,7 +128,7 @@ export class DeviceService {
         return new Device(
             userId,
             suplaDevice.id,
-            suplaDevice.caption,
+            suplaDevice.caption != null ? suplaDevice.caption : `ID${suplaDevice.id} ${suplaDevice.function.caption}`,
             suplaDevice.userIconId,
             DeviceType[suplaDevice.function.name],
             suplaDevice.function.possibleVisualStates
