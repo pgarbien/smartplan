@@ -33,10 +33,7 @@ const Locations = () => {
                     <div class="center">
                         <div className="location-photo"
                             style={{backgroundImage: location.photoUrl ? "url(" + location.photoUrl + ")" : staticLocationPhoto}}></div>
-                        <div>
-                            <div class="separator"/>
-                            {location.name}
-                        </div>
+                        <div style={{padding: 2}}>{location.name}</div>
                     </div>
                     <div class="dynamic-buttons">
                         <div className="location-edit" onClick={(e) => { e.stopPropagation(); history.push(`draw?locationId=` + location.id) }}>
@@ -47,12 +44,6 @@ const Locations = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="location-edit" onClick={(e) => { e.stopPropagation(); history.push(`draw?locationId=` + location.id) }}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/1024px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" />
-            </div>
-            <div className="location-add-devices" onClick={(e) => { e.stopPropagation(); history.push(`draw/devices?locationId=` + location.id) }}>
-                <img src="https://static.thenounproject.com/png/1129430-200.png" />
             </div>
         </div>
     });
