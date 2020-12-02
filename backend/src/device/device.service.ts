@@ -46,7 +46,9 @@ export class DeviceService {
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId, token);
         const deviceDetails: DeviceDetails = this.mapToDeviceDetails(data);
 
-        await this.setDeviceIconsAndDefaultAction(deviceDetails, userId, token);
+        if (devicesConfig.has(device.type)) {
+            await this.setDeviceIconsAndDefaultAction(device, userId, token);
+        }
 
         return deviceDetails;
     }
