@@ -89,6 +89,32 @@ export default class CanvasDrawer {
             height = size
         }
 
+        const devicePosition: Point = new Point(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height);
+
+        if(newDevice.displayedState) {
+            const displayedState = `${newDevice.displayedState}`;
+            const textWidth = this.canvasContext.measureText(displayedState).width;
+            const font = "20px Quicksand,sans-serif";
+
+            this.canvasContext.beginPath();
+            this.canvasContext.font = font;
+            this.canvasContext.textBaseline = 'top';
+            this.canvasContext.fillStyle = '#fff';
+            this.canvasContext.strokeStyle = "#777777"
+            this.canvasContext.lineWidth = 1.5;
+            this.roundRect(
+                devicePosition.x,
+                devicePosition.y - parseInt(font, 10)/2 - 5, 
+                textWidth + 40,
+                parseInt(font, 10) + 10, 
+                (parseInt(font, 10) + 10)/2, 
+                true, true
+                )
+            this.canvasContext.fillStyle = '#000';
+            this.canvasContext.fillText(displayedState, devicePosition.x + 30, devicePosition.y - parseInt(font, 10)/2);
+            this.canvasContext.closePath();
+        }
+
         this.canvasContext.beginPath();
         this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  26 : 22, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "#ffffff";
@@ -99,6 +125,33 @@ export default class CanvasDrawer {
         this.canvasContext.closePath();
         this.canvasContext.drawImage(image, newDevice.point!.x * this.canvas.width - width/2, newDevice.point!.y * this.canvas.height - height/2, width, height);
     }
+
+    roundRect(x: number, y: number, width: number, height: number, radius: number, fill: boolean, stroke: boolean) {
+        let radiuss: {
+            tl: number;
+            tr: number;
+            br: number;
+            bl: number;
+        } = {tl: 0, tr: radius, br: radius, bl: 0};
+
+        this.canvasContext.beginPath();
+        this.canvasContext.moveTo(x + radiuss.tl, y);
+        this.canvasContext.lineTo(x + width - radiuss.tr, y);
+        this.canvasContext.quadraticCurveTo(x + width, y, x + width, y + radiuss.tr);
+        this.canvasContext.lineTo(x + width, y + height - radiuss.br);
+        this.canvasContext.quadraticCurveTo(x + width, y + height, x + width - radiuss.br, y + height);
+        this.canvasContext.lineTo(x + radiuss.bl, y + height);
+        this.canvasContext.quadraticCurveTo(x, y + height, x, y + height - radiuss.bl);
+        this.canvasContext.lineTo(x, y + radiuss.tl);
+        this.canvasContext.quadraticCurveTo(x, y, x + radiuss.tl, y);
+        this.canvasContext.closePath();
+        if (fill) {
+            this.canvasContext.fill();
+        }
+        if (stroke) {
+            this.canvasContext.stroke();
+        }
+      }
 
     drawLine(startPoint: Point, endPoint: Point, primary: Boolean = false) {
         this.canvasContext.beginPath();

@@ -15,8 +15,9 @@ interface NewDeviceInterface {
     defaultAction: number | null,
     roomId: string | null,
     locationId: string | null,
-    levelId: string | null
-    deviceState: DeviceState | null
+    levelId: string | null,
+    deviceState: DeviceState | null,
+    displayedState: String | null
 }
 
 export default class NewDevice implements NewDeviceInterface {
@@ -30,6 +31,7 @@ export default class NewDevice implements NewDeviceInterface {
     locationId: string | null;
     levelId: string | null;
     deviceState: DeviceState | null;
+    displayedState: String | null;
 
     constructor(
         name: string = "", 
@@ -41,7 +43,8 @@ export default class NewDevice implements NewDeviceInterface {
         roomId: string | null = null, 
         locationId: string | null = null, 
         levelId: string | null = null,
-        deviceState: DeviceState | null = null
+        deviceState: DeviceState | null = null,
+        displayedState: String | null = null
     ) {
         this.name = name;
         this.id = id;
@@ -53,10 +56,11 @@ export default class NewDevice implements NewDeviceInterface {
         this.locationId = locationId;
         this.levelId = levelId;
         this.deviceState = deviceState;
+        this.displayedState = displayedState;
     }
 
     getCopy(): NewDevice {
-        return new NewDevice(this.name, this.id, this.point, this.icons, this.activeIconId, this.defaultAction, this.roomId, this.locationId, this.levelId, this.deviceState);
+        return new NewDevice(this.name, this.id, this.point, this.icons, this.activeIconId, this.defaultAction, this.roomId, this.locationId, this.levelId, this.deviceState, this.displayedState);
     }
 
 }

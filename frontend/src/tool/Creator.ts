@@ -109,6 +109,7 @@ export default class Creator {
         this.getAddedDevices().filter(dev => dev.id == device.id).map(d => {
             d.deviceState = device.deviceState
             d.activeIconId = device.activeIconId
+            d.displayedState = device.displayedState
         });
     }
 
