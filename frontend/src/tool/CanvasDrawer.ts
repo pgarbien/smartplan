@@ -18,12 +18,13 @@ export default class CanvasDrawer {
         const imageHeigth = backgroundImage.backgroundImage.height;
         const imageWidth = backgroundImage.backgroundImage.width;
         const imageRatio = imageHeigth/imageWidth;
+        const canvasRatio = canvasHeight/canvasWidth;
 
-        if(imageRatio < 1) {
-            const height = canvasHeight*imageRatio;
+        if(imageRatio < canvasRatio) {
+            const height = canvasWidth*imageRatio;
             this.canvasContext.drawImage(backgroundImage.backgroundImage, 0, (canvasHeight - height)/2, canvasWidth, height);
         } else {
-            const width = canvasWidth/imageRatio;
+            const width = canvasHeight/imageRatio;
             this.canvasContext.drawImage(backgroundImage.backgroundImage, (canvasWidth - width)/2, 0, width, canvasHeight);
         }
     }
@@ -92,7 +93,7 @@ export default class CanvasDrawer {
         this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  26 : 22, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "#ffffff";
         this.canvasContext.strokeStyle = newDevice.deviceState == DeviceState.ACTIVE ? "#00d151" : newDevice.deviceState == DeviceState.DISABLED ? "#ff0000" : "#777777"
-        this.canvasContext.lineWidth = 1;
+        this.canvasContext.lineWidth = 2;
         this.canvasContext.fill();
         this.canvasContext.stroke();
         this.canvasContext.closePath();
