@@ -16,6 +16,9 @@ async function bootstrap() {
         .setTitle('Atomowki backend API')
         .setDescription('API description')
         .setVersion('1.0.0')
+        .addServer('http://localhost:4000')
+        .addServer('https://atomowki.azurewebsites.net/api')
+        .addServer('https://homepanel.fracz.com/api')
         .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, options, {

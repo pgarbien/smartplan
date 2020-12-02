@@ -14,11 +14,12 @@ import {DeviceService} from "./device.service";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
 import {Device, DeviceDetails, DeviceState} from "./device.model";
-import {ApiBearerAuth, ApiHideProperty, ApiOkResponse, ApiUnauthorizedResponse} from "@nestjs/swagger";
+import {ApiBearerAuth, ApiHideProperty, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
 import {ActionTypeRequest, DeviceQuery} from "./device.api.model";
 
 @Controller('devices')
 @ApiBearerAuth()
+@ApiTags('Devices')
 @ApiUnauthorizedResponse()
 @UseGuards(AuthGuard)
 @UseInterceptors(AuthInterceptor, ClassSerializerInterceptor)
