@@ -3,25 +3,27 @@ import Modal from '../../components/Modal/Modal';
 import Location from '../../tool/model/Location';
 import mAxios from '../../utils/API';
 import '../../new_css/modal_css/Modal.css';
+import {useTranslation} from 'react-i18next';
 
 const NewLocationModal = (props) => {
+    const {t, i18n} = useTranslation('main');
     const [locationName, setLocationName] = useState(null);
     const [locationPhoto, setLocationPhoto] = useState(null);
 
     const modalContent = <Fragment>
-        <label for="location-name">Location name:</label>
-        <input type="text" id="location-name" name="location-name" placeholder="Beautiful house" onChange={(event) => { setLocationName(event.target.value) }}/>
+        <label for="location-name">{t('popups.locationName')}</label>
+        <input type="text" id="location-name" name="location-name" placeholder={t('popups.defaultLocationName')} onChange={(event) => { setLocationName(event.target.value) }}/>
         <br/>
-        <label for="location-photo">Location photo:</label>
+        <label for="location-photo">{t('popups.locationPhoto')}</label>
         <br/>
         <br/>
-        <label for="location-photo" className="upload-button">{locationPhoto ? ("Selected photo: " + locationPhoto.name) : "Upload location photo"}</label>
+        <label for="location-photo" className="upload-button">{locationPhoto ? (t('popups.selectedPhoto')+ locationPhoto.name) : t('popups.uploadPhoto')}</label>
         <input type="file" id="location-photo" name="location-photo" accept="image/png, image/jpeg" onChange={(event) => { setLocationPhoto(event.target.files[0]) }}/>
         <br/>
         <br/>
         {/* <label for="location-color">Location color:</label>
         <input type="color" id="location-color" name="location-color" value="#00d151" /> */}
-        <button className="create-button" onClick={() => { locationPhoto ? createNewLocation() : postNewLocation() }} disabled={ locationName == null || locationName === "" }>CREATE</button>
+        <button className="create-button" onClick={() => { locationPhoto ? createNewLocation() : postNewLocation() }} disabled={ locationName == null || locationName === "" }>{t('popups.create')}</button>
     </Fragment>;
 
     const createNewLocation = () => {
@@ -51,7 +53,7 @@ const NewLocationModal = (props) => {
             });
     }
 
-    return (props.showModal ? <Modal title="Create new location" canClose={true} onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
+    return (props.showModal ? <Modal title={t('popups.createNewLocation')} canClose={true} onCloseModal={() => { props.setShowModal(false) }}> {modalContent} </Modal> : null);
 }
 
 export default NewLocationModal;

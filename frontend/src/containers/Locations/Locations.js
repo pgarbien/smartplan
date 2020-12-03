@@ -6,8 +6,10 @@ import '../../new_css/location_css/Locations.css';
 import '../../new_css/app_css/App.css';
 import '../../pe-icon-7-stroke/css/pe-icon-7-stroke.css';
 import '../../pe-icon-7-stroke/css/helper.css';
+import {useTranslation} from 'react-i18next';
 
 const Locations = () => {
+    const {t, i18n} = useTranslation('main');
     const history = useHistory();
     const [locations, setLocations] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -53,7 +55,7 @@ const Locations = () => {
             <div class="container">
                 <div class="row">
                     <div class="col-locations">
-                        <h1 class="carousel-title">Lokalizacje</h1>
+                        <h1 class="carousel-title">{t('locationsPage.localizations')}</h1>
                         <div class="loading-cover">
                             {/* <div class="filters">WSZYSTKO|INNE|WYŁĄCZONE|WŁĄCZONE|---SZUKAJ---</div> */}
                             <div class="locations">
@@ -62,7 +64,7 @@ const Locations = () => {
                                     <div onClick={() => {setShowModal(true)}} class="location lift-up black">
                                         <div class="center">
                                             <span class="span">
-                                                <i class="pe-7s-plus"></i>Utwórz nową lokalizację
+                                                <i class="pe-7s-plus"></i>{t('locationsPage.createNew')}
                                             </span>
                                         </div>
                                     </div>

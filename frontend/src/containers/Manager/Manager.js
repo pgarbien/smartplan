@@ -9,9 +9,11 @@ import LevelsList from '../../components/Levels/LevelsList';
 import { Commands } from '../../tool/commands/Commands';
 import ManageDeviceModal from '../../components/Devices/ManageDeviceModal';
 import mAxios from '../../utils/API';
-import { DeviceState } from '../../tool/model/NewDevice'
+import { DeviceState } from '../../tool/model/NewDevice';
+import {useTranslation} from 'react-i18next';
 
 const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, creator }) => {
+    const {t, i18n} = useTranslation('main');
     const creationCanvas = useRef(null);
     const [device, setDevice] = useState(null);
     const [activeLevel, setActiveLevel] = useState(0);
@@ -100,7 +102,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
             <div class="container manager-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
-                        <h2>Manage <span class="primary_color">{location ? location.name : "your"}</span> devices:</h2>
+                        <h2>{t('managePage.manageDevsBeginning')}<span class="primary_color">{location ? location.name : "your"}</span> {t('managePage.manageDevsEnding')}</h2>
                         <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                 </div>
@@ -116,10 +118,10 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                         </div>
                         <div className="right-container-buttons">
                             <Link class="directional-button-link" to={location ? "/draw?locationId=" + location.id : "#"}>
-                                <div className="directional-button">Edit location &nbsp;&gt;</div>
+                                <div className="directional-button">{t('tool.editLocation')} &nbsp;&gt;</div>
                             </Link>
                             <Link class="directional-button-link" to={location ? "/draw/devices?locationId=" + location.id : "#"}>
-                                <div className="directional-button">Add devices &nbsp;&gt;</div>
+                                <div className="directional-button">{t('tool.addDevices')} &nbsp;&gt;</div>
                             </Link>
                         </div>
                     </div>

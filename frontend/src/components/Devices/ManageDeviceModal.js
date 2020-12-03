@@ -3,8 +3,10 @@ import React, { Fragment } from 'react';
 import Modal from '../Modal/Modal';
 import mAxios from '../../utils/API';
 import '../../new_css/modal_css/Modal.css';
+import {useTranslation} from 'react-i18next';
 
 const ManageDeviceModal = (props) => {
+    const {t, i18n} = useTranslation('main');
 
     function handleAction(action) {
         mAxios.post(`/devices/actions/${props.device.id}`, { "actionType": action.name })
@@ -22,9 +24,9 @@ const ManageDeviceModal = (props) => {
 
     const modalContent =
         <Fragment>
-            <p>Connection: {props.deviceState.state.connected ? <span style={{color: "#00d151"}}>connected</span> : <span style={{color: "red"}}>disconnected</span>}</p>
-            {props.deviceState.state.on != undefined ? <p>State: {props.deviceState.state.on ? <span style={{color: "#00d151"}}>on</span> : <span style={{color: "red"}}>off</span>}</p> : ""}
-            {props.deviceState.state.temperature ? <p>Temperature: <span style={{color: "#00d151"}}>{props.deviceState.state['temperature']}ºC</span></p> : ""}
+            <p>{t('popups.connection')} {props.deviceState.state.connected ? <span style={{color: "#00d151"}}>{t('popups.connected')}</span> : <span style={{color: "red"}}>{t('popups.disconnected')}</span>}</p>
+            {props.deviceState.state.on != undefined ? <p>{t('popups.state')} {props.deviceState.state.on ? <span style={{color: "#00d151"}}>{t('popups.on')}</span> : <span style={{color: "red"}}>{t('popups.off')}</span>}</p> : ""}
+            {props.deviceState.state.temperature ? <p>{t('popups.temperature')} <span style={{color: "#00d151"}}>{props.deviceState.state['temperature']}ºC</span></p> : ""}
             {console.log(props.deviceState)}
             <br/>
             {mappedActions}

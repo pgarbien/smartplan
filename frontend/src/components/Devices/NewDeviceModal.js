@@ -2,9 +2,11 @@ import React, {Fragment, useState, useEffect} from 'react';
 import Modal from '../../components/Modal/Modal';
 import '../../new_css/modal_css/Modal.css';
 import mAxios from '../../utils/API';
+import {useTranslation} from "react-i18next";
 
 const NewDeviceModal = (props) => {
-    const [devices, setDevices] = useState([])
+    const {t, i18n} = useTranslation('main');
+    const [devices, setDevices] = useState([]);
     const [selectedDevice, setSelectedDevice] = useState(null);
     const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -43,10 +45,10 @@ const NewDeviceModal = (props) => {
             </div>
             <br/>
             <br/>
-            <button className="create-button" onClick={() => { props.addNewDevice(selectedDevice)} } disabled={!selectedDevice}>Add</button>
+            <button className="create-button" onClick={() => { props.addNewDevice(selectedDevice)} } disabled={!selectedDevice}>{t('popups.add')}</button>
         </Fragment>;
 
-    return <Modal title="Add new device" canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal>;
+    return <Modal title={t('popups.addNewDevice')} canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal>;
 }
 
 export default NewDeviceModal;
