@@ -1,6 +1,65 @@
-{
-    "add_devices": {
-        "title_beginning": "Add devices to ",
-        "title_ending": " location:"
+{   
+    "navBar": {
+        "website": "SUPLA Website",
+        "localization": "Localizations",
+        "aboutUs": "About us",
+        "documentation": "API Documentation",
+        "logIn": "Sign in",
+        "logOut": "Log out"
+    },
+    "footer": {
+        "madeBy": "Made by: Puwerpuff Girls",
+        "description": "SUPLA 2D Home, extension for ",
+        "language": "English"
+    },
+    "popups": {
+        "create": "Create",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "add": "Add",
+        "save": "Save",
+        "autosave": "Autosave",
+        "createNewLocation": "Create new localization",
+        "locationName": "Localization name:",
+        "defaultLocationName": "House name",
+        "selectedPhoto": "Selected photo:",
+        "locationPhoto": "Localization photo",
+        "uploadPhoto": "Upload photo",
+        "addLevel": "Add level",
+        "levelName": "Level name: ",
+        "defaultLevel": "Level #1",
+        "levelBlueprint": "Level blueprint",
+        "uploadBlueprint": "Upload blueprint",
+        "addNewDevice": "Add new device",
+        "disconnected": "disconnected",
+        "connected": "connected",
+        "on": "on",
+        "off": "off",
+        "temperature": "Temperature: ",
+        "state": "State: ",
+        "connection": "Connection: "
+    },
+    "locationsPage": {
+        "localizations": "Localizations",
+        "createNew": "Create new localization"
+    },
+    "editPage": {
+        "editLocationBeggining": "Edit ",
+        "editLocationEnding": " location"
+    },
+    "managePage": {
+        "manageDevsBeginning": "Manage ",
+        "manageDevsEnding": " devices:",
+        "yourDevices": "Your devices"
+    },
+    "tool": {
+        "editLocation": "Edit location",
+        "addDevices": "Add devices ",
+        "manageDevices": "Manage devices ",
+        "all": "All"
+    },
+    "addDevices": {
+        "titleBeginning": "Add devices to ",
+        "titleEnding": " location:"
     }
 }

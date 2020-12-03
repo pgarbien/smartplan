@@ -92,11 +92,11 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
             <div class="container tool-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
-                        <h2>{t('add_devices.title_beginning')} <span class="primary_color">{location ? location.name : "your"}</span>{t('add_devices.title_ending')}</h2>
+                        <h2>{t('addDevices.titleBeginning')} <span class="primary_color">{location ? location.name : "your"}</span>{t('addDevices.titleEnding')}</h2>
                         <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                     <div class="button-header no-margin-top">
-                        <button class="btn save-button" onClick={() => { save(); }}>Zapisz zmiany</button>
+                        <button class="btn save-button" onClick={() => { save(); }}>{t('popups.save')}</button>
                     </div>
                 </div>
                 <div class="tool-page-layout">
@@ -119,10 +119,10 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
                         <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
                         <div className="right-container-buttons">
                             <Link class="directional-button-link" to={location ? "/draw?locationId=" + location.id : "#"}>
-                                <div className="directional-button">Edit location &nbsp;&gt;</div>
+                                <div className="directional-button">{t('tool.editLocation')} &nbsp;&gt;</div>
                             </Link>
                             <Link class="directional-button-link" to={location ? "/draw/manager?locationId=" + location.id : "#"}>
-                                <div className="directional-button">Manage devices &nbsp;&gt;</div>
+                                <div className="directional-button">{t('tool.manageDevices')} &nbsp;&gt;</div>
                             </Link> 
                         </div>
                     </div>

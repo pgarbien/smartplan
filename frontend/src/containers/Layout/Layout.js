@@ -4,7 +4,8 @@ import '../../new_css/app_css/App.css';
 import {useTranslation} from "react-i18next";
 
 const Layout = (props) => {
-    const [t, i18n] = useTranslation('common');
+    const [t2, i18n] = useTranslation('common');
+    const {t, _} = useTranslation('main');
     const [language, setLanguage] = useState('en');
 
     return (
@@ -26,11 +27,11 @@ const Layout = (props) => {
                         } else {
                             setLanguage('pl')
                             i18n.changeLanguage('en')
-                        } }}>Polski</div>
-                    <div class="footer-right">Made by: atomówki</div>
+                        } }}>{t('footer.language')}</div>
+                    <div class="footer-right">{t('footer.madeBy')}</div>
                     <div class="footer-center">
                     <div class="footer-center">
-                        <span class="text-muted">SUPLA 2D Home, extension for </span>
+                        <span class="text-muted">{t('footer.description')} </span>
                         <a href="https://www.supla.org" class="brand-nav-link">www.supla.org</a></div>
                     </div>
                 </div>

@@ -1,6 +1,65 @@
-{
-    "add_devices": {
-        "title_beginning": "Dodaj urządzenia do ",
-        "title_ending": ":"
+{   
+    "navBar": {
+        "website": "Strona SUPLA",
+        "localization": "Lokalizacje",
+        "aboutUs": "O nas",
+        "documentation": "Dokumentacja API",
+        "logIn": "Zaloguj",
+        "logOut": "Wyloguj"
+    },
+    "footer": {
+        "madeBy": "Stworzone przez: Atomówki",
+        "description": "SUPLA 2D Home, rozszerzenie dla ",
+        "language": "Polski"
+    },
+    "popups": {
+        "create": "Stwórz",
+        "delete": "Usuń",
+        "cancel": "Anuluj",
+        "add": "Dodaj",
+        "save": "Zapisz",
+        "autosave": "Autozapis",
+        "createNewLocation": "Stwórz nową lokalizację",
+        "locationName": "Nazwa lokalizacji:",
+        "defaultLocationName": "Nazwa domu",
+        "selectedPhoto": "Wybrane zdjęcie:",
+        "locationPhoto": "Zdjęcie lokalizacji",
+        "uploadPhoto": "Dodaj zdjęcie",
+        "addLevel": "Dodaj poziom",
+        "levelName": "Nazwa poziomu: ",
+        "defaultLevel": "Poziom #1",
+        "levelBlueprint": "Plan poziomu",
+        "uploadBlueprint": "Dodaj plan",
+        "addNewDevice": "Dodaj nowe urządzenie",
+        "disconnected": "rozłączone",
+        "connected": "połączone",
+        "on": "włączone",
+        "off": "wyłączone",
+        "temperature": "Temperatura: ",
+        "state": "Stan: ",
+        "connection": "Połączenie: "
+    },
+    "locationsPage": {
+        "localizations": "Lokalizacje",
+        "createNew": "Utwórz nową lokalizację"
+    },
+    "editPage": {
+        "editLocationBeggining": "Edytuj lokację ",
+        "editLocationEnding": ""
+    },
+    "managePage": {
+        "manageDevsBeginning": "Zarządzaj urządzeniami w ",
+        "manageDevsEnding": "",
+        "yourDevices": "Twoje urządzenia"
+    },
+    "tool": {
+        "editLocation": "Edytuj lokalizacje",
+        "addDevices": "Dodaj urządzenia ",
+        "manageDevices": "Zarządzaj urządzeniami " ,
+        "all": "Wszystkie"
+    },
+    "addDevices": {
+        "titleBeginning": "Dodaj urządzenia do ",
+        "titleEnding": ":"
     }
 }
