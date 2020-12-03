@@ -70,12 +70,24 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
         const deviceVisualState = deviceDetails.possibleVisualStates.find(state => state == (deviceDetails.state.on ? "on" : "off"));
         device.deviceState = deviceDetails.state.connected ? deviceDetails.state.on ? DeviceState.ACTIVE : DeviceState.NOT_ACTIVE : DeviceState.DISABLED
         device.activeIconId = deviceDetails.possibleVisualStates.indexOf(deviceVisualState)
-        if(deviceDetails.state.temperature && deviceDetails.state.humidity) device.displayedState = `${deviceDetails.state.temperature}°C, ${deviceDetails.state.humidity}%`
-        else if(deviceDetails.state.temperature) device.displayedState = `${deviceDetails.state.temperature}°C`
-        else if(deviceDetails.state.humidity) device.displayedState = `${deviceDetails.state.humidity}%`
-        else if(device.name === "Światełko Piotra") device.displayedState = `∗∗∗∗∗ ∗∗∗`
+
+        let displayedState = "";
+        Object.keys(deviceDetails.state).map((field, index) => {
+            if(deviceState.stateDetails && deviceDetails.stateDetails[field]?.quickView) {
+                if(displayedState.length > 0) displayedState += ", "
+                displayedState += deviceDetails.state[field] + "" + deviceDetails.stateDetails[field]?.unit
+            }
+        });
+        device.displayedState = displayedState;
+
         creator.changeDevice(device);
         creator.refresh();
+    }
+
+    const nextFloor = () => {
+        const nextLevel = (activeLevel + 1) % location.levels.length;
+        setActiveLevel(nextLevel);
+        changeDisplayedLevel(location.levels[nextLevel]);
     }
 
     useEffect(() => {
@@ -110,7 +122,9 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                     <div className="left-container"></div>
                     <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
                         <canvas ref={creationCanvas} class="canvas" id="managerCanvas"/>
+                        { fullscreen ? <div style={{position: "absolute",left: 75,bottom: 65,color: "#00d151", fontSize: 35,fontWeight: 300, fontFamily: "Quicksand,sans-serif"}} > {location.levels[activeLevel].name} </div> : ""}
                         <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
+                        { fullscreen ? <div onClick={() => nextFloor()} > &gt; </div> : ""}
                     </div>
                     <div className="right-container">
                         <div class="manager-devices-list">
