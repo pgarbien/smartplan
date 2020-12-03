@@ -154,7 +154,13 @@ export class Action {
     }
 }
 
+export interface StateDetails {
+    unit: string;
+    quickView: boolean
+}
+
 export interface DeviceConfig {
     images: string[];
     defaultAction: ActionType;
+    stateDetails: Map<string, StateDetails>
 }
