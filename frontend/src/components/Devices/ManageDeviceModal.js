@@ -5,34 +5,39 @@ import mAxios from '../../utils/API';
 import '../../new_css/modal_css/Modal.css';
 import {useTranslation} from 'react-i18next';
 
-const ManageDeviceModal = (props) => {
+const ManageDeviceModal = ({device, manageDevice, deviceState, canClose, setShowModal}) => {
     const {t, i18n} = useTranslation('main');
 
     function handleAction(action) {
-        mAxios.post(`/devices/actions/${props.device.id}`, { "actionType": action.name })
+        mAxios.post(`/devices/actions/${device.id}`, { "actionType": action.name })
             .then(response => {
-                props.manageDevice(props.device, action.caption);
+                manageDevice(device, action.caption);
             })
             .catch(error => console.log(error));
     }
 
-    const mappedActions = props.deviceState.actions.map(action => {
+    const mappedActions = deviceState.actions.map(action => {
         return <div className = "action" onClick={() => { handleAction(action) }}>
                 <p class="model-button">{action.caption}</p>
             </div>
     })
 
+    const mappedStates = Object.keys(deviceState.state).map((field, index) => {
+        const value = typeof deviceState.state[field] === "boolean" ? deviceState.state[field] ? "true" : "false" : deviceState.state[field] ;
+        return <div>
+            <span style={{textTransform: 'capitalize'}}>{field}</span>
+            <span style={{color: "#00d151"}}>: {value} {deviceState.stateDetails ? deviceState.stateDetails[field]?.unit : ""}</span>
+        </div>
+    })
+
     const modalContent =
         <Fragment>
-            <p>{t('popups.connection')} {props.deviceState.state.connected ? <span style={{color: "#00d151"}}>{t('popups.connected')}</span> : <span style={{color: "red"}}>{t('popups.disconnected')}</span>}</p>
-            {props.deviceState.state.on != undefined ? <p>{t('popups.state')} {props.deviceState.state.on ? <span style={{color: "#00d151"}}>{t('popups.on')}</span> : <span style={{color: "red"}}>{t('popups.off')}</span>}</p> : ""}
-            {props.deviceState.state.temperature ? <p>{t('popups.temperature')} <span style={{color: "#00d151"}}>{props.deviceState.state['temperature']}ºC</span></p> : ""}
-            {console.log(props.deviceState)}
+            {mappedStates}
             <br/>
             {mappedActions}
         </Fragment>;
 
-    return <Modal title={ "Manage " + props.device.name } canClose={props.canClose} onCloseModal={() => {props.setShowModal(false)}}> {modalContent} </Modal>
+    return <Modal title={ "Manage " + device.name } canClose={canClose} onCloseModal={() => {setShowModal(false)}}> {modalContent} </Modal>
 }
 
 export default ManageDeviceModal;
