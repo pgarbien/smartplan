@@ -114,6 +114,9 @@ export class DeviceDetails implements BaseDevice {
     @ApiProperty()
     possibleVisualStates: string[];
 
+    @ApiProperty()
+    stateDetails: Map<string, StateDetails>;
+
     constructor(type: DeviceType, caption: string, actions: Action[], state: any, suplaIconId: number, possibleVisualStates: string[]) {
         this.type = type;
         this.caption = caption;
@@ -132,9 +135,13 @@ export class DeviceState {
     @ApiProperty()
     state: JSON;
 
-    constructor(id: string, state: JSON) {
+    @ApiProperty()
+    details: Map<string, StateDetails>;
+
+    constructor(id: string, state: JSON, details: Map<string, StateDetails>) {
         this.id = id;
         this.state = state;
+        this.details = details;
     }
 }
 

@@ -46,8 +46,9 @@ export class DeviceService {
         const data = await this.channelsService.getChannelById(userId, device.suplaDeviceId, token);
         const deviceDetails: DeviceDetails = this.mapToDeviceDetails(data);
 
-        if (devicesConfig.has(device.type)) {
-            await this.setDeviceIconsAndDefaultAction(device, userId, token);
+        if (devicesConfig.has(deviceDetails.type)) {
+            await this.setDeviceIconsAndDefaultAction(deviceDetails, userId, token);
+            this.setStateDetails(deviceDetails);
         }
 
         return deviceDetails;
@@ -109,6 +110,11 @@ export class DeviceService {
         device.defaultAction = config.defaultAction;
     }
 
+    private setStateDetails(device: DeviceDetails) {
+        const config: DeviceConfig = devicesConfig.get(device.type);
+        device.stateDetails = config.stateDetails;
+    }
+
     private assertQuery(device: Device, query: DeviceQuery): boolean {
         return (query.roomId != null && device.roomId == query.roomId)
             || (query.levelId != null && query.roomId == null && device.levelId == query.levelId)
@@ -121,7 +127,13 @@ export class DeviceService {
             suplaDeviceId: suplaDevice.id,
             userId: userId
         });
-        return new DeviceState(device.id.toString(), suplaDevice.state);
+
+        let config: DeviceConfig = null;
+        if(devicesConfig.has(device.type)) {
+            config = devicesConfig.get(device.type);
+        }
+
+        return new DeviceState(device.id.toString(), suplaDevice.state, config != null ? config.stateDetails : new Map());
     }
 
     private mapToDevice(suplaDevice, userId): Device {
