@@ -56,7 +56,8 @@
         "editLocation": "Edit location",
         "addDevices": "Add devices ",
         "manageDevices": "Manage devices ",
-        "all": "All"
+        "all": "All",
+        "noDevices": "No devices found"
     },
     "addDevices": {
         "titleBeginning": "Add devices to ",

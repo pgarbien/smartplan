@@ -56,7 +56,8 @@
         "editLocation": "Edytuj lokalizacje",
         "addDevices": "Dodaj urządzenia ",
         "manageDevices": "Zarządzaj urządzeniami " ,
-        "all": "Wszystkie"
+        "all": "Wszystkie",
+        "noDevices": "Brak urządzeń"
     },
     "addDevices": {
         "titleBeginning": "Dodaj urządzenia do ",
