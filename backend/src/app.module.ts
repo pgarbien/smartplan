@@ -16,6 +16,7 @@ import {Device} from "./device/device.model";
 import {DeviceModule} from "./device/device.module";
 import {ChannelsModule} from './channels/channels.module';
 import { FileModule } from './file/file.module';
+import { PreferencesModule } from './preferences/preferences.module';
 
 @Module({
     imports: [
@@ -43,7 +44,8 @@ import { FileModule } from './file/file.module';
         AuthModule,
         DeviceModule,
         ChannelsModule,
-        FileModule
+        FileModule,
+        PreferencesModule
     ],
     controllers: [AppController, FileController],
     providers: [AppService, ChannelsService]

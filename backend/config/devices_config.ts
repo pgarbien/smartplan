@@ -169,7 +169,7 @@ const devicesConfig: Map<DeviceType, DeviceConfig> = new Map<DeviceType, DeviceC
         defaultAction: null,
         stateDetails: new Map([
             ["value", {
-                unit: "l/m²",
+                unit: "g",
                 quickView: true
             }]
         ])
