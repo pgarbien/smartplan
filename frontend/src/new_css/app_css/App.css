@@ -78,20 +78,25 @@ nav .navbar {
   border: 0;
 }
 
-.container {
-  /* padding-right: 10px; */
-  /* padding-left: 10px; */
+.body-container {
+  padding-right: 10px; 
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
-  /* min-width: 500px; */
-  /* max-width: 1250px; */
+  min-width: 500px;
+  max-width: 1250px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
   padding: 0 11%;
 }
 
 .tool-bar_supla {
   float: left;
   height: 100%;
-  padding: 25px 10px;
+  padding: 20px 10px;
   background-color: transparent;
   -webkit-transition: all .3s;
   transition: all .3s;

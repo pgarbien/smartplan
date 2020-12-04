@@ -22,7 +22,7 @@ const NavLinks = ({loggedIn}) => {
 
     const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan.png" style={{height: "100%"}}/> </NavLink>
 
-    const loggedInNav = <div className="container" style={{padding: "0 10%", maxWidth: "100%", height: 90}}>
+    const loggedInNav = <div className="container" style={{padding: "0 10%", maxWidth: "100%", height: 80}}>
         {suplaLogo}
         <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li>
@@ -43,7 +43,7 @@ const NavLinks = ({loggedIn}) => {
         </ul>
     </div>
 
-    const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%", height: 90}}>
+    const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%", height: 80}}>
         {suplaLogo}
         <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li>
