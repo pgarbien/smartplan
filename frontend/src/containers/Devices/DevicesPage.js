@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef, createRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
@@ -22,7 +22,9 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
     const [fullscreen, setFullscreen] = useState(false);
 
     const save = () => {
-        const addedDevices = creator.getAddedDevices();
+        const addedDevices = creator.getAddedDevices().map(device => {
+            return { id: device.id, point: device.point }
+        });
         mAxios.put('/devices', addedDevices)
             .catch(error => console.log(error));
     }
@@ -89,14 +91,15 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
 
     return(
         <Fragment>
-            <div class="container tool-page">
+            <div class="body-container tool-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
                         <h2>{t('addDevices.titleBeginning')} <span class="primary_color">{location ? location.name : "your"}</span>{t('addDevices.titleEnding')}</h2>
                         <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
                     </div>
                     <div class="button-header no-margin-top">
-                        <button class="btn save-button" onClick={() => { save(); }}>{t('popups.save')}</button>
+                        <div className="tools-button" onClick={() => save()} style={{display: "inline-block"}}>{t('popups.save')}</div>
+                        <div className="tools-button" onClick={() => alert("Not available yet!")} style={{opacity: 0.5}}>{t('popups.autosave')} &nbsp;<div style={{height: 10, width: 10, background: "#ff0000", borderRadius: 10, display: "inline-block"}}></div></div>
                     </div>
                 </div>
                 <div class="tool-page-layout">

@@ -3,13 +3,13 @@
         "website": "SUPLA Website",
         "localization": "Localizations",
         "aboutUs": "About us",
-        "documentation": "API Documentation",
+        "documentation": "API docs",
         "logIn": "Sign in",
         "logOut": "Log out"
     },
     "footer": {
-        "madeBy": "Made by: Puwerpuff Girls",
-        "description": "SUPLA 2D Home, extension for ",
+        "madeBy": "Made by: Powerpuff Girls",
+        "description": "SMARTPLAN, extension for ",
         "language": "English"
     },
     "popups": {
@@ -62,5 +62,10 @@
     "addDevices": {
         "titleBeginning": "Add devices to ",
         "titleEnding": " location:"
+    },
+    "manageDeviceModal": {
+        "manage": "Manage ",
+        "states": "States:",
+        "actions": "Actions:"
     }
 }

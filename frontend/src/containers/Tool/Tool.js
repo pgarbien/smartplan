@@ -105,7 +105,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
         when={!autosave && !saved}
         message='You have unsaved changes, are you sure you want to leave?'
       />
-      <div class="container tool-page">
+      <div class="body-container tool-page">
         <div class="localization-header">
           <div class="left-header-wrapper">
             <h2>{t('editPage.editLocationBeggining')}<span class="primary_color">{location ? location.name : ""}</span>{t('editPage.editLocationEnding')}</h2>

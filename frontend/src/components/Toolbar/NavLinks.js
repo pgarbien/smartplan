@@ -20,11 +20,11 @@ const NavLinks = ({loggedIn}) => {
             console.log(error);
         });
 
-    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> 2D Home </NavLink>
+    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan.png" style={{height: "100%"}}/> </NavLink>
 
-    const loggedInNav = <div class="container">
+    const loggedInNav = <div className="container" style={{padding: "0 10%", maxWidth: "100%", height: 90}}>
         {suplaLogo}
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li>
                 <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a>
             </li>
@@ -43,9 +43,9 @@ const NavLinks = ({loggedIn}) => {
         </ul>
     </div>
 
-    const loggedOutNav = <div class="container">
+    const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%"}}>
         {suplaLogo}
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li>
             <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li>
             <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"api_docs"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>

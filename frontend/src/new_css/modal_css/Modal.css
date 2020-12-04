@@ -3,12 +3,12 @@
   width: 50%;
   min-width: 550px;
   position: fixed;
-  left: 20%;
-  top: 20%;
+  left: 50%;
+  top: 50%;
   background: #ffffff;
-  -webkit-box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
   z-index: 99999;
+  transform: translate(-50%, -50%);
 }
 
 .modal-background {
@@ -32,7 +32,7 @@
 }
 
 .modal-title {
-  font-size: 18px;
+  font-size: 21px;
   font-family: Quicksand,sans-serif;
   font-weight: 300;
   margin: 0!important;
@@ -47,7 +47,8 @@
 }
 
 .device,
-.action {
+.action,
+.state {
   width: 150px;
   height: 150px;
   display: inline-block;
@@ -59,6 +60,23 @@
   margin-right: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.device > img {
+  max-height: 50%;
+  max-width: 50%;
+}
+
+.state > img {
+  max-height: 50%;
+  max-width: 50%;
+  margin-top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.state {
+  cursor: default;
 }
 
 .model-button {

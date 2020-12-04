@@ -73,7 +73,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
         let displayedState = "";
         Object.keys(deviceDetails.state).map((field, index) => {
-            if(deviceState.stateDetails && deviceDetails.stateDetails[field]?.quickView) {
+            if(deviceDetails.stateDetails && deviceDetails.stateDetails[field]?.quickView) {
                 if(displayedState.length > 0) displayedState += ", "
                 displayedState += deviceDetails.state[field] + "" + deviceDetails.stateDetails[field]?.unit
             }
@@ -92,8 +92,8 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
     useEffect(() => {
         fetchDevices()
-        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
-        return () => clearInterval(interval);
+        // const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
+        // return () => clearInterval(interval);
     }, [activeLevel]);
 
     useEffect(() => {
@@ -111,7 +111,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
 
     return(
         <Fragment>
-            <div class="container manager-page">
+            <div class="body-container manager-page">
                 <div class="localization-header">
                     <div class="left-header-wrapper">
                         <h2>{t('managePage.manageDevsBeginning')}<span class="primary_color">{location ? location.name : "your"}</span> {t('managePage.manageDevsEnding')}</h2>

@@ -35,7 +35,7 @@ const Locations = () => {
                     <div class="center">
                         <div className="location-photo"
                             style={{backgroundImage: location.photoUrl ? "url(" + location.photoUrl + ")" : staticLocationPhoto}}></div>
-                        <div style={{padding: 3}}>{location.name}</div>
+                        <div style={{padding: 6, fontWeight: 500, fontFamily: "Quicksand,sans-serif", fontSize: 17}}>{location.name}</div>
                     </div>
                     <div class="dynamic-buttons">
                         <div className="location-edit" onClick={(e) => { e.stopPropagation(); history.push(`draw?locationId=` + location.id) }}>

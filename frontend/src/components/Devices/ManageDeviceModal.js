@@ -24,20 +24,27 @@ const ManageDeviceModal = ({device, manageDevice, deviceState, canClose, setShow
 
     const mappedStates = Object.keys(deviceState.state).map((field, index) => {
         const value = typeof deviceState.state[field] === "boolean" ? deviceState.state[field] ? "true" : "false" : deviceState.state[field] ;
-        return <div>
-            <span style={{textTransform: 'capitalize'}}>{field}</span>
-            <span style={{color: "#00d151"}}>: {value} {deviceState.stateDetails ? deviceState.stateDetails[field]?.unit : ""}</span>
+        return <div class="state">
+            <p class="model-button">
+                <span style={{textTransform: 'capitalize'}}>{field}</span>
+                <br/>
+                <span style={{color: "#00d151", textTransform: "uppercase"}}>{value} {deviceState.stateDetails ? deviceState.stateDetails[field]?.unit : ""}</span>
+            </p>
         </div>
     })
 
-    const modalContent =
-        <Fragment>
+    return (
+        <Modal title={t('manageDeviceModal.manage') + device.name} canClose={canClose} onCloseModal={() => {setShowModal(false)}}>
+            <h3>{t('manageDeviceModal.states')}</h3>
+            <div class="state">
+                <img src={"data:image/png;base64, " + device.icons[device.activeIconId > 0 ? device.activeIconId : 0]} />
+            </div>
             {mappedStates}
             <br/>
+            {deviceState.actions.length > 0 ? <h3 style={{marginTop: 20}}>{t('manageDeviceModal.actions')}</h3> : ""}
             {mappedActions}
-        </Fragment>;
-
-    return <Modal title={ "Manage " + device.name } canClose={canClose} onCloseModal={() => {setShowModal(false)}}> {modalContent} </Modal>
+        </Modal>
+    );
 }
 
 export default ManageDeviceModal;

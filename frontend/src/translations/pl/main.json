@@ -3,13 +3,13 @@
         "website": "Strona SUPLA",
         "localization": "Lokalizacje",
         "aboutUs": "O nas",
-        "documentation": "Dokumentacja API",
+        "documentation": "Opis API",
         "logIn": "Zaloguj",
         "logOut": "Wyloguj"
     },
     "footer": {
         "madeBy": "Stworzone przez: Atomówki",
-        "description": "SUPLA 2D Home, rozszerzenie dla ",
+        "description": "SMARTPLAN, rozszerzenie dla ",
         "language": "Polski"
     },
     "popups": {
@@ -62,5 +62,10 @@
     "addDevices": {
         "titleBeginning": "Dodaj urządzenia do ",
         "titleEnding": ":"
+    },
+    "manageDeviceModal": {
+        "manage": "Zarządzaj ",
+        "states": "Stany:",
+        "actions": "Akcje:"
     }
 }

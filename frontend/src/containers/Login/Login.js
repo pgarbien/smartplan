@@ -6,7 +6,7 @@ const Login = (props) => {
   
     return (
         <Fragment>
-            <div class="container home-page">
+            <div class="body-container home-page">
                 <div class="main-page-image"></div>  
             </div>  
         </Fragment>

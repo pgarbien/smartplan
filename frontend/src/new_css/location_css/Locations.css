@@ -28,35 +28,10 @@
 }
 
 .locations {
-  /* width: 100%;
-  position: relative;
-  padding: 2vh 0;
-  overflow: hidden;
-  display: -ms-grid;
-  display: grid;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
-  -ms-grid-columns: (25%)[auto-fit];
-      grid-template-columns: repeat(auto-fit, 25%);
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-  -webkit-transition: -webkit-transform 0.5s ease 0s;
-  transition: -webkit-transform 0.5s ease 0s;
-  transition: transform 0.5s ease 0s;
-  transition: transform 0.5s ease 0s, -webkit-transform 0.5s ease 0s;
-  visibility: visible;
-  height: 50vh; */
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-template-rows: auto auto auto;
-  gap: 10px 10px;
-  grid-template-areas:
-    ". . . ."
-    ". . . ."
-    ". . . .";
+  gap: 25px 25px;
 }
 
 .locations .slide {
@@ -171,7 +146,7 @@
   background-size: cover;
   background-position-x: 50%;
   background-position-y: 50%;
-  height: 125px;
+  height: 170px;
   width: 100%;
 }
 
