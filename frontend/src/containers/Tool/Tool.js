@@ -28,9 +28,9 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
   const [fullscreen, setFullscreen] = useState(false);
-  const [autosave, setAutosave] = useState(false)
-  const [saved, setSaved] = useState(true)
-
+  const [autosave, setAutosave] = useState(false);
+  const [saved, setSaved] = useState(true);
+  const [toggleImage, setToggleImage] = useState("/toggleImageOff.svg");
   const saveLocation = () => {
     mAxios.post('/locations', location)
         .catch(error => console.log(error));
@@ -124,11 +124,23 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
           <div className="left-container">
             <div class="tools-col">
               <div class="dots-route shown">
-                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>DR</ToolButton>
-                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>MR</ToolButton>
-                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>TI</ToolButton>
-                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>U</ToolButton>
-                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>R</ToolButton>
+                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                  <img src="/drawRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                </ToolButton>
+                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                  <img src="/moveRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                </ToolButton>
+                <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                  <img 
+                    src={toggleImage} 
+                    style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                </ToolButton>
+                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                  <img src="/undo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                </ToolButton>
+                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                  <img src="/redo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                </ToolButton>
               </div>
             </div>
           </div>

@@ -20,6 +20,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
     const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
     const [fullscreen, setFullscreen] = useState(false);
+    const [toggleImage, setToggleImage] = useState('/toggleImageOff.svg');
 
     const save = () => {
         const addedDevices = creator.getAddedDevices().map(device => {
@@ -106,11 +107,23 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
                     <div className="left-container">
                         <div class="tools-col">
                             <div class="dots-route shown">
-                                <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>AD</ToolButton>
-                                <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>MD</ToolButton>
-                                <ToolButton command={Commands.TOGGLE} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>TI</ToolButton>
-                                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>U</ToolButton>
-                                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>R</ToolButton>
+                                <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                                    <img src="/addDevice.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                </ToolButton>
+                                <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                                <img src="/moveDevice.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                </ToolButton>
+                                <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                                    <img 
+                                        src={toggleImage} 
+                                        style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                </ToolButton>
+                                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                                    <img src="/undo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                                </ToolButton>
+                                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                                    <img src="/redo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                                </ToolButton>
                             </div>
                         </div>
                     </div>

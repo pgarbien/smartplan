@@ -144,6 +144,10 @@ export default class Creator {
         this.drawCanvas();
     }
 
+    backgorundImageState() {
+        return this.backgroundImage != null ? this.backgroundImage.isImageLoaded() : false;
+    }
+
     addDevice(deviceName: string, deviceId: string, position: Point, roomId: string, locationId: string, levelId: string) {
         const newDevice = new AddDeviceCommand(this.creatorDevices, this.creatorAddedDevices, this.creatorRooms, this.canvasDrawer);
         newDevice.drawNewDevice(deviceName, deviceId, position, roomId, locationId, levelId);

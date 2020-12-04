@@ -1,7 +1,7 @@
 import React from 'react';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 
-const ToolButton = ({ toolInfo, persistent, setToolInfo, setHoverToolInfo, creator, command, children }) => {
+const ToolButton = ({ toolInfo, setToggleImage, persistent, setToolInfo, setHoverToolInfo, creator, command, children }) => {
     const buttonClass = "dot" + (persistent && toolInfo && toolInfo.type === command ? " tool-button-active" : " tool-button")
 
     return (
@@ -9,6 +9,7 @@ const ToolButton = ({ toolInfo, persistent, setToolInfo, setHoverToolInfo, creat
             onClick={() => { 
                 if(command === Commands.TOGGLE) {
                     creator.toggleBackgroundImage();
+                    setToggleImage(creator.backgorundImageState() ? "/toggleImageOn.svg" : "/toggleImageOff.svg");
                 } else if(command === Commands.UNDO) {
                     creator.undoCommand();
                 } else if(command === Commands.REDO) {
