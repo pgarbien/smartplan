@@ -43,7 +43,7 @@ const NavLinks = ({loggedIn}) => {
         </ul>
     </div>
 
-    const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%"}}>
+    const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%", height: 90}}>
         {suplaLogo}
         <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li>
