@@ -168,8 +168,6 @@ export default class CanvasDrawer {
             endPoint.x * this.canvas.width, 
             endPoint.y * this.canvas.height
         );
-
-        console.log(endPoint.x  * this.canvas.width + " / " + this.canvas.width)
         
         this.canvasContext.stroke();
         this.canvasContext.closePath();

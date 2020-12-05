@@ -90,6 +90,10 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, lan
         }
     }, [creator]);
 
+    useEffect(() => {
+        setToolInfo(commandsDescription[language][toolInfo.type])
+      }, [language]);    
+
     return(
         <Fragment>
             <div class="body-container tool-page">

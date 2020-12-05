@@ -99,6 +99,10 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
     if(creator) creator.setCommand(Commands.DRAW);
   }, [creator]);
 
+  useEffect(() => {
+    setToolInfo(commandsDescription[language][toolInfo.type])
+  }, [language]);
+
   return (
     <Fragment>
       <Prompt
