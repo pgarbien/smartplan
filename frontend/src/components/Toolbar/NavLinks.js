@@ -20,7 +20,7 @@ const NavLinks = ({loggedIn}) => {
             console.log(error);
         });
 
-    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan.png" style={{height: "100%"}}/> </NavLink>
+    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan_santa.png" style={{height: "100%"}}/> </NavLink>
 
         // To be refactored ...
 
