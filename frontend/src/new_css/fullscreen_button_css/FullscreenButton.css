@@ -1,21 +1,36 @@
-.fullscreen_button {
-    width: 30px;
-    height: 30px;
-    margin: 0;
-    opacity: .5;
-    cursor: pointer;
+.fullscreen_buttons_opened {
     position: absolute;
-    background-size: cover;
-}
-
-.fullscreen_button_open {
-    bottom: 15px;
-    right: 30px;
-    background-image: url(https://static.thenounproject.com/png/2814-200.png);
-}
-
-.fullscreen_button_close {
+    height: 30px;
     bottom: 65px;
     right: 65px;
-    background-image: url(https://icon-library.com/images/exit-full-screen_318-9919.jpg);
+    margin: 0;
+}
+
+.fullscreen_buttons_closed {
+    position: absolute;
+    height: 30px;
+    bottom: 15px;
+    right: 30px;
+    margin: 0;
+}
+
+.fullscreen_button {
+    opacity: .5;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.fullscreen_button > * {
+    font-size: 30px;
+}
+
+.fullscreen_level_name {
+    position: absolute;
+    left: 75px;
+    bottom: 65px;
+    color: #00d151;
+    font-size: 35px;
+    font-weight: 30;
+    font-family: Quicksand, sans-serif;
 }

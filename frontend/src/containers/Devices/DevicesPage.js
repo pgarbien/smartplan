@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
-import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
+import FullscreenButton from '../../components/Fullscreen/Fullscreen'
 import LevelsList from '../../components/Levels/LevelsList';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewDeviceModal from '../../components/Devices/NewDeviceModal';
@@ -129,7 +129,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator}) =>
                     </div>
                     <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
                         <canvas ref={creationCanvas} class="canvas" id="condignationCanvas"></canvas>
-                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
+                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel}/>
                     </div>
                     <div class="right-container">
                         <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>

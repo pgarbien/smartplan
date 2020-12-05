@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
-import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
+import FullscreenButton from '../../components/Fullscreen/Fullscreen'
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 import '../../new_css/manager_css/Manager.css';
@@ -84,16 +84,10 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
         creator.refresh();
     }
 
-    const nextFloor = () => {
-        const nextLevel = (activeLevel + 1) % location.levels.length;
-        setActiveLevel(nextLevel);
-        changeDisplayedLevel(location.levels[nextLevel]);
-    }
-
     useEffect(() => {
         fetchDevices()
-        // const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
-        // return () => clearInterval(interval);
+        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
+        return () => clearInterval(interval);
     }, [activeLevel]);
 
     useEffect(() => {
@@ -122,9 +116,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                     <div className="left-container"></div>
                     <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
                         <canvas ref={creationCanvas} class="canvas" id="managerCanvas"/>
-                        { fullscreen ? <div style={{position: "absolute",left: 75,bottom: 65,color: "#00d151", fontSize: 35,fontWeight: 300, fontFamily: "Quicksand,sans-serif"}} > {location.levels[activeLevel].name} </div> : ""}
-                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
-                        { fullscreen ? <div onClick={() => nextFloor()} > &gt; </div> : ""}
+                        <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel}/>
                     </div>
                     <div className="right-container">
                         <div class="manager-devices-list">

@@ -4,7 +4,7 @@ import mAxios from '../../utils/API';
 import { Prompt } from 'react-router'
 
 import LevelsList from '../../components/Levels/LevelsList';
-import FullscreenButton from '../../components/Fullscreen/FullscreenButton'
+import FullscreenButton from '../../components/Fullscreen/Fullscreen'
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 import NewLevelModal from '../../components/DrawTool/NewLevelModal';
 import Level from '../../tool/model/Level';
@@ -146,7 +146,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
           </div>
           <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
               <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { if(autosave) updateRooms(); else setSaved(false); }}></canvas>
-              <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} />
+              <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel}/>
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>
