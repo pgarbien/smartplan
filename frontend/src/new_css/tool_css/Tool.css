@@ -236,7 +236,7 @@ button {
 }
 
 .description:hover {
-  height: 28em;
+  height: 30em;
 }
 
 .description:hover .description-hovered {
@@ -244,7 +244,7 @@ button {
 }
 
 .active {
-  height: 28em;
+  height: 30em;
 }
 
 .active .description-hovered {
@@ -253,6 +253,7 @@ button {
 
 .description-content {
   margin-top: 1.2em;
+  margin-bottom: 1.2em;
   text-align: center;
 }
 

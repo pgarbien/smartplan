@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [language, setLanguage] = useState('pl');
 
   useEffect(() => {
     setLoggedIn(localStorage['token'])
@@ -18,13 +19,13 @@ const App = () => {
 
   return [
     <BrowserRouter>
-      <Layout loggedIn={loggedIn}>
+      <Layout loggedIn={loggedIn} language={language} setLanguage={setLanguage}>
           <Switch>
             <Route path="/locations">
               <Locations/>
             </Route>
             <Route path="/draw">
-              <DrawTool/>
+              <DrawTool language={language}/>
             </Route>
             <Route path="/auth">
               <Auth setLoggedIn={setLoggedIn}/>

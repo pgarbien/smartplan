@@ -6,7 +6,7 @@ import Tool from '../Tool/Tool';
 import { Route, Switch } from 'react-router-dom';
 import Manager from '../Manager/Manager';
 
-const DrawTool = () => {
+const DrawTool = (props) => {
     const [creator, setCreator] = useState(null);
     const [location, setLocation] = useState(null);
     const [isLocationEmpty, setIsLocationEmpty] = useState(true)
@@ -63,18 +63,18 @@ const DrawTool = () => {
         <Switch>
             <Route path="/draw/devices">
                 { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> :
-                    <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/>
+                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/> :
+                    <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
                 }
             </Route>
             <Route path="/draw/manager">
                 { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> :
+                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/> :
                     <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> 
                 }
             </Route>
             <Route path="/draw">
-                <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/>
+                <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
             </Route>
         </Switch>
     );

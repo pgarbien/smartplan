@@ -6,7 +6,6 @@ import {useTranslation} from "react-i18next";
 const Layout = (props) => {
     const [t2, i18n] = useTranslation('common');
     const {t, _} = useTranslation('main');
-    const [language, setLanguage] = useState('en');
 
     return (
         <Fragment>
@@ -21,12 +20,12 @@ const Layout = (props) => {
             <div class="footer">
                 <div class="container-fluid">
                     <div class="footer-left" onClick={() => { 
-                        if(language == "pl") {
-                            setLanguage('en')
-                            i18n.changeLanguage('pl')
-                        } else {
-                            setLanguage('pl')
+                        if(props.language == "pl") {
+                            props.setLanguage('en')
                             i18n.changeLanguage('en')
+                        } else {
+                            props.setLanguage('pl')
+                            i18n.changeLanguage('pl')
                         } }}>{t('footer.language')}</div>
                     <div class="footer-right">{t('footer.madeBy')}</div>
                     <div class="footer-center">

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Commands, commandsDescription } from '../../tool/commands/Commands';
 
-const ToolButton = ({ toolInfo, setToggleImage, persistent, setToolInfo, setHoverToolInfo, creator, command, children }) => {
+const ToolButton = ({ toolInfo, setToggleImage, persistent, setToolInfo, setHoverToolInfo, creator, language, command, children }) => {
     const buttonClass = "dot" + (persistent && toolInfo && toolInfo.type === command ? " tool-button-active" : " tool-button")
 
     return (
         <button class={buttonClass}
-            onClick={() => { 
+            onClick={() => {
                 if(command === Commands.TOGGLE) {
                     creator.toggleBackgroundImage();
                     setToggleImage(creator.backgorundImageState() ? "/toggleImageOn.svg" : "/toggleImageOff.svg");
@@ -16,10 +16,10 @@ const ToolButton = ({ toolInfo, setToggleImage, persistent, setToolInfo, setHove
                     creator.redoCommand();
                 } else if(persistent) {
                     creator.setCommand(command); 
-                    setToolInfo(commandsDescription[command]) 
+                    setToolInfo(commandsDescription[language][command]) 
                 }
             }}
-            onMouseEnter={() => setHoverToolInfo(commandsDescription[command])}
+            onMouseEnter={() => setHoverToolInfo(commandsDescription[language][command])}
             onMouseLeave={() => setHoverToolInfo(null)}>{children}</button>
     )
 }

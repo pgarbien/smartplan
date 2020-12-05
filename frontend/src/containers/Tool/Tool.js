@@ -17,7 +17,7 @@ import {useTranslation} from 'react-i18next';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 
-const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creator}) => {
+const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creator, language}) => {
   const {t, i18n} = useTranslation('main');
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
@@ -25,7 +25,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   const [showDeleteLocationModal, setshowDeleteLocationModal] = useState(false);
   
   const [activeLevel, setActiveLevel] = useState(0);
-  const [toolInfo, setToolInfo] = useState(commandsDescription[Commands.DRAW]);
+  const [toolInfo, setToolInfo] = useState(commandsDescription[language][Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
   const [fullscreen, setFullscreen] = useState(false);
   const [autosave, setAutosave] = useState(false);
@@ -124,21 +124,21 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
           <div className="left-container">
             <div class="tools-col">
               <div class="dots-route shown">
-                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img src="/drawRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
-                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img src="/moveRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
-                <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img 
                     src={toggleImage} 
                     style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
                 </ToolButton>
-                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img src="/undo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
-                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator}>
+                <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img src="/redo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
               </div>

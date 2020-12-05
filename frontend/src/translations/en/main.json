@@ -58,7 +58,9 @@
         "manageDevices": "Manage devices ",
         "all": "All",
         "noDevices": "No devices found",
-        "addNewLevel": "Add new level"
+        "addNewLevel": "Add new level",
+        "toolBeginning": "",
+        "toolEnding": " tool"
     },
     "addDevices": {
         "titleBeginning": "Add devices to ",
