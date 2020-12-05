@@ -143,6 +143,7 @@ button {
 }
 
 .dot {
+  outline: none;
   border: 2px solid #000000;
   width: 45px;
   height: 45px;
@@ -243,11 +244,11 @@ button {
   opacity: 1;
 }
 
-.description-active {
+.active {
   height: 28em;
 }
 
-.description-active .description-hovered {
+.active .description-hovered {
   opacity: 1;
 }
 
