@@ -10,7 +10,7 @@ const NewDeviceModal = (props) => {
     const [selectedDevice, setSelectedDevice] = useState(null);
     const [scrollPosition, setScrollPosition] = useState(0);
 
-    const styless = { width: "max-content", transition: "ease .5s", transform: "translateX(" + scrollPosition * -50 + "%" }
+    const styless = { width: "max-content", transition: "ease .5s", transform: "translateX(" + scrollPosition * -200 + "px" }
 
     useEffect(() => fetchDevices(), [])
 

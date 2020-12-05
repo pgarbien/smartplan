@@ -30,26 +30,12 @@
 .locations {
   width: 100%;
   position: relative;
-  margin: 0 -5px;
-  padding-top: 2vh;
-  padding-bottom: 20vh;
   overflow: hidden;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 25% 25% 25% 25%;
-      grid-template-columns: 25% 25% 25% 25%;
-  -ms-grid-rows: auto auto auto;
-      grid-template-rows: auto auto auto;
   gap: 25px 25px;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
-  -ms-grid-columns: (25%)[auto-fit];
-      grid-template-columns: repeat(auto-fit, 25%);
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  -webkit-transform: translateX(0px);
-          transform: translateX(0px);
+  -ms-grid-columns: (calc(25% - 20px))[auto-fit];
+      grid-template-columns: repeat(auto-fit, calc(25% - 20px));
   -webkit-transition: -webkit-transform 0.5s ease 0s;
   transition: -webkit-transform 0.5s ease 0s;
   transition: transform 0.5s ease 0s;
@@ -109,10 +95,6 @@
   width: 100%;
   height: auto;
   color: inherit;
-  -ms-grid-columns: 85% 15% auto;
-      grid-template-columns: 85% 15% auto;
-  -ms-grid-rows: 80% auto;
-      grid-template-rows: 80% auto;
 }
 
 .location-wrapper:hover {
@@ -184,7 +166,7 @@
   background-size: cover;
   background-position-x: 50%;
   background-position-y: 50%;
-  height: 170px;
+  height: 8vw;
   width: 100%;
 }
 
