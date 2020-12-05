@@ -125,18 +125,18 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
             <div class="tools-col">
               <div class="dots-route shown">
                 <ToolButton command={Commands.DRAW} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                  <img src="/drawRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                  <img src="/drawRoom.svg" style={{display: "block", marginLeft: "-5px", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
                 <ToolButton command={Commands.MOVE_ROOMS} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                  <img src="/moveRoom.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                  <img src="/moveRoom.svg" style={{display: "block", marginLeft: "-5px", marginRight: "auto", height: "70%"}}/>
                 </ToolButton>
                 <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img 
                     src={toggleImage} 
-                    style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                    style={{display: "block", marginLeft: "-5px", marginRight: "auto",height: "70%"}}/>
                 </ToolButton>
                 <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                  <img src="/undo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                  <img src="/undo.svg" style={{display: "block", marginLeft: "-2px", marginRight: "auto", height:"70%"}}/>
                 </ToolButton>
                 <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                   <img src="/redo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>

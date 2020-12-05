@@ -108,18 +108,18 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, lan
                         <div class="tools-col">
                             <div class="dots-route shown">
                                 <ToolButton command={Commands.ADD_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                                    <img src="/addDevice.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                    <img src="/addDevice.svg" style={{display: "block", marginLeft: "-5px", marginRight: "auto",height: "70%"}}/>
                                 </ToolButton>
                                 <ToolButton command={Commands.MOVE_DEVICE} persistent={true} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                                <img src="/moveDevice.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                <img src="/moveDevice.svg" style={{display: "block", marginLeft: "-5px", marginRight: "auto",height: "70%"}}/>
                                 </ToolButton>
                                 <ToolButton command={Commands.TOGGLE} setToggleImage={setToggleImage} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                                     <img 
                                         src={toggleImage} 
-                                        style={{display: "block", marginLeft: "auto", marginRight: "auto", width:"100%"}}/>
+                                        style={{display: "block", marginLeft: "-5px", marginRight: "auto",height: "70%"}}/>
                                 </ToolButton>
                                 <ToolButton command={Commands.UNDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
-                                    <img src="/undo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
+                                    <img src="/undo.svg" style={{display: "block", marginLeft: "-2px", marginRight: "auto", height:"70%"}}/>
                                 </ToolButton>
                                 <ToolButton command={Commands.REDO} persistent={false} toolInfo={toolInfo} setToolInfo={setToolInfo} setHoverToolInfo={setHoverToolInfo} creator={creator} language={language}>
                                     <img src="/redo.svg" style={{display: "block", marginLeft: "auto", marginRight: "auto", height:"70%"}}/>
