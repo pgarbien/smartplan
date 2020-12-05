@@ -22,9 +22,11 @@ const NavLinks = ({loggedIn}) => {
 
     const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan.png" style={{height: "100%"}}/> </NavLink>
 
+        // To be refactored ...
+
     const loggedInNav = <div className="container" style={{padding: "0 10%", maxWidth: "100%", height: 80}}>
         {suplaLogo}
-        <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
+        <ul class="navbar-nav" style={{paddingLeft: "40%", height: 80}}>
             <li>
                 <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a>
             </li>
