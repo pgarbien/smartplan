@@ -15,7 +15,7 @@
     float: left;
     display: flex;
     flex-direction: row;
-    margin: 25px 0 20px 0 !important
+    margin: 25px 0 20px 0 !important;
 }
 
 .levels {
@@ -257,4 +257,25 @@ button {
         color: $green;
     }
 }
+
+.tools-button {
+    font-family: Quicksand,sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 20px;
+    padding: 8px 10px;
+    font-size: 1em;
+    border: 1px solid $buttonGrey;
+    background: $white;
+    color: $black;
+    cursor: pointer;
+    transition: ease-out .2s;
+    display: inline-block;
+    margin-left: 10px;
+
+    &:hover {
+        color: $green;
+    }
+}
+
 

@@ -7,8 +7,7 @@
   -ms-grid-rows: minmax(70px, 10%) minmax(500px, auto);
       grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
   max-width: 100%;
-  /* padding: 0 2em 0 10em; */
-} 
+}
 
 .manager-page-layout {
   -ms-grid-row: 2;
@@ -20,9 +19,27 @@
       grid-template-columns: inherit;
 }
 
+.manager-page-layout .left-container {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
 .manager-devices-list {
-  /* Brzydko, ale na szybko <3 */
   margin-top: -15px;
   width: 100%;
+}
+
+.fullscreen_wrapper {
+  position: fixed !important;
+  width: 100vw;
+  height: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  padding: 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fafbfc;
 }
 /*# sourceMappingURL=Manager.css.map */

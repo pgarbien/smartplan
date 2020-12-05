@@ -4,9 +4,6 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-top: 0;
-  /* color: #2f2f2f; */
-  /* text-decoration: none;
-  font-family: "Quicksand"; */
 }
 
 html {
@@ -19,7 +16,7 @@ h2 {
   font-size: 30px;
   line-height: 30px;
   font-weight: 300;
-  margin: 0!important;
+  margin: 0 !important;
 }
 
 h3 {
@@ -30,7 +27,7 @@ h3 {
 }
 
 ::marker {
-  color: rgba(0,0,0,0);
+  color: #000000;
 }
 
 #root, body, html {
@@ -79,7 +76,7 @@ nav .navbar {
 }
 
 .body-container {
-  padding-right: 10px; 
+  padding-right: 10px;
   padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
@@ -97,10 +94,18 @@ nav .navbar {
   float: left;
   height: 100%;
   padding: 20px 10px;
+  padding-top: 20px;
+  font-size: 18px;
+  line-height: 20px;
+  text-decoration: none;
   background-color: transparent;
   -webkit-transition: all .3s;
   transition: all .3s;
   cursor: pointer;
+  width: 160px;
+  font-size: 2em;
+  color: #777777;
+  font-family: Quicksand,sans-serif;
 }
 
 .tool-bar_supla .logo-svg {
@@ -226,7 +231,8 @@ nav .navbar {
   top: 0;
   z-index: 1;
   padding: 5vh !important;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background: #fafbfc;
 }
 

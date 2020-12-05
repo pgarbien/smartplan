@@ -17,20 +17,26 @@
     height: 100vh;
     position: fixed;
     left: 0px; 
-    top: 0px
+    top: 0px;
+    z-index: 99999;
 }
 
 .modal-header {
     padding: 20px;
-    border-bottom: 1px solid rgb(240, 239, 239);
+    border-bottom: 1px solid $labelLightGrey;
 }
 
 .modal-body {
     padding: 20px;
+    font-family: Quicksand,sans-serif;
+    font-weight: 300;
 }
 
 .modal-title {
     font-size: 21px;
+    font-family: Quicksand,sans-serif;
+    font-weight: 300;
+    margin: 0!important;
 }
 
 .modal-close {
@@ -42,7 +48,8 @@
 }
 
 .device,
-.action {
+.action,
+.state {
     width: 150px;
     height: 150px;
     display: inline-block;
@@ -51,7 +58,28 @@
     text-align: center;
     cursor: pointer;
     padding: 10px;
+    margin-right: 10px;
     box-sizing: border-box;
+}
+
+.device {
+    &>img {
+        max-height: 50%;
+        max-width: 50%;
+    }
+}
+
+.state {
+    &>img {
+        max-height: 50%;
+        max-width: 50%;
+        margin-top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.state {
+    cursor: default;
 }
 
 .model-button {
@@ -61,7 +89,7 @@
 
 input {
     border: 0;
-    border-bottom: 1px solid rgb(191,191,191);
+    border-bottom: 1px solid $labelBoldGrey;
     padding: 0 5px 3px 0px;
     font-size: 19px;
     width: 100%;

@@ -14,7 +14,7 @@
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-area: 1 / 2 / 1 / span 1;
-} 
+}
 
 .left-header-wrapper {
   float: left;
@@ -25,7 +25,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 25px 0 20px 0 !important
+  margin: 25px 0 20px 0 !important;
 }
 
 .levels {
@@ -233,7 +233,6 @@ button {
   transition: ease .5s;
   border: 1px slid #ffffff;
   overflow: hidden;
-  color: white;
 }
 
 .description:hover {
@@ -307,6 +306,7 @@ button {
   background: #ffffff;
   color: #000000;
   cursor: pointer;
+  -webkit-transition: ease-out .2s;
   transition: ease-out .2s;
   display: inline-block;
   margin-left: 10px;
