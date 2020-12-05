@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../new_css/levels_list_css/LevelsList.css';
+import {useTranslation} from 'react-i18next';
 
 const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal }) => {
+  const {t, i18n} = useTranslation('main');
   const [activeLevelName, setActiveLevelName] = useState("Wszystkie poziomy")
 
   const onLeftLevelClick = (level) => {
@@ -38,7 +40,7 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
           </button>
           <div class="dropdown-content">
             {levels}
-            {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>DODAJ POZIOM</div> : null}
+            {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>{t('tool.addNewLevel')}</div> : null}
           </div>
         </div>
     </div>

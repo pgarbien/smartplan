@@ -57,7 +57,8 @@
         "addDevices": "Dodaj urządzenia ",
         "manageDevices": "Zarządzaj urządzeniami " ,
         "all": "Wszystkie",
-        "noDevices": "Brak urządzeń"
+        "noDevices": "Brak urządzeń",
+        "addNewLevel": "Dodaj poziom"
     },
     "addDevices": {
         "titleBeginning": "Dodaj urządzenia do ",

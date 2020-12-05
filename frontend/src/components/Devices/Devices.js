@@ -18,7 +18,7 @@ const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }
 
     return (
         <div>
-            <h3 className="devices_header"> </h3>
+            <h3 className="devices_header">{t('managePage.yourDevices')}</h3>
             <div class="dropdown">
                 <button class="drop-btn"> {t('tool.all')} <span class="caret"/> </button>
                 <div class="dropdown-content active-devices">
