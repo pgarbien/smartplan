@@ -1,4 +1,7 @@
 {   
+    "login": {
+        "howTo": "Jak używać SMARTPLAN"
+    },
     "navBar": {
         "website": "Strona SUPLA",
         "localization": "Lokalizacje",
