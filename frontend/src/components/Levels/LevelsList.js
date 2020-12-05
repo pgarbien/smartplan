@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../../new_css/levels_list_css/LevelsList.css';
 import {useTranslation} from 'react-i18next';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal }) => {
   const {t, i18n} = useTranslation('main');
@@ -12,9 +14,8 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
       setActiveLevelName(level.name);
   }
 
-  const onRightLevelClick = (event) => {
+  const onRightLevelClick = () => {
     if(setShowDeleteLevelModal) {
-        event.preventDefault();
         setShowDeleteLevelModal(true)
     }
   }
@@ -23,7 +24,10 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
     return <div class="level" 
                 key={level.order} 
                 onClick={() => onLeftLevelClick(level)} 
-                onContextMenu={(event) => onRightLevelClick(event)}>{level.name}</div>
+            >
+              {level.name}
+              <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/>
+            </div>
   }) : null;
 
   useEffect(() => {
@@ -31,6 +35,12 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
       setActiveLevelName(location.levels[activeLevel].name);
     }
   }, [location]);
+
+  useEffect(() => {
+    if(levels && location.levels.length > 0) {
+      setActiveLevelName(location.levels[activeLevel].name);
+    }
+  }, [activeLevel]);
 
   return (
     <div className="levels">

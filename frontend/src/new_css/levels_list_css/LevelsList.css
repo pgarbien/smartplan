@@ -86,4 +86,14 @@
   color: #ffffff;
   background-color: #00d151;
 }
+
+.trash {
+  margin-left: 10%;
+  opacity: 0.5;
+  width: 11px;
+}
+
+.trash:hover {
+  color: red;
+}
 /*# sourceMappingURL=LevelsList.css.map */

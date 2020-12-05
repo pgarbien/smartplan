@@ -81,3 +81,12 @@
         background-color: $green;
     }
 }
+
+.trash {
+    margin-left: 10%;
+    opacity: 0.5;
+    width: 11px;
+    &:hover {
+        color: red;
+    }
+}
