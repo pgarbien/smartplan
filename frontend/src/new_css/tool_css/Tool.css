@@ -243,11 +243,11 @@ button {
   opacity: 1;
 }
 
-.active {
+.description-active {
   height: 28em;
 }
 
-.active .description-hovered {
+.description-active .description-hovered {
   opacity: 1;
 }
 
