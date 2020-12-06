@@ -26,7 +26,7 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
                 onClick={() => onLeftLevelClick(level)} 
             >
               {level.name}
-              <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/>
+              {setShowAddLevelModal ? <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/> : null}
             </div>
   }) : null;
 
