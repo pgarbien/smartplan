@@ -26,10 +26,6 @@ h3 {
   font-weight: 300;
 }
 
-::marker {
-  color: #00000000;
-}
-
 #root, body, html {
   height: 100%;
   margin: 0;

@@ -20,6 +20,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
     const [deviceState, setDeviceState] = useState([]);
     const [fullscreen, setFullscreen] = useState(false);
     const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
+    const [blueprintVisible, setBlueprintVisible] = useState(false)
 
     const fetchDevices = () => {
         mAxios.get('/devices?levelId=' + location.levels[activeLevel].id)
@@ -110,6 +111,9 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                     <div class="left-header-wrapper">
                         <h2>{t('managePage.manageDevsBeginning')}<span class="primary_color">{location ? location.name : "your"}</span> {t('managePage.manageDevsEnding')}</h2>
                         <LevelsList location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} />
+                    </div>
+                    <div class="button-header no-margin-top">
+                        <div className="tools-button" onClick={() => {creator.toggleBackgroundImage(); setBlueprintVisible(!blueprintVisible)}}>{t('popups.blueprint')} </div>
                     </div>
                 </div>
                 <div className="manager-page-layout">

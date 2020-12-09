@@ -40,7 +40,8 @@
         "off": "off",
         "temperature": "Temperature: ",
         "state": "State: ",
-        "connection": "Connection: "
+        "connection": "Connection: ",
+        "blueprint": "Blueprint"
     },
     "locationsPage": {
         "localizations": "Localizations",

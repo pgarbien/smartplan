@@ -5,7 +5,7 @@ export default class BackgroundImage {
     constructor(imageSource: string) {
         this.backgroundImage = new Image();
         this.backgroundImage.src = imageSource;
-        this.backgroundImage.onload = this.setImageLoaded.bind(this, false);
+        this.backgroundImage.onload = this.setImageLoaded.bind(this, true);
     }
 
     setImageLoaded(imageLoaded: Boolean) {
