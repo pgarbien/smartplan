@@ -63,7 +63,11 @@
 }
 
 .device {
-    &>img {
+    &>div {
+        margin-top: 50%;
+        transform: translateY(-50%);
+    }
+    &>div>img {
         max-height: 50%;
         max-width: 50%;
     }
