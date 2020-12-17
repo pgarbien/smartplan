@@ -64,7 +64,13 @@
           box-sizing: border-box;
 }
 
-.device > img {
+.device > div {
+  margin-top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.device > div > img {
   max-height: 50%;
   max-width: 50%;
 }

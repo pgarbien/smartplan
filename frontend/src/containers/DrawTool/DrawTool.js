@@ -52,8 +52,9 @@ const DrawTool = (props) => {
         
         mAxios.get('/devices?levelId=' + level.id)
             .then(response => {
-                setActiveDevices(response.data);
-                mCreator.setAddedDevices(response.data);
+                const devices = response.data.filter(device => device.point)
+                setActiveDevices(devices);
+                mCreator.setAddedDevices(devices);
                 mCreator.refresh();
             })
             .catch(error => console.log(error));

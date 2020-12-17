@@ -31,6 +31,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   const [autosave, setAutosave] = useState(false);
   const [saved, setSaved] = useState(true);
   const [toggleImage, setToggleImage] = useState("/toggleImageOff.svg");
+  
   const saveLocation = () => {
     mAxios.post('/locations', location)
         .catch(error => console.log(error));

@@ -26,8 +26,10 @@ const NewDeviceModal = (props) => {
     const mappedDevices = devices.map(device => {
         const deviceClass = selectedDevice && selectedDevice.id === device.id ? "device selected-device" : "device";
         return <div className={ deviceClass } onClick={() => { setSelectedDevice(device) }}>
-            <img src={"data:image/png;base64, " + device.icons[0]} />
-            <p>{device.name}</p>
+            <div>
+                <img src={"data:image/png;base64, " + device.icons[0]} />
+                <p>{device.name}</p>
+            </div>
         </div>
     });
 
