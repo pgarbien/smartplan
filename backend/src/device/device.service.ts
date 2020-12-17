@@ -51,6 +51,8 @@ export class DeviceService {
         if (devicesConfig.has(deviceDetails.type)) {
             await this.setDeviceIconsAndDefaultAction(deviceDetails, userId, token);
             this.setStateDetails(deviceDetails);
+        } else {
+            device.icons = defaultIcons;
         }
 
         return deviceDetails;
