@@ -10,7 +10,7 @@ import {
 import {MongoRepository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ChannelsService} from "../channels/channels.service";
-import devicesConfig from "../../config/devices_config";
+import devicesConfig, {defaultIcons} from "../../config/devices_config";
 import {DeviceQuery} from "./device.api.model";
 import {ActionType, DeviceType} from "./device.supla.model";
 
@@ -31,6 +31,8 @@ export class DeviceService {
         for await (const device of devices) {
             if (devicesConfig.has(device.type)) {
                 await this.setDeviceIconsAndDefaultAction(device, userId, token);
+            } else {
+                device.icons = defaultIcons;
             }
         }
 
