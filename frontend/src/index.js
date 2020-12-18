@@ -9,7 +9,7 @@ import main_pl from './translations/pl/main.json'
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: 'en',
+  lng: 'pl',
   resources: {
     en: {
         main: main_en

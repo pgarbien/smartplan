@@ -11,7 +11,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState('pl');
 
   useEffect(() => {
     setLoggedIn(localStorage['token'])
