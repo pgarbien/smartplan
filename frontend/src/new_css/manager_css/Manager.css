@@ -4,8 +4,8 @@
   display: grid;
   -ms-grid-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
       grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px, 15%);
-  -ms-grid-rows: minmax(70px, 10%) minmax(500px, auto);
-      grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
+  -ms-grid-rows: minmax(70px, 10%) minmax(450px, auto);
+      grid-template-rows: minmax(70px, 10%) minmax(450px, auto);
   max-width: 100%;
 }
 
@@ -32,11 +32,10 @@
 .fullscreen_wrapper {
   position: fixed !important;
   width: 100vw;
-  height: 100vw;
   height: 100vh;
   left: 0;
   top: 0;
-  z-index: 9999;
+  z-index: 10;
   padding: 50px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
