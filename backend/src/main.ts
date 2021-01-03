@@ -18,7 +18,7 @@ async function bootstrap() {
         .setVersion('1.0.0')
         .addServer('http://localhost:4000')
         .addServer('https://atomowki.azurewebsites.net/api')
-        .addServer('https://homepanel.fracz.com/api')
+        .addServer('https://smartplan.supla.io/api')
         .addBearerAuth()
         .build();
     const document = SwaggerModule.createDocument(app, options, {
