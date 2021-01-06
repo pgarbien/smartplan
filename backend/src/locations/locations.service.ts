@@ -34,7 +34,7 @@ export class LocationsService {
         return await this.locationsRepository.save(location);
     }
 
-    public async update(userId: string, location: Location): Promise<UpdateResult> {
+    public async update(userId: string, location: Location): Promise<Location> {
         const dbLocationLevels = (await this.locationsRepository.findOne(location.id, {
             where: {userId: userId}
         })).levels.map(level => level.id);
@@ -56,7 +56,10 @@ export class LocationsService {
             if(!location.levels.map(level => level.id).includes(levelId))
                 this.deviceService.removeAllFromLevel(userId, levelId);}
         );
-        return await this.locationsRepository.update(location.id, location);
+
+        await this.locationsRepository.update(location.id, location);
+
+        return location;
     }
 
     public deleteById(userId: string, locationId: string) {
