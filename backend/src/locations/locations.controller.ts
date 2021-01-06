@@ -55,8 +55,8 @@ export class LocationsController {
     }
 
     @Put("/:id")
-    @ApiOkResponse({type: UpdateResult})
-    update(@Req() req, @Body() location: Location): Promise<UpdateResult> {
+    @ApiOkResponse({type: Location})
+    update(@Req() req, @Body() location: Location): Promise<Location> {
        return this.locationsService.update(req.userId, location);
     }
 
