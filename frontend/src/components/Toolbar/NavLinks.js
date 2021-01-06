@@ -37,7 +37,7 @@ const NavLinks = ({loggedIn}) => {
                 <NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink>
             </li>
             <li>
-                <a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a>
+                <a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a>
             </li>
             <li>
                 <NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}><i class="pe-7s-user"></i>{t('navBar.logOut')}</NavLink>
@@ -50,7 +50,7 @@ const NavLinks = ({loggedIn}) => {
         <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
             <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li>
             <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li>
-            <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>
+            <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>
             <li><a className="tool-bar_link" href={authUrl}><i class="pe-7s-user"></i>{t('navBar.logIn')}</a></li>
         </ul>
     </div>;
