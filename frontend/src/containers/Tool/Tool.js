@@ -34,16 +34,19 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   
   const saveLocation = () => {
     mAxios.post('/locations', location)
+        .then(response => setLocation(response.data))
         .catch(error => console.log(error));
   }
 
   const updateLocation = () => {
     mAxios.put(`/locations/${location.id}`, location)
+        .then(response => setLocation(response.data))
         .catch(error => console.log(error));
   }
 
   const updateRooms = () => {
     location.levels[activeLevel].rooms = creator.getRooms();
+    setLocation(location)
     updateLocation();
   }
 
@@ -108,8 +111,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
     <Fragment>
       <Prompt
         when={!autosave && !saved}
-        message='You have unsaved changes, are you sure you want to leave?'
-      />
+        message='You have unsaved changes, are you sure you want to leave?' />
       <div class="body-container tool-page">
         <div class="localization-header">
           <div class="left-header-wrapper">

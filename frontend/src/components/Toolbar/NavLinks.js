@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 
 const NavLinks = ({loggedIn}) => {
     const {t, i18n} = useTranslation('main');
-    const [authUrl, setAuthUrl] = useState("");
+    const [authUrl, setAuthUrl] = useState("javascript:void(0)");
 
     useEffect(() => fetchAuthLink, []);
 

@@ -9,11 +9,13 @@ const Devices = ({ location, activeLevel, activeDevices, manageDevice, creator }
     const [devices, setDevices] = useState(activeDevices);
 
     useEffect(() => {
-        const levelId = location.levels[activeLevel].id
-        mAxios.get('/devices?levelId=' + levelId)
-            .then(response => {
-                setDevices(response.data.filter(dev => dev.locationId == location.id));
-            });
+        if(location != null && location.levels.lenght > 0) {
+            const levelId = location.levels[activeLevel].id
+            mAxios.get('/devices?levelId=' + levelId)
+                .then(response => {
+                    setDevices(response.data.filter(dev => dev.locationId == location.id));
+                });
+        }
     }, [activeLevel]);
 
     return (

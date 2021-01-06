@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 import FullscreenButton from '../../components/Fullscreen/Fullscreen'
@@ -12,6 +12,7 @@ import mAxios from '../../utils/API';
 import {useTranslation} from "react-i18next";
 
 const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, language}) => {
+    const history = useHistory();
     const {t, i18n} = useTranslation('main');
     const creationCanvas = useRef(null);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
@@ -80,6 +81,10 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, lan
     }
 
     useEffect(() => {
+        if(location && location.levels.length === 0) history.push(`draw?locationId=` + location.id)
+    }, [location])
+
+    useEffect(() => {
         if(creationCanvas) setupCreator(creationCanvas.current)
     }, [creationCanvas]);
 
@@ -92,7 +97,7 @@ const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, lan
 
     useEffect(() => {
         setToolInfo(commandsDescription[language][toolInfo.type])
-      }, [language]);    
+    }, [language]);    
 
     return(
         <Fragment>

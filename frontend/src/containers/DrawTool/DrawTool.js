@@ -63,16 +63,10 @@ const DrawTool = (props) => {
     return (
         <Switch>
             <Route path="/draw/devices">
-                { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/> :
-                    <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
-                }
+                <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
             </Route>
             <Route path="/draw/manager">
-                { isLocationEmpty ?
-                    <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/> :
-                    <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> 
-                }
+                <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> 
             </Route>
             <Route path="/draw">
                 <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>

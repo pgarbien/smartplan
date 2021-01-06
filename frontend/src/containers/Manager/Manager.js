@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Devices from '../../components/Devices/Devices';
 import FullscreenButton from '../../components/Fullscreen/Fullscreen'
 import '../../new_css/app_css/App.css';
@@ -13,6 +13,7 @@ import { DeviceState } from '../../tool/model/NewDevice';
 import {useTranslation} from 'react-i18next';
 
 const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, creator }) => {
+    const history = useHistory();
     const {t, i18n} = useTranslation('main');
     const creationCanvas = useRef(null);
     const [device, setDevice] = useState(null);
@@ -29,10 +30,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
     }
 
     const fetchDevicesStates = (devices) => {
-        devices.forEach(device => {
-            //TODO Czemu tu było if(device.defaultAction)
-            fetchDeviceState(device)
-        })
+        devices.forEach(device => fetchDeviceState(device))
     }
 
     const fetchDeviceState = (device) => {
@@ -62,8 +60,7 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                 setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
                         .then(response => setDeviceDetails(device, response.data))
                         .catch(error => console.log(error)), 100)
-                }
-            )
+            })
             .catch(error => console.log(error))
     }
 
@@ -86,7 +83,11 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
     }
 
     useEffect(() => {
-        fetchDevices()
+        if(location && location.levels.length === 0) history.push(`draw?locationId=` + location.id)
+    }, [location])
+
+    useEffect(() => {
+        if(location && location.levels.length > 0) fetchDevices()
         const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
         return () => clearInterval(interval);
     }, [activeLevel]);

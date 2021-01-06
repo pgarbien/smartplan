@@ -4,7 +4,7 @@
     },
     "navBar": {
         "website": "SUPLA Website",
-        "localization": "Localizations",
+        "localization": "Locations",
         "aboutUs": "About us",
         "documentation": "API docs",
         "logIn": "Sign in",
@@ -22,11 +22,11 @@
         "add": "Add",
         "save": "Save",
         "autosave": "Autosave",
-        "createNewLocation": "Create new localization",
-        "locationName": "Localization name:",
+        "createNewLocation": "Create new location",
+        "locationName": "Location name:",
         "defaultLocationName": "House name",
         "selectedPhoto": "Selected photo:",
-        "locationPhoto": "Localization photo",
+        "locationPhoto": "Location photo",
         "uploadPhoto": "Upload photo",
         "addLevel": "Add level",
         "levelName": "Level name: ",
@@ -44,8 +44,8 @@
         "blueprint": "Blueprint"
     },
     "locationsPage": {
-        "localizations": "Localizations",
-        "createNew": "Create new localization"
+        "localizations": "Locations",
+        "createNew": "Create new location"
     },
     "editPage": {
         "editLocationBeggining": "Edit ",
