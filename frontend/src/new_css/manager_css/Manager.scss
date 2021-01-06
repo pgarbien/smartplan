@@ -3,7 +3,7 @@
 .manager-page {
     display: grid;
     grid-template-columns: minmax(50px, 10%) minmax(600px, auto) minmax(70px,15%);
-    grid-template-rows: minmax(70px, 10%) minmax(500px, auto);
+    grid-template-rows: minmax(70px, 10%) minmax(450px, auto);
     max-width: 100%;
 } 
 
@@ -11,7 +11,6 @@
     grid-area: 2 / 1 / 2 / span 3;
     display: inherit;
     grid-template-columns: inherit;
-
     .left-container {
         grid-column: 1;
     }
@@ -25,11 +24,10 @@
 .fullscreen_wrapper {
     position: fixed !important;
     width: 100vw;
-    height: 100vw;
     height: 100vh;
     left: 0;
     top: 0;
-    z-index: 9999;
+    z-index: 10;
     padding: 50px;
     box-sizing: border-box;
     background: #fafbfc;

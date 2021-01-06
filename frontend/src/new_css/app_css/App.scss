@@ -140,7 +140,7 @@ nav {
         display: block;
         color: $iconGrey;
         padding: 15px;
-        line-height: 20px;
+        // line-height: 20px;
         cursor: pointer;
         transition: all .3s;
         text-decoration: none;
@@ -149,7 +149,6 @@ nav {
             font-size: 2em;
             display: block;
             margin: 0 auto;
-            margin-bottom: 0px;
             margin-bottom: 10px;
         }
     }

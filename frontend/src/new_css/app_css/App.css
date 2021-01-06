@@ -160,7 +160,6 @@ nav .navbar {
   display: block;
   color: #777777;
   padding: 15px;
-  line-height: 20px;
   cursor: pointer;
   -webkit-transition: all .3s;
   transition: all .3s;
@@ -171,7 +170,6 @@ nav .navbar {
   font-size: 2em;
   display: block;
   margin: 0 auto;
-  margin-bottom: 0px;
   margin-bottom: 10px;
 }
 

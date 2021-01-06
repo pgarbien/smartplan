@@ -28,7 +28,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   const [toolInfo, setToolInfo] = useState(commandsDescription[language][Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
   const [fullscreen, setFullscreen] = useState(false);
-  const [autosave, setAutosave] = useState(false);
+  const [autosave, setAutosave] = useState(true);
   const [saved, setSaved] = useState(true);
   const [toggleImage, setToggleImage] = useState("/toggleImageOff.svg");
   
