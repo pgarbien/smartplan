@@ -11,6 +11,15 @@ const DrawTool = (props) => {
     const [location, setLocation] = useState(null);
     const [isLocationEmpty, setIsLocationEmpty] = useState(true)
     const [activeDevices, setActiveDevices] = useState([]);
+    const [activeLevel, setActiveLevel] = useState(0);
+    const [fullscreen, setFullscreen] = useState(false);
+
+    useEffect(() => {
+        const query = window.location.search;
+        const params = new URLSearchParams(query);
+        const fullscreenParam = params.get('fullscreen');
+        setFullscreen(fullscreenParam === 'true');
+    }, [])
 
     useEffect(() => {
         setIsLocationEmpty(location == null || location.levels.length === 0)
@@ -22,7 +31,7 @@ const DrawTool = (props) => {
             fetchLocation(creator);
             setCreator(creator);
         } else {
-            if(!isLocationEmpty) setCurrentLevel(location.levels[0]);
+            if(!isLocationEmpty) setCurrentLevel(location.levels[activeLevel]);
             creator.setCanvas(canvas);
             creator.refresh();
         }
@@ -41,7 +50,7 @@ const DrawTool = (props) => {
     const setCurrentLocation = (location, mCreator = creator) => {
         setLocation(location);
         const hasLevels = location.levels && location.levels.length > 0
-        if(hasLevels) setCurrentLevel(location.levels[0], mCreator)
+        if(hasLevels) setCurrentLevel(location.levels[activeLevel], mCreator)
     }
 
     const setCurrentLevel = (level, mCreator = creator) => {
@@ -63,13 +72,38 @@ const DrawTool = (props) => {
     return (
         <Switch>
             <Route path="/draw/devices">
-                <DevicesPage location={location} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
+                <DevicesPage location={location} 
+                    activeLevel={activeLevel} 
+                    setActiveLevel={setActiveLevel} 
+                    changeDisplayedLevel={setCurrentLevel} 
+                    setupCreator={setupCreator}
+                    fullscreen={fullscreen}
+                    setFullscreen={setFullscreen} 
+                    creator={creator} 
+                    language={props.language}/>
             </Route>
             <Route path="/draw/manager">
-                <Manager location={location} activeDevices={activeDevices} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator}/> 
+                <Manager location={location} 
+                    activeLevel={activeLevel} 
+                    setActiveLevel={setActiveLevel} 
+                    activeDevices={activeDevices} 
+                    changeDisplayedLevel={setCurrentLevel} 
+                    fullscreen={fullscreen}
+                    setFullscreen={setFullscreen} 
+                    creator={creator}
+                    setupCreator={setupCreator} /> 
             </Route>
             <Route path="/draw">
-                <Tool location={location} setLocation={setCurrentLocation} changeDisplayedLevel={setCurrentLevel} setupCreator={setupCreator} creator={creator} language={props.language}/>
+                <Tool location={location} 
+                    setLocation={setCurrentLocation} 
+                    activeLevel={activeLevel} 
+                    setActiveLevel={setActiveLevel} 
+                    changeDisplayedLevel={setCurrentLevel} 
+                    setupCreator={setupCreator} 
+                    fullscreen={fullscreen}
+                    setFullscreen={setFullscreen} 
+                    creator={creator} 
+                    language={props.language}/>
             </Route>
         </Switch>
     );

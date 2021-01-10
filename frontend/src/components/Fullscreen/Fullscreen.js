@@ -27,16 +27,16 @@ const Fullscreen = ({ fullscreen, setFullscreen, location, activeLevel, setActiv
 
     return(
         <div>
-            { fullscreen ? <div className="fullscreen_level_name">{location.levels[activeLevel].name}</div> : "" }
-            <div className={fullscreen ? "fullscreen_buttons_opened" : "fullscreen_buttons_closed"}>
-                { fullscreen ? <div className="fullscreen_button" onClick={() => prevFloor()}>
+            { (fullscreen && location) ? <div className="fullscreen_level_name">{location.levels[activeLevel].name}</div> : "" }
+            <div className={(fullscreen && location) ? "fullscreen_buttons_opened" : "fullscreen_buttons_closed"}>
+                { (fullscreen && location) ? <div className="fullscreen_button" onClick={() => prevFloor()}>
                     <FontAwesomeIcon icon={faChevronDown} style={{opacity: isPrevLevel() ? 1 : .5}} />
                 </div> : "" }
-                { fullscreen ? <div className="fullscreen_button" onClick={() => nextFloor()}>
+                { (fullscreen && location) ? <div className="fullscreen_button" onClick={() => nextFloor()}>
                     <FontAwesomeIcon icon={faChevronUp} style={{opacity: isNextLevel() ? 1 : .5}} />
                 </div> : "" }
                 <div className="fullscreen_button" onClick={() => setFullscreen(!fullscreen)}>
-                    <FontAwesomeIcon icon={fullscreen ? faCompress : faExpand} />
+                    <FontAwesomeIcon icon={(fullscreen && location) ? faCompress : faExpand} />
                 </div>
             </div>
         </div>

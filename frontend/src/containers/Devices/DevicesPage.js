@@ -11,16 +11,14 @@ import ToolButton from '../../components/ToolButton/ToolButton';
 import mAxios from '../../utils/API';
 import {useTranslation} from "react-i18next";
 
-const DevicesPage = ({location, changeDisplayedLevel, setupCreator, creator, language}) => {
+const DevicesPage = ({location, activeLevel, setActiveLevel, changeDisplayedLevel, setupCreator, creator, fullscreen, setFullscreen, language}) => {
     const history = useHistory();
     const {t, i18n} = useTranslation('main');
     const creationCanvas = useRef(null);
     const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
     const [position, setPosition] = useState(null);
-    const [activeLevel, setActiveLevel] = useState(0);
     const [toolInfo, setToolInfo] = useState(commandsDescription[language][Commands.ADD_DEVICE]);
     const [hoverToolInfo, setHoverToolInfo] = useState(null);
-    const [fullscreen, setFullscreen] = useState(false);
     const [toggleImage, setToggleImage] = useState('/toggleImageOff.svg');
 
     const save = () => {

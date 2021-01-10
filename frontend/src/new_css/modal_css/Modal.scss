@@ -14,10 +14,10 @@
 
 .modal-background {
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 80px);
     position: fixed;
     left: 0px; 
-    top: 0px;
+    top: 80px;
     z-index: 99999;
 }
 
@@ -155,4 +155,32 @@ input[type=file] {
 
 .selected-device {
   border: 2px solid $green !important;
+}
+
+.arrow {
+    width: 5%;
+    display: inline-block; 
+    vertical-align: middle;
+
+    &>img {
+        width: 100%;
+        opacity: .2;
+        cursor: pointer;
+    }
+
+    &_right {
+        transform: rotate(180deg);
+    }
+}
+
+.devices_wrapper {
+    width: 90%;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+.devices_list {
+    width: max-content;
+    transition: ease .5s;
 }

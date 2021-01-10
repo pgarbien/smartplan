@@ -87,13 +87,13 @@ export const commandsDescription = {
         },
         [Commands.UNDO]: {
             type: Commands.UNDO,
-            name: "Undo",
+            name: "Cofnij",
             description: "Cofa ostatnio wykonaną akcję",
             image: "/undo.svg"
         },
         [Commands.REDO]: {
             type: Commands.REDO,
-            name: "Redo",
+            name: "Ponów",
             description: "Ponawia ostatnio wykonaną akcję",
             image: "/redo.svg"
         }
