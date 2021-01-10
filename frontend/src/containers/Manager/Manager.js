@@ -12,14 +12,12 @@ import mAxios from '../../utils/API';
 import { DeviceState } from '../../tool/model/NewDevice';
 import {useTranslation} from 'react-i18next';
 
-const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, creator }) => {
+const Manager = ({ location, activeLevel, setActiveLevel, activeDevices, changeDisplayedLevel, setupCreator, fullscreen, setFullscreen, creator }) => {
     const history = useHistory();
     const {t, i18n} = useTranslation('main');
     const creationCanvas = useRef(null);
     const [device, setDevice] = useState(null);
-    const [activeLevel, setActiveLevel] = useState(0);
     const [deviceState, setDeviceState] = useState([]);
-    const [fullscreen, setFullscreen] = useState(false);
     const [showManageDeviceModal, setShowManageDeviceModal] = useState(false);
     const [blueprintVisible, setBlueprintVisible] = useState(false)
 
@@ -60,6 +58,12 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
                 setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
                         .then(response => setDeviceDetails(device, response.data))
                         .catch(error => console.log(error)), 100)
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 200)
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 500)
             })
             .catch(error => console.log(error))
     }
@@ -83,18 +87,19 @@ const Manager = ({ location, activeDevices, changeDisplayedLevel, setupCreator, 
     }
 
     useEffect(() => {
-        if(location && location.levels.length === 0) history.push(`draw?locationId=` + location.id)
-    }, [location])
-
-    useEffect(() => {
-        if(location && location.levels.length > 0) fetchDevices()
-        const interval = setInterval(() => fetchDevicesStates(creator.getAddedDevices()), process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME);
-        return () => clearInterval(interval);
-    }, [activeLevel]);
-
-    useEffect(() => {
         if(creationCanvas) setupCreator(creationCanvas.current)     
     }, [creationCanvas]);
+
+    useEffect(() => {
+        const interval = setInterval(() =>
+            fetchDevicesStates(creator.getAddedDevices()), 
+            process.env.REACT_APP_DEVICES_STATE_SYNC_INTERVAL_TIME
+        );
+
+        if(location && location.levels.length > 0) fetchDevices()
+        else if(location) history.push(`draw?locationId=` + location.id)
+        return () => clearInterval(interval);
+    }, [activeLevel, location]);
 
     useEffect(() => {
         if(creator) {

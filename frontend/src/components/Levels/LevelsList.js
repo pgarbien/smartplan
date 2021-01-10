@@ -21,13 +21,12 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
   }
 
   const levels = location ? location.levels.slice(0).map(level => {
-    return <div class="level" 
-                key={level.order} 
-                onClick={() => onLeftLevelClick(level)} 
-            >
-              {level.name}
-              {setShowAddLevelModal ? <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/> : null}
-            </div>
+    return (
+      <div class="level" key={level.order} onClick={() => onLeftLevelClick(level)}>
+        {level.name}
+        {setShowAddLevelModal ? <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/> : null}
+      </div>
+    )
   }) : null;
 
   useEffect(() => {

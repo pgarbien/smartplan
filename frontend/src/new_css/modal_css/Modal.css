@@ -15,10 +15,10 @@
 
 .modal-background {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
   position: fixed;
   left: 0px;
-  top: 0px;
+  top: 80px;
   z-index: 99999;
 }
 
@@ -161,5 +161,37 @@ input[type=file] {
 
 .selected-device {
   border: 2px solid #00d151 !important;
+}
+
+.arrow {
+  width: 5%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.arrow > img {
+  width: 100%;
+  opacity: .2;
+  cursor: pointer;
+}
+
+.arrow_right {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.devices_wrapper {
+  width: 90%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.devices_list {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  -webkit-transition: ease .5s;
+  transition: ease .5s;
 }
 /*# sourceMappingURL=Modal.css.map */

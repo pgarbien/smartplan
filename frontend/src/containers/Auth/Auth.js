@@ -19,6 +19,10 @@ const Auth = (props) => {
               .then(response => localStorage.setItem('token', response.data.token))
               .catch(() => props.setLoggedIn(false));
           }, 0.75 * tokenTimeout * 1000);
+          setInterval(() =>
+              console.log(Date.now()), 
+              1000
+          );
       }
   
       localStorage.setItem('token', token);

@@ -17,17 +17,15 @@ import {useTranslation} from 'react-i18next';
 import '../../new_css/app_css/App.css';
 import '../../new_css/tool_css/Tool.css';
 
-const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creator, language}) => {
+const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplayedLevel, setupCreator, fullscreen, setFullscreen, creator, language}) => {
   const {t, i18n} = useTranslation('main');
   const creationCanvas = useRef(null);
   const [showAddLevelModal, setShowAddLevelModal] = useState(false);
   const [showDeleteLevelModal, setShowDeleteLevelModal] = useState(false);
   const [showDeleteLocationModal, setshowDeleteLocationModal] = useState(false);
   
-  const [activeLevel, setActiveLevel] = useState(0);
   const [toolInfo, setToolInfo] = useState(commandsDescription[language][Commands.DRAW]);
   const [hoverToolInfo, setHoverToolInfo] = useState(null);
-  const [fullscreen, setFullscreen] = useState(false);
   const [autosave, setAutosave] = useState(true);
   const [saved, setSaved] = useState(true);
   const [toggleImage, setToggleImage] = useState("/toggleImageOff.svg");
@@ -40,13 +38,11 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
 
   const updateLocation = () => {
     mAxios.put(`/locations/${location.id}`, location)
-        .then(response => setLocation(response.data))
-        .catch(error => console.log(error));
+        .catch(() => setSaved(false));
   }
 
   const updateRooms = () => {
     location.levels[activeLevel].rooms = creator.getRooms();
-    setLocation(location)
     updateLocation();
   }
 
@@ -87,7 +83,7 @@ const Tool = ({location, setLocation, changeDisplayedLevel, setupCreator, creato
   }
 
   const onAutosaveClick = () => {
-    onSaveClick()
+    if(!autosave) onSaveClick()
     setAutosave(!autosave)
   }
 

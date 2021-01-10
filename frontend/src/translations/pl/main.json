@@ -34,6 +34,8 @@
         "levelBlueprint": "Plan poziomu",
         "uploadBlueprint": "Dodaj plan",
         "addNewDevice": "Dodaj nowe urządzenie",
+        "searchForDevices": "Wyszukaj urządzenie",
+        "emptySearchResults": "Nie znaleziono żadnego urządzenia dla podanej frazy",
         "disconnected": "rozłączone",
         "connected": "połączone",
         "on": "włączone",
@@ -63,7 +65,7 @@
         "all": "Wszystkie",
         "noDevices": "Brak urządzeń",
         "addNewLevel": "Dodaj poziom",
-        "toolBeginning": "Narzędzie: ",
+        "toolBeginning": "Narzędzie ",
         "toolEnding": ""
     },
     "addDevices": {

@@ -26,30 +26,20 @@ const NavLinks = ({loggedIn}) => {
 
     const loggedInNav = <div className="container" style={{padding: "0 10%", maxWidth: "100%", height: 80}}>
         {suplaLogo}
-        <ul class="navbar-nav" style={{paddingLeft: "10%", height: 80}}>
-            <li>
-                <a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a>
-            </li>
-            <li>
-                <NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations"><i class="pe-7s-home"></i>{t('navBar.localization')}</NavLink>
-            </li>
-            <li>
-                <NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink>
-            </li>
-            <li>
-                <a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a>
-            </li>
-            <li>
-                <NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}><i class="pe-7s-user"></i>{t('navBar.logOut')}</NavLink>
-            </li>
+        <ul class="navbar-nav" style={{paddingLeft: "60%", height: 80}}>
+            {/* <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li> */}
+            <li><NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations"><i class="pe-7s-home"></i>{t('navBar.localization')}</NavLink></li>
+            {/* <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li> */}
+            <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>
+            <li><NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}><i class="pe-7s-user"></i>{t('navBar.logOut')}</NavLink></li>
         </ul>
     </div>
 
     const loggedOutNav = <div class="container" style={{padding: "0 10%", maxWidth: "100%", height: 80}}>
         {suplaLogo}
-        <ul class="navbar-nav" style={{paddingLeft: "40%"}}>
+        <ul class="navbar-nav" style={{paddingLeft: "60%"}}>
             <li><a className="tool-bar_link" href="https://supla.org"><i class="pe-7s-share"></i>{t('navBar.website')}</a></li>
-            <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li>
+            {/* <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li> */}
             <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>
             <li><a className="tool-bar_link" href={authUrl}><i class="pe-7s-user"></i>{t('navBar.logIn')}</a></li>
         </ul>

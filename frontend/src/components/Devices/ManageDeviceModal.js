@@ -10,28 +10,27 @@ const ManageDeviceModal = ({device, manageDevice, deviceState, canClose, setShow
 
     function handleAction(action) {
         mAxios.post(`/devices/actions/${device.id}`, { "actionType": action.name })
-            .then(response => {
-                manageDevice(device, action.caption);
-            })
+            .then(manageDevice(device, action.caption))
             .catch(error => console.log(error));
     }
 
     const mappedActions = deviceState.actions.map(action => {
-        return <div className = "action" onClick={() => { handleAction(action) }}>
+        return (
+            <div className = "action" onClick={() => { handleAction(action) }}>
                 <p class="model-button">{action.caption}</p>
             </div>
-    })
+        )})
 
     const mappedStates = Object.keys(deviceState.state).map((field, index) => {
         const value = typeof deviceState.state[field] === "boolean" ? deviceState.state[field] ? "true" : "false" : deviceState.state[field] ;
-        return <div class="state">
-            <p class="model-button">
-                <span style={{textTransform: 'capitalize'}}>{field}</span>
-                <br/>
-                <span style={{color: "#00d151", textTransform: "uppercase"}}>{value} {deviceState.stateDetails ? deviceState.stateDetails[field]?.unit : ""}</span>
-            </p>
-        </div>
-    })
+        return (
+            <div class="state">
+                <p class="model-button">
+                    <span style={{textTransform: 'capitalize'}}>{field}</span> <br/>
+                    <span style={{color: "#00d151", textTransform: "uppercase"}}>{value} {deviceState.stateDetails ? deviceState.stateDetails[field]?.unit : ""}</span>
+                </p>
+            </div>
+        )})
 
     return (
         <Modal title={t('manageDeviceModal.manage') + device.name} canClose={canClose} onCloseModal={() => {setShowModal(false)}}>
