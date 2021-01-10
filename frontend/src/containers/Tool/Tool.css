@@ -1,0 +1,28 @@
+.tool-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1.5fr;
+    grid-template-areas: "left-container canvas-area right-container";
+}
+
+.tools {
+    grid-area: tools;
+}
+
+.description {
+    width: 100%;
+    position: absolute;
+    transition: ease .5s;
+    overflow: hidden;
+    color: white;
+}
+
+.description:hover {
+    width: 200%;
+}
+
+.description > p {
+    padding: 0 20px 20px;
+    text-align: left;
+    width: 200%;
+} 

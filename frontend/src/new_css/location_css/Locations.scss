@@ -1,0 +1,146 @@
+@import '../variables';
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+
+    .col-locations {
+        width: 100%;
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+.carousel-title {
+    font-family: Quicksand,sans-serif;
+    font-size: 35px;
+    line-height: 35px;
+    font-weight: 300;
+    text-transform: capitalize;
+    color: inherit;
+    margin: .6em 0;
+}
+
+.filters {
+    text-align: right;
+}
+
+.locations {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    gap: 25px 25px;
+    grid-template-columns: repeat(auto-fit, calc(25% - 20px));
+    transition: transform 0.5s ease 0s;
+    flex-basis: 287.5px;
+    visibility: visible;
+}
+
+.slide {
+    flex-basis: inherit;
+    flex-grow: 0;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.location {
+    position: relative;
+    display: block;
+    background: $green;
+    color: $white;
+    border-radius: 3px;
+    transition: all .3s;
+    height: 13em;
+    overflow: hidden;
+}
+
+.black {
+    background: $black;
+    color: $white;
+    border-color: $black;
+}
+
+// .lift-up {
+//     height: auto;
+//     transition: all .2s;
+//     top: 0;
+// }
+
+.location-wrapper {
+    display: grid;
+    width: 100%;
+    height: auto;
+    color: inherit;
+
+    &:hover {
+        cursor: pointer;
+
+        .location-add-devices,
+        .location-edit {
+            transform: translateX(-5px);
+        }
+    }
+}
+
+.center {
+    grid-area: 1 / 1 / 3 / 3;
+    display: table;
+    table-layout: fixed;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.dynamic-buttons {
+    grid-area: 1 / 2 / 1 / 3;
+    margin: 5px 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-edit, 
+.location-add-devices {
+    width: 30px;
+    height: 30px;
+    transition: ease .5s;
+    transform: translateX(calc(100% + 10px));
+}
+
+.location-edit > img, 
+.location-add-devices > img {
+    width: 100%;
+    height: 100%;
+    filter: invert(100%);
+}
+
+.span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.location-photo {
+    background-size: cover;
+    background-position-x: 50%;
+    background-position-y: 50%;
+    height: 8vw;
+    width: 100%;
+}
+
+.separator {
+    display: block;
+    margin: 4px 0;
+}
+
+i {
+    font-size: 6em;
+    display: block !important;
+    margin-bottom: 15px;
+}
