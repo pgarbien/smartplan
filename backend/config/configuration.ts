@@ -3,7 +3,7 @@ export default () => ({
     database: {
         host: process.env.DATABASE_HOST || 'localhost',
         port: parseInt(process.env.DATABASE_PORT, 10) || 27017,
-        name: process.env.DATABASE_NAME || 'supla_db'
+        name: process.env.DATABASE_NAME || 'smartplan_db'
     },
     supla: {
         authUrl: process.env.SUPLA_AUTH_URL || 'https://svr36.supla.org/oauth/v2/auth',
