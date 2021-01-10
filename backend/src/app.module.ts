@@ -22,7 +22,6 @@ import { PreferencesModule } from './preferences/preferences.module';
     imports: [
         HttpModule,
         ConfigModule.forRoot({
-            envFilePath: './config/config.local.env',
             load: [configuration]
         }),
         TypeOrmModule.forRoot({

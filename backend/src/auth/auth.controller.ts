@@ -1,7 +1,6 @@
 import {
     Controller,
     Get,
-    Headers,
     Next,
     Param,
     Req,
@@ -12,21 +11,21 @@ import {
 import AuthService, {AuthProvider} from './auth.service'
 import {NextFunction, Request, Response} from 'express';
 import * as passport from 'passport';
-import {ConfigService} from "@nestjs/config";
-import {ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
+import {ApiOkResponse, ApiTags, ApiUnauthorizedResponse} from "@nestjs/swagger";
 import {AuthUrlResponse, RefreshTokenResponse} from "./auth.model";
 import {AuthGuard} from "../auth.guard";
+import configuration from "../../config/configuration";
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService, private readonly configService: ConfigService) {
+    constructor(private readonly authService: AuthService) {
     }
 
-    private callbackUrl = this.configService.get('SUPLA_CALLBACK_URL');
-    private suplaAuthUrl = this.configService.get('SUPLA_AUTH_URL');
-    private websiteUrl = this.configService.get('WEBSITE_URL');
-    private clientId = this.configService.get('SUPLA_CLIENT_ID');
+    private callbackUrl = configuration().supla.callbackUrl;
+    private suplaAuthUrl = configuration().supla.authUrl;
+    private websiteUrl = configuration().websiteUrl;
+    private clientId = configuration().supla.clientId;
     private scopes = ['channels_r', 'account_r', 'channels_ea', 'offline_access'];
 
 

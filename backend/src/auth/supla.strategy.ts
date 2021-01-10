@@ -1,10 +1,9 @@
 import {Injectable} from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
 import {Strategy, StrategyOptionWithRequest, VerifyFunctionWithRequest} from 'passport-oauth2';
-
 import AuthService from './auth.service';
-import {ConfigService} from "@nestjs/config";
 import {AuthProfile} from "./auth.model";
+import configuration from "../../config/configuration";
 
 const callbackFunction =
     (authService: AuthService) => (async (req, access, refresh, profile, done) => {
@@ -27,13 +26,13 @@ const callbackFunction =
 
 @Injectable()
 export class SuplaStrategy extends PassportStrategy(Strategy, 'supla') {
-    constructor(private readonly authService: AuthService, private readonly configService: ConfigService) {
+    constructor(private readonly authService: AuthService) {
         super({
-            authorizationURL: configService.get('SUPLA_AUTH_URL'),
-            tokenURL: configService.get('SUPLA_TOKEN_URL'),
-            clientID: configService.get('SUPLA_CLIENT_ID'),
-            clientSecret: configService.get('SUPLA_CLIENT_SECRET'),
-            callbackURL: configService.get('SUPLA_CALLBACK_URL')
+            authorizationURL: configuration().supla.authUrl,
+            tokenURL: configuration().supla.tokenUrl,
+            clientID: configuration().supla.clientId,
+            clientSecret: configuration().supla.clientSecret,
+            callbackURL: configuration().supla.callbackUrl
         } as StrategyOptionWithRequest,
             callbackFunction(authService));
     }

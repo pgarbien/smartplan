@@ -14,6 +14,8 @@ services:
     ports:
       - 4000:4000
     working_dir: /usr/src/app
+    env_file:
+      - ./.env.backend
     command: npm start
     depends_on:
       - mongo
@@ -23,5 +25,5 @@ services:
       MONGO_INITDB_DATABSE: "supla_db"
     ports:
       - 27017:27017
-    volumes:
-      - './data:/data/db'
+#    volumes:
+#      - './data:/data/db'

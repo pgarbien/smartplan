@@ -1,8 +1,7 @@
-import {ClassSerializerInterceptor, Controller, Post, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
+import {Controller, Post, UploadedFile, UseGuards, UseInterceptors} from '@nestjs/common';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from 'multer';
 import {extname, join} from 'path';
-import {ConfigService} from "@nestjs/config";
 import {FileResponse, UploadFile} from "./file.model";
 import {
     ApiBearerAuth,
@@ -14,6 +13,7 @@ import {
 } from "@nestjs/swagger";
 import {AuthGuard} from "../auth.guard";
 import {AuthInterceptor} from "../auth.interceptor";
+import configuration from 'config/configuration';
 
 
 @Controller('file')
@@ -23,8 +23,7 @@ import {AuthInterceptor} from "../auth.interceptor";
 @UseGuards(AuthGuard)
 @UseInterceptors(AuthInterceptor)
 export class FileController {
-    constructor(private configService: ConfigService) {
-    }
+    private serverUrl: string = configuration().serverUrl;
 
     @Post('upload')
     @ApiConsumes('multipart/form-data')
@@ -45,7 +44,5 @@ export class FileController {
     uploadFile(@UploadedFile() file): FileResponse {
         return new FileResponse(this.serverUrl + '/' + file.filename);
     }
-
-    private serverUrl: string = this.configService.get('SERVER_URL');
 }
 
