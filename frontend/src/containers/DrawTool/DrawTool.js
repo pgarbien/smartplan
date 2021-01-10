@@ -95,7 +95,7 @@ const DrawTool = (props) => {
             </Route>
             <Route path="/draw">
                 <Tool location={location} 
-                    setLocation={setCurrentLocation} 
+                    setLocation={setLocation} 
                     activeLevel={activeLevel} 
                     setActiveLevel={setActiveLevel} 
                     changeDisplayedLevel={setCurrentLevel} 

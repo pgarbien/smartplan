@@ -38,6 +38,7 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
 
   const updateLocation = () => {
     mAxios.put(`/locations/${location.id}`, location)
+        .then(response => setLocation(response.data))
         .catch(() => setSaved(false));
   }
 
