@@ -1,18 +1,17 @@
 import {HttpService, Injectable} from '@nestjs/common';
-import {ConfigService} from "@nestjs/config";
 import {map} from "rxjs/operators";
 import AuthService from "../auth/auth.service";
 import {ActionType} from "../device/device.supla.model";
+import configuration from "../../config/configuration";
 
 @Injectable()
 export class ChannelsService {
-    constructor(private readonly configService: ConfigService,
-                private readonly httpService: HttpService,
+    constructor(private readonly httpService: HttpService,
                 private readonly authService: AuthService) {
     }
 
-    private channelsUrl = this.configService.get<string>('API_URL') + '/channels';
-    private iconsUrl = this.configService.get<string>('API_URL') + '/user-icons';
+    private channelsUrl = configuration().supla.apiVersion + '/channels';
+    private iconsUrl = configuration().supla.apiVersion + '/user-icons';
 
     public getChannels(userId: string, token: string) {
         return this.httpService.get(

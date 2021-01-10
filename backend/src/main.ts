@@ -13,14 +13,15 @@ async function bootstrap() {
     app.enableCors();
 
     const options = new DocumentBuilder()
-        .setTitle('Atomowki backend API')
-        .setDescription('API description')
+        .setTitle('SmartPlan backend API')
+        .setDescription('')
         .setVersion('1.0.0')
-        .addServer('http://localhost:4000')
-        .addServer('https://atomowki.azurewebsites.net/api')
         .addServer('https://smartplan.supla.io/api')
+        .addServer('https://atomowki.azurewebsites.net/api')
+        .addServer('http://localhost:4000')
         .addBearerAuth()
         .build();
+
     const document = SwaggerModule.createDocument(app, options, {
         include: [AuthModule, LocationsModule, DeviceModule, FileModule]
     });
