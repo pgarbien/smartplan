@@ -1,0 +1,80 @@
+{   
+    "login": {
+        "howTo": "How to use SMARTPLAN"
+    },
+    "navBar": {
+        "website": "SUPLA Website",
+        "localization": "Locations",
+        "aboutUs": "About us",
+        "documentation": "API docs",
+        "logIn": "Sign in",
+        "logOut": "Log out"
+    },
+    "footer": {
+        "madeBy": "Made by: Powerpuff Girls",
+        "description": "SMARTPLAN, extension for ",
+        "language": "English"
+    },
+    "popups": {
+        "create": "Create",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "add": "Add",
+        "save": "Save",
+        "autosave": "Autosave",
+        "createNewLocation": "Create new location",
+        "locationName": "Location name:",
+        "defaultLocationName": "House name",
+        "selectedPhoto": "Selected photo:",
+        "locationPhoto": "Location photo",
+        "uploadPhoto": "Upload photo",
+        "addLevel": "Add level",
+        "levelName": "Level name: ",
+        "defaultLevel": "Level #1",
+        "levelBlueprint": "Level blueprint",
+        "uploadBlueprint": "Upload blueprint",
+        "addNewDevice": "Add new device",
+        "searchForDevices": "Search for devices",
+        "emptySearchResults": "No devices found for given query",
+        "disconnected": "disconnected",
+        "connected": "connected",
+        "on": "on",
+        "off": "off",
+        "temperature": "Temperature: ",
+        "state": "State: ",
+        "connection": "Connection: ",
+        "blueprint": "Blueprint"
+    },
+    "locationsPage": {
+        "localizations": "Locations",
+        "createNew": "Create new location"
+    },
+    "editPage": {
+        "editLocationBeggining": "Edit ",
+        "editLocationEnding": " location"
+    },
+    "managePage": {
+        "manageDevsBeginning": "Manage ",
+        "manageDevsEnding": " devices:",
+        "yourDevices": "Your devices"
+    },
+    "tool": {
+        "editLocation": "Edit location",
+        "addDevices": "Add devices ",
+        "manageDevices": "Manage devices ",
+        "all": "All",
+        "noDevices": "No devices found",
+        "addNewLevel": "Add new level",
+        "toolBeginning": "",
+        "toolEnding": " tool"
+    },
+    "addDevices": {
+        "titleBeginning": "Add devices to ",
+        "titleEnding": " location:"
+    },
+    "manageDeviceModal": {
+        "manage": "Manage ",
+        "states": "States:",
+        "actions": "Actions:"
+    }
+}

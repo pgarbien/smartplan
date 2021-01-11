@@ -1,34 +1,45 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import { Rooms } from './tool/rooms'
-import { start, setHighlighted, removeRoom, reset, toggleImage, changeBlueprintImage } from './tool/scripts'
+import React, { useState, useEffect } from 'react';
+import './new_css/app_css/App.css';
+import './new_css/main_page_css/MainPage.css';
+import Login from './containers/Login/Login';
+import DrawTool from './containers/DrawTool/DrawTool';
+import AboutUs from './components/About/AboutUs';
+import Layout from './containers/Layout/Layout';
+import Locations from './containers/Locations/Locations';
+import Auth from './containers/Auth/Auth';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [language, setLanguage] = useState('pl');
+
   useEffect(() => {
-
-    const c = document.getElementsByTagName("canvas");
-    const ctx = c[0].getContext("2d");
-    const stx = c[1].getContext("2d");
-    const img = document.getElementById("bp");
-
-    console.log(Rooms);
-    start(c, ctx, stx, img);
+    setLoggedIn(localStorage['token'])
   }, []);
 
-  return (
-    <div style={{margin: 0}}>
-        <img id="bp" src="https://www.roomsketcher.com/wp-content/uploads/2015/11/RoomSketcher-2-Bedroom-Floor-Plans.jpg" alt="blueprint" style={{display: "none"}} />
-        <canvas id="mainCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
-        <canvas id="secCanvas" width="600" height="600" style={{border: "1px solid #ccc"}}></canvas>
-        <br/>
-        <button onClick={() => toggleImage()}>Toggle image</button>
-        <span id="name"></span>
-        <input id="image" value="https://i.pinimg.com/originals/84/f9/71/84f9710dbdc09789ac2534369939a2f3.jpg"/>
-        <button onClick={() => changeBlueprintImage()}>Change image</button>
-        <button onClick={() => reset()}>Reset</button>
-        <div id="list"></div>
-    </div>
-  );
-}
+  return [
+    <BrowserRouter>
+      <Layout loggedIn={loggedIn} language={language} setLanguage={setLanguage}>
+          <Switch>
+            <Route path="/locations">
+              <Locations/>
+            </Route>
+            <Route path="/draw">
+              <DrawTool language={language}/>
+            </Route>
+            <Route path="/auth">
+              <Auth setLoggedIn={setLoggedIn}/>
+            </Route>
+            <Route path="/about_us">
+              <AboutUs/>
+            </Route>
+            <Route path="/">
+              <Login setLoggedIn={setLoggedIn}/>
+            </Route>
+          </Switch>
+      </Layout>
+    </BrowserRouter>
+  ];
+};
 
 export default App;

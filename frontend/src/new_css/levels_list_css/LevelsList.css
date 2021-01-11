@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+.dropdown {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.drop-btn {
+  background-color: #ffffff;
+  color: #000000;
+  text-transform: uppercase;
+  line-height: 26px;
+  padding: 5px 10px;
+  font-size: .8em;
+  font-weight: 400;
+  outline-color: #eaeaea;
+  cursor: pointer;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  border: 1px solid #eaeaea;
+  min-width: 160px;
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  z-index: 1;
+  width: -moz-max-content;
+  color: #000;
+  border-color: #eaeaea;
+  border-width: 0 1px 1px 1px;
+}
+
+.level {
+  background-color: #ffffff;
+  color: #777777;
+  text-align: center;
+  padding: inherit;
+  cursor: pointer;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+
+.level:hover {
+  background-color: #f2f2f2;
+  color: #000000;
+}
+
+.add-level {
+  color: #00d151;
+}
+
+.add-level:hover {
+  color: #ffffff;
+  background-color: #00d151;
+}
+
+.trash {
+  margin-left: 10%;
+  opacity: 0.5;
+  width: 11px;
+}
+
+.trash:hover {
+  color: red;
+}
+/*# sourceMappingURL=LevelsList.css.map */

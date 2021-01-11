@@ -1,0 +1,92 @@
+@import '../variables';
+
+.dropdown {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        .dropdown-content {
+            display: block;
+        }
+    }
+}
+
+.drop-btn {
+    background-color: $white;
+    color: $black;
+    text-transform: uppercase;
+    line-height: 26px;
+    padding: 5px 10px;
+    font-size: .8em;
+    font-weight: 400;
+    outline-color: $buttonGrey;
+    cursor: pointer;
+    transition: all .2s;
+    border: 1px solid $buttonGrey;
+    min-width: 160px;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid\9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 0;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    z-index: 1;
+    width: -moz-max-content;
+    color: #000;
+    border-color: #eaeaea;
+    border-width: 0 1px 1px 1px;
+}
+
+.level {
+    background-color: $white;
+    color: $iconGrey;
+    text-align: center;
+    padding: inherit;
+    cursor: pointer;
+    padding: 8px 10px;
+    font-size: 12px;
+    &:hover {
+        background-color: $buttonBackgroundGrey;
+        color: $black;
+    }
+}
+
+.add-level {
+    color: $green;
+    &:hover {
+        color: $white;
+        background-color: $green;
+    }
+}
+
+.trash {
+    margin-left: 10%;
+    opacity: 0.5;
+    width: 11px;
+    &:hover {
+        color: red;
+    }
+}
