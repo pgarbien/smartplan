@@ -29,6 +29,7 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
   const [autosave, setAutosave] = useState(true);
   const [saved, setSaved] = useState(true);
   const [toggleImage, setToggleImage] = useState("/toggleImageOff.svg");
+  const [editedLevel, setEditedLevel] = useState(null)
   
   const saveLocation = () => {
     mAxios.post('/locations', location)
@@ -47,9 +48,19 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
     updateLocation();
   }
 
-  const addNewLevel = (levelName, blueprintUrl) => {
-    location.levels.push(new Level(null, levelName, blueprintUrl, [], location.levels.length)); 
+  const addNewLevel = (levelName, blueprintUrl, level = null) => {
+    if(level) {
+      const levelBlueprint = blueprintUrl ? blueprintUrl : level.blueprintUrl;
+      level.name = levelName;
+      level.blueprintUrl = levelBlueprint;
+      creator.setBackgroundImage(levelBlueprint);
+    } else {
+      location.levels.push(new Level(null, levelName, blueprintUrl, [], location.levels.length));
+      creator.setBackgroundImage(blueprintUrl);
+    }
+    
     setLocation(location);
+    setEditedLevel(null);
     setShowAddLevelModal(false);
 
     if(autosave) updateLocation();
@@ -69,6 +80,8 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
 
       location.levels.map(level => level.order = location.levels.indexOf(level))
       setLocation(location);
+      setEditedLevel(null);
+      setShowAddLevelModal(false);
 
       if(location.levels.length === 0)setShowAddLevelModal(true)
       else setActiveLevel(location.levels[0].order)
@@ -88,12 +101,18 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
     setAutosave(!autosave)
   }
 
+  const showLevelModal = (level = null) => {
+    setEditedLevel(level)
+    setShowAddLevelModal(true)
+  }
+
   useEffect(() => {
     if(creationCanvas) setupCreator(creationCanvas.current)
   }, [creationCanvas]);
 
   useEffect(() => {
     if(location && location.levels.length === 0) setShowAddLevelModal(true);
+    else if(location) creator.refresh()
   }, [location]);
 
   useEffect(() => {
@@ -115,7 +134,7 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
             <h2>{t('editPage.editLocationBeggining')}<span class="primary_color">{location ? location.name : ""}</span>{t('editPage.editLocationEnding')}</h2>
             <LevelsList 
                 location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel} 
-                setShowAddLevelModal={setShowAddLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
+                showLevelModal={showLevelModal} setShowDeleteLevelModal={setShowDeleteLevelModal}
             />
           </div>
           <div class="button-header">
@@ -165,7 +184,7 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
           </div>
         </div>
       </div>
-        { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} /> : null }
+        { showAddLevelModal ? <NewLevelModal addNewLevel={addNewLevel} setShowModal={setShowAddLevelModal} canClose={location.levels.length > 0} setShowDeleteLevelModal={setShowDeleteLevelModal} editedLevel={editedLevel} /> : null }
         { showDeleteLevelModal ? <DeleteLevelModal deleteLevel={deleteLevel} levelName={location.levels[activeLevel].name} setShowModal={setShowDeleteLevelModal} canClose={true}/> : null }
         { showDeleteLocationModal ? <DeleteLocationModal creator={creator} location={location} setShowModal={setshowDeleteLocationModal}/> : null }
       </Fragment>

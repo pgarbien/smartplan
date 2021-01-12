@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import '../../new_css/levels_list_css/LevelsList.css';
 import {useTranslation} from 'react-i18next';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 
-const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLevel, setShowAddLevelModal, setShowDeleteLevelModal }) => {
+const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLevel, showLevelModal, setShowDeleteLevelModal }) => {
   const {t, i18n} = useTranslation('main');
   const [activeLevelName, setActiveLevelName] = useState("Wszystkie poziomy")
 
@@ -14,17 +14,27 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
       setActiveLevelName(level.name);
   }
 
-  const onRightLevelClick = () => {
+  const onRightLevelClick = (event) => {
     if(setShowDeleteLevelModal) {
+      event.preventDefault()
         setShowDeleteLevelModal(true)
     }
   }
 
+  const onEditLevelClick = ( level) => {
+    showLevelModal(level);
+  }
+
+  const onAddLevelClick = (event) => {
+    event.stopPropagation()
+    showLevelModal();
+  }
+
   const levels = location ? location.levels.slice(0).map(level => {
     return (
-      <div class="level" key={level.order} onClick={() => onLeftLevelClick(level)}>
+      <div class="level" key={level.order} onClick={() => onLeftLevelClick(level)} onContextMenu={onRightLevelClick}>
         {level.name}
-        {setShowAddLevelModal ? <FontAwesomeIcon class="trash" onClick={onRightLevelClick} icon={faTrash}/> : null}
+        {showLevelModal ? <FontAwesomeIcon class="edit_level" onClick={() => { onEditLevelClick(level) }} icon={faEdit}/> : null}
       </div>
     )
   }) : null;
@@ -49,7 +59,7 @@ const LevelsList = ({ location, activeLevel, setActiveLevel, changeDisplayedLeve
           </button>
           <div class="dropdown-content">
             {levels}
-            {setShowAddLevelModal ? <div className="level add-level" onClick={() => { setShowAddLevelModal(true) }}>{t('tool.addNewLevel')}</div> : null}
+            {showLevelModal ? <div className="level add-level" onClick={onAddLevelClick}>{t('tool.addNewLevel')}</div> : null}
           </div>
         </div>
     </div>

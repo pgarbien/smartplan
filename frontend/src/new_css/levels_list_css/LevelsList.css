@@ -87,13 +87,13 @@
   background-color: #00d151;
 }
 
-.trash {
+.edit_level {
   margin-left: 10%;
   opacity: 0.5;
-  width: 11px;
+  width: 17px;
 }
 
-.trash:hover {
+.edit_level:hover {
   color: red;
 }
 /*# sourceMappingURL=LevelsList.css.map */

@@ -17,6 +17,7 @@
     },
     "popups": {
         "create": "Create",
+        "update": "Update",
         "delete": "Delete",
         "cancel": "Cancel",
         "add": "Add",
@@ -29,6 +30,8 @@
         "locationPhoto": "Location photo",
         "uploadPhoto": "Upload photo",
         "addLevel": "Add level",
+        "editLevel": "Edit poziom",
+        "imageNotUploaded": "No image uploaded",
         "levelName": "Level name: ",
         "defaultLevel": "Level #1",
         "levelBlueprint": "Level blueprint",

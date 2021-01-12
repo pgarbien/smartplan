@@ -17,6 +17,7 @@
     },
     "popups": {
         "create": "Stwórz",
+        "update": "Zaktualizuj",
         "delete": "Usuń",
         "cancel": "Anuluj",
         "add": "Dodaj",
@@ -29,6 +30,8 @@
         "locationPhoto": "Zdjęcie lokalizacji",
         "uploadPhoto": "Dodaj zdjęcie",
         "addLevel": "Dodaj poziom",
+        "editLevel": "Edytuj poziom",
+        "imageNotUploaded": "Nie wgrano zdjęcia",
         "levelName": "Nazwa poziomu: ",
         "defaultLevel": "Poziom #1",
         "levelBlueprint": "Plan poziomu",
