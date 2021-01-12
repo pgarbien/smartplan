@@ -19,7 +19,7 @@ const App = () => {
 
   return [
     <BrowserRouter>
-      <Layout loggedIn={loggedIn} language={language} setLanguage={setLanguage}>
+      <Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn} language={language} setLanguage={setLanguage}>
           <Switch>
             <Route path="/locations">
               <Locations/>

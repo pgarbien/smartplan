@@ -6,7 +6,7 @@ import '../../pe-icon-7-stroke/css/pe-icon-7-stroke.css';
 import '../../pe-icon-7-stroke/css/helper.css';
 import {useTranslation} from "react-i18next";
 
-const NavLinks = ({loggedIn}) => {
+const NavLinks = ({loggedIn, setLoggedIn}) => {
     const {t, i18n} = useTranslation('main');
     const [authUrl, setAuthUrl] = useState("javascript:void(0)");
 
@@ -20,7 +20,7 @@ const NavLinks = ({loggedIn}) => {
             console.log(error);
         });
 
-    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan_santa.png" style={{height: "100%"}}/> </NavLink>
+    const suplaLogo = <NavLink class="tool-bar_supla" activeClassName="tool-bar_link--active" to="/"> <img src="/smartplan.png" style={{height: "100%"}}/> </NavLink>
 
         // To be refactored ...
 
@@ -31,7 +31,7 @@ const NavLinks = ({loggedIn}) => {
             <li><NavLink exact className="tool-bar_link" activeClassName="tool-bar_link--active" to="/locations"><i class="pe-7s-home"></i>{t('navBar.localization')}</NavLink></li>
             {/* <li><NavLink className="tool-bar_link" to="/about_us"><i class="pe-7s-info"></i>{t('navBar.aboutUs')}</NavLink></li> */}
             <li><a className="tool-bar_link" href={process.env.REACT_APP_SERVER_URL+"/api_docs/"}><i class="pe-7s-help2"></i>{t('navBar.documentation')}</a></li>
-            <li><NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token')}}><i class="pe-7s-user"></i>{t('navBar.logOut')}</NavLink></li>
+            <li><NavLink exact className="tool-bar_link" to="/" onClick={()=> {localStorage.removeItem('token'); setLoggedIn(false)}}><i class="pe-7s-user"></i>{t('navBar.logOut')}</NavLink></li>
         </ul>
     </div>
 
