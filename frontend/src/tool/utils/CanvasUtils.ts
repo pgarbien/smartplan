@@ -5,7 +5,7 @@ function getCursorPosition(canvas: HTMLCanvasElement, event: MouseEvent): Point 
 
     const cursorPosition: Point = new Point(
         (event.clientX - canvasRect.left) / canvas.clientWidth,
-        (event.clientY - canvasRect.top) / canvas.clientHeight
+        (event.clientY - canvasRect.top) / canvas.clientWidth
     );
 
     return cursorPosition;

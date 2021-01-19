@@ -52,13 +52,13 @@ export default class CanvasDrawer {
             this.canvasContext.lineWidth = 3;
             this.canvasContext.strokeStyle = !highlighted ? "rgba(" + room.color + ", 1)" : "rgba(0, 209, 81, 1)";
             this.canvasContext.fillStyle = !highlighted ? "rgba(" + room.color + ", 0.35)" : "rgba(0, 209, 81, .7)";
-            this.canvasContext.moveTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
+            this.canvasContext.moveTo(points[0].x * this.canvas.width, points[0].y * this.canvas.width);
 
             for(let i=1; i<points.length; ++i) {
-                this.canvasContext.lineTo(points[i].x * this.canvas.width, points[i].y * this.canvas.height);
+                this.canvasContext.lineTo(points[i].x * this.canvas.width, points[i].y * this.canvas.width);
             }
             if(!building) { 
-                this.canvasContext.lineTo(points[0].x * this.canvas.width, points[0].y * this.canvas.height);
+                this.canvasContext.lineTo(points[0].x * this.canvas.width, points[0].y * this.canvas.width);
                 this.canvasContext.fill();
             }
             this.canvasContext.stroke();
@@ -76,7 +76,7 @@ export default class CanvasDrawer {
         var image = new Image();
         
         image.src = "data:image/  png;base64," + (newDevice.icons ? (newDevice.deviceState == DeviceState.ACTIVE && newDevice.activeIconId ? newDevice.icons[newDevice.activeIconId] : newDevice.icons[0]) : "");
-        const size = 30
+        const size = 0.015 * this.canvas.width
         let width = image.naturalWidth
         let height = image.naturalHeight
         if(width > height) {
@@ -89,7 +89,7 @@ export default class CanvasDrawer {
             height = size
         }
 
-        const devicePosition: Point = new Point(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height);
+        const devicePosition: Point = new Point(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.width);
 
         if(newDevice.displayedState) {
             const displayedState = `${newDevice.displayedState}`;
@@ -116,14 +116,14 @@ export default class CanvasDrawer {
         }
 
         this.canvasContext.beginPath();
-        this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.height, highlighted ?  26 : 22, 0, 2 * Math.PI);
+        this.canvasContext.arc(newDevice.point!.x * this.canvas.width, newDevice.point!.y * this.canvas.width, highlighted ?  size : size * 0.8, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "#ffffff";
         this.canvasContext.strokeStyle = newDevice.deviceState == DeviceState.ACTIVE ? "#00d151" : newDevice.deviceState == DeviceState.DISABLED ? "#ff0000" : "#777777"
         this.canvasContext.lineWidth = 2;
         this.canvasContext.fill();
         this.canvasContext.stroke();
         this.canvasContext.closePath();
-        this.canvasContext.drawImage(image, newDevice.point!.x * this.canvas.width - width/2, newDevice.point!.y * this.canvas.height - height/2, width, height);
+        this.canvasContext.drawImage(image, newDevice.point!.x * this.canvas.width - width/2, newDevice.point!.y * this.canvas.width - height/2, width, height);
     }
 
     roundRect(x: number, y: number, width: number, height: number, radius: number, fill: boolean, stroke: boolean) {
@@ -157,7 +157,7 @@ export default class CanvasDrawer {
         this.canvasContext.beginPath();
         this.canvasContext.moveTo(
             startPoint.x * this.canvas.width, 
-            startPoint.y * this.canvas.height
+            startPoint.y * this.canvas.width
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
@@ -166,7 +166,7 @@ export default class CanvasDrawer {
         
         this.canvasContext.lineTo(
             endPoint.x * this.canvas.width, 
-            endPoint.y * this.canvas.height
+            endPoint.y * this.canvas.width
         );
         
         this.canvasContext.stroke();
@@ -178,7 +178,7 @@ export default class CanvasDrawer {
         this.canvasContext.beginPath();
         this.canvasContext.lineWidth = 2;
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
-        this.canvasContext.arc(point.x * this.canvas.width, point.y * this.canvas.height, 5, 0, 2 * Math.PI);
+        this.canvasContext.arc(point.x * this.canvas.width, point.y * this.canvas.width, 5, 0, 2 * Math.PI);
         this.canvasContext.fillStyle = "rgba(0, 209, 81, 1)"
         this.canvasContext.fill();
         this.canvasContext.stroke();
@@ -189,7 +189,7 @@ export default class CanvasDrawer {
         this.canvasContext.beginPath();
         this.canvasContext.moveTo(
             startPoint.x * this.canvas.width, 
-            startPoint.y * this.canvas.height
+            startPoint.y * this.canvas.width
         );
 
         this.canvasContext.strokeStyle = "rgba(0, 209, 81, 1)";
@@ -197,7 +197,7 @@ export default class CanvasDrawer {
         
         this.canvasContext.lineTo(
             endPoint.x * this.canvas.width, 
-            endPoint.y * this.canvas.height
+            endPoint.y * this.canvas.width
         );
             
         this.canvasContext.stroke();
