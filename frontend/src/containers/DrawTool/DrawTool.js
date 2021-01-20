@@ -25,6 +25,12 @@ const DrawTool = (props) => {
         setIsLocationEmpty(location == null || location.levels.length === 0)
     }, [location])
 
+    useEffect(() => {
+        if(creator != null) refreshCanvas()
+    }, [fullscreen])
+
+    const refreshCanvas = () => creator.refreshCanvas()
+
     const setupCreator = (canvas) => {
         if(creator == null) {
             const creator = new Creator(canvas);
