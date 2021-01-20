@@ -56,7 +56,7 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
       creator.setBackgroundImage(levelBlueprint);
     } else {
       location.levels.push(new Level(null, levelName, blueprintUrl, [], location.levels.length));
-      creator.setBackgroundImage(blueprintUrl);
+      // creator.setBackgroundImage(blueprintUrl);
     }
     
     setLocation(location);

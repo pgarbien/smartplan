@@ -55,7 +55,7 @@ const DrawTool = (props) => {
 
     const setCurrentLevel = (level, mCreator = creator) => {
         mCreator.setBackgroundImage(level.blueprintUrl);
-        mCreator.setRooms(level.rooms);
+        mCreator.setRooms(level.rooms ? level.rooms : []);
         mCreator.setAddedDevices([]);
         mCreator.refresh();
         

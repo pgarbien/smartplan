@@ -48,6 +48,15 @@ const Manager = ({ location, activeLevel, setActiveLevel, activeDevices, changeD
                 setDeviceDetails(device, response.data);
                 setDeviceState(response.data);
                 setShowManageDeviceModal(true);
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 100)
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 200)
+                setTimeout(() => mAxios.get(`/devices/details/${device.id}`)
+                        .then(response => setDeviceDetails(device, response.data))
+                        .catch(error => console.log(error)), 500)
             })
             .catch(error => console.log(error)), 100)
     }
