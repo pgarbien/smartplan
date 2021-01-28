@@ -1,42 +1,42 @@
 .fullscreen_buttons_opened {
-    position: absolute;
-    height: 30px;
-    bottom: 65px;
-    right: 65px;
-    margin: 0;
+  position: absolute;
+  height: 30px;
+  bottom: 65px;
+  right: 65px;
+  margin: 0;
 }
 
 .fullscreen_buttons_closed {
-    position: absolute;
-    height: 30px;
-    bottom: 15px;
-    right: 30px;
-    margin: 0;
+  position: absolute;
+  height: 30px;
+  bottom: 15px;
+  right: 30px;
+  margin: 0;
 }
 
 .fullscreen_button {
-    opacity: .5;
-    cursor: pointer;
-    display: inline-block;
-    margin-left: 15px;
+  opacity: 0.5;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 15px;
 }
 
 .fullscreen_button > * {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .fullscreen_level_name {
-    position: absolute;
-    left: 75px;
-    bottom: 65px;
-    color: #00d151;
-    font-size: 35px;
-    font-weight: 30;
-    font-family: Quicksand, sans-serif;
-    -webkit-touch-callout: none;
-      -webkit-user-select: none; 
-       -khtml-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none; 
-              user-select: none; 
+  position: absolute;
+  left: 75px;
+  bottom: 65px;
+  color: #00d151;
+  font-size: 35px;
+  font-weight: 30;
+  font-family: Quicksand, sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

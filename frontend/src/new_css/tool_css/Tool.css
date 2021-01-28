@@ -52,8 +52,8 @@ button {
 }
 
 .btn {
-  -webkit-transition: all .2s;
-  transition: all .2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -133,8 +133,8 @@ button {
   width: 3px;
   height: 0;
   background: #000000;
-  -webkit-transition: width .3s ease-in;
-  transition: width .3s ease-in;
+  -webkit-transition: width 0.3s ease-in;
+  transition: width 0.3s ease-in;
 }
 
 .shown {
@@ -151,8 +151,8 @@ button {
   position: absolute;
   left: -20px;
   background: #fafbfc;
-  -webkit-transition: all .3s;
-  transition: all .3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .dot:first-child {
@@ -217,7 +217,7 @@ button {
           justify-content: space-between;
   height: 100%;
   padding-left: 1sem;
-  padding-right: .5em;
+  padding-right: 0.5em;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -228,10 +228,10 @@ button {
   width: 98%;
   position: absolute;
   display: block;
-  height: 11em;
+  height: 12em;
   background: #00d151;
-  -webkit-transition: ease .5s;
-  transition: ease .5s;
+  -webkit-transition: ease 0.5s;
+  transition: ease 0.5s;
   border: 1px slid #ffffff;
   overflow: hidden;
 }
@@ -260,7 +260,7 @@ button {
 
 .custom-icon {
   font-size: 4em;
-  margin-top: .5em;
+  margin-top: 0.5em;
   margin-bottom: 2px;
 }
 
@@ -268,8 +268,8 @@ button {
   opacity: 0;
   padding: 0 1em;
   margin-top: 30%;
-  -webkit-transition: ease .7s;
-  transition: ease .7s;
+  -webkit-transition: ease 0.7s;
+  transition: ease 0.7s;
 }
 
 .tool-name {
@@ -282,18 +282,18 @@ button {
 }
 
 .directional-button {
-  font-family: Quicksand,sans-serif;
+  font-family: Quicksand, sans-serif;
   text-align: center;
   text-transform: uppercase;
   line-height: 26px;
-  padding: 8px 10px;
+  padding: 8px 1px;
   font-size: 1em;
   border: 1px solid #eaeaea;
   background: #ffffff;
   color: #000000;
   cursor: pointer;
-  -webkit-transition: ease-out .2s;
-  transition: ease-out .2s;
+  -webkit-transition: ease-out 0.2s;
+  transition: ease-out 0.2s;
   margin-top: 10px;
 }
 
@@ -302,7 +302,7 @@ button {
 }
 
 .tools-button {
-  font-family: Quicksand,sans-serif;
+  font-family: Quicksand, sans-serif;
   text-align: center;
   text-transform: uppercase;
   line-height: 20px;
@@ -312,13 +312,30 @@ button {
   background: #ffffff;
   color: #000000;
   cursor: pointer;
-  -webkit-transition: ease-out .2s;
-  transition: ease-out .2s;
+  -webkit-transition: ease-out 0.2s;
+  transition: ease-out 0.2s;
   display: inline-block;
   margin-left: 10px;
 }
 
 .tools-button:hover {
   color: #00d151;
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  .description {
+    height: 13em;
+  }
+  .tool-name {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .directional-button {
+    line-height: 20px;
+    font-size: 0.9em;
+  }
+  .directional-button:active {
+    color: #00d151;
+  }
 }
 /*# sourceMappingURL=Tool.css.map */
