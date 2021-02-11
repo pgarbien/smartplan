@@ -43,7 +43,7 @@ body {
   transition: background-color 0.5s;
   font-weight: 400;
   font-size: 14px;
-  line-height: 1.42857143; //this weird value is taken from supla website
+  line-height: 1.42857143; //this value is taken directly from supla website
 }
 
 .primary_color {
@@ -51,7 +51,6 @@ body {
 }
 
 .page-content {
-  min-height: 100%;
   height: auto;
   margin-bottom: -60px;
   padding: 0 0 60px;
@@ -79,8 +78,6 @@ nav {
   padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
-  min-width: 500px;
-  max-width: 1250px;
 }
 
 .container {
@@ -143,7 +140,6 @@ nav {
     display: block;
     color: $iconGrey;
     padding: 15px;
-    // line-height: 20px;
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;

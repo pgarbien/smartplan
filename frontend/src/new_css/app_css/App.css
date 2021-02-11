@@ -52,7 +52,6 @@ body {
 }
 
 .page-content {
-  min-height: 100%;
   height: auto;
   margin-bottom: -60px;
   padding: 0 0 60px;
@@ -80,8 +79,6 @@ nav .navbar {
   padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
-  min-width: 500px;
-  max-width: 1250px;
 }
 
 .container {

@@ -1,11 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
-.home-page .main-page-image {
-  width: 100%;
-  height: 80vh;
-  background-image: url("https://www.supla.org/assets/img/home.jpg");
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
+.main-page-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.home-page {
+  display: -ms-inline-grid;
+  display: inline-grid;
+  -ms-grid-rows: minmax(10%, 150px) minmax(200px, auto);
+      grid-template-rows: minmax(10%, 150px) minmax(200px, auto);
 }
 
 .home-page .video-text {
@@ -18,9 +25,13 @@
 }
 
 .home-page .supla-video {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-self: center;
+  -ms-flex-item-align: center;
+      align-self: center;
   width: 100%;
-  height: 80vh;
-  margin-left: 25%;
-  margin-bottom: 10em;
+  margin-top: 2em;
 }
 /*# sourceMappingURL=MainPage.css.map */

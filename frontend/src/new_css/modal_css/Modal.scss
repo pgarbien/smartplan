@@ -1,151 +1,157 @@
-@import '../variables';
+@import "../variables";
 
 .modal {
-    width: 50%;
-    min-width: 550px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    background: $white;
-    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
-    z-index: 99999;
-    transform: translate(-50%, -50%);
+  width: 50%;
+  min-width: 550px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background: $white;
+  box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.1);
+  z-index: 99999;
+  transform: translate(-50%, -50%);
 }
 
 .modal-background {
-    width: 100vw;
-    height: calc(100vh - 80px);
-    position: fixed;
-    left: 0px; 
-    top: 80px;
-    z-index: 99999;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  position: fixed;
+  left: 0px;
+  top: 80px;
+  z-index: 99999;
 }
 
 .modal-header {
-    padding: 20px;
-    border-bottom: 1px solid $labelLightGrey;
+  padding: 20px;
+  border-bottom: 1px solid $labelLightGrey;
 }
 
 .modal-body {
-    padding: 20px;
-    font-family: Quicksand,sans-serif;
-    font-weight: 300;
+  padding: 20px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 300;
 }
 
 .modal-title {
-    font-size: 21px;
-    font-family: Quicksand,sans-serif;
-    font-weight: 300;
-    margin: 0!important;
+  font-size: 21px;
+  font-family: Quicksand, sans-serif;
+  font-weight: 300;
+  margin: 0 !important;
 }
 
 .modal-close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 18px;
-    cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.new-level-modal-content {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
 }
 
 .device,
 .action,
 .state {
-    width: 150px;
-    height: 150px;
-    display: inline-block;
-    vertical-align: top;
-    border: 1px solid $labelLightGrey;
-    text-align: center;
-    cursor: pointer;
-    padding: 10px;
-    margin-right: 10px;
-    box-sizing: border-box;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid $labelLightGrey;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
 }
 
 .device {
-    &>div {
-        margin-top: 50%;
-        transform: translateY(-50%);
-    }
-    &>div>img {
-        max-height: 65px;
-        max-width: 50%;
-    }
+  & > div {
+    margin-top: 50%;
+    transform: translateY(-50%);
+  }
+  & > div > img {
+    max-height: 65px;
+    max-width: 50%;
+  }
 }
 
 .state {
-    &>img {
-        max-height: 50%;
-        max-width: 50%;
-        margin-top: 50%;
-        transform: translateY(-50%);
-    }
+  & > img {
+    max-height: 50%;
+    max-width: 50%;
+    margin-top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .state {
-    cursor: default;
+  cursor: default;
 }
 
 .model-button {
-    margin-top: 50%;
-    transform: translateY(-50%);
+  margin-top: 50%;
+  transform: translateY(-50%);
 }
 
 input {
-    border: 0;
-    border-bottom: 1px solid $labelBoldGrey;
-    padding: 0 5px 3px 0px;
-    font-size: 19px;
-    width: 100%;
-    margin: 15px 0;
-    font-family: inherit;
+  border: 0;
+  border-bottom: 1px solid $labelBoldGrey;
+  padding: 0 5px 3px 0px;
+  font-size: 19px;
+  width: 100%;
+  margin: 15px 0;
+  font-family: inherit;
 }
 
-input[type=color] {
-    padding: 0px!important;
-    height: 100px;
+input[type="color"] {
+  padding: 0px !important;
+  height: 100px;
 }
 
 .upload-button,
 .create-button,
 .cancel-button {
-    border: 1px solid $buttonGrey;
-    background: $white;
-    padding: 10px 15px;
-    transition: ease .5s;
-    cursor: pointer;
+  border: 1px solid $buttonGrey;
+  background: $white;
+  padding: 10px 15px;
+  transition: ease 0.5s;
+  cursor: pointer;
 
-    &:hover {
-        border: 1px solid $green;
-        background: $green;
-        color: $white;
-    }
+  &:hover {
+    border: 1px solid $green;
+    background: $green;
+    color: $white;
+  }
 }
 
 .delete-button-modal {
-    border: 1px solid $buttonGrey;
-    background: $white;
-    color: $red;
-    padding: 10px 15px;
-    transition: ease .5s;
-    cursor: pointer;
+  border: 1px solid $buttonGrey;
+  background: $white;
+  color: $red;
+  padding: 10px 15px;
+  transition: ease 0.5s;
+  cursor: pointer;
 
-    &:hover {
-        border: 1px solid $red;
-        background: $red;
-        color: $white;
-    }
+  &:hover {
+    border: 1px solid $red;
+    background: $red;
+    color: $white;
+  }
 }
 
 .upload-button:disabled,
 .create-button:disabled {
-    border: 1px solid $labelBoldGrey;
-    background: $labelLightGrey;
-    color: $iconGrey;
+  border: 1px solid $labelBoldGrey;
+  background: $labelLightGrey;
+  color: $iconGrey;
 }
 
-input[type=file] {
-    display: none;
+input[type="file"] {
+  display: none;
 }
 
 .device:hover,
@@ -158,29 +164,32 @@ input[type=file] {
 }
 
 .arrow {
-    width: 5%;
-    display: inline-block; 
-    vertical-align: middle;
+  width: 5%;
+  display: inline-block;
+  vertical-align: middle;
 
-    &>img {
-        width: 100%;
-        opacity: .2;
-        cursor: pointer;
-    }
+  & > img {
+    width: 100%;
+    opacity: 0.2;
+    cursor: pointer;
+  }
 
-    &_right {
-        transform: rotate(180deg);
-    }
+  &_right {
+    transform: rotate(180deg);
+  }
 }
 
 .devices_wrapper {
-    width: 90%;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
+  width: 90%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
 }
 
 .devices_list {
-    width: max-content;
-    transition: ease .5s;
+  width: max-content;
+  transition: ease 0.5s;
+}
+
+@media (max-width: 1450px) {
 }

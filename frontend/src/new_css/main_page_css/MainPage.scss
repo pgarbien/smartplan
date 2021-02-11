@@ -1,28 +1,27 @@
-@import '../variables';
+@import "../variables";
+
+.main-page-content {
+  display: flex;
+  align-items: center;
+}
 
 .home-page {
-    .main-page-image {
-        width: 100%;
-        height: 80vh;
-        background-image: url("https://www.supla.org/assets/img/home.jpg");
-        background-size: 50%;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+  display: inline-grid;
+  grid-template-rows: minmax(10%, 150px) minmax(200px, auto);
+  .video-text {
+    font-family: Quicksand, sans-serif;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 400;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
 
-    .video-text {
-        font-family: Quicksand, sans-serif;
-        text-align: center;
-        font-size: 36px;
-        font-weight: 400;
-        margin-top: 2em;
-        margin-bottom: 2em;
-    }
-
-    .supla-video {
-        width: 100%;
-        height: 80vh;
-        margin-left: 25%;
-        margin-bottom: 10em;
-    }
+  .supla-video {
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    margin-top: 2em;
+  }
 }
