@@ -281,7 +281,7 @@ button {
   }
 }
 
-@media screen and (max-device-width: 1400px) {
+@media screen and (max-device-width: 750px) {
   .tool-page {
     display: grid;
     grid-template-columns: minmax(50px, 10%) minmax(600px, auto);
@@ -310,8 +310,21 @@ button {
   }
 }
 
-@media screen and (max-device-width: 1000px) {
-  .canvas {
-    height: 60vh;
+@media screen and (max-device-width: 800px) {
+  .tool-page {
+    .canvas,
+    .right-container {
+      height: 65vh;
+    }
+
+    .fullscreen_buttons_closed {
+      margin-bottom: 15vh !important;
+    }
+  
+    .fullscreen {
+      .canvas {
+        height: 100%;
+      }
+    }
   }
 }

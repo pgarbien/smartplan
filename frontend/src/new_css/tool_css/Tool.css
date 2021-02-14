@@ -322,7 +322,7 @@ button {
   color: #00d151;
 }
 
-@media screen and (max-device-width: 1400px) {
+@media screen and (max-device-width: 750px) {
   .tool-page {
     display: -ms-grid;
     display: grid;
@@ -356,9 +356,16 @@ button {
   }
 }
 
-@media screen and (max-device-width: 1000px) {
-  .canvas {
-    height: 60vh;
+@media screen and (max-device-width: 800px) {
+  .tool-page .canvas,
+  .tool-page .right-container {
+    height: 65vh;
+  }
+  .tool-page .fullscreen_buttons_closed {
+    margin-bottom: 15vh !important;
+  }
+  .tool-page .fullscreen .canvas {
+    height: 100%;
   }
 }
 /*# sourceMappingURL=Tool.css.map */

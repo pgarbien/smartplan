@@ -39,7 +39,7 @@
   }
 }
 
-@media screen and (max-device-width: 1000px) {
+@media screen and (max-device-width: 750px) {
   .manager-page {
     grid-template-columns: minmax(1px, 1%) minmax(500px, auto);
     grid-template-rows: minmax(70px, 5%) minmax(300px, auto) minmax(100px, 20%);
