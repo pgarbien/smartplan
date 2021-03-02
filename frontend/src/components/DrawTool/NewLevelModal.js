@@ -43,9 +43,9 @@ const NewLevelModal = ({setShowModal, canClose, addNewLevel, setShowDeleteLevelM
             <button className="create-button" onClick={() => { levelBlueprint ? createNewLevel() : addNewLevel(levelName, null, editedLevel) }} disabled={ levelName == null || levelName === "" }>{editedLevel ? t('popups.update') : t('popups.create')}</button>
             {editedLevel ? <button className="delete-button-modal" onClick={() => setShowDeleteLevelModal(true)} >{t('popups.delete')}</button> : null }
         </div>
-        <div style={{display: "inline-block", width: "45%", verticalAlign: "middle", border: "1px dashed #777777", marginLeft: "5%", minHeight: 200, position: "relative"}}>
+        <div style={{display: "inline-block", width: "45%", verticalAlign: "middle", border: "1px dashed #777777", marginLeft: "5%", height: 200, position: "relative"}}>
             <p style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: -1}}>{t('popups.imageNotUploaded')}</p>
-            <img style={{ width: "100%" }} ref={imageRef} />
+            <img style={{ maxWidth: "100%", maxHeight: "100%", marginLeft: "50%", transform: "translateX(-50%)", padding: 10 }} ref={imageRef} />
         </div>
     </Fragment>;
 

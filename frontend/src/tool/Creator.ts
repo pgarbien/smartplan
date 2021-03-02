@@ -52,8 +52,8 @@ export default class Creator {
     }
 
     refreshCanvas() {
-        this.canvas.height = this.canvas.clientHeight * 1.5
         this.canvas.width = this.canvas.clientWidth * 1.5
+        this.canvas.height = this.canvas.clientHeight * 1.5
         this.refresh()
     }
 

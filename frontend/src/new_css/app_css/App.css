@@ -63,6 +63,7 @@ nav {
   position: fixed;
   width: 100%;
   top: 0px;
+  z-index: 99999;
 }
 
 nav .navbar {
@@ -233,8 +234,7 @@ nav .navbar {
   height: 100vh;
   left: 0;
   top: 0;
-  z-index: 1;
-  padding: 5vh !important;
+  z-index: 999999 !important;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: #fafbfc;
