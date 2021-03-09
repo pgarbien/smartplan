@@ -247,6 +247,7 @@ nav .navbar .navbar {
   height: 100vh !important;
   left: 0;
   top: 0;
+  z-index: 99999 !important;
   z-index: 1;
   padding: 5vh !important;
   -webkit-box-sizing: border-box;

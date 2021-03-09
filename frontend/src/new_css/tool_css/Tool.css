@@ -194,7 +194,7 @@ button {
 }
 
 .drawing-area {
-  z-index: 99999;
+  z-index: 999;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;

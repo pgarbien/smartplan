@@ -166,23 +166,17 @@ button {
 }
 
 .drawing-area {
-    z-index: 99999;
+    z-index: 999;
     height: max-content;
     padding: 0 1%;
-    // padding-top: 56.25%;
-    // height: 0px;
 }
 
 .canvas {
-    // height: 100%;
     width: 100%;
     background: $white;
     border: 1px dashed $iconGrey;
-    // position: absolute;
     top: 0px;
     left: 0px;
-    // width: 98%;
-    // max-height: 100%;
 }
 
 .right-container {
@@ -316,25 +310,6 @@ button {
       height: 0em;
       width: 0em;
       color: transparent;
-    }
-  }
-}
-
-@media screen and (max-device-width: 800px) {
-  .tool-page {
-    .canvas,
-    .right-container {
-      // height: 65vh;
-    }
-
-    .fullscreen_buttons_closed {
-      // margin-bottom: 15vh !important;
-    }
-  
-    .fullscreen {
-      .canvas {
-        // height: 100%;
-      }
     }
   }
 }
