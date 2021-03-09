@@ -113,7 +113,6 @@ button {
 .tool-page-layout .left-container {
   -ms-grid-column: 1;
   grid-column: 1;
-  z-index: 999;
 }
 
 .tools-col {

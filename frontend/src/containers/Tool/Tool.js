@@ -167,9 +167,11 @@ const Tool = ({location, setLocation, activeLevel, setActiveLevel, changeDisplay
               </div>
             </div>
           </div>
-          <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
+          <div className={"drawing-area" + (fullscreen ? " drawing-area-fullscreen" : "")} style={{position: "relative"}}>
+            <div className={(fullscreen ? " fullscreen" : "")}>
               <canvas ref={creationCanvas} id="mainCanvas" class="canvas" onClick={() => { if(autosave) updateRooms(); else setSaved(false); }}></canvas>
               <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel}/>
+            </div>
           </div>
           <div className="right-container">
             <ToolDescription toolInfo={toolInfo} hoverToolInfo={hoverToolInfo}/>

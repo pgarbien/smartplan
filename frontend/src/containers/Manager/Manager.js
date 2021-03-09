@@ -216,19 +216,17 @@ const Manager = ({
         </div>
         <div className="manager-page-layout">
           <div className="left-container"></div>
-          <div
-            className={"drawing-area" + (fullscreen ? " fullscreen" : "")}
-            style={{ position: "relative" }}
-          >
-            <canvas ref={creationCanvas} class="canvas" id="managerCanvas" />
-            <FullscreenButton
-              setFullscreen={setFullscreen}
-              fullscreen={fullscreen}
-              location={location}
-              activeLevel={activeLevel}
-              setActiveLevel={setActiveLevel}
-              changeDisplayedLevel={changeDisplayedLevel}
-            />
+          <div className={"drawing-area" + (fullscreen ? " drawing-area-fullscreen" : "")} style={{position: "relative"}}>
+            <div className={(fullscreen ? " fullscreen" : "")}>
+              <canvas ref={creationCanvas} class="canvas" id="managerCanvas" />
+              <FullscreenButton
+                setFullscreen={setFullscreen}
+                fullscreen={fullscreen}
+                location={location}
+                activeLevel={activeLevel}
+                setActiveLevel={setActiveLevel}
+                changeDisplayedLevel={changeDisplayedLevel} />
+            </div>
           </div>
           <div className="right-container">
             <div class="manager-devices-list">
