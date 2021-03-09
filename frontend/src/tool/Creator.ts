@@ -47,13 +47,13 @@ export default class Creator {
         this.canvas.addEventListener('mousedown', this.onMouseDown);
         this.canvas.addEventListener('mouseup', this.onMouseUp);
 
-        this.canvas.width = canvas.clientWidth
-        this.canvas.height = canvas.clientWidth * 9 / 16
+        this.canvas.width = canvas.clientWidth * 1.5
+        this.canvas.height = canvas.clientWidth * 1.5 * 9 / 16
     }
 
     refreshCanvas() {
-        this.canvas.width = this.canvas.clientWidth
-        this.canvas.height = this.canvas.clientWidth * 9 / 16
+        this.canvas.width = this.canvas.clientWidth * 1.5
+        this.canvas.height = this.canvas.clientWidth * 1.5 * 9 / 16
         this.refresh()
     }
 
@@ -69,8 +69,8 @@ export default class Creator {
         this.canvas.addEventListener('mousedown', this.onMouseDown);
         this.canvas.addEventListener('mouseup', this.onMouseUp);
 
-        this.canvas.width = this.canvas.clientWidth
-        this.canvas.height = this.canvas.clientWidth * 9 / 16
+        this.canvas.width = this.canvas.clientWidth * 1.5
+        this.canvas.height = this.canvas.clientWidth * 1.5 * 9 / 16
     }
 
     getRooms = () => this.creatorRooms.getRooms();

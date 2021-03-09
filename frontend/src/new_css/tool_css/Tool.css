@@ -26,6 +26,10 @@
       -ms-flex-direction: row;
           flex-direction: row;
   margin: 25px 0 20px 0 !important;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .levels {
@@ -109,6 +113,7 @@ button {
 .tool-page-layout .left-container {
   -ms-grid-column: 1;
   grid-column: 1;
+  z-index: 999;
 }
 
 .tools-col {
@@ -222,6 +227,7 @@ button {
       -ms-flex-pack: justify;
           justify-content: space-between;
   height: 100%;
+  z-index: 999;
   padding-left: 1sem;
   padding-right: 0.5em;
   width: -webkit-max-content;

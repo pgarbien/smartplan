@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: row;
   margin: 25px 0 20px 0 !important;
+  user-select: none;
 }
 
 .levels {
@@ -87,6 +88,7 @@ button {
   grid-template-columns: inherit;
   .left-container {
     grid-column: 1;
+    z-index: 999;
   }
 }
 
@@ -185,6 +187,7 @@ button {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  z-index: 999;
   padding-left: 1sem;
   padding-right: 0.5em;
   width: max-content;

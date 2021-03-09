@@ -190,10 +190,10 @@ nav {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  z-index: -1;
 
   .footer-left {
     float: left;
+    cursor: pointer;
   }
   .footer-right {
     text-align: right;
@@ -237,4 +237,10 @@ nav {
   position: absolute;
   bottom: 0px;
   width: 100%;
+}
+
+@media screen and (max-device-width: 750px) {
+  nav {
+    position: absolute;
+  }
 }
