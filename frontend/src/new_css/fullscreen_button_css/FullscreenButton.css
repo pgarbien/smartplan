@@ -1,15 +1,15 @@
 .fullscreen_buttons_opened {
   position: absolute;
   height: 30px;
-  bottom: 65px;
-  right: 65px;
+  bottom: 35px;
+  right: 55px;
   margin: 0;
 }
 
 .fullscreen_buttons_closed {
   position: absolute;
   height: 30px;
-  bottom: 15px;
+  bottom: 20px;
   right: 30px;
   margin: 0;
 }
@@ -27,8 +27,8 @@
 
 .fullscreen_level_name {
   position: absolute;
-  left: 75px;
-  bottom: 65px;
+  left: 45px;
+  bottom: 25px;
   color: #00d151;
   font-size: 35px;
   font-weight: 30;

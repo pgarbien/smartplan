@@ -135,7 +135,7 @@ const DevicesPage = ({location, activeLevel, setActiveLevel, changeDisplayedLeve
                         </div>
                     </div>
                     <div className={"drawing-area" + (fullscreen ? " fullscreen" : "")} style={{position: "relative"}}>
-                        <canvas ref={creationCanvas} class="canvas" id="condignationCanvas"></canvas>
+                        <canvas ref={creationCanvas} class="canvas" id="condignationCanvas"/>
                         <FullscreenButton setFullscreen={setFullscreen} fullscreen={fullscreen} location={location} activeLevel={activeLevel} setActiveLevel={setActiveLevel} changeDisplayedLevel={changeDisplayedLevel}/>
                     </div>
                     <div class="right-container">

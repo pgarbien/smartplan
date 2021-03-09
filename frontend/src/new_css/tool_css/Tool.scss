@@ -19,7 +19,8 @@
 }
 
 .levels {
-  margin-left: 1em;
+    margin-left: 1em;
+    z-index: 9999;
 }
 
 .button-header {
@@ -165,14 +166,23 @@ button {
 }
 
 .drawing-area {
-  padding-right: 1%;
+    z-index: 99999;
+    height: max-content;
+    padding: 0 1%;
+    // padding-top: 56.25%;
+    // height: 0px;
 }
 
 .canvas {
-  height: 100%;
-  width: 100%;
-  background: $white;
-  border: 1px dashed $iconGrey;
+    // height: 100%;
+    width: 100%;
+    background: $white;
+    border: 1px dashed $iconGrey;
+    // position: absolute;
+    top: 0px;
+    left: 0px;
+    // width: 98%;
+    // max-height: 100%;
 }
 
 .right-container {
@@ -284,8 +294,8 @@ button {
 @media screen and (max-device-width: 750px) {
   .tool-page {
     display: grid;
-    grid-template-columns: minmax(50px, 10%) minmax(600px, auto);
-    grid-template-rows: minmax(70px, 10%) minmax(500px, auto) minmax(70px, 15%);
+    grid-template-columns: minmax(50px, 10%) minmax(100px, auto);
+    grid-template-rows: minmax(70px, 10%) minmax(100px, auto) minmax(70px, 15%);
     max-width: 100%;
   }
 
@@ -314,16 +324,16 @@ button {
   .tool-page {
     .canvas,
     .right-container {
-      height: 65vh;
+      // height: 65vh;
     }
 
     .fullscreen_buttons_closed {
-      margin-bottom: 15vh !important;
+      // margin-bottom: 15vh !important;
     }
   
     .fullscreen {
       .canvas {
-        height: 100%;
+        // height: 100%;
       }
     }
   }

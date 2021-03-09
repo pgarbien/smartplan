@@ -30,6 +30,7 @@
 
 .levels {
   margin-left: 1em;
+  z-index: 9999;
 }
 
 .button-header {
@@ -193,14 +194,19 @@ button {
 }
 
 .drawing-area {
-  padding-right: 1%;
+  z-index: 99999;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 0 1%;
 }
 
 .canvas {
-  height: 100%;
   width: 100%;
   background: #ffffff;
   border: 1px dashed #777777;
+  top: 0px;
+  left: 0px;
 }
 
 .right-container {
@@ -326,10 +332,10 @@ button {
   .tool-page {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: minmax(50px, 10%) minmax(600px, auto);
-        grid-template-columns: minmax(50px, 10%) minmax(600px, auto);
-    -ms-grid-rows: minmax(70px, 10%) minmax(500px, auto) minmax(70px, 15%);
-        grid-template-rows: minmax(70px, 10%) minmax(500px, auto) minmax(70px, 15%);
+    -ms-grid-columns: minmax(50px, 10%) minmax(100px, auto);
+        grid-template-columns: minmax(50px, 10%) minmax(100px, auto);
+    -ms-grid-rows: minmax(70px, 10%) minmax(100px, auto) minmax(70px, 15%);
+        grid-template-rows: minmax(70px, 10%) minmax(100px, auto) minmax(70px, 15%);
     max-width: 100%;
   }
   .tool-page-layout {
@@ -353,19 +359,6 @@ button {
     height: 0em;
     width: 0em;
     color: transparent;
-  }
-}
-
-@media screen and (max-device-width: 800px) {
-  .tool-page .canvas,
-  .tool-page .right-container {
-    height: 65vh;
-  }
-  .tool-page .fullscreen_buttons_closed {
-    margin-bottom: 15vh !important;
-  }
-  .tool-page .fullscreen .canvas {
-    height: 100%;
   }
 }
 /*# sourceMappingURL=Tool.css.map */

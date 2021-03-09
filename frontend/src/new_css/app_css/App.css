@@ -64,9 +64,23 @@ nav {
   position: fixed;
   width: 100%;
   top: 0px;
+  z-index: 99999;
 }
 
 nav .navbar {
+  border-radius: 4px;
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 0;
+  display: block;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  z-index: 99999;
+}
+
+nav .navbar .navbar {
   border-radius: 4px;
   position: relative;
   min-height: 50px;
@@ -199,6 +213,7 @@ nav .navbar {
   position: fixed;
   bottom: 0px;
   width: 100%;
+  z-index: -1;
 }
 
 .footer .footer-left {
@@ -229,7 +244,7 @@ nav .navbar {
 .fullscreen {
   position: fixed !important;
   width: 100vw;
-  height: 100vh;
+  height: 100vh !important;
   left: 0;
   top: 0;
   z-index: 1;
@@ -237,6 +252,11 @@ nav .navbar {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: #fafbfc;
+}
+
+.fullscreen .canvas {
+  max-height: 100%;
+  position: absolute;
 }
 
 .right-container-buttons {
